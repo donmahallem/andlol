@@ -15,6 +15,12 @@ public interface StaticDataService {
     public ChampionList getScores();
 
     @GET("/v1.2/champion")
+    public ChampionList getScores(@Query("locale") String locale);
+
+    @GET("/v1.2/champion")
+    public ChampionList getScores(@Query("locale") String locale, @Query("champData") ChampData champData);
+
+    @GET("/v1.2/champion")
     public String getScores(@Query("champData") ChampData champData);
 
     @GET("/v1.2/champion")

@@ -9,16 +9,39 @@ import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 
 /**
  * Created by Don on 29.09.2014.
  */
 public class ChampionList extends ArrayList<Champion> {
+    public final static Comparator<Champion> SortChampByNameAsc = new Comparator<Champion>() {
+
+        @Override
+        public int compare(Champion lhs, Champion rhs) {
+            return lhs.getName().compareTo(rhs.getName());
+        }
+    };
+    public final static Comparator<Champion> SortChampByNameDesc = new Comparator<Champion>() {
+
+        @Override
+        public int compare(Champion lhs, Champion rhs) {
+            return rhs.getName().compareTo(lhs.getName());
+        }
+    };
     private String mVersion;
 
     public String getVersion() {
         return mVersion;
+    }
+
+    public void sortByName(boolean asc) {
+        if (asc)
+            Collections.sort(this, SortChampByNameAsc);
+        else
+            Collections.sort(this, SortChampByNameDesc);
     }
 
     @Override
