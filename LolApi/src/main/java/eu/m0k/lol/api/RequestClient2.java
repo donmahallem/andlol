@@ -1,5 +1,7 @@
 package eu.m0k.lol.api;
 
+import android.support.annotation.NonNull;
+
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -18,13 +20,13 @@ public class RequestClient2 {
     private final String TOKEN;
     private OkHttpClient mOkHttpClient;
 
-    public RequestClient2(Region region, String token) {
+    public RequestClient2(@NonNull Region region, @NonNull String token) {
         this.mRegion = region;
         this.TOKEN = token;
         this.mOkHttpClient = new OkHttpClient();
     }
 
-    public com.squareup.okhttp.Response request(LolRequest request) throws IOException {
+    public com.squareup.okhttp.Response request(@NonNull LolRequest request) throws IOException {
         request.addParameter("api_key", TOKEN);
         Request request1 = new Request.Builder()
                 .url(request.getUrl())

@@ -1,1 +1,1 @@
-include ':app', ':LolApi', ':TestApp'
+include ':app', ':TestApp', ':LolApi'
