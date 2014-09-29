@@ -1,0 +1,40 @@
+package eu.m0k.lol.api.model;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+/**
+ * Created by Don on 23.09.2014.
+ */
+public class MasteryPage {
+    @Expose
+    @SerializedName("id")
+    private long mId;
+    @Expose
+    @SerializedName("name")
+    private String mName;
+    @Expose
+    @SerializedName("current")
+    private boolean mCurrent;
+    @Expose
+    @SerializedName("masteries")
+    private List<Mastery> mMasteries;
+
+    public long getId() {
+        return mId;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public boolean isCurrent() {
+        return mCurrent;
+    }
+
+    public List<Mastery> getMasteries() {
+        return mMasteries;
+    }
+}
