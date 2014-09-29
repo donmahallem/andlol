@@ -1,16 +1,27 @@
 package eu.mok.mokeulol;
 
-import android.app.ListActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MyActivity extends ListActivity {
+import eu.mok.mokeulol.fragments.ChampionListFragment;
+
+public class MyActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+        Fragment fragment = this.getSupportFragmentManager().findFragmentByTag("CHAMPS");
+        if (fragment == null) {
+            fragment = new ChampionListFragment();
+        }
+        FragmentTransaction trans = this.getSupportFragmentManager().beginTransaction();
+        trans.replace(android.R.id.content, fragment);
+        trans.commit();
     }
 
     @Override
@@ -31,4 +42,5 @@ public class MyActivity extends ListActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
