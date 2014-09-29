@@ -32,5 +32,5 @@ public interface StaticDataService {
     public ChampionList getChampionList(@Query("locale") String locale, @Query("version") String version, @Query("dataById") boolean databyId, @Query("champData") ChampData champData);
 
     @GET("/v1.2/champion/{id}")
-    public ChampionList getChampionList(@Path("id") int id, @Query("locale") String locale, @Query("version") String version, @Query("champData") ChampData champData);
+    public ChampionList getChampion(@Path("id") int id, @Query("locale") String locale, @Query("version") String version, @Query("champData") ChampData champData);
 }
