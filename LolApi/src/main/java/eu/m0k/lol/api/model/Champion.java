@@ -3,6 +3,8 @@ package eu.m0k.lol.api.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by Don on 25.09.2014.
  */
@@ -34,6 +36,75 @@ public class Champion {
     @Expose
     @SerializedName("tags")
     private String[] mTags;
+    @Expose
+    @SerializedName("partype")
+    private String mParType;
+    @Expose
+    @SerializedName("skins")
+    private List<ChampionSkin> mSkins;
+    @Expose
+    @SerializedName("info")
+    private ChampionInfo mInfo;
+    @Expose
+    @SerializedName("stats")
+    private ChampionStats mStats;
+    @Expose
+    @SerializedName("spells")
+    private List<ChampionSpell> mSpells;
+    @Expose
+    @SerializedName("passive")
+    private ChampionPassive mPassive;
+    @Expose
+    @SerializedName("recommended")
+    private List<ChampionRecommendation> mRecommended;
+
+    public String getLore() {
+        return mLore;
+    }
+
+    public String getBlurb() {
+        return mBlurb;
+    }
+
+    public String[] getAllyTips() {
+        return mAllyTips;
+    }
+
+    public String[] getEnemyTips() {
+        return mEnemyTips;
+    }
+
+    public String[] getTags() {
+        return mTags;
+    }
+
+    public String getParType() {
+        return mParType;
+    }
+
+    public List<ChampionSkin> getSkins() {
+        return mSkins;
+    }
+
+    public ChampionInfo getInfo() {
+        return mInfo;
+    }
+
+    public ChampionStats getStats() {
+        return mStats;
+    }
+
+    public List<ChampionSpell> getSpells() {
+        return mSpells;
+    }
+
+    public ChampionPassive getPassive() {
+        return mPassive;
+    }
+
+    public List<ChampionRecommendation> getRecommended() {
+        return mRecommended;
+    }
 
     public int getId() {
         return mId;
@@ -49,5 +120,14 @@ public class Champion {
 
     public String getTitle() {
         return mTitle;
+    }
+
+    @Override
+    public String toString() {
+        return "Champion{" +
+                "id=" + mId +
+                ", key='" + mKey + '\'' +
+                ", name='" + mName + '\'' +
+                '}';
     }
 }
