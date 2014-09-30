@@ -43,13 +43,13 @@ public class ChampionSpell {
     private String mCostBurn;
     @Expose
     @SerializedName("cooldown")
-    private int[] mCooldown;
+    private float[] mCooldown;
     @Expose
     @SerializedName("cooldownBurn")
     private String mCooldownBurn;
     @Expose
     @SerializedName("effect")
-    private int[][] mEffect;
+    private double[][] mEffect;
     @Expose
     @SerializedName("effectBurn")
     private String[] mEffectBurn;
@@ -107,7 +107,7 @@ public class ChampionSpell {
         return mCostBurn;
     }
 
-    public int[] getCooldown() {
+    public float[] getCooldown() {
         return mCooldown;
     }
 
@@ -115,7 +115,7 @@ public class ChampionSpell {
         return mCooldownBurn;
     }
 
-    public int[][] getEffect() {
+    public double[][] getEffect() {
         return mEffect;
     }
 

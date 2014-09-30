@@ -4,6 +4,7 @@ package eu.m0k.lol.api.model;
  * Created by Don on 29.09.2014.
  */
 public class ChampData {
+    public final static ChampData ALL_DATA = new ChampData(true);
     private final static String ALL = "all", ALLY_TIPS = "allytips", ALT_IMAGES = "altimages", BLURB = "blurb",
             ENEMY_TIPS = "enemytips",
             IMAGE = "image",
@@ -16,11 +17,14 @@ public class ChampData {
             SPELLS = "spells",
             STATS = "stats",
             TAGS = "tags";
-
     private boolean mAll, mAllyTips, mAltImages, mBlurb, mEnemyTips, mImage, mInfo, mLore, mParType, mPassive, mRecommended, mSkins, mSpells, mStats, mTags;
 
     public ChampData() {
+        this(false);
+    }
 
+    public ChampData(boolean all) {
+        this.setAll(all);
     }
 
     public void setAll(boolean all) {
