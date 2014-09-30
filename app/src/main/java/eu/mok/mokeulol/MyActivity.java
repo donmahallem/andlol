@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import eu.mok.mokeulol.fragments.ChampionFragment;
 import eu.mok.mokeulol.fragments.ChampionListFragment;
 
-public class MyActivity extends FragmentActivity {
+public class MyActivity extends FragmentActivity implements ChampionListFragment.OnChampSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,4 +45,15 @@ public class MyActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onChampSelected(int champ) {
+        Log.d("champ Selected", "id: " + champ);
+        showChamp(champ);
+    }
+
+    private void showChamp(int id) {
+        FragmentTransaction trans = this.getSupportFragmentManager().beginTransaction();
+        trans.replace(android.R.id.content, ChampionFragment.getInstance(id));
+        trans.commit();
+    }
 }

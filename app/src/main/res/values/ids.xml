@@ -3,4 +3,8 @@
     <item name="title" type="id"/>
     <item name="subTitle" type="id"/>
     <item name="icon" type="id"/>
+    <item name="ivSpell1" type="id"/>
+    <item name="ivSpell2" type="id"/>
+    <item name="ivSpell3" type="id"/>
+    <item name="ivSpell4" type="id"/>
 </resources>

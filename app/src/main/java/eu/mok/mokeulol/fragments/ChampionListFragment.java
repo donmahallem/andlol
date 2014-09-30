@@ -1,9 +1,11 @@
 package eu.mok.mokeulol.fragments;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
+import android.widget.ListView;
 
 import eu.m0k.lol.api.RequestClient;
 import eu.m0k.lol.api.model.ChampionList;
@@ -16,16 +18,35 @@ import retrofit.RestAdapter;
  */
 public class ChampionListFragment extends ListFragment {
     private ChampionAdapter mChampionAdapter = new ChampionAdapter();
+    private OnChampSelectedListener mOnChampSelectedListener;
 
-    public void onCreate() {
-        this.onCreate();
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            this.mOnChampSelectedListener = (OnChampSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
     }
 
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.setListAdapter(mChampionAdapter);
         Task task = new Task();
         task.execute();
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        this.mOnChampSelectedListener.onChampSelected(this.mChampionAdapter.getItem(position).getId());
+    }
+
+    public static interface OnChampSelectedListener {
+        public void onChampSelected(int champ);
     }
 
     private class Task extends AsyncTask<Void, Void, ChampionList> {
