@@ -10,4 +10,5 @@
     <item name="txtDescription" type="id"/>
     <item name="txtLore" type="id"/>
     <item name="ivChampionIcon" type="id"/>
+    <item name="viewPager" type="id"/>
 </resources>
