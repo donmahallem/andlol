@@ -14,6 +14,8 @@ import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Champion;
 import eu.m0k.lol.api.model.Region;
 import eu.mok.mokeulol.R;
+import eu.mok.mokeulol.Util;
+import eu.mok.mokeulol.helper.picasso.SCHEME;
 import eu.mok.mokeulol.view.ChampionSpellView;
 import retrofit.RestAdapter;
 
@@ -22,8 +24,8 @@ import retrofit.RestAdapter;
  */
 public class ChampionFragment extends Fragment {
     private final static String ARGS_CHAMP_ID = "champid";
-    private TextView mTxtTitle, mTxtSubTitle;
-    private ImageView mIvHeader;
+    private TextView mTxtTitle, mTxtSubTitle, mTxtDescription, mTxtLore;
+    private ImageView mIvChampIcon;
     private ChampionSpellView mIvSpell1, mIvSpell2, mIvSpell3, mIvSpell4;
     private Champion mChampion;
 
@@ -52,8 +54,10 @@ public class ChampionFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.mTxtTitle = (TextView) view.findViewById(R.id.title);
-        this.mIvHeader = (ImageView) view.findViewById(R.id.icon);
         this.mTxtSubTitle = (TextView) view.findViewById(R.id.subTitle);
+        this.mIvChampIcon = (ImageView) view.findViewById(R.id.ivChampionIcon);
+        this.mTxtSubTitle = (TextView) view.findViewById(R.id.subTitle);
+        this.mTxtDescription = (TextView) view.findViewById(R.id.txtDescription);
         this.mIvSpell1 = (ChampionSpellView) view.findViewById(R.id.ivSpell1);
         this.mIvSpell2 = (ChampionSpellView) view.findViewById(R.id.ivSpell2);
         this.mIvSpell3 = (ChampionSpellView) view.findViewById(R.id.ivSpell3);
@@ -65,11 +69,18 @@ public class ChampionFragment extends Fragment {
     private void updateViews() {
         if (this.mChampion != null) {
             this.mTxtTitle.setText(this.mChampion.getName());
+            this.mTxtSubTitle.setText(this.mChampion.getTitle());
+            Util.getPicasso().load(SCHEME.CHAMPION_ICON + "://" + this.mChampion.getImage().getFull()).resize(200, 200).centerCrop().into(this.mIvChampIcon);
             if (mChampion.getSpells() != null) {
                 this.mIvSpell1.setChampion(this.mChampion.getSpells().get(0));
                 this.mIvSpell2.setChampion(this.mChampion.getSpells().get(1));
                 this.mIvSpell3.setChampion(this.mChampion.getSpells().get(2));
                 this.mIvSpell4.setChampion(this.mChampion.getSpells().get(3));
+            }
+            if (this.mChampion.getSkins() != null) {
+            }
+            if (this.mChampion.getLore() != null) {
+                this.mTxtDescription.setText(this.mChampion.getLore());
             }
         }
     }
@@ -81,6 +92,11 @@ public class ChampionFragment extends Fragment {
             RequestClient mRequestClient = new RequestClient(Region.EUW, "106217b4-3ef1-42df-912b-f79ba89715b2", RestAdapter.LogLevel.BASIC);
             ChampData data = new ChampData();
             data.setSpells(true);
+            data.setSkins(true);
+            data.setLore(true);
+            data.setInfo(true);
+            data.setPassive(true);
+            data.setImage(true);
 
             Champion champs = mRequestClient.getStaticDataApi().getChampion(params[0], "de_DE", data);
             return champs;

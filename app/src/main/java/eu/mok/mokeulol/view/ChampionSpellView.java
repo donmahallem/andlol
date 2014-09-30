@@ -7,10 +7,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import eu.m0k.lol.api.model.ChampionSpell;
 import eu.mok.mokeulol.R;
+import eu.mok.mokeulol.Util;
 
 /**
  * Created by Don on 30.09.2014.
@@ -45,7 +44,7 @@ public class ChampionSpellView extends LinearLayout {
         if (this.mChampionSpell != null) {
             this.mTitle.setText(this.mChampionSpell.getName());
             this.mSubTitle.setText(this.mChampionSpell.getSanitizedDescription());
-            Picasso.with(this.getContext()).load("file:///android_asset/img/spell/" + this.mChampionSpell.getImage().getFull()).into(this.mImageView);
+            Util.getPicasso().load("spell://" + this.mChampionSpell.getImage().getFull()).into(this.mImageView);
         }
     }
 }

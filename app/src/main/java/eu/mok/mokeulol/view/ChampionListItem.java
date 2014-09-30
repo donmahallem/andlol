@@ -7,10 +7,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import eu.m0k.lol.api.model.Champion;
 import eu.mok.mokeulol.R;
+import eu.mok.mokeulol.Util;
 
 /**
  * Created by Don on 29.09.2014.
@@ -45,7 +44,7 @@ public class ChampionListItem extends LinearLayout {
         if (this.mChampion != null) {
             this.mTitle.setText(this.mChampion.getName());
             this.mSubTitle.setText(this.mChampion.getTitle());
-            Picasso.with(this.getContext()).load("file:///android_asset/img/champion/" + this.mChampion.getKey() + ".png").into(this.mImageView);
+            Util.getPicasso().load("file:///android_asset/img/champion/" + this.mChampion.getKey() + ".png").into(this.mImageView);
         }
     }
 }

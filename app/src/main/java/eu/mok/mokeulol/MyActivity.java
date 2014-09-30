@@ -17,6 +17,7 @@ public class MyActivity extends FragmentActivity implements ChampionListFragment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+        Util.init(this);
         Fragment fragment = this.getSupportFragmentManager().findFragmentByTag("CHAMPS");
         if (fragment == null) {
             fragment = new ChampionListFragment();
