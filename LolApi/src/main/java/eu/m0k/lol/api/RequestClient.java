@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 
 import eu.m0k.lol.api.model.ChampionList;
+import eu.m0k.lol.api.model.ChampionSpell;
 import eu.m0k.lol.api.model.MasteryList;
 import eu.m0k.lol.api.model.NameList;
 import eu.m0k.lol.api.model.Region;
@@ -41,6 +42,7 @@ public class RequestClient {
         builder.registerTypeAdapter(MasteryList.class, new MasteryList.Deserializer());
         builder.registerTypeAdapter(RunePageResponse.class, new RunePageResponse.Deserializer());
         builder.registerTypeAdapter(ChampionList.class, new ChampionList.Serializer());
+        builder.registerTypeAdapter(ChampionSpell.SpellRange.class, new ChampionSpell.SpellRange.Serializer());
         mGson = builder.create();
         mOkHttpClient = new OkHttpClient();
         final GsonConverter converter = new GsonConverter(this.mGson);

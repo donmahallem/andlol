@@ -1,7 +1,13 @@
 package eu.m0k.lol.api.model;
 
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.lang.reflect.Type;
 
 /**
  * Created by Don on 29.09.2014.
@@ -55,7 +61,7 @@ public class ChampionSpell {
     private String[] mEffectBurn;
     @Expose
     @SerializedName("range")
-    private int[] mRange;
+    private SpellRange mRange;
     @Expose
     @SerializedName("rangeBurn")
     private String mRangeBurn;
@@ -123,7 +129,7 @@ public class ChampionSpell {
         return mEffectBurn;
     }
 
-    public int[] getRange() {
+    public SpellRange getRange() {
         return mRange;
     }
 
@@ -133,5 +139,32 @@ public class ChampionSpell {
 
     public String getKey() {
         return mKey;
+    }
+
+    public static class SpellRange {
+        private boolean mSelf;
+        private float mRanges[];
+
+        public boolean isSelf() {
+            return mSelf;
+        }
+
+        public float[] getRanges() {
+            return mRanges;
+        }
+
+        public static class Serializer implements JsonDeserializer<SpellRange> {
+
+            @Override
+            public SpellRange deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                SpellRange range = new SpellRange();
+                if (json.isJsonArray()) {
+                    range.mRanges = context.deserialize(json, float[].class);
+                } else if (json.isJsonPrimitive()) {
+                    range.mSelf = json.getAsJsonPrimitive().getAsString().equals("self");
+                }
+                return range;
+            }
+        }
     }
 }
