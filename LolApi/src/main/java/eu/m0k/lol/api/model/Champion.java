@@ -19,6 +19,9 @@ public class Champion {
     @SerializedName("name")
     private String mName;
     @Expose
+    @SerializedName("image")
+    private Image mImage;
+    @Expose
     @SerializedName("title")
     private String mTitle;
     @Expose
@@ -60,6 +63,10 @@ public class Champion {
 
     public String getLore() {
         return mLore;
+    }
+
+    public Image getImage() {
+        return mImage;
     }
 
     public String getBlurb() {
