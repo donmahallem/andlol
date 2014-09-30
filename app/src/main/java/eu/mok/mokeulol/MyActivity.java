@@ -53,6 +53,7 @@ public class MyActivity extends FragmentActivity implements ChampionListFragment
 
     private void showChamp(int id) {
         FragmentTransaction trans = this.getSupportFragmentManager().beginTransaction();
+        trans.addToBackStack("ChampsDetail");
         trans.replace(android.R.id.content, ChampionFragment.getInstance(id));
         trans.commit();
     }

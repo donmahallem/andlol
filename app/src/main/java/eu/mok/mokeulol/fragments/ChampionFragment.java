@@ -9,13 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import eu.m0k.lol.api.RequestClient;
 import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Champion;
 import eu.m0k.lol.api.model.Region;
 import eu.mok.mokeulol.R;
+import eu.mok.mokeulol.view.ChampionSpellView;
 import retrofit.RestAdapter;
 
 /**
@@ -24,7 +23,8 @@ import retrofit.RestAdapter;
 public class ChampionFragment extends Fragment {
     private final static String ARGS_CHAMP_ID = "champid";
     private TextView mTxtTitle, mTxtSubTitle;
-    private ImageView mIvHeader, mIvSpell1, mIvSpell2, mIvSpell3, mIvSpell4;
+    private ImageView mIvHeader;
+    private ChampionSpellView mIvSpell1, mIvSpell2, mIvSpell3, mIvSpell4;
     private Champion mChampion;
 
     public ChampionFragment() {
@@ -54,10 +54,10 @@ public class ChampionFragment extends Fragment {
         this.mTxtTitle = (TextView) view.findViewById(R.id.title);
         this.mIvHeader = (ImageView) view.findViewById(R.id.icon);
         this.mTxtSubTitle = (TextView) view.findViewById(R.id.subTitle);
-        this.mIvSpell1 = (ImageView) view.findViewById(R.id.ivSpell1);
-        this.mIvSpell2 = (ImageView) view.findViewById(R.id.ivSpell2);
-        this.mIvSpell3 = (ImageView) view.findViewById(R.id.ivSpell3);
-        this.mIvSpell4 = (ImageView) view.findViewById(R.id.ivSpell4);
+        this.mIvSpell1 = (ChampionSpellView) view.findViewById(R.id.ivSpell1);
+        this.mIvSpell2 = (ChampionSpellView) view.findViewById(R.id.ivSpell2);
+        this.mIvSpell3 = (ChampionSpellView) view.findViewById(R.id.ivSpell3);
+        this.mIvSpell4 = (ChampionSpellView) view.findViewById(R.id.ivSpell4);
         Task task = new Task();
         task.execute(getArguments().getInt(ARGS_CHAMP_ID, 32));
     }
@@ -66,10 +66,10 @@ public class ChampionFragment extends Fragment {
         if (this.mChampion != null) {
             this.mTxtTitle.setText(this.mChampion.getName());
             if (mChampion.getSpells() != null) {
-                Picasso.with(this.getActivity()).load("file:///android_asset/img/spell/" + this.mChampion.getSpells().get(0).getImage().getFull()).into(this.mIvSpell1);
-                Picasso.with(this.getActivity()).load("file:///android_asset/img/spell/" + this.mChampion.getSpells().get(1).getImage().getFull()).into(this.mIvSpell2);
-                Picasso.with(this.getActivity()).load("file:///android_asset/img/spell/" + this.mChampion.getSpells().get(2).getImage().getFull()).into(this.mIvSpell3);
-                Picasso.with(this.getActivity()).load("file:///android_asset/img/spell/" + this.mChampion.getSpells().get(3).getImage().getFull()).into(this.mIvSpell4);
+                this.mIvSpell1.setChampion(this.mChampion.getSpells().get(0));
+                this.mIvSpell2.setChampion(this.mChampion.getSpells().get(1));
+                this.mIvSpell3.setChampion(this.mChampion.getSpells().get(2));
+                this.mIvSpell4.setChampion(this.mChampion.getSpells().get(3));
             }
         }
     }

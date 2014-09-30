@@ -15,23 +15,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <ImageView
+    <eu.mok.mokeulol.view.ChampionSpellView
         android:id="@id/ivSpell1"
-        android:layout_width="64dp"
-        android:layout_height="64dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <ImageView
+    <eu.mok.mokeulol.view.ChampionSpellView
         android:id="@id/ivSpell2"
-        android:layout_width="64dp"
-        android:layout_height="64dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <ImageView
+    <eu.mok.mokeulol.view.ChampionSpellView
         android:id="@id/ivSpell3"
-        android:layout_width="64dp"
-        android:layout_height="64dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <ImageView
+    <eu.mok.mokeulol.view.ChampionSpellView
         android:id="@id/ivSpell4"
-        android:layout_width="64dp"
-        android:layout_height="64dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
