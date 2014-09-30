@@ -28,4 +28,13 @@ public class ChampionSkin {
     public int getNum() {
         return mNum;
     }
+
+    @Override
+    public String toString() {
+        return "ChampionSkin{" +
+                "id=" + mId +
+                ", name='" + mName + '\'' +
+                ", num=" + mNum +
+                '}';
+    }
 }
