@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:support-annotations:20.0.0'
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.android.support:support-v4:20.0.0'
+    compile 'it.sephiroth.android.library.horizontallistview:hlistview:1.+'
 }

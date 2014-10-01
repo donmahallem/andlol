@@ -5,13 +5,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import eu.m0k.lol.api.RequestClient;
@@ -23,6 +24,7 @@ import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.helper.picasso.SCHEME;
 import eu.mok.mokeulol.view.ChampionSpellView;
+import it.sephiroth.android.library.widget.HListView;
 import retrofit.RestAdapter;
 
 /**
@@ -33,7 +35,8 @@ public class ChampionFragment extends Fragment {
     private TextView mTxtTitle, mTxtSubTitle, mTxtDescription, mTxtLore;
     private ImageView mIvChampIcon;
     private ChampionSpellView mIvSpell1, mIvSpell2, mIvSpell3, mIvSpell4;
-    private ViewPager mViewPager;
+    private HListView mHListView;
+    private SkinListAdapter mSkinListAdapter = new SkinListAdapter();
     private Champion mChampion;
 
     public ChampionFragment() {
@@ -62,7 +65,7 @@ public class ChampionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         this.mTxtTitle = (TextView) view.findViewById(R.id.title);
         this.mTxtSubTitle = (TextView) view.findViewById(R.id.subTitle);
-        this.mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        this.mHListView = (HListView) view.findViewById(R.id.hListView);
         this.mIvChampIcon = (ImageView) view.findViewById(R.id.ivChampionIcon);
         this.mTxtSubTitle = (TextView) view.findViewById(R.id.subTitle);
         this.mTxtDescription = (TextView) view.findViewById(R.id.txtDescription);
@@ -72,6 +75,7 @@ public class ChampionFragment extends Fragment {
         this.mIvSpell4 = (ChampionSpellView) view.findViewById(R.id.ivSpell4);
         Task task = new Task();
         task.execute(getArguments().getInt(ARGS_CHAMP_ID, 32));
+        this.mHListView.setAdapter(this.mSkinListAdapter);
     }
 
     private void updateViews() {
@@ -86,11 +90,67 @@ public class ChampionFragment extends Fragment {
                 this.mIvSpell4.setChampion(this.mChampion.getSpells().get(3));
             }
             if (this.mChampion.getSkins() != null) {
-                this.mViewPager.setAdapter(new VP(getChildFragmentManager(), this.mChampion.getKey(), this.mChampion.getSkins()));
+                this.mSkinListAdapter.setKey(this.mChampion.getKey());
+                this.mSkinListAdapter.setSkins(this.mChampion.getSkins());
             }
             if (this.mChampion.getLore() != null) {
                 this.mTxtDescription.setText(this.mChampion.getLore());
             }
+        }
+    }
+
+    private class SkinListAdapter extends BaseAdapter {
+        private String mKey;
+        private List<ChampionSkin> mSkins;
+
+        public SkinListAdapter() {
+            this("");
+        }
+
+        public SkinListAdapter(String championKey) {
+            this(championKey, new ArrayList<ChampionSkin>());
+        }
+
+        public SkinListAdapter(String championKey, List<ChampionSkin> skins) {
+            this.mKey = championKey;
+            this.mSkins = skins;
+        }
+
+        @Override
+        public int getCount() {
+            return this.mSkins.size();
+        }
+
+        public void setKey(String key) {
+            this.mKey = key;
+            notifyDataSetChanged();
+        }
+
+        public void setSkins(List<ChampionSkin> skins) {
+            this.mSkins.clear();
+            this.mSkins.addAll(skins);
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public ChampionSkin getItem(int position) {
+            return this.mSkins.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return this.getItem(position).getId();
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ImageView view = null;
+            if (convertView != null && convertView instanceof ImageView) {
+                view = (ImageView) convertView;
+            } else
+                view = new ImageView(parent.getContext());
+            Util.getPicasso().load(SCHEME.SPLASH + "://" + mKey + "_" + position + ".jpg").into(view);
+            return view;
         }
     }
 
