@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.mok.mokeulol.fragments;
 
 import android.os.AsyncTask;
@@ -149,7 +157,7 @@ public class ChampionFragment extends Fragment {
                 view = (ImageView) convertView;
             } else
                 view = new ImageView(parent.getContext());
-            Util.getPicasso().load(Constants.SCHEME_SPLASH + "://" + mKey + "_" + position + ".jpg").into(view);
+            Util.getPicasso().load(Constants.SCHEME_SPLASH + "://" + this.mKey + "_" + position + ".jpg").into(view);
             return view;
         }
     }
