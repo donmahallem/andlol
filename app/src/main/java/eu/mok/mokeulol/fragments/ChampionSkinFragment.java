@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.mok.mokeulol.fragments;
 
 import android.os.Bundle;
@@ -40,6 +48,6 @@ public class ChampionSkinFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         final String key = this.getArguments().getString(ARGS_CHAMPION_KEY);
         final int num = this.getArguments().getInt(ARGS_SKIN_NUM, 0);
-        Util.getPicasso().load(Constants.SCHEME_SPLASH + "://" + key + "_" + num + ".jpg").placeholder(android.R.drawable.ic_menu_upload).error(android.R.drawable.ic_delete).into(mImageView);
+        Util.getPicasso().load(Constants.SCHEME_SPLASH + "://" + key + "_" + num + ".jpg").placeholder(android.R.drawable.ic_menu_rotate).error(android.R.drawable.ic_delete).into(mImageView);
     }
 }

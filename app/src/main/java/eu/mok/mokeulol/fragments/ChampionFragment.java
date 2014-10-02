@@ -90,7 +90,7 @@ public class ChampionFragment extends Fragment {
         if (this.mChampion != null) {
             this.mTxtTitle.setText(this.mChampion.getName());
             this.mTxtSubTitle.setText(this.mChampion.getTitle());
-            Util.getPicasso().load(this.mChampion.getImageUri()).resize(200, 200).centerCrop().placeholder(android.R.drawable.ic_menu_upload).error(android.R.drawable.ic_delete).into(this.mIvChampIcon);
+            Util.getPicasso().load(this.mChampion.getImageUri()).resize(200, 200).centerCrop().placeholder(android.R.drawable.ic_menu_rotate).error(android.R.drawable.ic_delete).into(this.mIvChampIcon);
             if (mChampion.getSpells() != null) {
                 this.mIvSpell1.setChampion(this.mChampion.getSpells().get(0));
                 this.mIvSpell2.setChampion(this.mChampion.getSpells().get(1));
@@ -157,7 +157,7 @@ public class ChampionFragment extends Fragment {
                 view = (ImageView) convertView;
             } else
                 view = new ImageView(parent.getContext());
-            Util.getPicasso().load(Constants.SCHEME_SPLASH + "://" + this.mKey + "_" + position + ".jpg").into(view);
+            Util.getPicasso().load(Constants.SCHEME_SPLASH + "://" + this.mKey + "_" + position + ".jpg").placeholder(android.R.drawable.ic_menu_rotate).error(android.R.drawable.ic_delete).into(view);
             return view;
         }
     }

@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.mok.mokeulol.view;
 
 import android.content.Context;
@@ -44,7 +52,7 @@ public class ChampionSpellView extends LinearLayout {
         if (this.mChampionSpell != null) {
             this.mTitle.setText(this.mChampionSpell.getName());
             this.mSubTitle.setText(this.mChampionSpell.getSanitizedDescription());
-            Util.getPicasso().load(this.mChampionSpell.getImageUri()).placeholder(android.R.drawable.ic_menu_upload).error(android.R.drawable.ic_delete).into(this.mImageView);
+            Util.getPicasso().load(this.mChampionSpell.getImageUri()).placeholder(android.R.drawable.ic_menu_rotate).error(android.R.drawable.ic_delete).into(this.mImageView);
         }
     }
 }
