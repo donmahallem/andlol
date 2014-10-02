@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import eu.m0k.lol.api.picasso.SCHEME;
+import eu.m0k.lol.api.picasso.Constants;
 
 /**
  * Created by Don on 25.09.2014.
@@ -132,7 +132,7 @@ public class Champion {
     }
 
     public String getImageUri() {
-        return SCHEME.CHAMPION_ICON + "://" + this.getKey();
+        return Constants.SCHEME_CHAMPION_ICON + "://" + this.getKey();
     }
     @Override
     public String toString() {

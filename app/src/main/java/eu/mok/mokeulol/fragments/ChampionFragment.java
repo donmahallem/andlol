@@ -20,7 +20,7 @@ import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Champion;
 import eu.m0k.lol.api.model.ChampionSkin;
 import eu.m0k.lol.api.model.Region;
-import eu.m0k.lol.api.picasso.SCHEME;
+import eu.m0k.lol.api.picasso.Constants;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.view.ChampionSpellView;
@@ -149,7 +149,7 @@ public class ChampionFragment extends Fragment {
                 view = (ImageView) convertView;
             } else
                 view = new ImageView(parent.getContext());
-            Util.getPicasso().load(SCHEME.SPLASH + "://" + mKey + "_" + position + ".jpg").into(view);
+            Util.getPicasso().load(Constants.SCHEME_SPLASH + "://" + mKey + "_" + position + ".jpg").into(view);
             return view;
         }
     }

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import eu.m0k.lol.api.picasso.SCHEME;
+import eu.m0k.lol.api.picasso.Constants;
 import eu.mok.mokeulol.Util;
 
 /**
@@ -40,6 +40,6 @@ public class ChampionSkinFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         final String key = this.getArguments().getString(ARGS_CHAMPION_KEY);
         final int num = this.getArguments().getInt(ARGS_SKIN_NUM, 0);
-        Util.getPicasso().load(SCHEME.SPLASH + "://" + key + "_" + num + ".jpg").placeholder(android.R.drawable.ic_menu_upload).error(android.R.drawable.ic_delete).into(mImageView);
+        Util.getPicasso().load(Constants.SCHEME_SPLASH + "://" + key + "_" + num + ".jpg").placeholder(android.R.drawable.ic_menu_upload).error(android.R.drawable.ic_delete).into(mImageView);
     }
 }
