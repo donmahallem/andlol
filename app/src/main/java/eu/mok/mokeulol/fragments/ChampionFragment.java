@@ -179,7 +179,7 @@ public class ChampionFragment extends Fragment {
 
         @Override
         protected Champion doInBackground(Integer... params) {
-            RequestClient mRequestClient = new RequestClient(Region.EUW, "106217b4-3ef1-42df-912b-f79ba89715b2", RestAdapter.LogLevel.BASIC);
+            RequestClient mRequestClient = new RequestClient(Region.EUW, Util.getLeagueApiToken(), RestAdapter.LogLevel.BASIC);
             ChampData data = new ChampData();
             data.setSpells(true);
             data.setSkins(true);

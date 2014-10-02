@@ -1,6 +1,7 @@
 package eu.mok.mokeulol;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -57,5 +58,13 @@ public class Util {
             mPicasso = builder.build();
         }
         return mPicasso;
+    }
+
+    public static String getLeagueApiToken() {
+        try {
+            return mContext.getResources().getString(R.string.riot_token);
+        } catch (Resources.NotFoundException exception) {
+            throw new Resources.NotFoundException("Did you include riot_token in the config file");
+        }
     }
 }
