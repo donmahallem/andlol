@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import eu.m0k.lol.api.picasso.SCHEME;
 import eu.mok.mokeulol.Util;
-import eu.mok.mokeulol.helper.picasso.SCHEME;
 
 /**
  * Created by Don on 30.09.2014.

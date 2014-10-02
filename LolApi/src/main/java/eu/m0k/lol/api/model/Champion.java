@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import eu.m0k.lol.api.picasso.SCHEME;
+
 /**
  * Created by Don on 25.09.2014.
  */
@@ -129,6 +131,9 @@ public class Champion {
         return mTitle;
     }
 
+    public String getImageUri() {
+        return SCHEME.CHAMPION_ICON + "://" + this.getKey();
+    }
     @Override
     public String toString() {
         return "Champion{" +

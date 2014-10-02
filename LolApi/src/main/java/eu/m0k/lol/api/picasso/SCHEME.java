@@ -1,4 +1,4 @@
-package eu.mok.mokeulol.helper.picasso;
+package eu.m0k.lol.api.picasso;
 
 /**
  * Created by Don on 30.09.2014.

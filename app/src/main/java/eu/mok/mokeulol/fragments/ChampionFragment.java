@@ -20,9 +20,9 @@ import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Champion;
 import eu.m0k.lol.api.model.ChampionSkin;
 import eu.m0k.lol.api.model.Region;
+import eu.m0k.lol.api.picasso.SCHEME;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
-import eu.mok.mokeulol.helper.picasso.SCHEME;
 import eu.mok.mokeulol.view.ChampionSpellView;
 import it.sephiroth.android.library.widget.HListView;
 import retrofit.RestAdapter;
@@ -82,7 +82,7 @@ public class ChampionFragment extends Fragment {
         if (this.mChampion != null) {
             this.mTxtTitle.setText(this.mChampion.getName());
             this.mTxtSubTitle.setText(this.mChampion.getTitle());
-            Util.getPicasso().load(SCHEME.CHAMPION_ICON + "://" + this.mChampion.getImage().getFull()).resize(200, 200).centerCrop().placeholder(android.R.drawable.ic_menu_upload).error(android.R.drawable.ic_delete).into(this.mIvChampIcon);
+            Util.getPicasso().load(this.mChampion.getImageUri()).resize(200, 200).centerCrop().placeholder(android.R.drawable.ic_menu_upload).error(android.R.drawable.ic_delete).into(this.mIvChampIcon);
             if (mChampion.getSpells() != null) {
                 this.mIvSpell1.setChampion(this.mChampion.getSpells().get(0));
                 this.mIvSpell2.setChampion(this.mChampion.getSpells().get(1));

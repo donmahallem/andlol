@@ -9,6 +9,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
 
+import eu.m0k.lol.api.picasso.SCHEME;
+
 /**
  * Created by Don on 29.09.2014.
  */
@@ -139,6 +141,10 @@ public class ChampionSpell {
 
     public String getKey() {
         return mKey;
+    }
+
+    public String getImageUri() {
+        return SCHEME.SPELL + "://" + this.getImage().getFull();
     }
 
     public static class SpellRange {
