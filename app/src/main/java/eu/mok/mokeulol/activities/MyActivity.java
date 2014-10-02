@@ -1,4 +1,4 @@
-package eu.mok.mokeulol;
+package eu.mok.mokeulol.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.fragments.ChampionFragment;
 import eu.mok.mokeulol.fragments.ChampionListFragment;
 
@@ -17,7 +18,6 @@ public class MyActivity extends FragmentActivity implements ChampionListFragment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-        Util.init(this);
         Fragment fragment = this.getSupportFragmentManager().findFragmentByTag("CHAMPS");
         if (fragment == null) {
             fragment = new ChampionListFragment();
