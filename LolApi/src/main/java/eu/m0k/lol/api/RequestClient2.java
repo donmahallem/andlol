@@ -17,7 +17,7 @@ import com.squareup.okhttp.Request;
 import java.io.IOException;
 
 import eu.m0k.lol.api.model.Region;
-import eu.m0k.lol.api.network.LolRequest;
+import eu.m0k.lol.api.network.LeagueRequest;
 
 /**
  * Created by Don on 24.09.2014.
@@ -35,7 +35,7 @@ public class RequestClient2 {
         this.mOkHttpClient = new OkHttpClient();
     }
 
-    public com.squareup.okhttp.Response request(@NonNull LolRequest request) throws IOException {
+    public com.squareup.okhttp.Response request(@NonNull LeagueRequest request) throws IOException {
         request.addParameter("api_key", TOKEN);
         Request request1 = new Request.Builder()
                 .url(request.getUrl())

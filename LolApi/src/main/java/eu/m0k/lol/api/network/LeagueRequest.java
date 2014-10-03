@@ -16,14 +16,14 @@ import eu.m0k.lol.api.model.Region;
 /**
  * Created by Don on 24.09.2014.
  */
-public abstract class LolRequest<TYPE> {
+public abstract class LeagueRequest<TYPE> {
     private final String mUrl;
     private final Region mRegion;
     private Map<String, String> mParameter = new HashMap<String, String>();
     private Class<TYPE> mClass;
     private CachePolicy mCachePolicy = CachePolicy.NETWORK_ONLY;
 
-    public LolRequest(Region region, String url, Class<TYPE> _class) {
+    public LeagueRequest(Region region, String url, Class<TYPE> _class) {
         this.mRegion = region;
         this.mUrl = url;
         this.mClass = _class;
