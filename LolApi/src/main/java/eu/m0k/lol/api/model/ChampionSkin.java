@@ -1,7 +1,17 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.m0k.lol.api.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import eu.m0k.lol.api.picasso.Constants;
 
 /**
  * Created by Don on 29.09.2014.
@@ -17,10 +27,10 @@ public class ChampionSkin {
     @Expose
     @SerializedName("num")
     private int mNum;
-
-    public static String getUrl(Champion champion, int num) {
-        return BASE_URL + champion.getKey() + "_" + num + ".jpg";
-    }
+    /**
+     * Champion key. Required to create URI
+     */
+    private String mKey;
 
     public int getId() {
         return mId;
@@ -34,8 +44,16 @@ public class ChampionSkin {
         return mNum;
     }
 
-    public String getUrl(Champion champion) {
-        return this.getUrl(champion, mNum);
+    public String getKey() {
+        return this.mKey;
+    }
+
+    public void setKey(String key) {
+        this.mKey = key;
+    }
+
+    public String getImageUri() {
+        return Constants.SCHEME_SPELL + "://" + this.getKey() + "_" + this.getNum();
     }
 
     @Override

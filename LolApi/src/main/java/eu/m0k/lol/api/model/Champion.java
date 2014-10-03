@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.m0k.lol.api.model;
 
 import com.google.gson.annotations.Expose;
@@ -92,6 +100,11 @@ public class Champion {
     }
 
     public List<ChampionSkin> getSkins() {
+        if (this.mSkins != null && this.mSkins.size() > 0 && this.mSkins.get(0).getKey() == null) {
+            for (ChampionSkin skin : this.mSkins) {
+                skin.setKey(this.mKey);
+            }
+        }
         return mSkins;
     }
 

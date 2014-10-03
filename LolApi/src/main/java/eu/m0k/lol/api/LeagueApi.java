@@ -10,7 +10,10 @@ package eu.m0k.lol.api;
 
 import com.squareup.okhttp.OkHttpClient;
 
+import java.io.IOException;
+
 import eu.m0k.lol.api.network.LeagueRequest;
+import eu.m0k.lol.api.network.LeagueResponse;
 
 /**
  * Created by Don on 03.10.2014.
@@ -29,7 +32,8 @@ public class LeagueApi {
         this.mApiToken = builder.getApiToken();
     }
 
-    public void query(LeagueRequest request) {
+    public LeagueResponse query(LeagueRequest request) throws IOException {
+        return new LeagueResponse(request, this.mOkHttpClient.newCall(request.getRequest()).execute());
     }
 
     /**
