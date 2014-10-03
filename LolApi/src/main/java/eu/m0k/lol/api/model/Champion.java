@@ -100,6 +100,7 @@ public class Champion {
     }
 
     public List<ChampionSkin> getSkins() {
+        //TODO: FIX THIS SOMEWHERE IN THE FUTURE OR WON'T FIX!
         if (this.mSkins != null && this.mSkins.size() > 0 && this.mSkins.get(0).getKey() == null) {
             for (ChampionSkin skin : this.mSkins) {
                 skin.setKey(this.mKey);
