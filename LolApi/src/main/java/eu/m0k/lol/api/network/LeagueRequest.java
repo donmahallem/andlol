@@ -8,6 +8,8 @@
 
 package eu.m0k.lol.api.network;
 
+import com.squareup.okhttp.Request;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +23,10 @@ public abstract class LeagueRequest<TYPE> {
     private final Region mRegion;
     private Map<String, String> mParameter = new HashMap<String, String>();
     private Class<TYPE> mClass;
+    /**
+     * Tag for the Requests
+     */
+    private Object mTag;
     private CachePolicy mCachePolicy = CachePolicy.NETWORK_ONLY;
 
     public LeagueRequest(Region region, String url, Class<TYPE> _class) {
@@ -67,10 +73,26 @@ public abstract class LeagueRequest<TYPE> {
         }
     }
 
+    public void setTag(Object tag) {
+        this.mTag = tag;
+    }
+
+    /**
+     * Gets the current set Region
+     *
+     * @return the Region
+     */
     public Region getRegion() {
         return mRegion;
     }
 
+    public Request getRequest() {
+        Request.Builder builder = new Request.Builder();
+        if (this.mTag != null) {
+            builder.tag(this.mTag);
+        }
+        return builder.build();
+    }
     public String getParameterString() {
         if (this.mParameter.size() == 0) {
             return "";

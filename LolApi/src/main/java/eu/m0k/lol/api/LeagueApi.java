@@ -30,7 +30,6 @@ public class LeagueApi {
     }
 
     public void query(LeagueRequest request) {
-
     }
 
     /**
