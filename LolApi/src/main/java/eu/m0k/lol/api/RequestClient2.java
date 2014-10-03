@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.m0k.lol.api;
 
 import android.support.annotation.NonNull;
@@ -9,6 +17,7 @@ import com.squareup.okhttp.Request;
 import java.io.IOException;
 
 import eu.m0k.lol.api.model.Region;
+import eu.m0k.lol.api.network.LolRequest;
 
 /**
  * Created by Don on 24.09.2014.
