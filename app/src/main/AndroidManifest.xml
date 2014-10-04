@@ -18,8 +18,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/League.AppTheme">
-    <activity
-            android:name=".activities.MyActivity"
+        <activity
+            android:name=".activities.LeagueMainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

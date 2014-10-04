@@ -18,8 +18,9 @@ import android.view.MenuItem;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.fragments.ChampionFragment;
 import eu.mok.mokeulol.fragments.ChampionListFragment;
+import eu.mok.mokeulol.fragments.LeagueFragment;
 
-public class MyActivity extends FragmentActivity implements ChampionListFragment.OnChampSelectedListener {
+public class LeagueMainActivity extends FragmentActivity implements LeagueFragment.LeagueFragmentListener {
     private final String FRAGMENT_CHAMPION_LIST = "fgr_champ_list", FRAGMENT_CHAMPION_DETAIL = "fgr_champ_detail";
 
     @Override
@@ -55,11 +56,12 @@ public class MyActivity extends FragmentActivity implements ChampionListFragment
     }
 
     @Override
-    public void onChampSelected(int champ) {
-        showChamp(champ);
+    public void onShowChampionListFragment() {
+
     }
 
-    private void showChamp(int id) {
+    @Override
+    public void onShowChampionDetailsFragment(int id) {
         FragmentTransaction trans = this.getSupportFragmentManager().beginTransaction();
         trans.addToBackStack(FRAGMENT_CHAMPION_DETAIL);
         trans.replace(android.R.id.content, ChampionFragment.getInstance(id), FRAGMENT_CHAMPION_DETAIL);

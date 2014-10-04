@@ -9,7 +9,6 @@
 package eu.mok.mokeulol.fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import eu.mok.mokeulol.Util;
 /**
  * Created by Don on 30.09.2014.
  */
-public class ChampionSkinFragment extends Fragment {
+public class ChampionSkinFragment extends LeagueFragment {
     private final static String ARGS_CHAMPION_KEY = "championKey", ARGS_SKIN_NUM = "skinNUm";
     private ImageView mImageView;
 

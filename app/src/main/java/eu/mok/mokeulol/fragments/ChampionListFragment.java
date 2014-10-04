@@ -1,9 +1,15 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.mok.mokeulol.fragments;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
 
@@ -17,20 +23,8 @@ import retrofit.RestAdapter;
 /**
  * Created by Don on 30.09.2014.
  */
-public class ChampionListFragment extends ListFragment {
+public class ChampionListFragment extends LeagueListFragment {
     private ChampionAdapter mChampionAdapter = new ChampionAdapter();
-    private OnChampSelectedListener mOnChampSelectedListener;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            this.mOnChampSelectedListener = (OnChampSelectedListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
-    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -43,11 +37,7 @@ public class ChampionListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        this.mOnChampSelectedListener.onChampSelected(this.mChampionAdapter.getItem(position).getId());
-    }
-
-    public static interface OnChampSelectedListener {
-        public void onChampSelected(int champ);
+        this.getLeagueFragmentListener().onShowChampionDetailsFragment(this.mChampionAdapter.getItem(position).getId());
     }
 
     private class Task extends AsyncTask<Void, Void, ChampionList> {
