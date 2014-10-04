@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2014.
+  ~
+  ~ Visit https://github.com/donmahallem/andlol for more info!
+  ~
+  ~ Romanes eunt domus - Brian!
+  -->
+
 <manifest
     package="eu.mok.mokeulol"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -9,8 +17,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-        <activity
+        android:theme="@style/League.AppTheme">
+    <activity
             android:name=".activities.MyActivity"
             android:label="@string/app_name">
             <intent-filter>

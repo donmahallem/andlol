@@ -9,8 +9,8 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="LeagueAppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <item name="android:actionBarStyle">@style/League.ActionBar</item>
+    <style name="League.AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    <item name="android:actionBarStyle">@style/League.ActionBar</item>
         <item name="android:windowBackground">@color/grey_100</item>
         <item name="android:popupMenuStyle">@style/League.PopupMenu</item>
     </style>
