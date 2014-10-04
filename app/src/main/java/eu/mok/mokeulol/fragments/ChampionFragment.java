@@ -13,8 +13,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.pkmmte.view.CircularImageView;
 
 import eu.m0k.lol.api.RequestClient;
 import eu.m0k.lol.api.model.ChampData;
@@ -33,7 +34,7 @@ import retrofit.RestAdapter;
 public class ChampionFragment extends LeagueFragment {
     private final static String ARGS_CHAMP_ID = "champid";
     private TextView mTxtTitle, mTxtSubTitle, mTxtDescription, mTxtLore;
-    private ImageView mIvChampIcon;
+    private CircularImageView mIvChampIcon;
     private ChampionSpellView mIvSpell1, mIvSpell2, mIvSpell3, mIvSpell4;
     private HListView mHListView;
     private SkinListAdapter mSkinListAdapter = new SkinListAdapter();
@@ -66,7 +67,7 @@ public class ChampionFragment extends LeagueFragment {
         this.mTxtTitle = (TextView) view.findViewById(R.id.title);
         this.mTxtSubTitle = (TextView) view.findViewById(R.id.subTitle);
         this.mHListView = (HListView) view.findViewById(R.id.hListView);
-        this.mIvChampIcon = (ImageView) view.findViewById(R.id.ivChampionIcon);
+        this.mIvChampIcon = (CircularImageView) view.findViewById(R.id.ivChampionIcon);
         this.mTxtSubTitle = (TextView) view.findViewById(R.id.subTitle);
         this.mTxtDescription = (TextView) view.findViewById(R.id.txtDescription);
         this.mIvSpell1 = (ChampionSpellView) view.findViewById(R.id.ivSpell1);

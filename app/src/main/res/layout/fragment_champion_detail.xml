@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2014.
+  ~
+  ~ Visit https://github.com/donmahallem/andlol for more info!
+  ~
+  ~ Romanes eunt domus - Brian!
+  -->
+
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:hlist="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:orientation="vertical">
 
         <LinearLayout
@@ -16,11 +25,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
+            <com.pkmmte.view.CircularImageView
                 android:id="@id/ivChampionIcon"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:scaleType="centerCrop"/>
+                hlist:border="true"
+                hlist:border_color="@color/grey_200"
+                hlist:border_width="4dp"
+                hlist:shadow="true"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -45,17 +57,22 @@
         <it.sephiroth.android.library.widget.HListView
             android:id="@id/hListView"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
-            hlist:hlv_dividerWidth="5dp"/>
+            android:layout_height="160dp"
+            android:listSelector="@color/red_100"
+            hlist:hlv_dividerWidth="@dimen/hl_divider_width"
+            hlist:hlv_footerDividersEnabled="false"
+            hlist:hlv_headerDividersEnabled="false"/>
 
         <TextView
             android:id="@id/title"
+            style="@style/Text.DescriptionTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@android:style/TextAppearance.Large"/>
+            android:text="@string/lore"/>
 
         <TextView
             android:id="@id/txtDescription"
+            style="@style/Text.Description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
