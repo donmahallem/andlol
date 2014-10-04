@@ -35,4 +35,5 @@ dependencies {
     compile 'com.android.support:support-v4:20.0.0'
     compile 'it.sephiroth.android.library.horizontallistview:hlistview:1.+'
     compile 'com.pkmmte.view:circularimageview:1.+'
+    compile 'com.github.nirhart:parallaxscroll:1.+'
 }

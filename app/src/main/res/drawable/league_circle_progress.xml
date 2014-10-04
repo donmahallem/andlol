@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2014.
+  ~
+  ~ Visit https://github.com/donmahallem/andlol for more info!
+  ~
+  ~ Romanes eunt domus - Brian!
+  -->
+
+<animation-list
+    android:id="@+id/selected"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+    <item
+        android:duration="50">
+        <shape
+            android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="#FFFFFFFF"/>
+            <gradient
+                android:angle="90"
+                android:endColor="#DD00BBBB"
+                android:startColor="#DD777777"/>
+            <corners
+                android:bottomLeftRadius="7dp"
+                android:bottomRightRadius="7dp"
+                android:topLeftRadius="7dp"
+                android:topRightRadius="7dp"/>
+        </shape>
+    </item>
+    <item
+        android:duration="50">
+        <shape
+            android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="#FFFFFFFF"/>
+            <gradient
+                android:angle="90"
+                android:endColor="#DDBB00BB"
+                android:startColor="#DD777777"/>
+            <corners
+                android:bottomLeftRadius="7dp"
+                android:bottomRightRadius="7dp"
+                android:topLeftRadius="7dp"
+                android:topRightRadius="7dp"/>
+        </shape>
+    </item>
+    <item
+        android:duration="50">
+        <shape
+            android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="#FFFFFFFF"/>
+            <gradient
+                android:angle="90"
+                android:endColor="#DDBBBB00"
+                android:startColor="#DD777777"/>
+            <corners
+                android:bottomLeftRadius="7dp"
+                android:bottomRightRadius="7dp"
+                android:topLeftRadius="7dp"
+                android:topRightRadius="7dp"/>
+        </shape>
+    </item>
+    <item
+        android:duration="50">
+        <shape
+            android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="#FFFFFFFF"/>
+            <gradient
+                android:angle="90"
+                android:endColor="#DD333333"
+                android:startColor="#DD777777"/>
+            <corners
+                android:bottomLeftRadius="7dp"
+                android:bottomRightRadius="7dp"
+                android:topLeftRadius="7dp"
+                android:topRightRadius="7dp"/>
+        </shape>
+    </item>
+</animation-list>

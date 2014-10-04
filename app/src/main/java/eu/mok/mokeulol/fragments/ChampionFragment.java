@@ -83,7 +83,13 @@ public class ChampionFragment extends LeagueFragment {
         if (this.mChampion != null) {
             this.mTxtTitle.setText(this.mChampion.getName());
             this.mTxtSubTitle.setText(this.mChampion.getTitle());
-            Util.getPicasso().load(this.mChampion.getImageUri()).resize(200, 200).centerCrop().placeholder(android.R.drawable.ic_menu_rotate).error(android.R.drawable.ic_delete).into(this.mIvChampIcon);
+            Util.getPicasso()
+                    .load(this.mChampion.getImageUri())
+                    .resize(200, 200)
+                    .centerCrop()
+                    .placeholder(android.R.drawable.ic_menu_rotate)
+                    .error(android.R.drawable.ic_delete)
+                    .into(this.mIvChampIcon);
             if (mChampion.getSpells() != null) {
                 this.mIvSpell1.setChampion(this.mChampion.getSpells().get(0));
                 this.mIvSpell2.setChampion(this.mChampion.getSpells().get(1));

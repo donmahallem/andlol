@@ -7,101 +7,112 @@
   ~ Romanes eunt domus - Brian!
   -->
 
-<ScrollView
+<com.nirhart.parallaxscroll.views.ParallaxScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:hlist="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    hlist:parallax_factor="1.9">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.pkmmte.view.CircularImageView
-                android:id="@id/ivChampionIcon"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                hlist:border="true"
-                hlist:border_color="@color/grey_200"
-                hlist:border_width="4dp"
-                hlist:shadow="true"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@android:style/TextAppearance.Large"/>
-
-                <TextView
-                    android:id="@id/subTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@android:style/TextAppearance.Large"/>
-            </LinearLayout>
-        </LinearLayout>
 
         <it.sephiroth.android.library.widget.HListView
             android:id="@id/hListView"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:listSelector="@color/red_100"
+            android:background="@color/light_blue_600"
+            android:listSelector="@color/amber_500"
             hlist:hlv_dividerWidth="@dimen/hl_divider_width"
             hlist:hlv_footerDividersEnabled="false"
             hlist:hlv_headerDividersEnabled="false"/>
 
-        <TextView
-            android:id="@id/title"
-            style="@style/Text.DescriptionTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lore"/>
-
-        <TextView
-            android:id="@id/txtDescription"
-            style="@style/Text.Description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <eu.mok.mokeulol.view.ChampionSpellView
-            android:id="@id/ivSpell1"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@color/very_light_grey"/>
+            android:background="@color/grey_100"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
 
-        <eu.mok.mokeulol.view.ChampionSpellView
-            android:id="@id/ivSpell2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@color/very_light_grey"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <eu.mok.mokeulol.view.ChampionSpellView
-            android:id="@id/ivSpell3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@color/very_light_grey"/>
+                <com.pkmmte.view.CircularImageView
+                    android:id="@id/ivChampionIcon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@android:drawable/ic_menu_search"
+                    hlist:border="true"
+                    hlist:border_color="@color/grey_200"
+                    hlist:border_width="4dp"
+                    hlist:shadow="true"/>
 
-        <eu.mok.mokeulol.view.ChampionSpellView
-            android:id="@id/ivSpell4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@color/very_light_grey"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Large"/>
+
+                    <TextView
+                        android:id="@id/subTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Small"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@id/title"
+                style="@style/Text.DescriptionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lore"/>
+
+            <TextView
+                android:id="@id/txtDescription"
+                style="@style/Text.Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <eu.mok.mokeulol.view.ChampionSpellView
+                android:id="@id/ivSpell1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/very_light_grey"/>
+
+            <eu.mok.mokeulol.view.ChampionSpellView
+                android:id="@id/ivSpell2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/very_light_grey"/>
+
+            <eu.mok.mokeulol.view.ChampionSpellView
+                android:id="@id/ivSpell3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/very_light_grey"/>
+
+            <eu.mok.mokeulol.view.ChampionSpellView
+                android:id="@id/ivSpell4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/very_light_grey"/>
+        </LinearLayout>
     </LinearLayout>
-</ScrollView>
+</com.nirhart.parallaxscroll.views.ParallaxScrollView>
