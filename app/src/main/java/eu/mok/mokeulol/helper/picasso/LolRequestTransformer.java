@@ -24,7 +24,7 @@ public class LolRequestTransformer implements Picasso.RequestTransformer {
     @Override
     public Request transformRequest(Request request) {
         if (request.uri.getScheme().equals(Constants.SCHEME)) {
-            List<String> pathSegments = request.uri.getPathSegments();
+            final List<String> pathSegments = request.uri.getPathSegments();
             if (request.uri.getHost().equals(Constants.IMAGE) && pathSegments.size() == 2) {
                 if (pathSegments.get(0).equals(Constants.SPELL)) {
                     return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/4.17.1/img/spell/" + pathSegments.get(1))).build();

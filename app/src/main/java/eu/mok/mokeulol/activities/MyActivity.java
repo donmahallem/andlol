@@ -1,10 +1,17 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.mok.mokeulol.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,12 +20,13 @@ import eu.mok.mokeulol.fragments.ChampionFragment;
 import eu.mok.mokeulol.fragments.ChampionListFragment;
 
 public class MyActivity extends FragmentActivity implements ChampionListFragment.OnChampSelectedListener {
+    private final String FRAGMENT_CHAMPION_LIST = "fgr_champ_list", FRAGMENT_CHAMPION_DETAIL = "fgr_champ_detail";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-        Fragment fragment = this.getSupportFragmentManager().findFragmentByTag("CHAMPS");
+        Fragment fragment = this.getSupportFragmentManager().findFragmentByTag(FRAGMENT_CHAMPION_LIST);
         if (fragment == null) {
             fragment = new ChampionListFragment();
         }
@@ -48,14 +56,13 @@ public class MyActivity extends FragmentActivity implements ChampionListFragment
 
     @Override
     public void onChampSelected(int champ) {
-        Log.d("champ Selected", "id: " + champ);
         showChamp(champ);
     }
 
     private void showChamp(int id) {
         FragmentTransaction trans = this.getSupportFragmentManager().beginTransaction();
-        trans.addToBackStack("ChampsDetail");
-        trans.replace(android.R.id.content, ChampionFragment.getInstance(id));
+        trans.addToBackStack(FRAGMENT_CHAMPION_DETAIL);
+        trans.replace(android.R.id.content, ChampionFragment.getInstance(id), FRAGMENT_CHAMPION_DETAIL);
         trans.commit();
     }
 }

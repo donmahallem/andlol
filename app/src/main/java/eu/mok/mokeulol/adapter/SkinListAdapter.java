@@ -74,7 +74,8 @@ public class SkinListAdapter extends BaseAdapter {
             view = (ImageView) convertView;
         } else
             view = new ImageView(parent.getContext());
-        Util.getPicasso().load(Constants.PATH_IMG_CHAMPION_LOADING + this.mKey + "_" + position)
+        Util.getPicasso()
+                .load(Constants.PATH_IMG_CHAMPION_LOADING + this.mKey + "_" + position)
                 .placeholder(android.R.drawable.ic_menu_rotate)
                 .error(android.R.drawable.ic_delete)
                 .into(view);
