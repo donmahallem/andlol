@@ -15,5 +15,6 @@
     <string name="lore">Lore</string>
     <string name="title">Title</string>
     <string name="subtitle">Subtitle</string>
+    <string name="abilities">Abilities</string>
 
 </resources>

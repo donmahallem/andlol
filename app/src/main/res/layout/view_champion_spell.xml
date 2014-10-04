@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!--
+  ~ Copyright (c) 2014.
+  ~
+  ~ Visit https://github.com/donmahallem/andlol for more info!
+  ~
+  ~ Romanes eunt domus - Brian!
+  -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:hlist="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal">
 
-    <ImageView
+    <com.pkmmte.view.CircularImageView
         android:id="@id/icon"
         android:layout_width="64dp"
-        android:layout_height="64dp"/>
+        android:layout_height="64dp"
+        hlist:border="true"
+        hlist:border_color="@color/grey_200"
+        hlist:border_width="3dp"
+        hlist:shadow="true"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

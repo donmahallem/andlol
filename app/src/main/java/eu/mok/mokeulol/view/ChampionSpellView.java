@@ -11,9 +11,10 @@ package eu.mok.mokeulol.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.pkmmte.view.CircularImageView;
 
 import eu.m0k.lol.api.model.ChampionSpell;
 import eu.mok.mokeulol.R;
@@ -24,7 +25,7 @@ import eu.mok.mokeulol.Util;
  */
 public class ChampionSpellView extends LinearLayout {
     private ChampionSpell mChampionSpell;
-    private ImageView mImageView;
+    private CircularImageView mImageView;
     private TextView mTitle, mSubTitle;
 
     public ChampionSpellView(Context context) {
@@ -37,8 +38,8 @@ public class ChampionSpellView extends LinearLayout {
 
     public ChampionSpellView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        LayoutInflater.from(context).inflate(R.layout.listitem_champion, this);
-        this.mImageView = (ImageView) this.findViewById(R.id.icon);
+        LayoutInflater.from(context).inflate(R.layout.view_champion_spell, this);
+        this.mImageView = (CircularImageView) this.findViewById(R.id.icon);
         this.mTitle = (TextView) this.findViewById(R.id.title);
         this.mSubTitle = (TextView) this.findViewById(R.id.subTitle);
     }
