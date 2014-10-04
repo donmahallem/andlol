@@ -146,7 +146,7 @@ public class Champion {
     }
 
     public String getImageUri() {
-        return Constants.SCHEME_CHAMPION_ICON + "://" + this.getKey();
+        return Constants.PATH_IMG_CHAMPION_ICON + this.getKey();
     }
     @Override
     public String toString() {

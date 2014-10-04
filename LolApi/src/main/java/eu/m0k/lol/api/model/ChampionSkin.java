@@ -53,7 +53,7 @@ public class ChampionSkin {
     }
 
     public String getImageUri() {
-        return Constants.SCHEME_SPELL + "://" + this.getKey() + "_" + this.getNum();
+        return Constants.PATH_IMG_SPELL + "://" + this.getKey() + "_" + this.getNum();
     }
 
     @Override
