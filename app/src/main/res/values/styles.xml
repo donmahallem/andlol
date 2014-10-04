@@ -9,14 +9,19 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <item name="android:actionBarStyle">@style/LeagueActionBar</item>
+    <style name="LeagueAppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/League.ActionBar</item>
         <item name="android:windowBackground">@color/grey_100</item>
+        <item name="android:popupMenuStyle">@style/League.PopupMenu</item>
     </style>
 
-    <style name="LeagueActionBar"
+    <style name="League.ActionBar"
            parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/light_blue_900</item>
     </style>
 
+    <style name="League.PopupMenu" parent="android:Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@color/grey_200</item>
+        <item name="android:textColor">@color/grey_800</item>
+    </style>
 </resources>

@@ -11,26 +11,19 @@ package eu.mok.mokeulol.fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import eu.m0k.lol.api.RequestClient;
 import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Champion;
-import eu.m0k.lol.api.model.ChampionSkin;
 import eu.m0k.lol.api.model.Region;
-import eu.m0k.lol.api.picasso.Constants;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
+import eu.mok.mokeulol.adapter.SkinListAdapter;
 import eu.mok.mokeulol.view.ChampionSpellView;
 import it.sephiroth.android.library.widget.HListView;
 import retrofit.RestAdapter;
@@ -104,82 +97,6 @@ public class ChampionFragment extends Fragment {
             if (this.mChampion.getLore() != null) {
                 this.mTxtDescription.setText(this.mChampion.getLore());
             }
-        }
-    }
-
-    private class SkinListAdapter extends BaseAdapter {
-        private String mKey;
-        private List<ChampionSkin> mSkins;
-
-        public SkinListAdapter() {
-            this("");
-        }
-
-        public SkinListAdapter(String championKey) {
-            this(championKey, new ArrayList<ChampionSkin>());
-        }
-
-        public SkinListAdapter(String championKey, List<ChampionSkin> skins) {
-            this.mKey = championKey;
-            this.mSkins = skins;
-        }
-
-        @Override
-        public int getCount() {
-            return this.mSkins.size();
-        }
-
-        public void setKey(String key) {
-            this.mKey = key;
-            notifyDataSetChanged();
-        }
-
-        public void setSkins(List<ChampionSkin> skins) {
-            this.mSkins.clear();
-            this.mSkins.addAll(skins);
-            notifyDataSetChanged();
-        }
-
-        @Override
-        public ChampionSkin getItem(int position) {
-            return this.mSkins.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return this.getItem(position).getId();
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView view = null;
-            if (convertView != null && convertView instanceof ImageView) {
-                view = (ImageView) convertView;
-            } else
-                view = new ImageView(parent.getContext());
-            Util.getPicasso().load(Constants.SCHEME_SPLASH + "://" + this.mKey + "_" + position + ".jpg").placeholder(android.R.drawable.ic_menu_rotate).error(android.R.drawable.ic_delete).into(view);
-            return view;
-        }
-    }
-
-    private class VP extends FragmentPagerAdapter {
-        private List<ChampionSkin> mSkins;
-        private String mKey;
-
-        public VP(FragmentManager fm, String key, List<ChampionSkin> skins) {
-            super(fm);
-            this.mKey = key;
-            this.mSkins = skins;
-        }
-
-        @Override
-        public int getCount() {
-            return this.mSkins.size();
-        }
-
-        @Override
-        public Fragment getItem(int i) {
-            return ChampionSkinFragment.createInstance(mKey, i);
         }
     }
 
