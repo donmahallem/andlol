@@ -13,81 +13,88 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:orientation="vertical">
+        android:layout_above="@id/btnCheckToken"
+        android:layout_alignParentTop="true">
 
-        <TextView
-            style="@style/Text.DescriptionTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/api_token"/>
-
-        <TextView
-            style="@style/Text.Description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/api_token_description"/>
-
-        <!-- Digits prevents unallowed characters-->
-        <EditText
-            android:id="@id/apiToken"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:digits="0123456789qwertzuiopasdfghjklyxcvbnm-"
-            android:inputType="text"
-            android:singleLine="true"/>
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:orientation="vertical">
 
-        <TextView
-            style="@style/Text.Description.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/api_token_description_small"/>
+            <TextView
+                style="@style/Text.DescriptionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/api_token"/>
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:src="@android:drawable/ic_menu_edit"/>
+            <TextView
+                style="@style/Text.Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/api_token_description"/>
 
-        <View
-            style="@style/League.Divider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_height"/>
+            <!-- Digits prevents unallowed characters-->
+            <EditText
+                android:id="@id/apiToken"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="0123456789qwertzuiopasdfghjklyxcvbnm-"
+                android:inputType="text"
+                android:singleLine="true"/>
 
-        <TextView
-            style="@style/Text.Description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/instructions"/>
+            <TextView
+                style="@style/Text.Description.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/api_token_description_small"/>
 
-        <TextView
-            style="@style/Text.Description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/ic_media_play"
-            android:text="@string/log_into_riot_dev"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:src="@android:drawable/ic_menu_edit"/>
 
-        <TextView
-            style="@style/Text.Description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/ic_media_play"
-            android:text="@string/copy_the_api_token"/>
+            <View
+                style="@style/League.Divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"/>
 
-        <TextView
-            style="@style/Text.Description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/ic_media_play"
-            android:text="@string/paste_it_above_and_verify"/>
+            <TextView
+                style="@style/Text.Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/instructions"/>
 
-    </LinearLayout>
+            <TextView
+                style="@style/Text.Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@android:drawable/ic_media_play"
+                android:text="@string/log_into_riot_dev"/>
+
+            <TextView
+                style="@style/Text.Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@android:drawable/ic_media_play"
+                android:text="@string/copy_the_api_token"/>
+
+            <TextView
+                style="@style/Text.Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@android:drawable/ic_media_play"
+                android:text="@string/paste_it_above_and_verify"/>
+
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@id/btnCheckToken"
@@ -95,6 +102,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_weight="1"
         android:text="@string/check"/>
 </RelativeLayout>
