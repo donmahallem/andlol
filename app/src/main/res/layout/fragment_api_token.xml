@@ -34,10 +34,14 @@
             android:layout_height="wrap_content"
             android:text="@string/api_token_description"/>
 
+        <!-- Digits prevents unallowed characters-->
         <EditText
             android:id="@id/apiToken"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:digits="0123456789qwertzuiopasdfghjklyxcvbnm-"
+            android:inputType="text"
+            android:singleLine="true"/>
 
         <TextView
             style="@style/Text.Description.Small"
