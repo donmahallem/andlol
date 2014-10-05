@@ -13,15 +13,15 @@ import java.util.concurrent.Executor;
 /**
  * Created by Don on 05.10.2014.
  */
-public abstract class CallbackRunnable<T> implements Runnable {
+public abstract class LeagueCallbackRunnable<T> implements Runnable {
     private final LeagueCallback<T> callback;
     private final Executor callbackExecutor;
-    private final ErrorHandler errorHandler;
+    private final LeagueErrorHandler mLeagueErrorHandler;
 
-    CallbackRunnable(LeagueCallback<T> callback, Executor callbackExecutor, ErrorHandler errorHandler) {
+    LeagueCallbackRunnable(LeagueCallback<T> callback, Executor callbackExecutor, LeagueErrorHandler leagueErrorHandler) {
         this.callback = callback;
         this.callbackExecutor = callbackExecutor;
-        this.errorHandler = errorHandler;
+        this.mLeagueErrorHandler = leagueErrorHandler;
     }
 
     @SuppressWarnings("unchecked")
@@ -36,7 +36,7 @@ public abstract class CallbackRunnable<T> implements Runnable {
                 }
             });
         } catch (LeagueError e) {
-            Throwable cause = errorHandler.handleError(e);
+            Throwable cause = mLeagueErrorHandler.handleError(e);
             final LeagueError handled = cause == e ? e : LeagueError.unexpectedError(e.getUrl(), cause);
             callbackExecutor.execute(new Runnable() {
                 @Override

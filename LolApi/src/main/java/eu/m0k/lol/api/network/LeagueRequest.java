@@ -8,102 +8,90 @@
 
 package eu.m0k.lol.api.network;
 
-import com.squareup.okhttp.Request;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import eu.m0k.lol.api.model.Region;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
- * Created by Don on 24.09.2014.
+ * Created by Don on 05.10.2014.
  */
-public abstract class LeagueRequest<TYPE> {
+public class LeagueRequest {
     private final String mUrl;
-    private final Region mRegion;
-    private Map<String, String> mParameter = new HashMap<String, String>();
-    private Class<TYPE> mClass;
-    /**
-     * Tag for the Requests
-     */
-    private Object mTag;
-    private CachePolicy mCachePolicy = CachePolicy.NETWORK_ONLY;
+    private final List<Header> mHeaders;
+    private final CachePolicy mCachePolicy;
 
-    public LeagueRequest(Region region, String url, Class<TYPE> _class) {
-        this.mRegion = region;
+    private LeagueRequest(String url, List<Header> headers, CachePolicy cachePolicy) {
+        if (url == null) {
+            throw new NullPointerException("URL must not be null.");
+        }
+        if (cachePolicy == null)
+            this.mCachePolicy = CachePolicy.NORMAL;
+        else
+            this.mCachePolicy = cachePolicy;
         this.mUrl = url;
-        this.mClass = _class;
-    }
-
-    /**
-     * Sets or replaces the in key given parameter
-     *
-     * @param key   parameter key
-     * @param value parameter value
-     */
-    public void addParameter(String key, String value) {
-        this.mParameter.put(key, value);
-    }
-
-    public Map<String, String> getParameters() {
-        return this.mParameter;
+        if (headers == null) {
+            this.mHeaders = Collections.emptyList();
+        } else {
+            this.mHeaders = Collections.unmodifiableList(new ArrayList<Header>(headers));
+        }
     }
 
     public String getUrl() {
-        return this.mUrl.replaceAll("\\{region\\}", this.mRegion.toString()) + "?" + getParameterString();
+        return mUrl;
     }
 
-    /**
-     * gets the current Cache Policy
-     *
-     * @return returns the current cache policy
-     */
+    public List<Header> getHeaders() {
+        return mHeaders;
+    }
+
     public CachePolicy getCachePolicy() {
-        return this.mCachePolicy;
+        return mCachePolicy;
     }
 
-    /**
-     * Sets the CachePolicy
-     *
-     * @param cachePolicy the CachePolicy to use
-     */
-    public void setCachePolicy(CachePolicy cachePolicy) {
-        if (cachePolicy != null) {
+    public static class Builder {
+        private String mUrl;
+        private List<Header> mHeaders;
+        private CachePolicy mCachePolicy = CachePolicy.NORMAL;
+
+        public Builder() {
+        }
+
+        public Builder addHeader(String name, String value) {
+            this.addHeader(new Header(name, value));
+            return this;
+        }
+
+        public String getUrl() {
+            return mUrl;
+        }
+
+        public Builder setUrl(String url) {
+            this.mUrl = url;
+            return this;
+        }
+
+        public List<Header> getHeaders() {
+            return mHeaders;
+        }
+
+        public CachePolicy getCachePolicy() {
+            return mCachePolicy;
+        }
+
+        public Builder setCachePolicy(CachePolicy cachePolicy) {
             this.mCachePolicy = cachePolicy;
+            return this;
         }
-    }
 
-    public void setTag(Object tag) {
-        this.mTag = tag;
-    }
+        public Builder addHeader(Header header) {
+            if (header == null)
+                return this;
+            this.mHeaders.add(header);
+            return this;
+        }
 
-    /**
-     * Gets the current set Region
-     *
-     * @return the Region
-     */
-    public Region getRegion() {
-        return mRegion;
-    }
-
-    public Request getRequest() {
-        Request.Builder builder = new Request.Builder();
-        if (this.mTag != null) {
-            builder.tag(this.mTag);
+        public LeagueRequest build() {
+            return new LeagueRequest(this.mUrl, this.mHeaders, this.mCachePolicy);
         }
-        return builder.build();
-    }
-    public String getParameterString() {
-        if (this.mParameter.size() == 0) {
-            return "";
-        }
-        String ret = "";
-        for (String key : this.mParameter.keySet()) {
-            if (ret.length() != 0) {
-                ret += "&";
-            }
-            ret += key + "=" + this.mParameter.get(key);
-        }
-        return ret;
     }
 }

@@ -11,13 +11,13 @@ package eu.m0k.lol.api.internal;
 /**
  * Created by Don on 05.10.2014.
  */
-public interface ErrorHandler {
-    ErrorHandler DEFAULT = new ErrorHandler() {
+public interface LeagueErrorHandler {
+    public final LeagueErrorHandler DEFAULT = new LeagueErrorHandler() {
         @Override
         public Throwable handleError(LeagueError cause) {
             return cause;
         }
     };
 
-    Throwable handleError(LeagueError cause);
+    public Throwable handleError(LeagueError cause);
 }

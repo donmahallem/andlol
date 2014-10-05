@@ -8,25 +8,74 @@
 
 package eu.m0k.lol.api.network;
 
-import com.squareup.okhttp.Response;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import eu.m0k.lol.api.internal.TypedInput;
 
 /**
- * Created by Don on 03.10.2014.
+ * Created by Don on 05.10.2014.
  */
 public class LeagueResponse {
-    private LeagueRequest mLeagueRequest;
-    private Response mResponse;
+    private final String url;
+    private final int status;
+    private final String reason;
+    private final List<Header> headers;
+    private final TypedInput body;
 
-    public LeagueResponse(LeagueRequest leagueRequest, Response response) {
-        this.mLeagueRequest = leagueRequest;
-        this.mResponse = response;
+    public LeagueResponse(String url, int status, String reason, List<Header> headers, TypedInput body) {
+        if (url == null) {
+            throw new IllegalArgumentException("url == null");
+        }
+        if (status < 200) {
+            throw new IllegalArgumentException("Invalid status code: " + status);
+        }
+        if (reason == null) {
+            throw new IllegalArgumentException("reason == null");
+        }
+        if (headers == null) {
+            throw new IllegalArgumentException("headers == null");
+        }
+        this.url = url;
+        this.status = status;
+        this.reason = reason;
+        this.headers = Collections.unmodifiableList(new ArrayList<Header>(headers));
+        this.body = body;
     }
 
-    public LeagueRequest getLeagueRequest() {
-        return mLeagueRequest;
+    /**
+     * Request URL.
+     */
+    public String getUrl() {
+        return url;
     }
 
-    public Response getResponse() {
-        return mResponse;
+    /**
+     * Status line code.
+     */
+    public int getStatus() {
+        return status;
+    }
+
+    /**
+     * Status line reason phrase.
+     */
+    public String getReason() {
+        return reason;
+    }
+
+    /**
+     * An unmodifiable collection of headers.
+     */
+    public List<Header> getHeaders() {
+        return headers;
+    }
+
+    /**
+     * Response body. May be {@code null}.
+     */
+    public TypedInput getBody() {
+        return body;
     }
 }
