@@ -8,9 +8,6 @@
 
 package eu.m0k.lol.api.network;
 
-/**
- * Created by Don on 06.10.2014.
- */
 public class Parameter {
     private String mKey, mValue;
 

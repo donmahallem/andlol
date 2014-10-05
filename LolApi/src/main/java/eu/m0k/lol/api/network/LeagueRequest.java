@@ -15,9 +15,6 @@ import java.util.List;
 import eu.m0k.lol.api.internal.LeagueCallback;
 import eu.m0k.lol.api.internal.Util;
 
-/**
- * Created by Don on 05.10.2014.
- */
 public class LeagueRequest {
     private final String mUrl;
     private final List<Header> mHeaders;
@@ -59,6 +56,7 @@ public class LeagueRequest {
         private List<Parameter> mParameters;
         private CachePolicy mCachePolicy = CachePolicy.NORMAL;
         private LeagueCallback mLeagueCallback;
+
         public Builder() {
             this.mHeaders = new ArrayList<Header>();
             this.mParameters = new ArrayList<Parameter>();

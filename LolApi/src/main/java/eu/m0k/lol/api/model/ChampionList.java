@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.m0k.lol.api.model;
 
 import com.google.gson.JsonDeserializationContext;
@@ -13,9 +21,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 
-/**
- * Created by Don on 29.09.2014.
- */
 public class ChampionList extends ArrayList<Champion> {
     public final static Comparator<Champion> SortChampByNameAsc = new Comparator<Champion>() {
 

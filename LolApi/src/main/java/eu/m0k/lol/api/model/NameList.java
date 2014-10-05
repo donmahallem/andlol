@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.m0k.lol.api.model;
 
 import com.google.gson.JsonDeserializationContext;
@@ -11,9 +19,6 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Iterator;
 
-/**
- * Created by Don on 23.09.2014.
- */
 public class NameList extends HashMap<String, String> {
 
     public static final class Serializer implements JsonSerializer<NameList> {

@@ -16,9 +16,6 @@ import retrofit.http.GET;
 import retrofit.http.Path;
 import retrofit.http.Query;
 
-/**
- * Created by Don on 29.09.2014.
- */
 public interface StaticDataService {
     @GET("/v1.2/champion")
     public ChampionList getChampionList();

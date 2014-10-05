@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.m0k.lol.api.response;
 
 import com.google.gson.JsonDeserializationContext;
@@ -13,9 +21,6 @@ import java.util.List;
 
 import eu.m0k.lol.api.model.RunePage;
 
-/**
- * Created by Don on 23.09.2014.
- */
 public class RunePageResponse extends HashMap<String, List<RunePage>> {
     public static final class Deserializer implements JsonDeserializer<RunePageResponse> {
 

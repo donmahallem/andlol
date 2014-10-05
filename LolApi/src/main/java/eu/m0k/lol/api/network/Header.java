@@ -8,9 +8,6 @@
 
 package eu.m0k.lol.api.network;
 
-/**
- * Created by Don on 05.10.2014.
- */
 public final class Header {
     private final String name;
     private final String value;
