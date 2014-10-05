@@ -16,5 +16,8 @@
     <string name="title">Title</string>
     <string name="subtitle">Subtitle</string>
     <string name="abilities">Abilities</string>
+    <string name="check">Check</string>
+    <string name="api_token">Api-Token</string>
+    <string name="api_token_description">The Api-Token to be used by this App.</string>
 
 </resources>

@@ -45,5 +45,7 @@ public abstract class LeagueFragment extends Fragment {
         public void onShowChampionListFragment();
 
         public void onShowChampionDetailsFragment(int id);
+
+        public void onShowApiTokenFragment();
     }
 }

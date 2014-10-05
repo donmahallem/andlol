@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2014.
+  ~
+  ~ Visit https://github.com/donmahallem/andlol for more info!
+  ~
+  ~ Romanes eunt domus - Brian!
+  -->
+
 <resources>
     <item name="title" type="id"/>
     <item name="subTitle" type="id"/>
@@ -12,4 +20,6 @@
     <item name="ivChampionIcon" type="id"/>
     <item name="viewPager" type="id"/>
     <item name="hListView" type="id"/>
+    <item name="apiToken" type="id"/>
+    <item name="btnCheckToken" type="id"/>
 </resources>

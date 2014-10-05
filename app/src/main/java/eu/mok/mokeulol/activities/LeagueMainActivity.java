@@ -16,24 +16,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import eu.mok.mokeulol.R;
+import eu.mok.mokeulol.fragments.ApiTokenFragment;
 import eu.mok.mokeulol.fragments.ChampionFragment;
-import eu.mok.mokeulol.fragments.ChampionListFragment;
 import eu.mok.mokeulol.fragments.LeagueFragment;
 
 public class LeagueMainActivity extends FragmentActivity implements LeagueFragment.LeagueFragmentListener {
-    private final String FRAGMENT_CHAMPION_LIST = "fgr_champ_list", FRAGMENT_CHAMPION_DETAIL = "fgr_champ_detail";
+    private final String FRAGMENT_CHAMPION_LIST = "fgr_champ_list", FRAGMENT_CHAMPION_DETAIL = "fgr_champ_detail", FRAGMENT_API_TOKEN = "fgr_api_token";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-        Fragment fragment = this.getSupportFragmentManager().findFragmentByTag(FRAGMENT_CHAMPION_LIST);
+        Fragment fragment = this.getSupportFragmentManager().findFragmentById(android.R.id.content);
         if (fragment == null) {
-            fragment = new ChampionListFragment();
+            onShowApiTokenFragment();
         }
-        FragmentTransaction trans = this.getSupportFragmentManager().beginTransaction();
-        trans.replace(android.R.id.content, fragment);
-        trans.commit();
     }
 
     @Override
@@ -65,6 +62,14 @@ public class LeagueMainActivity extends FragmentActivity implements LeagueFragme
         FragmentTransaction trans = this.getSupportFragmentManager().beginTransaction();
         trans.addToBackStack(FRAGMENT_CHAMPION_DETAIL);
         trans.replace(android.R.id.content, ChampionFragment.getInstance(id), FRAGMENT_CHAMPION_DETAIL);
+        trans.commit();
+    }
+
+    @Override
+    public void onShowApiTokenFragment() {
+        FragmentTransaction trans = this.getSupportFragmentManager().beginTransaction();
+        trans.addToBackStack(FRAGMENT_API_TOKEN);
+        trans.replace(android.R.id.content, ApiTokenFragment.getInstance(), FRAGMENT_API_TOKEN);
         trans.commit();
     }
 }

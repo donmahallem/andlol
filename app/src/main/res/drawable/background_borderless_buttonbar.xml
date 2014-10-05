@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2014.
+  ~
+  ~ Visit https://github.com/donmahallem/andlol for more info!
+  ~
+  ~ Romanes eunt domus - Brian!
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/amber_600" android:state_selected="true"/>
+    <item android:drawable="@color/light_blue_700" android:state_pressed="true"/>
+    <item android:drawable="@color/light_blue_300"/>
+    <item android:drawable="@color/grey_500" android:state_enabled="false"/>
+</selector>
