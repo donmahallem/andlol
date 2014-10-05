@@ -26,6 +26,10 @@ import retrofit.RestAdapter;
 public class ChampionListFragment extends LeagueListFragment {
     private ChampionAdapter mChampionAdapter = new ChampionAdapter();
 
+    public static ChampionListFragment getInstance() {
+        return new ChampionListFragment();
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
