@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentTransaction;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.fragments.ApiTokenFragment;
 import eu.mok.mokeulol.fragments.ChampionFragment;
+import eu.mok.mokeulol.fragments.ChampionListFragment;
 import eu.mok.mokeulol.fragments.LeagueFragment;
 
 public class LeagueMainActivity extends FragmentActivity implements LeagueFragment.LeagueFragmentListener {
@@ -33,7 +34,9 @@ public class LeagueMainActivity extends FragmentActivity implements LeagueFragme
 
     @Override
     public void onShowChampionListFragment() {
-
+        FragmentTransaction trans = this.getSupportFragmentManager().beginTransaction();
+        trans.replace(android.R.id.content, ChampionListFragment.getInstance(), FRAGMENT_CHAMPION_LIST);
+        trans.commit();
     }
 
     @Override
@@ -47,7 +50,6 @@ public class LeagueMainActivity extends FragmentActivity implements LeagueFragme
     @Override
     public void onShowApiTokenFragment() {
         FragmentTransaction trans = this.getSupportFragmentManager().beginTransaction();
-        trans.addToBackStack(FRAGMENT_API_TOKEN);
         trans.replace(android.R.id.content, ApiTokenFragment.getInstance(), FRAGMENT_API_TOKEN);
         trans.commit();
     }
