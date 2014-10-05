@@ -39,14 +39,58 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <TextView
+            style="@style/Text.Description.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/api_token_description_small"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:src="@android:drawable/ic_menu_edit"/>
+
+        <View
+            style="@style/League.Divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"/>
+
+        <TextView
+            style="@style/Text.Description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/instructions"/>
+
+        <TextView
+            style="@style/Text.Description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@android:drawable/ic_media_play"
+            android:text="@string/log_into_riot_dev"/>
+
+        <TextView
+            style="@style/Text.Description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@android:drawable/ic_media_play"
+            android:text="@string/copy_the_api_token"/>
+
+        <TextView
+            style="@style/Text.Description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@android:drawable/ic_media_play"
+            android:text="@string/paste_it_above_and_verify"/>
+
     </LinearLayout>
 
     <Button
         android:id="@id/btnCheckToken"
+        style="@style/League.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_weight="1"
-        android:background="@drawable/background_borderless_buttonbar"
         android:text="@string/check"/>
 </RelativeLayout>

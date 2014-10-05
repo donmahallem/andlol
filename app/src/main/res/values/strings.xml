@@ -19,5 +19,9 @@
     <string name="check">Check</string>
     <string name="api_token">Api-Token</string>
     <string name="api_token_description">The Api-Token to be used by this App.</string>
-
+    <string name="api_token_description_small">An Api-Token is required to communicate with Riot\'s-Servers. Click on the Button below to be redirected to the site where you can retrieve this Api-Token.</string>
+    <string name="log_into_riot_dev">Log into the Riot Dev Website.</string>
+    <string name="copy_the_api_token">Copy the Api-Token</string>
+    <string name="paste_it_above_and_verify">Paste the Api-Token above and let it verify</string>
+    <string name="instructions">Instructions</string>
 </resources>

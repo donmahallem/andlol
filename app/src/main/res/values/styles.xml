@@ -41,5 +41,22 @@
         <item name="android:typeface">sans</item>
     </style>
 
+    <style name="Text.Description.Small" parent="style/Text.Description">
+        <item name="android:textColor">@color/grey_600</item>
+        <item name="android:textSize">10dp</item>
+    </style>
+
+    <style name="League.Button.Borderless" parent="android:Widget.Button">
+        <item name="android:textColor">@color/grey_1000w</item>
+        <item name="android:background">@drawable/background_borderless_buttonbar</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="League.Divider">
+        <item name="android:background">@color/grey_400</item>
+        <item name="android:layout_margin">@dimen/divider_margin</item>
+    </style>
+
+    <style name="League"></style>
 
 </resources>
