@@ -125,6 +125,7 @@ public class ApiTokenFragment
         protected void onPostExecute(Boolean result) {
             ApiTokenFragment.this.mProgressDialog.hide();
             ApiTokenFragment.this.mProgressDialog = null;
+            ApiTokenFragment.this.getLeagueFragmentListener().onShowChampionListFragment();
         }
 
         @Override
