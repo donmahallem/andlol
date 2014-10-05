@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import eu.m0k.lol.api.RequestClient;
 import eu.m0k.lol.api.model.ChampionList;
+import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.Region;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.adapter.ChampionAdapter;
@@ -49,7 +50,7 @@ public class ChampionListFragment extends LeagueListFragment {
         @Override
         protected ChampionList doInBackground(Void... params) {
             RequestClient mRequestClient = new RequestClient(Region.EUW, Util.getLeagueApiToken(), RestAdapter.LogLevel.BASIC);
-            ChampionList champs = mRequestClient.getStaticDataApi().getChampionList("de_DE");
+            ChampionList champs = mRequestClient.getStaticDataApi().getChampionList(Locale.GERMAN);
             champs.sortByName(true);
             return champs;
         }

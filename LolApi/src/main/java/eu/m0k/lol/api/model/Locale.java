@@ -26,4 +26,9 @@ public enum Locale {
     public String getLocal() {
         return mLocal;
     }
+
+    @Override
+    public String toString() {
+        return mLocal;
+    }
 }

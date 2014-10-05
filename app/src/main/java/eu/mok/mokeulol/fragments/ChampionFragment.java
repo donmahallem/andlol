@@ -20,6 +20,7 @@ import com.pkmmte.view.CircularImageView;
 import eu.m0k.lol.api.RequestClient;
 import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Champion;
+import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.Region;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
@@ -119,7 +120,7 @@ public class ChampionFragment extends LeagueFragment {
             data.setPassive(true);
             data.setImage(true);
 
-            Champion champs = mRequestClient.getStaticDataApi().getChampion(params[0], "de_DE", data);
+            Champion champs = mRequestClient.getStaticDataApi().getChampion(params[0], Locale.GERMAN, data);
             return champs;
         }
 
