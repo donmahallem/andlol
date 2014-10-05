@@ -59,8 +59,8 @@ public class Parameter {
     @Override
     public String toString() {
         return "Parameter{" +
-                "mKey='" + mKey + '\'' +
-                ", mValue='" + mValue + '\'' +
+                "key='" + mKey + '\'' +
+                ", value='" + mValue + '\'' +
                 '}';
     }
 }
