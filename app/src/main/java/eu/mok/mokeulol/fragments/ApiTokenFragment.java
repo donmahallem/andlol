@@ -12,6 +12,8 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,9 @@ import eu.mok.mokeulol.R;
 /**
  * Created by Don on 05.10.2014.
  */
-public class ApiTokenFragment extends LeagueFragment implements View.OnClickListener, DialogInterface.OnCancelListener {
+public class ApiTokenFragment
+        extends LeagueFragment
+        implements View.OnClickListener, DialogInterface.OnCancelListener, TextWatcher {
     private EditText mTxtApiToken;
     private Button mBtnCheckToken;
     private ProgressDialog mProgressDialog;
@@ -48,6 +52,7 @@ public class ApiTokenFragment extends LeagueFragment implements View.OnClickList
         this.mTxtApiToken = (EditText) view.findViewById(R.id.apiToken);
         this.mBtnCheckToken = (Button) view.findViewById(R.id.btnCheckToken);
         // Adding Listeners
+        this.mTxtApiToken.addTextChangedListener(this);
         this.mBtnCheckToken.setOnClickListener(this);
     }
 
@@ -68,6 +73,30 @@ public class ApiTokenFragment extends LeagueFragment implements View.OnClickList
         if (this.mTask != null && this.mTask.getStatus() != AsyncTask.Status.FINISHED) {
             this.mTask.cancel(true);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.updateViews();
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        this.updateViews();
+    }
+
+    private void updateViews() {
+        this.mBtnCheckToken.setEnabled((mTxtApiToken.getText().length() == 0) ? false : true);
     }
 
     private class Task extends AsyncTask<String, Integer, Boolean> {
@@ -102,13 +131,19 @@ public class ApiTokenFragment extends LeagueFragment implements View.OnClickList
         protected void onProgressUpdate(Integer... values) {
             if (values[0] == 0)
                 ApiTokenFragment.this.mProgressDialog
-                        .setMessage(ApiTokenFragment.this.getActivity().getResources().getString(R.string.starting));
+                        .setMessage(
+                                ApiTokenFragment.this.getActivity().getResources().getString(R.string.starting)
+                        );
             if (values[0] == 1)
                 ApiTokenFragment.this.mProgressDialog
-                        .setMessage(ApiTokenFragment.this.getActivity().getResources().getString(R.string.checking_token));
+                        .setMessage(
+                                ApiTokenFragment.this.getActivity().getResources().getString(R.string.checking_token)
+                        );
             if (values[0] == 2)
                 ApiTokenFragment.this.mProgressDialog
-                        .setMessage(ApiTokenFragment.this.getActivity().getResources().getString(R.string.checked));
+                        .setMessage(
+                                ApiTokenFragment.this.getActivity().getResources().getString(R.string.checked)
+                        );
         }
     }
 }
