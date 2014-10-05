@@ -24,4 +24,8 @@
     <string name="copy_the_api_token">Copy the Api-Token</string>
     <string name="paste_it_above_and_verify">Paste the Api-Token above and let it verify</string>
     <string name="instructions">Instructions</string>
+    <string name="checking">Checking</string>
+    <string name="starting">Starting...</string>
+    <string name="checking_token">Checking Token...</string>
+    <string name="checked">Checked!</string>
 </resources>
