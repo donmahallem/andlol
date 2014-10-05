@@ -13,11 +13,11 @@ import eu.m0k.lol.api.network.LeagueResponse;
 /**
  * Created by Don on 05.10.2014.
  */
-final class ResponseWrapper {
+final class LeagueResponseWrapper {
     final LeagueResponse response;
     final Object responseBody;
 
-    ResponseWrapper(LeagueResponse response, Object responseBody) {
+    public LeagueResponseWrapper(LeagueResponse response, Object responseBody) {
         this.response = response;
         this.responseBody = responseBody;
     }

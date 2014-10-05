@@ -12,7 +12,9 @@ import com.squareup.okhttp.OkHttpClient;
 
 import java.io.IOException;
 
+import eu.m0k.lol.api.internal.LeagueCallback;
 import eu.m0k.lol.api.internal.MainThreadExecutor;
+import eu.m0k.lol.api.model.Champion;
 import eu.m0k.lol.api.network.LeagueRequest;
 import eu.m0k.lol.api.network.LeagueResponse;
 
@@ -38,6 +40,9 @@ public class LeagueApi {
         return null;
     }
 
+    public void getChampion(int champion, LeagueCallback<Champion> callback) {
+
+    }
     /**
      * Builder for the League Api
      */

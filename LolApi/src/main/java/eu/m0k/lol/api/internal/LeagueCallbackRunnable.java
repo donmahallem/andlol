@@ -10,15 +10,12 @@ package eu.m0k.lol.api.internal;
 
 import java.util.concurrent.Executor;
 
-/**
- * Created by Don on 05.10.2014.
- */
 public abstract class LeagueCallbackRunnable<T> implements Runnable {
     private final LeagueCallback<T> callback;
     private final Executor callbackExecutor;
     private final LeagueErrorHandler mLeagueErrorHandler;
 
-    LeagueCallbackRunnable(LeagueCallback<T> callback, Executor callbackExecutor, LeagueErrorHandler leagueErrorHandler) {
+    public LeagueCallbackRunnable(LeagueCallback<T> callback, Executor callbackExecutor, LeagueErrorHandler leagueErrorHandler) {
         this.callback = callback;
         this.callbackExecutor = callbackExecutor;
         this.mLeagueErrorHandler = leagueErrorHandler;
@@ -28,7 +25,7 @@ public abstract class LeagueCallbackRunnable<T> implements Runnable {
     @Override
     public final void run() {
         try {
-            final ResponseWrapper wrapper = obtainResponse();
+            final LeagueResponseWrapper wrapper = obtainResponse();
             callbackExecutor.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -47,6 +44,6 @@ public abstract class LeagueCallbackRunnable<T> implements Runnable {
         }
     }
 
-    public abstract ResponseWrapper obtainResponse();
+    public abstract LeagueResponseWrapper obtainResponse();
 }
 

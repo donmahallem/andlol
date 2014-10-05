@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import eu.m0k.lol.api.internal.LeagueCallback;
+
 /**
  * Created by Don on 05.10.2014.
  */
@@ -19,8 +21,9 @@ public class LeagueRequest {
     private final String mUrl;
     private final List<Header> mHeaders;
     private final CachePolicy mCachePolicy;
+    private final LeagueCallback mLeagueCallback;
 
-    private LeagueRequest(String url, List<Header> headers, CachePolicy cachePolicy) {
+    private LeagueRequest(String url, List<Header> headers, CachePolicy cachePolicy, LeagueCallback leagueCallback) {
         if (url == null) {
             throw new NullPointerException("URL must not be null.");
         }
@@ -29,6 +32,7 @@ public class LeagueRequest {
         else
             this.mCachePolicy = cachePolicy;
         this.mUrl = url;
+        this.mLeagueCallback = leagueCallback;
         if (headers == null) {
             this.mHeaders = Collections.emptyList();
         } else {
@@ -52,7 +56,7 @@ public class LeagueRequest {
         private String mUrl;
         private List<Header> mHeaders;
         private CachePolicy mCachePolicy = CachePolicy.NORMAL;
-
+        private LeagueCallback mLeagueCallback;
         public Builder() {
         }
 
@@ -83,6 +87,11 @@ public class LeagueRequest {
             return this;
         }
 
+        public Builder setLeagueCallback(LeagueCallback leagueCallback) {
+            this.mLeagueCallback = leagueCallback;
+            return this;
+        }
+
         public Builder addHeader(Header header) {
             if (header == null)
                 return this;
@@ -91,7 +100,7 @@ public class LeagueRequest {
         }
 
         public LeagueRequest build() {
-            return new LeagueRequest(this.mUrl, this.mHeaders, this.mCachePolicy);
+            return new LeagueRequest(this.mUrl, this.mHeaders, this.mCachePolicy, this.mLeagueCallback);
         }
     }
 }

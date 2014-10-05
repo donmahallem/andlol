@@ -8,9 +8,6 @@
 
 package eu.m0k.lol.api.internal;
 
-/**
- * Created by Don on 05.10.2014.
- */
 public interface LeagueErrorHandler {
     public final LeagueErrorHandler DEFAULT = new LeagueErrorHandler() {
         @Override
