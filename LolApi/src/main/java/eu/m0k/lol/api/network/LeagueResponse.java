@@ -14,9 +14,6 @@ import java.util.List;
 
 import eu.m0k.lol.api.internal.TypedInput;
 
-/**
- * Created by Don on 05.10.2014.
- */
 public class LeagueResponse {
     private final String url;
     private final int status;

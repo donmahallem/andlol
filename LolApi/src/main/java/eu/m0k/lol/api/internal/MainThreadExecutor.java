@@ -13,9 +13,6 @@ import android.os.Looper;
 
 import java.util.concurrent.Executor;
 
-/**
- * Created by Don on 05.10.2014.
- */
 public final class MainThreadExecutor implements Executor {
     private final Handler handler = new Handler(Looper.getMainLooper());
 

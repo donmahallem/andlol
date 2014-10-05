@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 import eu.m0k.lol.api.internal.LeagueCallback;
+import eu.m0k.lol.api.internal.Util;
 
 /**
  * Created by Don on 05.10.2014.
@@ -55,9 +56,12 @@ public class LeagueRequest {
     public static class Builder {
         private String mUrl;
         private List<Header> mHeaders;
+        private List<Parameter> mParameters;
         private CachePolicy mCachePolicy = CachePolicy.NORMAL;
         private LeagueCallback mLeagueCallback;
         public Builder() {
+            this.mHeaders = new ArrayList<Header>();
+            this.mParameters = new ArrayList<Parameter>();
         }
 
         public Builder addHeader(String name, String value) {
@@ -71,6 +75,17 @@ public class LeagueRequest {
 
         public Builder setUrl(String url) {
             this.mUrl = url;
+            return this;
+        }
+
+        public Builder addParameter(String key, String value) {
+            this.addParameter(new Parameter(key, value));
+            return this;
+        }
+
+        public Builder addParameter(Parameter parameter) {
+            if (parameter != null)
+                this.mParameters.add(parameter);
             return this;
         }
 
@@ -93,14 +108,13 @@ public class LeagueRequest {
         }
 
         public Builder addHeader(Header header) {
-            if (header == null)
-                return this;
-            this.mHeaders.add(header);
+            if (header != null)
+                this.mHeaders.add(header);
             return this;
         }
 
         public LeagueRequest build() {
-            return new LeagueRequest(this.mUrl, this.mHeaders, this.mCachePolicy, this.mLeagueCallback);
+            return new LeagueRequest(this.mUrl + "?" + Util.parameterToString(this.mParameters), this.mHeaders, this.mCachePolicy, this.mLeagueCallback);
         }
     }
 }

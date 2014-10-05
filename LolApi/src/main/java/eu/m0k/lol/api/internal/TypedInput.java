@@ -11,9 +11,6 @@ package eu.m0k.lol.api.internal;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Created by Don on 05.10.2014.
- */
 public interface TypedInput {
     /**
      * Returns the mime type.
