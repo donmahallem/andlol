@@ -8,7 +8,11 @@
 
 package eu.m0k.lol.api.network;
 
-public class Parameter {
+import eu.m0k.lol.api.model.ChampData;
+import eu.m0k.lol.api.model.Locale;
+
+public final class Parameter {
+    public final static String LOCALE = "locale", CHAMPDATA = "champData", API_KEY = "api_key";
     private String mKey, mValue;
 
     public Parameter(String key, String value) {
@@ -18,6 +22,18 @@ public class Parameter {
             throw new IllegalArgumentException("Value must not be null");
         this.mKey = key;
         this.mValue = value;
+    }
+
+    public static Parameter from(Locale locale) {
+        return new Parameter(LOCALE, locale.toString());
+    }
+
+    public static Parameter from(ChampData champData) {
+        return new Parameter(CHAMPDATA, champData.toString());
+    }
+
+    public static Parameter from(ApiToken apiKey) {
+        return new Parameter(API_KEY, apiKey.getToken());
     }
 
     public String getKey() {
@@ -63,4 +79,5 @@ public class Parameter {
                 ", value='" + mValue + '\'' +
                 '}';
     }
+
 }

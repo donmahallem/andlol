@@ -12,25 +12,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import eu.m0k.lol.api.internal.LeagueCallback;
 import eu.m0k.lol.api.internal.Util;
+import eu.m0k.lol.api.model.Region;
 
-public class LeagueRequest {
+public class LeagueRequest<T> {
     private final String mUrl;
     private final List<Header> mHeaders;
-    private final CachePolicy mCachePolicy;
-    private final LeagueCallback mLeagueCallback;
+    private final Class<T> mClass;
 
-    private LeagueRequest(String url, List<Header> headers, CachePolicy cachePolicy, LeagueCallback leagueCallback) {
+    private LeagueRequest(String url, List<Header> headers, Class<T> clazz) {
         if (url == null) {
             throw new NullPointerException("URL must not be null.");
         }
-        if (cachePolicy == null)
-            this.mCachePolicy = CachePolicy.NORMAL;
-        else
-            this.mCachePolicy = cachePolicy;
         this.mUrl = url;
-        this.mLeagueCallback = leagueCallback;
+        this.mClass = clazz;
         if (headers == null) {
             this.mHeaders = Collections.emptyList();
         } else {
@@ -46,16 +41,13 @@ public class LeagueRequest {
         return mHeaders;
     }
 
-    public CachePolicy getCachePolicy() {
-        return mCachePolicy;
-    }
-
-    public static class Builder {
+    public static class Builder<T> {
         private String mUrl;
         private List<Header> mHeaders;
         private List<Parameter> mParameters;
-        private CachePolicy mCachePolicy = CachePolicy.NORMAL;
-        private LeagueCallback mLeagueCallback;
+        private Region mRegion;
+        private ApiToken mApiToken;
+        private Class<T> mClass;
 
         public Builder() {
             this.mHeaders = new ArrayList<Header>();
@@ -64,6 +56,20 @@ public class LeagueRequest {
 
         public Builder addHeader(String name, String value) {
             this.addHeader(new Header(name, value));
+            return this;
+        }
+
+        public Region getRegion() {
+            return this.mRegion;
+        }
+
+        public Builder setRegion(Region region) {
+            this.mRegion = region;
+            return this;
+        }
+
+        public Builder setApiToken(ApiToken token) {
+            this.mApiToken = token;
             return this;
         }
 
@@ -91,28 +97,22 @@ public class LeagueRequest {
             return mHeaders;
         }
 
-        public CachePolicy getCachePolicy() {
-            return mCachePolicy;
-        }
-
-        public Builder setCachePolicy(CachePolicy cachePolicy) {
-            this.mCachePolicy = cachePolicy;
-            return this;
-        }
-
-        public Builder setLeagueCallback(LeagueCallback leagueCallback) {
-            this.mLeagueCallback = leagueCallback;
-            return this;
-        }
-
         public Builder addHeader(Header header) {
             if (header != null)
                 this.mHeaders.add(header);
             return this;
         }
 
-        public LeagueRequest build() {
-            return new LeagueRequest(this.mUrl + "?" + Util.parameterToString(this.mParameters), this.mHeaders, this.mCachePolicy, this.mLeagueCallback);
+        public LeagueRequest<T> build() {
+            if (this.mApiToken == null)
+                throw new RuntimeException("ApiToken should be set");
+
+            return new LeagueRequest<T>(this.mUrl + "?" + Util.parameterToString(this.mParameters), this.mHeaders, this.mClass);
         }
+
+        public void setType(Class<T> clazz) {
+            this.mClass = clazz;
+        }
+
     }
 }

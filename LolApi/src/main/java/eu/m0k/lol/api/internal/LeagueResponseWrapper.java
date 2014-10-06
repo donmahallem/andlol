@@ -11,8 +11,8 @@ package eu.m0k.lol.api.internal;
 import eu.m0k.lol.api.network.LeagueResponse;
 
 final class LeagueResponseWrapper {
-    final LeagueResponse response;
-    final Object responseBody;
+    public final LeagueResponse response;
+    public final Object responseBody;
 
     public LeagueResponseWrapper(LeagueResponse response, Object responseBody) {
         this.response = response;

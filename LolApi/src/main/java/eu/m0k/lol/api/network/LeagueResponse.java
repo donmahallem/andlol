@@ -14,65 +14,65 @@ import java.util.List;
 
 import eu.m0k.lol.api.internal.TypedInput;
 
-public class LeagueResponse {
-    private final String url;
-    private final int status;
-    private final String reason;
-    private final List<Header> headers;
-    private final TypedInput body;
+public class LeagueResponse<T> {
+    private final String mUrl;
+    private final int mStatus;
+    private final String mReason;
+    private final List<Header> mHeaders;
+    private final TypedInput mBody;
 
     public LeagueResponse(String url, int status, String reason, List<Header> headers, TypedInput body) {
         if (url == null) {
-            throw new IllegalArgumentException("url == null");
+            throw new IllegalArgumentException("mUrl == null");
         }
         if (status < 200) {
-            throw new IllegalArgumentException("Invalid status code: " + status);
+            throw new IllegalArgumentException("Invalid mStatus code: " + status);
         }
         if (reason == null) {
-            throw new IllegalArgumentException("reason == null");
+            throw new IllegalArgumentException("mReason == null");
         }
         if (headers == null) {
-            throw new IllegalArgumentException("headers == null");
+            throw new IllegalArgumentException("mHeaders == null");
         }
-        this.url = url;
-        this.status = status;
-        this.reason = reason;
-        this.headers = Collections.unmodifiableList(new ArrayList<Header>(headers));
-        this.body = body;
+        this.mUrl = url;
+        this.mStatus = status;
+        this.mReason = reason;
+        this.mHeaders = Collections.unmodifiableList(new ArrayList<Header>(headers));
+        this.mBody = body;
     }
 
     /**
      * Request URL.
      */
     public String getUrl() {
-        return url;
+        return mUrl;
     }
 
     /**
      * Status line code.
      */
     public int getStatus() {
-        return status;
+        return mStatus;
     }
 
     /**
-     * Status line reason phrase.
+     * Status line mReason phrase.
      */
     public String getReason() {
-        return reason;
+        return mReason;
     }
 
     /**
-     * An unmodifiable collection of headers.
+     * An unmodifiable collection of mHeaders.
      */
     public List<Header> getHeaders() {
-        return headers;
+        return mHeaders;
     }
 
     /**
-     * Response body. May be {@code null}.
+     * Response mBody. May be {@code null}.
      */
     public TypedInput getBody() {
-        return body;
+        return mBody;
     }
 }
