@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:background="@color/light_blue_600"
-            android:listSelector="@color/amber_500"
+            android:listSelector="@color/blue_400"
             hlist:hlv_dividerWidth="@dimen/hl_divider_width"
             hlist:hlv_footerDividersEnabled="false"
             hlist:hlv_headerDividersEnabled="false"/>
@@ -44,8 +44,8 @@
 
                 <com.pkmmte.view.CircularImageView
                     android:id="@id/ivChampionIcon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:src="@android:drawable/ic_menu_search"
                     hlist:border="true"
                     hlist:border_color="@color/grey_200"
@@ -61,6 +61,7 @@
 
                     <TextView
                         android:id="@id/title"
+                        style="@style/Text.Description.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/title"
@@ -68,6 +69,7 @@
 
                     <TextView
                         android:id="@id/subTitle"
+                        style="@style/Text.Description.Subtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/subtitle"
@@ -77,7 +79,7 @@
 
             <TextView
                 android:id="@id/title"
-                style="@style/Text.DescriptionTitle"
+                style="@style/Text.Description.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/abilities"/>
@@ -112,7 +114,7 @@
 
             <TextView
                 android:id="@id/title"
-                style="@style/Text.DescriptionTitle"
+                style="@style/Text.Description.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lore"/>
