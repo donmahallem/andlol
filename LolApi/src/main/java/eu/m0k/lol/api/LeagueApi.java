@@ -39,7 +39,9 @@ import eu.m0k.lol.api.network.Parameters;
 import eu.m0k.lol.api.response.RunePageResponse;
 
 public class LeagueApi {
+    private final static String USER_AGENT = "User-Agent";
     private static final MainThreadExecutor mMainThreadExecutor = new MainThreadExecutor();
+    private final String mUserAgent;
     /**
      * The Api token to be used
      */
@@ -63,6 +65,7 @@ public class LeagueApi {
         this.mGson = gsonBuilder.create();
         this.mApiKey = builder.getApiKey();
         this.mLogLevel = builder.getLogLevel();
+        this.mUserAgent = builder.getUserAgent();
     }
 
     public LeagueResponse query(LeagueRequest request) throws IOException {
@@ -72,11 +75,24 @@ public class LeagueApi {
     private <T> LeagueResponse<T> queryNetwork(String url, Region region, Parameters parameters, Class<T> clazz) {
         // Adding the Api Token
         parameters.put(this.mApiKey);
+        /**
+         * The url to be called
+         */
         final String _url = url.replace("\\{region}\\", region.getRegion()) + "?" + Util.parametersToString(parameters);
         if (LogLevel.BASIC == this.mLogLevel) {
             Log.d("LeagueApi", "HTTP --> " + _url);
         }
-        Request request = new Request.Builder().url(_url).build();
+        /**
+         * The Builder for the request to be send
+         */
+        final Request.Builder requestBuilder = new Request.Builder();
+        requestBuilder.url(_url);
+        requestBuilder.addHeader(USER_AGENT, mUserAgent);
+        /**
+         * The Request to be send
+         */
+        final Request request = requestBuilder.build();
+
         Response response = null;
         try {
             response = this.mOkHttpClient.newCall(request).execute();
@@ -155,13 +171,22 @@ public class LeagueApi {
     public static class Builder {
         private ApiKey mApiKey;
         private LogLevel mLogLevel = LogLevel.NONE;
-
+        private String mUserAgent = "LeagueApi (github.com/donmahallem/andlol)";
         public ApiKey getApiKey() {
             return mApiKey;
         }
 
         public Builder setApiKey(ApiKey apiKey) {
             this.mApiKey = apiKey;
+            return this;
+        }
+
+        public String getUserAgent() {
+            return mUserAgent;
+        }
+
+        public Builder setUserAgent(String userAgent) {
+            mUserAgent = userAgent;
             return this;
         }
 
