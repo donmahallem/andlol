@@ -19,16 +19,16 @@ public class LeagueResponse<T> {
 
     public LeagueResponse(String url, int status, String reason, Headers headers, T body) {
         if (url == null) {
-            throw new IllegalArgumentException("mUrl == null");
+            throw new IllegalArgumentException("url == null");
         }
         if (status < 200) {
-            throw new IllegalArgumentException("Invalid mStatus code: " + status);
+            throw new IllegalArgumentException("Invalid status code: " + status);
         }
         if (reason == null) {
-            throw new IllegalArgumentException("mReason == null");
+            throw new IllegalArgumentException("reason == null");
         }
         if (headers == null) {
-            throw new IllegalArgumentException("mHeaders == null");
+            throw new IllegalArgumentException("headers == null");
         }
         this.mUrl = url;
         this.mStatus = status;
