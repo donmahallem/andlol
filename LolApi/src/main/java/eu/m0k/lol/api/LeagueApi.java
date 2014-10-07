@@ -64,7 +64,7 @@ public class LeagueApi {
     private <T> LeagueResponse<T> queryNetwork(String url, Region region, Parameters parameters, Class<T> clazz) {
         // Adding the Api Token
         parameters.put(this.mApiKey);
-        final String _url = url + "?" + Util.parametersToString(parameters);
+        final String _url = url.replace("\\{region}\\", region.getRegion()) + "?" + Util.parametersToString(parameters);
         if (LogLevel.BASIC == this.mLogLevel) {
             Log.d("LeagueApi", "HTTP --> " + _url);
         }
