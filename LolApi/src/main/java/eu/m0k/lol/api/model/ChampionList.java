@@ -11,6 +11,7 @@ package eu.m0k.lol.api.model;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
@@ -73,7 +74,11 @@ public class ChampionList extends ArrayList<Champion> {
 
         @Override
         public JsonElement serialize(ChampionList src, Type typeOfSrc, JsonSerializationContext context) {
-            return null;
+            JsonObject object = new JsonObject();
+            for (Champion champion : src) {
+                object.add(champion.getKey(), context.serialize(champion));
+            }
+            return object;
         }
     }
 }
