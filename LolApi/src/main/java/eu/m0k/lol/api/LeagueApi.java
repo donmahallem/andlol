@@ -43,6 +43,7 @@ public class LeagueApi {
      */
     private final OkHttpClient mOkHttpClient = new OkHttpClient();
     private final Gson mGson;
+
     private LeagueApi(Builder builder) {
         this.mGson = new Gson();
         this.mApiToken = builder.getApiToken();
@@ -64,14 +65,31 @@ public class LeagueApi {
         if (response.isSuccessful()) {
             T obj = this.mGson.fromJson(new BufferedReader(new InputStreamReader(response.body().byteStream())), clazz);
             if (obj == null) {
-                throw new RuntimeException("Can not convert response");
+                throw LeagueError.conversionError("Could not convert", _url, clazz);
             }
             return new LeagueResponse<T>(_url, 20, "", response.headers(), obj);
         } else {
             throw LeagueError.httpError(response.code(), _url);
         }
     }
-    public LeagueResponse<Champion> getChampion(int champion, ChampData champData, Region region, Locale locale, boolean cache) throws IOException {
+
+    public LeagueResponse<Champion> getChampion(int champion, Region region) throws IOException {
+        return this.getChampion(champion, region, null, null);
+    }
+
+    public LeagueResponse<Champion> getChampion(int champion, Region region, Locale locale) throws IOException {
+        return this.getChampion(champion, region, null, locale);
+    }
+
+    public LeagueResponse<Champion> getChampion(int champion, Region region, ChampData champData) throws IOException {
+        return this.getChampion(champion, region, champData, null);
+    }
+
+    public LeagueResponse<Champion> getChampion(int champion, Region region, ChampData champData, Locale locale) throws IOException {
+        return this.getChampion(champion, region, champData, locale, true);
+    }
+
+    public LeagueResponse<Champion> getChampion(int champion, Region region, ChampData champData, Locale locale, boolean cache) throws IOException {
         if (champion < 0)
             throw new IllegalArgumentException("Champion ID must be greater then 0");
         if (region == null)
@@ -81,17 +99,6 @@ public class LeagueApi {
         parameters.put(region);
         parameters.put(locale);
         return queryNetwork(Endpoint.CHAMPION + champion, parameters, Champion.class);
-    }
-
-    private <T> LeagueResponse<T> queryAndTransform(Request request, Class<T> clazz) throws IOException {
-        Response response = this.mOkHttpClient.newCall(request).execute();
-        if (response.isSuccessful()) {
-            T t = mGson.fromJson(response.message(), clazz);
-            if (t != null) {
-                return new LeagueResponse<T>(response.request().urlString(), response.code(), "", null, null);
-            }
-        }
-        return null;
     }
 
     /**

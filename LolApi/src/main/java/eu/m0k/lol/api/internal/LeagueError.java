@@ -11,10 +11,6 @@ package eu.m0k.lol.api.internal;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-
-import eu.m0k.lol.api.network.LeagueResponse;
-import retrofit.converter.ConversionException;
 
 public class LeagueError extends RuntimeException {
     private final String url;
@@ -38,10 +34,9 @@ public class LeagueError extends RuntimeException {
     }
 
     @SuppressWarnings("unused")
-    public static LeagueError conversionError(String url, LeagueResponse response, Gson converter,
-                                              Type successType, ConversionException exception) {
-        return new LeagueError(exception.getMessage(), url, converter, false,
-                exception);
+    public static LeagueError conversionError(String msg, String url, Class<?> clazz) {
+        return new LeagueError(msg, url, null, false,
+                null);
     }
 
     @SuppressWarnings("unused")
