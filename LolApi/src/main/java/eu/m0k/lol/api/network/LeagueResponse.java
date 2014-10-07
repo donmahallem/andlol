@@ -8,20 +8,16 @@
 
 package eu.m0k.lol.api.network;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import eu.m0k.lol.api.internal.TypedInput;
+import com.squareup.okhttp.Headers;
 
 public class LeagueResponse<T> {
     private final String mUrl;
     private final int mStatus;
     private final String mReason;
-    private final List<Header> mHeaders;
-    private final TypedInput mBody;
+    private final Headers mHeaders;
+    private final T mBody;
 
-    public LeagueResponse(String url, int status, String reason, List<Header> headers, TypedInput body) {
+    public LeagueResponse(String url, int status, String reason, Headers headers, T body) {
         if (url == null) {
             throw new IllegalArgumentException("mUrl == null");
         }
@@ -37,7 +33,7 @@ public class LeagueResponse<T> {
         this.mUrl = url;
         this.mStatus = status;
         this.mReason = reason;
-        this.mHeaders = Collections.unmodifiableList(new ArrayList<Header>(headers));
+        this.mHeaders = headers;
         this.mBody = body;
     }
 
@@ -65,14 +61,14 @@ public class LeagueResponse<T> {
     /**
      * An unmodifiable collection of mHeaders.
      */
-    public List<Header> getHeaders() {
+    public Headers getHeaders() {
         return mHeaders;
     }
 
     /**
      * Response mBody. May be {@code null}.
      */
-    public TypedInput getBody() {
+    public T getBody() {
         return mBody;
     }
 }

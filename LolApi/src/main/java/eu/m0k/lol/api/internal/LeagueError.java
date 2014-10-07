@@ -10,9 +10,7 @@ package eu.m0k.lol.api.internal;
 
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 
 import eu.m0k.lol.api.network.LeagueResponse;
@@ -24,6 +22,10 @@ public class LeagueError extends RuntimeException {
     private final Gson converter;
     private final Type successType;
     private final boolean networkError;
+
+    public LeagueError(String message, String url, boolean networkError) {
+        this(message, url, null, null, null, networkError, null);
+    }
     LeagueError(String message, String url, LeagueResponse response, Gson converter,
                 Type successType, boolean networkError, Throwable exception) {
         super(message, exception);
@@ -69,26 +71,8 @@ public class LeagueError extends RuntimeException {
         return networkError;
     }
 
-    public Object getBody() {
-        return getBodyAs(successType);
-    }
-
     public Type getSuccessType() {
         return successType;
     }
 
-    public Object getBodyAs(Type type) {
-        if (response == null) {
-            return null;
-        }
-        TypedInput body = response.getBody();
-        if (body == null) {
-            return null;
-        }
-        try {
-            return converter.fromJson(new BufferedReader(new InputStreamReader(body.in())), type);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
 }

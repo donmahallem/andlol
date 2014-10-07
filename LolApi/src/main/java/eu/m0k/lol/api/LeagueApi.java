@@ -9,14 +9,17 @@
 package eu.m0k.lol.api;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
+import eu.m0k.lol.api.internal.LeagueError;
 import eu.m0k.lol.api.internal.MainThreadExecutor;
+import eu.m0k.lol.api.internal.Util;
 import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Champion;
 import eu.m0k.lol.api.model.Locale;
@@ -25,20 +28,13 @@ import eu.m0k.lol.api.network.ApiToken;
 import eu.m0k.lol.api.network.LeagueRequest;
 import eu.m0k.lol.api.network.LeagueResponse;
 import eu.m0k.lol.api.network.Parameter;
+import eu.m0k.lol.api.network.Parameters;
 
 /**
  * Created by Don on 03.10.2014.
  */
 public class LeagueApi {
     private static final MainThreadExecutor mMainThreadExecutor = new MainThreadExecutor();
-    private final static Gson mGson;
-
-    static {
-        GsonBuilder builder = new GsonBuilder();
-
-        mGson = builder.create();
-    }
-
     /**
      * The Api token to be used
      */
@@ -47,8 +43,9 @@ public class LeagueApi {
      * The OkHttp Client to be used
      */
     private final OkHttpClient mOkHttpClient = new OkHttpClient();
-
+    private final Gson mGson;
     private LeagueApi(Builder builder) {
+        this.mGson = new Gson();
         this.mApiToken = builder.getApiToken();
     }
 
@@ -56,6 +53,19 @@ public class LeagueApi {
         return null;
     }
 
+    private <T> LeagueResponse<T> queryNetwork(String url, Parameters parameters, Class<T> clazz) throws IOException {
+        final String _url = url + "?" + Util.parametersToString(parameters);
+        Request request = new Request.Builder().url(_url).build();
+        Response response = this.mOkHttpClient.newCall(request).execute();
+        if (response.isSuccessful()) {
+            T obj = this.mGson.fromJson(new BufferedReader(new InputStreamReader(response.body().byteStream())), clazz);
+            if (obj == null) {
+                throw new RuntimeException("Can not convert response");
+            }
+            return new LeagueResponse<T>(_url, 20, "", response.headers(), obj);
+        }
+        throw new LeagueError("Network error", _url, true);
+    }
     public LeagueResponse<Champion> getChampion(int champion, ChampData champData, Region region, Locale locale, boolean cache) throws IOException {
         if (champion < 0)
             throw new IllegalArgumentException("Champion ID must be greater then 0");
@@ -72,7 +82,10 @@ public class LeagueApi {
             leagueBuilder.addParameter(Parameter.from(locale));
         LeagueRequest<Champion> request = leagueBuilder.build();
         //Response response = this.mOkHttpClient.newCall().execute();
-
+        Response response = this.mOkHttpClient.newCall(new Request.Builder().url(request.getUrl()).build()).execute();
+        if (response.isSuccessful()) {
+            LeagueResponse<Champion> res = new LeagueResponse<Champion>(request.getUrl(), response.code(), "", response.headers(), new Champion());
+        }
         return null;
     }
 

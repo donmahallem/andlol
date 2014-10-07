@@ -106,7 +106,8 @@ public class LeagueRequest<T> {
         public LeagueRequest<T> build() {
             if (this.mApiToken == null)
                 throw new RuntimeException("ApiToken should be set");
-
+            if (this.mClass == null)
+                throw new RuntimeException("Class Type should be set");
             return new LeagueRequest<T>(this.mUrl + "?" + Util.parameterToString(this.mParameters), this.mHeaders, this.mClass);
         }
 
