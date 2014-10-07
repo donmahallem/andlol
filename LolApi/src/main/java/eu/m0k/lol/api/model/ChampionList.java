@@ -58,7 +58,7 @@ public class ChampionList extends ArrayList<Champion> {
                 '}';
     }
 
-    public static class Serializer implements JsonDeserializer<ChampionList>, JsonSerializer<ChampionList> {
+    public static class Converter implements JsonDeserializer<ChampionList>, JsonSerializer<ChampionList> {
 
         @Override
         public ChampionList deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

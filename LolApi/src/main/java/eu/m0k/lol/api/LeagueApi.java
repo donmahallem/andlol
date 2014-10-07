@@ -28,6 +28,7 @@ import eu.m0k.lol.api.model.Champion;
 import eu.m0k.lol.api.model.ChampionList;
 import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.Region;
+import eu.m0k.lol.api.model.SummonerList;
 import eu.m0k.lol.api.network.ApiKey;
 import eu.m0k.lol.api.network.LeagueRequest;
 import eu.m0k.lol.api.network.LeagueResponse;
@@ -48,7 +49,8 @@ public class LeagueApi {
 
     private LeagueApi(Builder builder) {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(ChampionList.class, new ChampionList.Serializer());
+        gsonBuilder.registerTypeAdapter(ChampionList.class, new ChampionList.Converter());
+        gsonBuilder.registerTypeAdapter(SummonerList.class, new SummonerList.Converter());
         this.mGson = gsonBuilder.create();
         this.mApiKey = builder.getApiKey();
         this.mLogLevel = builder.getLogLevel();
