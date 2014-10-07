@@ -41,7 +41,7 @@ public class LeagueError extends RuntimeException {
 
     @SuppressWarnings("unused")
     public static LeagueError httpError(int code, String url) {
-        return new LeagueError("HTTP Error: " + code, url, null, false, null);
+        return new LeagueError("HTTP Error: " + code + " for url: " + url, url, null, false, null);
     }
 
     public static LeagueError unexpectedError(String url, Throwable exception) {
