@@ -25,7 +25,7 @@ import eu.m0k.lol.api.model.Champion;
 import eu.m0k.lol.api.model.ChampionList;
 import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.Region;
-import eu.m0k.lol.api.network.ApiToken;
+import eu.m0k.lol.api.network.ApiKey;
 import eu.m0k.lol.api.network.LeagueRequest;
 import eu.m0k.lol.api.network.LeagueResponse;
 import eu.m0k.lol.api.network.Parameters;
@@ -38,7 +38,7 @@ public class LeagueApi {
     /**
      * The Api token to be used
      */
-    private final ApiToken mApiToken;
+    private final ApiKey mApiKey;
     /**
      * The OkHttp Client to be used
      */
@@ -47,14 +47,16 @@ public class LeagueApi {
 
     private LeagueApi(Builder builder) {
         this.mGson = new Gson();
-        this.mApiToken = builder.getApiToken();
+        this.mApiKey = builder.getApiKey();
     }
 
     public LeagueResponse query(LeagueRequest request) throws IOException {
         return null;
     }
 
-    private <T> LeagueResponse<T> queryNetwork(String url, Parameters parameters, Class<T> clazz) {
+    private <T> LeagueResponse<T> queryNetwork(String url, Region region, Parameters parameters, Class<T> clazz) {
+        // Adding the Api Token
+        parameters.put(this.mApiKey);
         final String _url = url + "?" + Util.parametersToString(parameters);
         Request request = new Request.Builder().url(_url).build();
         Response response = null;
@@ -74,22 +76,27 @@ public class LeagueApi {
         }
     }
 
+    @SuppressWarnings("unused")
     public LeagueResponse<Champion> getChampion(int champion, Region region) throws IOException {
         return this.getChampion(champion, region, null, null);
     }
 
+    @SuppressWarnings("unused")
     public LeagueResponse<Champion> getChampion(int champion, Region region, Locale locale) throws IOException {
         return this.getChampion(champion, region, null, locale);
     }
 
+    @SuppressWarnings("unused")
     public LeagueResponse<Champion> getChampion(int champion, Region region, ChampData champData) throws IOException {
         return this.getChampion(champion, region, champData, null);
     }
 
+    @SuppressWarnings("unused")
     public LeagueResponse<Champion> getChampion(int champion, Region region, ChampData champData, Locale locale) throws IOException {
         return this.getChampion(champion, region, champData, locale, true);
     }
 
+    @SuppressWarnings("unused")
     public LeagueResponse<Champion> getChampion(int champion, Region region, ChampData champData, Locale locale, boolean cache) throws IOException {
         if (champion < 0)
             throw new IllegalArgumentException("Champion ID must be greater then 0");
@@ -97,9 +104,8 @@ public class LeagueApi {
             throw new IllegalArgumentException("Region must not be null");
         Parameters parameters = new Parameters();
         parameters.put(champData);
-        parameters.put(region);
         parameters.put(locale);
-        return queryNetwork(Endpoint.CHAMPION + champion, parameters, Champion.class);
+        return queryNetwork(Endpoint.CHAMPION + champion, region, parameters, Champion.class);
     }
 
     /**
@@ -111,33 +117,33 @@ public class LeagueApi {
      * @return the LeagueResponse or null if it fails
      * @throws IOException
      */
+    @SuppressWarnings("unused")
     public LeagueResponse<ChampionList> getChampionList(Region region, ChampData champData, Locale locale, boolean cache) throws IOException {
         if (region == null)
             throw new IllegalArgumentException("Region must not be null");
         Parameters parameters = new Parameters();
         parameters.put(champData);
-        parameters.put(region);
         parameters.put(locale);
-        return queryNetwork(Endpoint.CHAMPION, parameters, ChampionList.class);
+        return queryNetwork(Endpoint.CHAMPION, region, parameters, ChampionList.class);
     }
 
     /**
      * Builder for the League Api
      */
     public static class Builder {
-        private ApiToken mApiToken;
+        private ApiKey mApiKey;
 
-        public ApiToken getApiToken() {
-            return mApiToken;
+        public ApiKey getApiKey() {
+            return mApiKey;
         }
 
-        public Builder setApiToken(ApiToken apiToken) {
-            this.mApiToken = apiToken;
+        public Builder setApiKey(ApiKey apiKey) {
+            this.mApiKey = apiKey;
             return this;
         }
 
         public LeagueApi build() {
-            if (this.mApiToken == null) {
+            if (this.mApiKey == null) {
                 throw new NullPointerException("You have to set an api token");
             }
             return new LeagueApi(this);
