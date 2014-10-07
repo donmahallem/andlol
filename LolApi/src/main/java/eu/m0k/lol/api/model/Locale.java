@@ -26,6 +26,8 @@ public enum Locale {
 
     @Override
     public String toString() {
-        return mLocal;
+        return "Locale{" +
+                "local='" + mLocal + '\'' +
+                '}';
     }
 }

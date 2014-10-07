@@ -27,7 +27,6 @@ import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.network.ApiToken;
 import eu.m0k.lol.api.network.LeagueRequest;
 import eu.m0k.lol.api.network.LeagueResponse;
-import eu.m0k.lol.api.network.Parameter;
 import eu.m0k.lol.api.network.Parameters;
 
 /**
@@ -77,22 +76,11 @@ public class LeagueApi {
             throw new IllegalArgumentException("Champion ID must be greater then 0");
         if (region == null)
             throw new IllegalArgumentException("Region must not be null");
-        LeagueRequest.Builder<Champion> leagueBuilder = new LeagueRequest.Builder<Champion>();
-        leagueBuilder.setUrl(Endpoint.CHAMPION + champion);
-        leagueBuilder.setApiToken(this.mApiToken);
-        leagueBuilder.setRegion(region);
-        leagueBuilder.setType(Champion.class);
-        if (champData != null)
-            leagueBuilder.addParameter(Parameter.from(champData));
-        if (locale != null)
-            leagueBuilder.addParameter(Parameter.from(locale));
-        LeagueRequest<Champion> request = leagueBuilder.build();
-        //Response response = this.mOkHttpClient.newCall().execute();
-        Response response = this.mOkHttpClient.newCall(new Request.Builder().url(request.getUrl()).build()).execute();
-        if (response.isSuccessful()) {
-            LeagueResponse<Champion> res = new LeagueResponse<Champion>(request.getUrl(), response.code(), "", response.headers(), new Champion());
-        }
-        return null;
+        Parameters parameters = new Parameters();
+        parameters.put(champData);
+        parameters.put(region);
+        parameters.put(locale);
+        return queryNetwork(Endpoint.CHAMPION + champion, parameters, Champion.class);
     }
 
     private <T> LeagueResponse<T> queryAndTransform(Request request, Class<T> clazz) throws IOException {

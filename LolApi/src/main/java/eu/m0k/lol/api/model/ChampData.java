@@ -94,6 +94,27 @@ public class ChampData {
 
     @Override
     public String toString() {
+        return "ChampData{" +
+                "all=" + mAll +
+                ", allyTips=" + mAllyTips +
+                ", altImages=" + mAltImages +
+                ", blurb=" + mBlurb +
+                ", enemyTips=" + mEnemyTips +
+                ", image=" + mImage +
+                ", info=" + mInfo +
+                ", lore=" + mLore +
+                ", parType=" + mParType +
+                ", passive=" + mPassive +
+                ", recommended=" + mRecommended +
+                ", skins=" + mSkins +
+                ", spells=" + mSpells +
+                ", stats=" + mStats +
+                ", tags=" + mTags +
+                '}';
+    }
+
+    public String getChampData() {
+
         if (this.mAll) {
             return ALL;
         }
