@@ -26,13 +26,17 @@ import eu.m0k.lol.api.internal.Util;
 import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Champion;
 import eu.m0k.lol.api.model.ChampionList;
+import eu.m0k.lol.api.model.ChampionSpell;
 import eu.m0k.lol.api.model.Locale;
+import eu.m0k.lol.api.model.MasteryList;
+import eu.m0k.lol.api.model.NameList;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.SummonerList;
 import eu.m0k.lol.api.network.ApiKey;
 import eu.m0k.lol.api.network.LeagueRequest;
 import eu.m0k.lol.api.network.LeagueResponse;
 import eu.m0k.lol.api.network.Parameters;
+import eu.m0k.lol.api.response.RunePageResponse;
 
 public class LeagueApi {
     private static final MainThreadExecutor mMainThreadExecutor = new MainThreadExecutor();
@@ -49,8 +53,13 @@ public class LeagueApi {
 
     private LeagueApi(Builder builder) {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(ChampionList.class, new ChampionList.TypeAdapter());
+        gsonBuilder.excludeFieldsWithoutExposeAnnotation();
         gsonBuilder.registerTypeAdapter(SummonerList.class, new SummonerList.TypeAdapter());
+        gsonBuilder.registerTypeAdapter(NameList.class, new NameList.TypeAdapter());
+        gsonBuilder.registerTypeAdapter(MasteryList.class, new MasteryList.TypeAdapter());
+        gsonBuilder.registerTypeAdapter(RunePageResponse.class, new RunePageResponse.TypeAdapter());
+        gsonBuilder.registerTypeAdapter(ChampionList.class, new ChampionList.TypeAdapter());
+        gsonBuilder.registerTypeAdapter(ChampionSpell.SpellRange.class, new ChampionSpell.SpellRange.TypeAdapter());
         this.mGson = gsonBuilder.create();
         this.mApiKey = builder.getApiKey();
         this.mLogLevel = builder.getLogLevel();
