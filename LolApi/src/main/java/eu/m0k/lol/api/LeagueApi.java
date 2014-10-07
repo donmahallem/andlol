@@ -9,6 +9,7 @@
 package eu.m0k.lol.api;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -46,7 +47,9 @@ public class LeagueApi {
     private final Gson mGson;
 
     private LeagueApi(Builder builder) {
-        this.mGson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(ChampionList.class, new ChampionList.Serializer());
+        this.mGson = gsonBuilder.create();
         this.mApiKey = builder.getApiKey();
     }
 
@@ -70,7 +73,7 @@ public class LeagueApi {
             if (obj == null) {
                 throw LeagueError.conversionError("Could not convert", _url, clazz);
             }
-            return new LeagueResponse<T>(_url, 20, "", response.headers(), obj);
+            return new LeagueResponse<T>(_url, response.code(), "", response.headers(), obj);
         } else {
             throw LeagueError.httpError(response.code(), _url);
         }
