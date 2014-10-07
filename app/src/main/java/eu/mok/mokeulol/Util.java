@@ -10,6 +10,9 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
+import eu.m0k.lol.api.LeagueApi;
+import eu.m0k.lol.api.LogLevel;
+import eu.m0k.lol.api.network.ApiKey;
 import eu.mok.mokeulol.helper.picasso.LolRequestTransformer;
 
 /**
@@ -19,6 +22,7 @@ public class Util {
     private static Picasso mPicasso;
     private static OkHttpClient mOkHttpClient;
     private static Context mContext;
+    private static LeagueApi mLeagueApi;
 
     /**
      * Inits with the given Context
@@ -66,5 +70,15 @@ public class Util {
         } catch (Resources.NotFoundException exception) {
             throw new Resources.NotFoundException("Did you include riot_token in the config file");
         }
+    }
+
+    public static LeagueApi getLeagueApi(){
+        if(mLeagueApi==null) {
+            LeagueApi.Builder builder=new LeagueApi.Builder();
+            builder.setLogLevel(LogLevel.BASIC);
+            builder.setApiKey(new ApiKey(getLeagueApiToken()));
+            mLeagueApi =builder.build();
+        }
+        return mLeagueApi;
     }
 }

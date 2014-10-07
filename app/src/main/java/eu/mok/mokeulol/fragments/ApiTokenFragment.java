@@ -114,14 +114,6 @@ public class ApiTokenFragment
         @Override
         protected Boolean doInBackground(String... params) {
             this.publishProgress(0);
-            LeagueApi api = new LeagueApi.Builder().setLogLevel(LogLevel.BASIC).setApiKey(new ApiKey("dea904c7-61aa-4624-8064-f2bdefe5db00")).build();
-            LeagueResponse<ChampionList> list = null;
-            try {
-                list = api.getChampionList(Region.EUW, null, null, false);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Log.d("outa", "List: " + list.getBody().toString());
             if (isCancelled())
                 return false;
             try {

@@ -17,6 +17,7 @@ import eu.m0k.lol.api.RequestClient;
 import eu.m0k.lol.api.model.ChampionList;
 import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.Region;
+import eu.m0k.lol.api.network.LeagueResponse;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.adapter.ChampionAdapter;
 import retrofit.RestAdapter;
@@ -49,6 +50,7 @@ public class ChampionListFragment extends LeagueListFragment {
 
         @Override
         protected ChampionList doInBackground(Void... params) {
+            LeagueResponse<ChampionList> list=Util.getLeagueApi().getChampionList()
             RequestClient mRequestClient = new RequestClient(Region.EUW, Util.getLeagueApiToken(), RestAdapter.LogLevel.BASIC);
             ChampionList champs = mRequestClient.getStaticDataApi().getChampionList(Locale.GERMAN);
             champs.sortByName(true);

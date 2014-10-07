@@ -68,10 +68,6 @@ public class LeagueApi {
         this.mUserAgent = builder.getUserAgent();
     }
 
-    public LeagueResponse query(LeagueRequest request) throws IOException {
-        return null;
-    }
-
     private <T> LeagueResponse<T> queryNetwork(String url, Region region, Parameters parameters, Class<T> clazz) {
         // Adding the Api Token
         parameters.put(this.mApiKey);
