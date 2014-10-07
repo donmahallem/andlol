@@ -14,12 +14,20 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.IOException;
+
+import eu.m0k.lol.api.LeagueApi;
+import eu.m0k.lol.api.model.ChampionList;
+import eu.m0k.lol.api.model.Region;
+import eu.m0k.lol.api.network.ApiKey;
+import eu.m0k.lol.api.network.LeagueResponse;
 import eu.mok.mokeulol.R;
 
 /**
@@ -54,6 +62,7 @@ public class ApiTokenFragment
         // Adding Listeners
         this.mTxtApiToken.addTextChangedListener(this);
         this.mBtnCheckToken.setOnClickListener(this);
+
     }
 
     @Override
@@ -104,6 +113,14 @@ public class ApiTokenFragment
         @Override
         protected Boolean doInBackground(String... params) {
             this.publishProgress(0);
+            LeagueApi api = new LeagueApi.Builder().setApiKey(new ApiKey("dea904c7-61aa-4624-8064-f2bdefe5db00")).build();
+            LeagueResponse<ChampionList> list = null;
+            try {
+                list = api.getChampionList(Region.EUW, null, null, false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("outa", "List: " + list.getBody().toString());
             if (isCancelled())
                 return false;
             try {

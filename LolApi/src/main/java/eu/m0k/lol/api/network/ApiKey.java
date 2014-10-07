@@ -8,11 +8,11 @@
 
 package eu.m0k.lol.api.network;
 
-public class ApiToken {
+public class ApiKey {
     private String mToken;
 
-    public ApiToken(String token) {
-
+    public ApiKey(String token) {
+        this.mToken = token;
     }
 
     public String getToken() {
