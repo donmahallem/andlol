@@ -22,6 +22,7 @@ import eu.m0k.lol.api.internal.MainThreadExecutor;
 import eu.m0k.lol.api.internal.Util;
 import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Champion;
+import eu.m0k.lol.api.model.ChampionList;
 import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.network.ApiToken;
@@ -99,6 +100,25 @@ public class LeagueApi {
         parameters.put(region);
         parameters.put(locale);
         return queryNetwork(Endpoint.CHAMPION + champion, parameters, Champion.class);
+    }
+
+    /**
+     * Retrieves the Championlist
+     * @param region region to query
+     * @param champData ChampData to query
+     * @param locale Gets the ChampData in this Language
+     * @param cache Gets this Data from Cache or Network
+     * @return the LeagueResponse or null if it fails
+     * @throws IOException
+     */
+    public LeagueResponse<ChampionList> getChampionList(Region region, ChampData champData, Locale locale, boolean cache) throws IOException {
+        if (region == null)
+            throw new IllegalArgumentException("Region must not be null");
+        Parameters parameters = new Parameters();
+        parameters.put(champData);
+        parameters.put(region);
+        parameters.put(locale);
+        return queryNetwork(Endpoint.CHAMPION, parameters, ChampionList.class);
     }
 
     /**
