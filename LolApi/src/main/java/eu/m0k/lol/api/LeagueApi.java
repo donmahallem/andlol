@@ -53,18 +53,24 @@ public class LeagueApi {
         return null;
     }
 
-    private <T> LeagueResponse<T> queryNetwork(String url, Parameters parameters, Class<T> clazz) throws IOException {
+    private <T> LeagueResponse<T> queryNetwork(String url, Parameters parameters, Class<T> clazz) {
         final String _url = url + "?" + Util.parametersToString(parameters);
         Request request = new Request.Builder().url(_url).build();
-        Response response = this.mOkHttpClient.newCall(request).execute();
+        Response response = null;
+        try {
+            response = this.mOkHttpClient.newCall(request).execute();
+        } catch (IOException e) {
+            throw LeagueError.networkError(_url, e);
+        }
         if (response.isSuccessful()) {
             T obj = this.mGson.fromJson(new BufferedReader(new InputStreamReader(response.body().byteStream())), clazz);
             if (obj == null) {
                 throw new RuntimeException("Can not convert response");
             }
             return new LeagueResponse<T>(_url, 20, "", response.headers(), obj);
+        } else {
+            throw LeagueError.httpError(response.code(), _url);
         }
-        throw new LeagueError("Network error", _url, true);
     }
     public LeagueResponse<Champion> getChampion(int champion, ChampData champData, Region region, Locale locale, boolean cache) throws IOException {
         if (champion < 0)
