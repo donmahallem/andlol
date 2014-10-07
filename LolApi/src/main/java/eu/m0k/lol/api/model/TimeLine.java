@@ -1,11 +1,16 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.m0k.lol.api.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Don on 23.09.2014.
- */
 public class TimeLine {
     @Expose
     @SerializedName("creepsPerMinDeltas")

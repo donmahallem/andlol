@@ -8,9 +8,6 @@
 
 package eu.m0k.lol.api.picasso;
 
-/**
- * Created by Don on 30.09.2014.
- */
 public interface Constants {
     public final static String VERSION = "4.17.1";
     public final static String SCHEME = "league";

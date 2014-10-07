@@ -13,9 +13,6 @@ import java.util.HashMap;
 import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Locale;
 
-/**
- * Created by Don on 07.10.2014.
- */
 public class Parameters extends HashMap<String, String> {
     private final String CHAMP_DATA = "champData", LOCALE = "locale", API_KEY = "api_key";
 

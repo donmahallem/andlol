@@ -1,10 +1,15 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.m0k.lol.api;
 
 import eu.m0k.lol.api.model.Region;
 
-/**
- * Created by Don on 29.09.2014.
- */
 public class LeagueEndpoint implements retrofit.Endpoint {
     private final static String NAME_STATIC = "StaticData", NAME_STATS = "StatsData";
     private final Region mRegion;

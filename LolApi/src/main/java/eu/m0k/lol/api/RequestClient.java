@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.m0k.lol.api;
 
 import android.support.annotation.NonNull;
@@ -21,9 +29,6 @@ import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
-/**
- * Created by Don on 23.09.2014.
- */
 public class RequestClient {
     private final String mToken;
     private RestAdapter mRestAdapter, mStaticDataRestAdapter;

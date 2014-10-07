@@ -8,9 +8,6 @@
 
 package eu.m0k.lol.api;
 
-/**
- * Created by Don on 07.10.2014.
- */
 public enum LogLevel {
     NONE, BASIC;
 }

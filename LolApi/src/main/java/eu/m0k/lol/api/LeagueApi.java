@@ -33,9 +33,6 @@ import eu.m0k.lol.api.network.LeagueRequest;
 import eu.m0k.lol.api.network.LeagueResponse;
 import eu.m0k.lol.api.network.Parameters;
 
-/**
- * Created by Don on 03.10.2014.
- */
 public class LeagueApi {
     private static final MainThreadExecutor mMainThreadExecutor = new MainThreadExecutor();
     /**
@@ -123,10 +120,11 @@ public class LeagueApi {
 
     /**
      * Retrieves the Championlist
-     * @param region region to query
+     *
+     * @param region    region to query
      * @param champData ChampData to query
-     * @param locale Gets the ChampData in this Language
-     * @param cache Gets this Data from Cache or Network
+     * @param locale    Gets the ChampData in this Language
+     * @param cache     Gets this Data from Cache or Network
      * @return the LeagueResponse or null if it fails
      * @throws IOException
      */
@@ -146,6 +144,7 @@ public class LeagueApi {
     public static class Builder {
         private ApiKey mApiKey;
         private LogLevel mLogLevel = LogLevel.NONE;
+
         public ApiKey getApiKey() {
             return mApiKey;
         }
