@@ -39,7 +39,7 @@ import eu.m0k.lol.api.network.Parameters;
 import eu.m0k.lol.api.response.RunePageResponse;
 
 public class LeagueApi {
-    private final static String USER_AGENT = "User-Agent";
+    private final static String HEADER_USER_AGENT = "User-Agent", HEADER_ACCEPT = "Accept", ENCODING_JSON = "application/json";
     private static final MainThreadExecutor mMainThreadExecutor = new MainThreadExecutor();
     private final String mUserAgent;
     /**
@@ -87,7 +87,8 @@ public class LeagueApi {
          */
         final Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(_url);
-        requestBuilder.addHeader(USER_AGENT, mUserAgent);
+        requestBuilder.addHeader(HEADER_USER_AGENT, mUserAgent);
+        requestBuilder.addHeader(HEADER_ACCEPT, ENCODING_JSON);
         /**
          * The Request to be send
          */
