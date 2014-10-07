@@ -8,6 +8,8 @@
 
 package eu.m0k.lol.api;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -45,12 +47,14 @@ public class LeagueApi {
      */
     private final OkHttpClient mOkHttpClient = new OkHttpClient();
     private final Gson mGson;
+    private final LogLevel mLogLevel;
 
     private LeagueApi(Builder builder) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(ChampionList.class, new ChampionList.Serializer());
         this.mGson = gsonBuilder.create();
         this.mApiKey = builder.getApiKey();
+        this.mLogLevel = builder.getLogLevel();
     }
 
     public LeagueResponse query(LeagueRequest request) throws IOException {
@@ -61,10 +65,16 @@ public class LeagueApi {
         // Adding the Api Token
         parameters.put(this.mApiKey);
         final String _url = url + "?" + Util.parametersToString(parameters);
+        if (LogLevel.BASIC == this.mLogLevel) {
+            Log.d("LeagueApi", "HTTP --> " + _url);
+        }
         Request request = new Request.Builder().url(_url).build();
         Response response = null;
         try {
             response = this.mOkHttpClient.newCall(request).execute();
+            if (LogLevel.BASIC == this.mLogLevel) {
+                Log.d("LeagueApi", "HTTP <-- " + response.code() + " " + _url);
+            }
         } catch (IOException e) {
             throw LeagueError.networkError(_url, e);
         }
@@ -135,13 +145,22 @@ public class LeagueApi {
      */
     public static class Builder {
         private ApiKey mApiKey;
-
+        private LogLevel mLogLevel = LogLevel.NONE;
         public ApiKey getApiKey() {
             return mApiKey;
         }
 
         public Builder setApiKey(ApiKey apiKey) {
             this.mApiKey = apiKey;
+            return this;
+        }
+
+        public LogLevel getLogLevel() {
+            return this.mLogLevel;
+        }
+
+        public Builder setLogLevel(LogLevel logLevel) {
+            this.mLogLevel = logLevel;
             return this;
         }
 
