@@ -19,9 +19,6 @@ import java.lang.reflect.Type;
 
 import eu.m0k.lol.api.picasso.Constants;
 
-/**
- * Created by Don on 29.09.2014.
- */
 public class ChampionSpell {
     @Expose
     @SerializedName("name")

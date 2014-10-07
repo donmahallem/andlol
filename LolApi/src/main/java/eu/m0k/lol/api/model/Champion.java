@@ -15,9 +15,6 @@ import java.util.List;
 
 import eu.m0k.lol.api.picasso.Constants;
 
-/**
- * Created by Don on 25.09.2014.
- */
 public class Champion {
     @Expose
     @SerializedName("id")
@@ -148,6 +145,7 @@ public class Champion {
     public String getImageUri() {
         return Constants.PATH_IMG_CHAMPION_ICON + this.getKey();
     }
+
     @Override
     public String toString() {
         return "Champion{" +

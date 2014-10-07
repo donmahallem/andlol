@@ -1,8 +1,13 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.m0k.lol.api.model;
 
-/**
- * Created by Don on 29.09.2014.
- */
 public class ChampData {
     public final static ChampData ALL_DATA = new ChampData(true);
     private final static String ALL = "all", ALLY_TIPS = "allytips", ALT_IMAGES = "altimages", BLURB = "blurb",
@@ -89,6 +94,27 @@ public class ChampData {
 
     @Override
     public String toString() {
+        return "ChampData{" +
+                "all=" + mAll +
+                ", allyTips=" + mAllyTips +
+                ", altImages=" + mAltImages +
+                ", blurb=" + mBlurb +
+                ", enemyTips=" + mEnemyTips +
+                ", image=" + mImage +
+                ", info=" + mInfo +
+                ", lore=" + mLore +
+                ", parType=" + mParType +
+                ", passive=" + mPassive +
+                ", recommended=" + mRecommended +
+                ", skins=" + mSkins +
+                ", spells=" + mSpells +
+                ", stats=" + mStats +
+                ", tags=" + mTags +
+                '}';
+    }
+
+    public String getChampData() {
+
         if (this.mAll) {
             return ALL;
         }

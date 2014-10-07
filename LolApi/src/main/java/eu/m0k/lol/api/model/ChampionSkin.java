@@ -13,9 +13,6 @@ import com.google.gson.annotations.SerializedName;
 
 import eu.m0k.lol.api.picasso.Constants;
 
-/**
- * Created by Don on 29.09.2014.
- */
 public class ChampionSkin {
     private final static String BASE_URL = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/";
     @Expose

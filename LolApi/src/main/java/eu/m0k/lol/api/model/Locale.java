@@ -8,9 +8,6 @@
 
 package eu.m0k.lol.api.model;
 
-/**
- * Created by Don on 04.10.2014.
- */
 public enum Locale {
     ENGLISH_US("en_US"), SPANISH("es_ES"), FRENCH("fr_FR"), GERMAN("de_DE"), ITALIAN("it_IT"),
     POLISH("pl_PL"), GREEK("el_GR"), ROMANIAN("ro_RO"), PORTUGUESE_BRAZIL("pt_BR"), TURKISH("tr_TR"),
@@ -29,6 +26,8 @@ public enum Locale {
 
     @Override
     public String toString() {
-        return mLocal;
+        return "Locale{" +
+                "local='" + mLocal + '\'' +
+                '}';
     }
 }
