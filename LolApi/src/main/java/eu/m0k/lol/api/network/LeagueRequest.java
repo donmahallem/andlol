@@ -46,7 +46,7 @@ public class LeagueRequest<T> {
         private List<Header> mHeaders;
         private List<Parameter> mParameters;
         private Region mRegion;
-        private ApiToken mApiToken;
+        private ApiKey mApiKey;
         private Class<T> mClass;
 
         public Builder() {
@@ -68,8 +68,8 @@ public class LeagueRequest<T> {
             return this;
         }
 
-        public Builder setApiToken(ApiToken token) {
-            this.mApiToken = token;
+        public Builder setApiKey(ApiKey token) {
+            this.mApiKey = token;
             return this;
         }
 
@@ -104,7 +104,7 @@ public class LeagueRequest<T> {
         }
 
         public LeagueRequest<T> build() {
-            if (this.mApiToken == null)
+            if (this.mApiKey == null)
                 throw new RuntimeException("ApiToken should be set");
             if (this.mClass == null)
                 throw new RuntimeException("Class Type should be set");

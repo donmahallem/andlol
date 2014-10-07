@@ -32,7 +32,7 @@ public final class Parameter {
         return new Parameter(CHAMPDATA, champData.toString());
     }
 
-    public static Parameter from(ApiToken apiKey) {
+    public static Parameter from(ApiKey apiKey) {
         return new Parameter(API_KEY, apiKey.getToken());
     }
 
