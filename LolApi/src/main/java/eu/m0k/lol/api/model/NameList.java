@@ -21,7 +21,7 @@ import java.util.Iterator;
 
 public class NameList extends HashMap<String, String> {
 
-    public static final class Serializer implements JsonSerializer<NameList> {
+    public static final class TypeAdapter implements JsonSerializer<NameList> {
 
         @Override
         public JsonElement serialize(NameList src, Type typeOfSrc, JsonSerializationContext context) {

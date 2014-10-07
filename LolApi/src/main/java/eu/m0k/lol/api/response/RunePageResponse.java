@@ -22,7 +22,7 @@ import java.util.List;
 import eu.m0k.lol.api.model.RunePage;
 
 public class RunePageResponse extends HashMap<String, List<RunePage>> {
-    public static final class Deserializer implements JsonDeserializer<RunePageResponse> {
+    public static final class TypeAdapter implements JsonDeserializer<RunePageResponse> {
 
         @Override
         public RunePageResponse deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

@@ -42,12 +42,12 @@ public class RequestClient {
         this.mToken = token;
         GsonBuilder builder = new GsonBuilder();
         builder.excludeFieldsWithoutExposeAnnotation();
-        builder.registerTypeAdapter(SummonerList.class, new SummonerList.Converter());
-        builder.registerTypeAdapter(NameList.class, new NameList.Serializer());
-        builder.registerTypeAdapter(MasteryList.class, new MasteryList.Deserializer());
-        builder.registerTypeAdapter(RunePageResponse.class, new RunePageResponse.Deserializer());
-        builder.registerTypeAdapter(ChampionList.class, new ChampionList.Converter());
-        builder.registerTypeAdapter(ChampionSpell.SpellRange.class, new ChampionSpell.SpellRange.Serializer());
+        builder.registerTypeAdapter(SummonerList.class, new SummonerList.TypeAdapter());
+        builder.registerTypeAdapter(NameList.class, new NameList.TypeAdapter());
+        builder.registerTypeAdapter(MasteryList.class, new MasteryList.TypeAdapter());
+        builder.registerTypeAdapter(RunePageResponse.class, new RunePageResponse.TypeAdapter());
+        builder.registerTypeAdapter(ChampionList.class, new ChampionList.TypeAdapter());
+        builder.registerTypeAdapter(ChampionSpell.SpellRange.class, new ChampionSpell.SpellRange.TypeAdapter());
         mGson = builder.create();
         mOkHttpClient = new OkHttpClient();
         final GsonConverter converter = new GsonConverter(this.mGson);

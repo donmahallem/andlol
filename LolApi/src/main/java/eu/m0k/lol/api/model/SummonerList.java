@@ -22,7 +22,7 @@ import java.util.Iterator;
 
 public class SummonerList extends HashMap<String, Summoner> {
 
-    public static final class Converter implements JsonDeserializer<SummonerList>, JsonSerializer<SummonerList> {
+    public static final class TypeAdapter implements JsonDeserializer<SummonerList>, JsonSerializer<SummonerList> {
 
         @Override
         public SummonerList deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

@@ -164,7 +164,7 @@ public class ChampionSpell {
             return mRanges;
         }
 
-        public static class Serializer implements JsonDeserializer<SpellRange> {
+        public static class TypeAdapter implements JsonDeserializer<SpellRange> {
 
             @Override
             public SpellRange deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

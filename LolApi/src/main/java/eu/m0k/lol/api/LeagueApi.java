@@ -49,8 +49,8 @@ public class LeagueApi {
 
     private LeagueApi(Builder builder) {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(ChampionList.class, new ChampionList.Converter());
-        gsonBuilder.registerTypeAdapter(SummonerList.class, new SummonerList.Converter());
+        gsonBuilder.registerTypeAdapter(ChampionList.class, new ChampionList.TypeAdapter());
+        gsonBuilder.registerTypeAdapter(SummonerList.class, new SummonerList.TypeAdapter());
         this.mGson = gsonBuilder.create();
         this.mApiKey = builder.getApiKey();
         this.mLogLevel = builder.getLogLevel();

@@ -29,7 +29,7 @@ public class MasteryList extends HashMap<String, Masteries> {
         }
     }
 
-    public static final class Deserializer implements JsonDeserializer<MasteryList> {
+    public static final class TypeAdapter implements JsonDeserializer<MasteryList> {
 
         @Override
         public MasteryList deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
