@@ -33,7 +33,6 @@ import eu.m0k.lol.api.model.NameList;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.SummonerList;
 import eu.m0k.lol.api.network.ApiKey;
-import eu.m0k.lol.api.network.LeagueRequest;
 import eu.m0k.lol.api.network.LeagueResponse;
 import eu.m0k.lol.api.network.Parameters;
 import eu.m0k.lol.api.response.RunePageResponse;
@@ -74,7 +73,7 @@ public class LeagueApi {
         /**
          * The url to be called
          */
-        final String _url = url.replace("\\{region}\\", region.getRegion()) + "?" + Util.parametersToString(parameters);
+        final String _url = url.replace("{region}", region.getRegion()) + "?" + Util.parametersToString(parameters);
         if (LogLevel.BASIC == this.mLogLevel) {
             Log.d("LeagueApi", "HTTP --> " + _url);
         }

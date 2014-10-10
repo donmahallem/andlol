@@ -13,14 +13,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import eu.m0k.lol.api.RequestClient;
+import java.io.IOException;
+
+import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.ChampionList;
 import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.network.LeagueResponse;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.adapter.ChampionAdapter;
-import retrofit.RestAdapter;
 
 /**
  * Created by Don on 30.09.2014.
@@ -50,11 +51,16 @@ public class ChampionListFragment extends LeagueListFragment {
 
         @Override
         protected ChampionList doInBackground(Void... params) {
-            LeagueResponse<ChampionList> list=Util.getLeagueApi().getChampionList()
-            RequestClient mRequestClient = new RequestClient(Region.EUW, Util.getLeagueApiToken(), RestAdapter.LogLevel.BASIC);
-            ChampionList champs = mRequestClient.getStaticDataApi().getChampionList(Locale.GERMAN);
-            champs.sortByName(true);
-            return champs;
+            try {
+                LeagueResponse<ChampionList> list = Util.getLeagueApi().getChampionList(Region.EUW, ChampData.ALL_DATA, Locale.GERMAN, false);
+                if (list.getBody() != null) {
+                    list.getBody().sortByName(true);
+                    return list.getBody();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
 
         @Override
