@@ -17,17 +17,17 @@ import android.widget.TextView;
 
 import com.pkmmte.view.CircularImageView;
 
-import eu.m0k.lol.api.RequestClient;
+import java.io.IOException;
+
 import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Champion;
-import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.Region;
+import eu.m0k.lol.api.network.LeagueResponse;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.adapter.SkinListAdapter;
 import eu.mok.mokeulol.view.ChampionSpellView;
 import it.sephiroth.android.library.widget.HListView;
-import retrofit.RestAdapter;
 
 /**
  * Created by Don on 30.09.2014.
@@ -111,7 +111,6 @@ public class ChampionFragment extends LeagueFragment {
 
         @Override
         protected Champion doInBackground(Integer... params) {
-            RequestClient mRequestClient = new RequestClient(Region.EUW, Util.getLeagueApiToken(), RestAdapter.LogLevel.BASIC);
             ChampData data = new ChampData();
             data.setSpells(true);
             data.setSkins(true);
@@ -119,9 +118,16 @@ public class ChampionFragment extends LeagueFragment {
             data.setInfo(true);
             data.setPassive(true);
             data.setImage(true);
-
-            Champion champs = mRequestClient.getStaticDataApi().getChampion(params[0], Locale.GERMAN, data);
-            return champs;
+            LeagueResponse<Champion> champ = null;
+            try {
+                champ = Util.getLeagueApi().getChampion(params[0], Region.EUW, data);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (champ != null)
+                return champ.getBody();
+            else
+                return null;
         }
 
         @Override

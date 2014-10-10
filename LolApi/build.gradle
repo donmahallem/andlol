@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 apply plugin: 'com.android.library'
 
 android {
@@ -21,7 +29,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.squareup.retrofit:retrofit:1.6.1'
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.google.code.gson:gson:2.2.+'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
