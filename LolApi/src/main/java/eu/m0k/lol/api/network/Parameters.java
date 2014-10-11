@@ -36,14 +36,12 @@ public class Parameters extends HashMap<String, String> {
             this.put(key, "" + bool);
     }
 
-    public String toParameterString(Parameters parameters) {
-        if (parameters == null)
-            return "";
+    public String toParameterString() {
         String str = "";
-        for (String key : parameters.keySet()) {
+        for (String key : this.keySet()) {
             if (str.length() != 0)
                 str += "&";
-            str += key + "=" + parameters.get(key);
+            str += key + "=" + this.get(key);
         }
         return str;
     }
