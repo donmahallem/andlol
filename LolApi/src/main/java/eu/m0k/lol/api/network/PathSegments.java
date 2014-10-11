@@ -15,7 +15,7 @@ import eu.m0k.lol.api.model.Region;
 /**
  * Created by Don on 11.10.2014.
  */
-public class PathSegment extends HashMap<String, String> {
+public class PathSegments extends HashMap<String, String> {
     public final static String REGION = "region", MATCH_ID = "matchId", CHAMP_ID = "champId";
 
     public void put(Region region) {

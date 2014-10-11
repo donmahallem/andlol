@@ -35,4 +35,14 @@ public class Parameters extends HashMap<String, String> {
         if (key != null)
             this.put(key, "" + bool);
     }
+
+    public String toParameterString() {
+        String str = "";
+        for (String key : this.keySet()) {
+            if (str.length() != 0)
+                str += "&";
+            str += key + "=" + this.get(key);
+        }
+        return str;
+    }
 }
