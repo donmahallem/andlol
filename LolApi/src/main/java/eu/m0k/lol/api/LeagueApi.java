@@ -69,22 +69,17 @@ public class LeagueApi {
 
     private <T> LeagueResponse<T> queryNetwork(String url, Region region, PathSegments segments, Parameters parameters, Class<T> clazz) {
         /**
-         * Check if PathSegement is null otherwise sets one
+         * Check if PathSegements is null otherwise sets one
          */
-        PathSegments _segments = segments;
-        if (_segments == null) {
-            _segments = new PathSegments();
-        }
-        _segments.put(region);
-
+        segments.put(region);
         // Adding the Api Token
         parameters.put(this.mApiKey);
         /**
          * The url to be called
          */
         String _url = url + "?" + parameters.toParameterString();
-        for (String segment : _segments.keySet()) {
-            _url = _url.replace("{" + segment + "}", _segments.get(segment));
+        for (String segment : segments.keySet()) {
+            _url = _url.replace("{" + segment + "}", segments.get(segment));
         }
         if (LogLevel.BASIC == this.mLogLevel) {
             Log.d("LeagueApi", "HTTP --> " + _url);
@@ -111,7 +106,13 @@ public class LeagueApi {
             throw LeagueError.networkError(_url, e);
         }
         if (response.isSuccessful()) {
+            if (LogLevel.BASIC == this.mLogLevel) {
+                Log.d("LeagueApi", "GSON --> Start Conversion");
+            }
             T obj = this.mGson.fromJson(new BufferedReader(new InputStreamReader(response.body().byteStream())), clazz);
+            if (LogLevel.BASIC == this.mLogLevel) {
+                Log.d("LeagueApi", "GSON <-- End Conversion");
+            }
             if (obj == null) {
                 throw LeagueError.conversionError("Could not convert", _url, clazz);
             }
@@ -184,7 +185,7 @@ public class LeagueApi {
         Parameters parameters = new Parameters();
         parameters.put(champData);
         parameters.put(locale);
-        return queryNetwork(Endpoint.CHAMPION, region, null, parameters, ChampionList.class);
+        return queryNetwork(Endpoint.CHAMPION, region, new PathSegments(), parameters, ChampionList.class);
     }
 
     /**
