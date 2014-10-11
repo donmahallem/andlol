@@ -52,7 +52,9 @@ public class ChampionListFragment extends LeagueListFragment {
         @Override
         protected ChampionList doInBackground(Void... params) {
             try {
-                LeagueResponse<ChampionList> list = Util.getLeagueApi().getChampionList(Region.EUW, ChampData.ALL_DATA, Locale.GERMAN, false);
+                ChampData champData = new ChampData();
+                champData.setImage(true);
+                LeagueResponse<ChampionList> list = Util.getLeagueApi().getChampionList(Region.EUW, champData, Locale.GERMAN, false);
                 if (list.getBody() != null) {
                     list.getBody().sortByName(true);
                     return list.getBody();
