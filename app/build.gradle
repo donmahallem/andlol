@@ -36,4 +36,5 @@ dependencies {
     compile 'it.sephiroth.android.library.horizontallistview:hlistview:1.+'
     compile 'com.pkmmte.view:circularimageview:1.+'
     compile 'com.github.nirhart:parallaxscroll:1.+'
+    compile 'com.android.support:appcompat-v7:20.0.0'
 }
