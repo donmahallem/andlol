@@ -141,6 +141,16 @@ public class LeagueApi {
         return queryNetwork(Endpoint.CHAMPION + champion, region, parameters, Champion.class);
     }
 
+    @SuppressWarnings("unused")
+    public LeagueResponse<Champion> getMatch(long matchId, boolean includeTimeline, Region region, boolean cache) throws IOException {
+        if (matchId < 0)
+            throw new IllegalArgumentException("Champion ID must be greater then 0");
+        if (region == null)
+            throw new IllegalArgumentException("Region must not be null");
+        Parameters parameters = new Parameters();
+        parameters.put(Parameters.INCLUDE_TIMELINE, includeTimeline);
+        return queryNetwork(Endpoint.CHAMPION + matchId, region, parameters, Champion.class);
+    }
     /**
      * Retrieves the Championlist
      *
