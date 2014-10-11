@@ -35,6 +35,7 @@ import eu.m0k.lol.api.model.SummonerList;
 import eu.m0k.lol.api.network.ApiKey;
 import eu.m0k.lol.api.network.LeagueResponse;
 import eu.m0k.lol.api.network.Parameters;
+import eu.m0k.lol.api.network.PathSegment;
 import eu.m0k.lol.api.response.RunePageResponse;
 
 public class LeagueApi {
@@ -67,13 +68,25 @@ public class LeagueApi {
         this.mUserAgent = builder.getUserAgent();
     }
 
-    private <T> LeagueResponse<T> queryNetwork(String url, Region region, Parameters parameters, Class<T> clazz) {
+    private <T> LeagueResponse<T> queryNetwork(String url, Region region, PathSegment segments, Parameters parameters, Class<T> clazz) {
+        /**
+         * Check if PathSegement is null otherwise sets one
+         */
+        PathSegment _segments = segments;
+        if (_segments == null) {
+            _segments = new PathSegment();
+        }
+        _segments.put(region);
+
         // Adding the Api Token
         parameters.put(this.mApiKey);
         /**
          * The url to be called
          */
-        final String _url = url.replace("{region}", region.getRegion()) + "?" + Util.parametersToString(parameters);
+        String _url = url + "?" + Util.parametersToString(parameters);
+        for (String segment : _segments.keySet()) {
+            _url = _url.replace("{" + segment + "}", _segments.get(segment));
+        }
         if (LogLevel.BASIC == this.mLogLevel) {
             Log.d("LeagueApi", "HTTP --> " + _url);
         }
@@ -138,7 +151,9 @@ public class LeagueApi {
         Parameters parameters = new Parameters();
         parameters.put(champData);
         parameters.put(locale);
-        return queryNetwork(Endpoint.CHAMPION + champion, region, parameters, Champion.class);
+        PathSegment pathSegments = new PathSegment();
+        pathSegments.putChampId(champion);
+        return queryNetwork(Endpoint.CHAMPION + champion, region, pathSegments, parameters, Champion.class);
     }
 
     @SuppressWarnings("unused")
@@ -149,7 +164,9 @@ public class LeagueApi {
             throw new IllegalArgumentException("Region must not be null");
         Parameters parameters = new Parameters();
         parameters.put(Parameters.INCLUDE_TIMELINE, includeTimeline);
-        return queryNetwork(Endpoint.CHAMPION + matchId, region, parameters, Champion.class);
+        PathSegment pathSegment = new PathSegment();
+        pathSegment.putMatchId(matchId);
+        return queryNetwork(Endpoint.CHAMPION + matchId, region, pathSegment, parameters, Champion.class);
     }
     /**
      * Retrieves the Championlist
@@ -168,7 +185,7 @@ public class LeagueApi {
         Parameters parameters = new Parameters();
         parameters.put(champData);
         parameters.put(locale);
-        return queryNetwork(Endpoint.CHAMPION, region, parameters, ChampionList.class);
+        return queryNetwork(Endpoint.CHAMPION, region, null, parameters, ChampionList.class);
     }
 
     /**
