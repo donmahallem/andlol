@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pkmmte.view.CircularImageView;
 
@@ -107,10 +108,10 @@ public class ChampionFragment extends LeagueFragment {
         }
     }
 
-    private class Task extends AsyncTask<Integer, Void, Champion> {
+    private class Task extends AsyncTask<Integer, Void, LeagueResponse<Champion>> {
 
         @Override
-        protected Champion doInBackground(Integer... params) {
+        protected LeagueResponse<Champion> doInBackground(Integer... params) {
             ChampData data = new ChampData();
             data.setSpells(true);
             data.setSkins(true);
@@ -124,16 +125,25 @@ public class ChampionFragment extends LeagueFragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (champ != null)
-                return champ.getBody();
-            else
-                return null;
+            return champ;
         }
 
         @Override
-        protected void onPostExecute(Champion result) {
-            mChampion = result;
-            updateViews();
+        protected void onPostExecute(LeagueResponse<Champion> result) {
+            if (result != null && result.getBody() != null) {
+                mChampion = result.getBody();
+                updateViews();
+            } else {
+                int msg = 0;
+                if (result == null) {
+                    msg = R.string.unknown_error;
+                } else {
+                    msg = R.string.network_error;
+                }
+                if (ChampionFragment.this.isAdded()) {
+                    Toast.makeText(ChampionFragment.this.getActivity(), msg, Toast.LENGTH_LONG);
+                }
+            }
         }
     }
 }
