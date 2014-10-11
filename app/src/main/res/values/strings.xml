@@ -28,4 +28,6 @@
     <string name="starting">Starting...</string>
     <string name="checking_token">Checking Token...</string>
     <string name="checked">Checked!</string>
+    <string name="network_error">Network Error</string>
+    <string name="unknown_error">Unknown Error</string>
 </resources>
