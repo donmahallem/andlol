@@ -153,7 +153,7 @@ public class LeagueApi {
         parameters.put(locale);
         PathSegments mPathSegments = new PathSegments();
         mPathSegments.putChampId(champion);
-        return queryNetwork(Endpoint.CHAMPION + champion, region, mPathSegments, parameters, Champion.class);
+        return queryNetwork(Endpoint.CHAMPION, region, mPathSegments, parameters, Champion.class);
     }
 
     @SuppressWarnings("unused")
