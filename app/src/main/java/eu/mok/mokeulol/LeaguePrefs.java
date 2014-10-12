@@ -11,9 +11,6 @@ package eu.mok.mokeulol;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Created by Don on 05.10.2014.
- */
 public class LeaguePrefs {
     private final String PREFERENCE_NAME = "DEFAULT_SETTINGS";
     private final String KEY_API_TOKEN = "api_token";

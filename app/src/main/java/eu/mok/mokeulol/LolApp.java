@@ -1,10 +1,15 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.mok.mokeulol;
 
 import android.app.Application;
 
-/**
- * Created by Don on 02.10.2014.
- */
 public class LolApp extends Application {
     @Override
     public void onCreate() {

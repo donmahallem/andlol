@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
 package eu.mok.mokeulol;
 
 import android.content.Context;
@@ -15,9 +23,6 @@ import eu.m0k.lol.api.LogLevel;
 import eu.m0k.lol.api.network.ApiKey;
 import eu.mok.mokeulol.helper.picasso.LolRequestTransformer;
 
-/**
- * Created by Don on 30.09.2014.
- */
 public class Util {
     private static Picasso mPicasso;
     private static OkHttpClient mOkHttpClient;
@@ -72,12 +77,12 @@ public class Util {
         }
     }
 
-    public static LeagueApi getLeagueApi(){
-        if(mLeagueApi==null) {
-            LeagueApi.Builder builder=new LeagueApi.Builder();
+    public static LeagueApi getLeagueApi() {
+        if (mLeagueApi == null) {
+            LeagueApi.Builder builder = new LeagueApi.Builder();
             builder.setLogLevel(LogLevel.BASIC);
             builder.setApiKey(new ApiKey(getLeagueApiToken()));
-            mLeagueApi =builder.build();
+            mLeagueApi = builder.build();
         }
         return mLeagueApi;
     }

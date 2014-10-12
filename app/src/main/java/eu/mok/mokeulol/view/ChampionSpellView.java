@@ -20,9 +20,6 @@ import eu.m0k.lol.api.model.ChampionSpell;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
 
-/**
- * Created by Don on 30.09.2014.
- */
 public class ChampionSpellView extends LinearLayout {
     private ChampionSpell mChampionSpell;
     private CircularImageView mImageView;

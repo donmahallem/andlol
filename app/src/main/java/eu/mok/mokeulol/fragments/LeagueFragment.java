@@ -11,9 +11,6 @@ package eu.mok.mokeulol.fragments;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 
-/**
- * Created by Don on 04.10.2014.
- */
 public abstract class LeagueFragment extends Fragment {
 
     private LeagueFragmentListener mLeagueFragmentListener;

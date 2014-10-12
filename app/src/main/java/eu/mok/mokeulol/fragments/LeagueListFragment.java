@@ -11,9 +11,6 @@ package eu.mok.mokeulol.fragments;
 import android.app.Activity;
 import android.support.v4.app.ListFragment;
 
-/**
- * Created by Don on 04.10.2014.
- */
 public class LeagueListFragment extends ListFragment {
 
     private LeagueFragment.LeagueFragmentListener mLeagueFragmentListener;

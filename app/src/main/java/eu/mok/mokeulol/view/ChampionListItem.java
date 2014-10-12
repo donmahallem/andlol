@@ -19,9 +19,6 @@ import eu.m0k.lol.api.model.Champion;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
 
-/**
- * Created by Don on 29.09.2014.
- */
 public class ChampionListItem extends LinearLayout {
     private Champion mChampion;
     private ImageView mImageView;

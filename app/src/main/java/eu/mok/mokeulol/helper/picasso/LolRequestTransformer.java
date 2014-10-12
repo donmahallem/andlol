@@ -17,9 +17,6 @@ import java.util.List;
 
 import eu.m0k.lol.api.picasso.Constants;
 
-/**
- * Created by Don on 30.09.2014.
- */
 public class LolRequestTransformer implements Picasso.RequestTransformer {
     @Override
     public Request transformRequest(Request request) {
