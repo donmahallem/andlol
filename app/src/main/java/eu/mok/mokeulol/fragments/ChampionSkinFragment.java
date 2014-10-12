@@ -58,7 +58,7 @@ public class ChampionSkinFragment extends LeagueFragment {
         final String key = this.getChampionKey();
         final int num = this.getChampionSkinNum();
         Util.getPicasso()
-                .load(Constants.PATH_IMG_CHAMPION_LOADING + key + "_" + num)
+                .load(Constants.PATH_IMG_CHAMPION_SPLASH + key + "_" + num)
                 .placeholder(android.R.drawable.ic_menu_rotate)
                 .error(android.R.drawable.ic_delete)
                 .into(mImageView);

@@ -12,7 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
@@ -26,9 +26,6 @@ import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.fragments.ChampionSkinFragment;
 
-/**
- * Created by Don on 11.10.2014.
- */
 public class ChampionSkinActivity extends LeagueActivity {
     public final static String EXTRA_CHAMPION_ID = "extra_id_champion";
     private ViewPager mViewPager;
@@ -39,6 +36,8 @@ public class ChampionSkinActivity extends LeagueActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mViewPager = new ViewPager(this);
+        this.mViewPager.setId(R.id.viewPager);
+        this.setContentView(this.mViewPager);
         if (this.getChampionId() != -1) {
             Task t = new Task();
             t.execute(this.getChampionId());
@@ -95,7 +94,7 @@ public class ChampionSkinActivity extends LeagueActivity {
         }
     }
 
-    private class ChampionSkinFragmentAdapter extends FragmentPagerAdapter {
+    private class ChampionSkinFragmentAdapter extends FragmentStatePagerAdapter {
         private Champion mChampion;
 
         public ChampionSkinFragmentAdapter(FragmentManager fm, Champion champion) {
