@@ -113,7 +113,7 @@ public class ChampionFragment extends LeagueFragment implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(this.getActivity(), ChampionSkinActivity.class);
-        intent.putExtra(ChampionSkinActivity.EXTRA_CHAMPION_KEY, this.mChampion.getKey());
+        intent.putExtra(ChampionSkinActivity.EXTRA_CHAMPION_ID, this.mChampion.getId());
         startActivity(intent);
         Log.d("outa", " outa " + i + " - " + l);
     }
