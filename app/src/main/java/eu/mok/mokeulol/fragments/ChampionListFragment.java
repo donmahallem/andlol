@@ -23,9 +23,6 @@ import eu.m0k.lol.api.network.LeagueResponse;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.adapter.ChampionAdapter;
 
-/**
- * Created by Don on 30.09.2014.
- */
 public class ChampionListFragment extends LeagueListFragment {
     private ChampionAdapter mChampionAdapter = new ChampionAdapter();
 

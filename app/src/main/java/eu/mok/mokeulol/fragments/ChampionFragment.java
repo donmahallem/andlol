@@ -8,8 +8,10 @@
 
 package eu.mok.mokeulol.fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,14 +28,13 @@ import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.network.LeagueResponse;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
+import eu.mok.mokeulol.activities.ChampionSkinActivity;
 import eu.mok.mokeulol.adapter.SkinListAdapter;
 import eu.mok.mokeulol.view.ChampionSpellView;
+import it.sephiroth.android.library.widget.AdapterView;
 import it.sephiroth.android.library.widget.HListView;
 
-/**
- * Created by Don on 30.09.2014.
- */
-public class ChampionFragment extends LeagueFragment {
+public class ChampionFragment extends LeagueFragment implements AdapterView.OnItemClickListener {
     private final static String ARGS_CHAMP_ID = "champid";
     private TextView mTxtTitle, mTxtSubTitle, mTxtDescription, mTxtLore;
     private CircularImageView mIvChampIcon;
@@ -79,6 +80,7 @@ public class ChampionFragment extends LeagueFragment {
         Task task = new Task();
         task.execute(getArguments().getInt(ARGS_CHAMP_ID, 32));
         this.mHListView.setAdapter(this.mSkinListAdapter);
+        this.mHListView.setOnItemClickListener(this);
     }
 
     private void updateViews() {
@@ -106,6 +108,14 @@ public class ChampionFragment extends LeagueFragment {
                 this.mTxtDescription.setText(this.mChampion.getLore());
             }
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent intent = new Intent(this.getActivity(), ChampionSkinActivity.class);
+        intent.putExtra(ChampionSkinActivity.EXTRA_CHAMPION_KEY, this.mChampion.getKey());
+        startActivity(intent);
+        Log.d("outa", " outa " + i + " - " + l);
     }
 
     private class Task extends AsyncTask<Integer, Void, LeagueResponse<Champion>> {

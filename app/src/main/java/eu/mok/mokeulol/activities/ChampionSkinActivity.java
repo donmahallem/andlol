@@ -21,6 +21,7 @@ import eu.mok.mokeulol.fragments.ChampionSkinFragment;
  * Created by Don on 11.10.2014.
  */
 public class ChampionSkinActivity extends LeagueActivity {
+    public final static String EXTRA_CHAMPION_KEY = "extra_key_champion";
     private ViewPager mViewPager;
     private ChampionSkinFragmentAdapter mChampionSkinFragmentAdapter;
 
