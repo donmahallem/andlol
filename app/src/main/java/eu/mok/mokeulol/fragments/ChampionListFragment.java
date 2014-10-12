@@ -23,9 +23,6 @@ import eu.m0k.lol.api.network.LeagueResponse;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.adapter.ChampionAdapter;
 
-/**
- * Created by Don on 30.09.2014.
- */
 public class ChampionListFragment extends LeagueListFragment {
     private ChampionAdapter mChampionAdapter = new ChampionAdapter();
 
@@ -52,7 +49,9 @@ public class ChampionListFragment extends LeagueListFragment {
         @Override
         protected ChampionList doInBackground(Void... params) {
             try {
-                LeagueResponse<ChampionList> list = Util.getLeagueApi().getChampionList(Region.EUW, ChampData.ALL_DATA, Locale.GERMAN, false);
+                ChampData champData = new ChampData();
+                champData.setImage(true);
+                LeagueResponse<ChampionList> list = Util.getLeagueApi().getChampionList(Region.EUW, champData, Locale.GERMAN, false);
                 if (list.getBody() != null) {
                     list.getBody().sortByName(true);
                     return list.getBody();

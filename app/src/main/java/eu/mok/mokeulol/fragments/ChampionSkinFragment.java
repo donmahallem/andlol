@@ -17,9 +17,6 @@ import android.widget.ImageView;
 import eu.m0k.lol.api.picasso.Constants;
 import eu.mok.mokeulol.Util;
 
-/**
- * Created by Don on 30.09.2014.
- */
 public class ChampionSkinFragment extends LeagueFragment {
     private final static String ARGS_CHAMPION_KEY = "championKey", ARGS_SKIN_NUM = "skinNUm";
     private ImageView mImageView;
@@ -37,6 +34,19 @@ public class ChampionSkinFragment extends LeagueFragment {
         return fragment;
     }
 
+    private String getChampionKey() {
+        if (this.getArguments() == null)
+            return null;
+        return this.getArguments().getString(ARGS_CHAMPION_KEY, null);
+    }
+
+    private int getChampionSkinNum() {
+        if (this.getArguments() == null)
+            return 0;
+        return this.getArguments().getInt(ARGS_SKIN_NUM, 0);
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.mImageView = new ImageView(container.getContext());
@@ -45,10 +55,10 @@ public class ChampionSkinFragment extends LeagueFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        final String key = this.getArguments().getString(ARGS_CHAMPION_KEY);
-        final int num = this.getArguments().getInt(ARGS_SKIN_NUM, 0);
+        final String key = this.getChampionKey();
+        final int num = this.getChampionSkinNum();
         Util.getPicasso()
-                .load(Constants.PATH_IMG_CHAMPION_LOADING + key + "_" + num)
+                .load(Constants.PATH_IMG_CHAMPION_SPLASH + key + "_" + num)
                 .placeholder(android.R.drawable.ic_menu_rotate)
                 .error(android.R.drawable.ic_delete)
                 .into(mImageView);

@@ -14,26 +14,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.io.IOException;
-
-import eu.m0k.lol.api.LeagueApi;
-import eu.m0k.lol.api.LogLevel;
-import eu.m0k.lol.api.model.ChampionList;
-import eu.m0k.lol.api.model.Region;
-import eu.m0k.lol.api.network.ApiKey;
-import eu.m0k.lol.api.network.LeagueResponse;
 import eu.mok.mokeulol.R;
 
-/**
- * Created by Don on 05.10.2014.
- */
 public class ApiTokenFragment
         extends LeagueFragment
         implements View.OnClickListener, DialogInterface.OnCancelListener, TextWatcher {

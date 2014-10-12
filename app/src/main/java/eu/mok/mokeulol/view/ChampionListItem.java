@@ -56,6 +56,7 @@ public class ChampionListItem extends LinearLayout {
                     .load(this.mChampion.getImageUri())
                     .placeholder(android.R.drawable.ic_menu_upload)
                     .error(android.R.drawable.ic_delete)
+                    .resize(100, 100)
                     .into(this.mImageView);
         }
     }
