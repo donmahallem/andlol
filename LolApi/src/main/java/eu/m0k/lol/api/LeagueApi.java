@@ -34,6 +34,7 @@ import eu.m0k.lol.api.model.NameList;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.SummonerList;
 import eu.m0k.lol.api.network.ApiKey;
+import eu.m0k.lol.api.network.CachePolicy;
 import eu.m0k.lol.api.network.LeagueResponse;
 import eu.m0k.lol.api.network.Parameters;
 import eu.m0k.lol.api.network.PathSegments;
@@ -101,7 +102,7 @@ public class LeagueApi {
         }
     }
 
-    private <T> LeagueResponse<T> queryNetwork(String url, Region region, PathSegments segments, Parameters parameters, Class<T> clazz) {
+    private <T> LeagueResponse<T> queryNetwork(String url, Region region, PathSegments segments, Parameters parameters, CachePolicy cachePolicy, Class<T> clazz) {
         /**
          * Check if PathSegements is null otherwise sets one
          */
@@ -187,7 +188,7 @@ public class LeagueApi {
         parameters.put(locale);
         PathSegments mPathSegments = new PathSegments();
         mPathSegments.putChampId(champion);
-        return queryNetwork(Endpoint.CHAMPION, region, mPathSegments, parameters, Champion.class);
+        return queryNetwork(Endpoint.CHAMPION, region, mPathSegments, parameters, CachePolicy.NORMAL, Champion.class);
     }
 
     @SuppressWarnings("unused")
@@ -200,7 +201,7 @@ public class LeagueApi {
         parameters.put(Parameters.INCLUDE_TIMELINE, includeTimeline);
         PathSegments mPathSegments = new PathSegments();
         mPathSegments.putMatchId(matchId);
-        return queryNetwork(Endpoint.CHAMPION + matchId, region, mPathSegments, parameters, Champion.class);
+        return queryNetwork(Endpoint.CHAMPION + matchId, region, mPathSegments, parameters, CachePolicy.NORMAL, Champion.class);
     }
     /**
      * Retrieves the Championlist
@@ -219,7 +220,7 @@ public class LeagueApi {
         Parameters parameters = new Parameters();
         parameters.put(champData);
         parameters.put(locale);
-        return queryNetwork(Endpoint.CHAMPION, region, new PathSegments(), parameters, ChampionList.class);
+        return queryNetwork(Endpoint.CHAMPION, region, new PathSegments(), parameters, CachePolicy.NORMAL, ChampionList.class);
     }
 
     /**
