@@ -150,7 +150,7 @@ public class LeagueApi {
             if (obj == null) {
                 throw LeagueError.conversionError("Could not convert", _url, clazz);
             }
-            return new LeagueResponse<T>(_url, response.code(), "", response.headers(), obj);
+            return new LeagueResponse<T>(_url, response.code(), "", response.headers(), obj, true);
         } else {
             throw LeagueError.httpError(response.code(), _url);
         }
