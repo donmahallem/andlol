@@ -21,8 +21,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import eu.m0k.lol.api.internal.LeagueError;
+import eu.m0k.lol.api.internal.MD5;
 import eu.m0k.lol.api.internal.MainThreadExecutor;
 import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Champion;
@@ -81,7 +85,7 @@ public class LeagueApi {
         }
     }
 
-    private String getCache(String key) throws IOException {
+    private DiskLruCache.Snapshot getCache(String key) throws IOException {
         synchronized (this) {
             DiskLruCache.Snapshot snapShot = this.mDiskLruCache.get(key);
             if (Long.parseLong(snapShot.getString(CACHE_INDEX_EXPIRES)) < System.currentTimeMillis()) {
@@ -89,7 +93,7 @@ public class LeagueApi {
                 this.mDiskLruCache.remove(key);
                 return null;
             }
-            return snapShot.getString(CACHE_INDEX_BODY);
+            return snapShot;
         }
     }
 
@@ -102,6 +106,22 @@ public class LeagueApi {
         }
     }
 
+    private <T> LeagueResponse<T> query(String url, Region region, PathSegments segments, Parameters parameters, CachePolicy cachePolicy, Class<T> clazz) {
+        if (cachePolicy == CachePolicy.NORMAL) {
+            try {
+                DiskLruCache.Snapshot snap = getCache(MD5.computeMD5String(url.getBytes()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    private String createKeyHash(String url) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(url.getBytes("UTF-8"));
+        return new String(md.digest());
+    }
     private <T> LeagueResponse<T> queryNetwork(String url, Region region, PathSegments segments, Parameters parameters, CachePolicy cachePolicy, Class<T> clazz) {
         /**
          * Check if PathSegements is null otherwise sets one
