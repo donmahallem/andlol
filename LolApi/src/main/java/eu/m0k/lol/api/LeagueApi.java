@@ -15,8 +15,10 @@ import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import com.squareup.okhttp.internal.DiskLruCache;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -39,6 +41,7 @@ import eu.m0k.lol.api.response.RunePageResponse;
 
 public class LeagueApi {
     private final static String HEADER_USER_AGENT = "User-Agent", HEADER_ACCEPT = "Accept", ENCODING_JSON = "application/json";
+    private final static int CACHE_INDEX_EXPIRES = 1, CACHE_INDEX_BODY = 0;
     private static final MainThreadExecutor mMainThreadExecutor = new MainThreadExecutor();
     private final String mUserAgent;
     /**
@@ -51,6 +54,7 @@ public class LeagueApi {
     private final OkHttpClient mOkHttpClient = new OkHttpClient();
     private final Gson mGson;
     private final LogLevel mLogLevel;
+    private DiskLruCache mDiskLruCache;
 
     private LeagueApi(Builder builder) {
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -65,6 +69,36 @@ public class LeagueApi {
         this.mApiKey = builder.getApiKey();
         this.mLogLevel = builder.getLogLevel();
         this.mUserAgent = builder.getUserAgent();
+        if (builder.getCacheDir() == null)
+            this.mDiskLruCache = null;
+        else {
+            try {
+                this.mDiskLruCache = DiskLruCache.open(new File(builder.mCacheDir, "rcache"), 0, 2, 100000);
+            } catch (IOException e) {
+                this.mDiskLruCache = null;
+            }
+        }
+    }
+
+    private String getCache(String key) throws IOException {
+        synchronized (this) {
+            DiskLruCache.Snapshot snapShot = this.mDiskLruCache.get(key);
+            if (Long.parseLong(snapShot.getString(CACHE_INDEX_EXPIRES)) < System.currentTimeMillis()) {
+                snapShot.close();
+                this.mDiskLruCache.remove(key);
+                return null;
+            }
+            return snapShot.getString(CACHE_INDEX_BODY);
+        }
+    }
+
+    private void putCache(String key, String body, long expires) throws IOException {
+        synchronized (this) {
+            DiskLruCache.Editor editor = this.mDiskLruCache.edit(key);
+            editor.set(CACHE_INDEX_BODY, body);
+            editor.set(CACHE_INDEX_EXPIRES, "" + expires);
+            editor.commit();
+        }
     }
 
     private <T> LeagueResponse<T> queryNetwork(String url, Region region, PathSegments segments, Parameters parameters, Class<T> clazz) {
@@ -195,6 +229,7 @@ public class LeagueApi {
         private ApiKey mApiKey;
         private LogLevel mLogLevel = LogLevel.NONE;
         private String mUserAgent = "LeagueApi (github.com/donmahallem/andlol)";
+        private File mCacheDir;
         public ApiKey getApiKey() {
             return mApiKey;
         }
@@ -209,7 +244,16 @@ public class LeagueApi {
         }
 
         public Builder setUserAgent(String userAgent) {
-            mUserAgent = userAgent;
+            this.mUserAgent = userAgent;
+            return this;
+        }
+
+        public File getCacheDir() {
+            return mCacheDir;
+        }
+
+        public Builder setCacheDir(File file) {
+            this.mCacheDir = file;
             return this;
         }
 
