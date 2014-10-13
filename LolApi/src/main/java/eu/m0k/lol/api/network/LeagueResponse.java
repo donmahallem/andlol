@@ -13,11 +13,12 @@ import com.squareup.okhttp.Headers;
 public class LeagueResponse<T> {
     private final String mUrl;
     private final int mStatus;
+    private final boolean mCached;
     private final String mReason;
     private final Headers mHeaders;
     private final T mBody;
 
-    public LeagueResponse(String url, int status, String reason, Headers headers, T body) {
+    public LeagueResponse(String url, int status, String reason, Headers headers, T body, boolean cached) {
         if (url == null) {
             throw new IllegalArgumentException("url == null");
         }
@@ -35,6 +36,15 @@ public class LeagueResponse<T> {
         this.mReason = reason;
         this.mHeaders = headers;
         this.mBody = body;
+        this.mCached = cached;
+    }
+
+    /**
+     * is cached response
+     * @return true if cached
+     */
+    public boolean isCached() {
+        return mCached;
     }
 
     /**
