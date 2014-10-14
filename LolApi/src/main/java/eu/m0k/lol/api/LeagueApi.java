@@ -182,7 +182,7 @@ public class LeagueApi {
                 InputStream stream = queryNetwork(_url, region);
                 if (stream == null)
                     throw LeagueError.networkError(_url, null);
-                putCache(_url, stream, 5000);
+                putCache(_url, stream, cacheTime);
                 stream.close();
                 return getCache(_url, clazz);
             }
