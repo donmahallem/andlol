@@ -18,7 +18,7 @@ public class LeagueResponse<T> {
     private final Headers mHeaders;
     private final T mBody;
 
-    public LeagueResponse(String url, int status, String reason, Headers headers, T body, boolean cached) {
+    private LeagueResponse(String url, int status, String reason, Headers headers, T body, boolean cached) {
         if (url == null) {
             throw new IllegalArgumentException("url == null");
         }
@@ -28,9 +28,6 @@ public class LeagueResponse<T> {
         if (reason == null) {
             throw new IllegalArgumentException("reason == null");
         }
-        if (headers == null) {
-            throw new IllegalArgumentException("headers == null");
-        }
         this.mUrl = url;
         this.mStatus = status;
         this.mReason = reason;
@@ -38,6 +35,15 @@ public class LeagueResponse<T> {
         this.mBody = body;
         this.mCached = cached;
     }
+
+    public static <T> LeagueResponse<T> cache(final String url, final boolean success, final T body) {
+        return new LeagueResponse<T>(url, 200, "", null, body, true);
+    }
+
+    public static <T> LeagueResponse<T> network(final String url, final int code, final String reason, final Headers headers, final T body) {
+        return new LeagueResponse<T>(url, code, reason, headers, body, false);
+    }
+
 
     /**
      * is cached response

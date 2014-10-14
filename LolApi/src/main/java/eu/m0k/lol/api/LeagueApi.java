@@ -127,8 +127,7 @@ public class LeagueApi {
             T obj = this.mGson.fromJson(new BufferedReader(new InputStreamReader(snapShot.getInputStream(CACHE_INDEX_BODY))), clazz);
             log(LogLevel.FULL, "GSON <-- End Conversion");
             snapShot.close();
-            LeagueResponse<T> response = new LeagueResponse<T>(url, 200, "", Headers.of("Accept", "application/json"), obj, true);
-            return response;
+            return LeagueResponse.cache(url, true, obj);
         }
     }
 
@@ -184,7 +183,7 @@ public class LeagueApi {
                     if (object == null)
                         throw LeagueError.conversionError("Could not convert stream", _url, clazz);
                     putCache(_url, body, cacheTime);
-                    response = new LeagueResponse<T>(_url, 200, "Success", Headers.of("Accept", "application/json"), object, false);
+                    response = LeagueResponse.network(_url, 200, "", Headers.of(".", "."), object);
                 }
             }
         } catch (IOException exception) {
@@ -206,14 +205,7 @@ public class LeagueApi {
         return this.mGson.fromJson(body, clazz);
     }
 
-    private String createKeyHash(String url) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(url.getBytes("UTF-8"));
-        return new String(md.digest());
-    }
-
     private String queryNetwork(final String url, final Region region) throws IOException {
-
         log(LogLevel.FULL, "HTTP --> " + url);
         /**
          * The Builder for the request to be send
