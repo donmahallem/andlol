@@ -48,6 +48,10 @@ import eu.m0k.lol.api.network.PathSegments;
 import eu.m0k.lol.api.response.RunePageResponse;
 
 public class LeagueApi {
+    /**
+     * 50MB
+     */
+    private final static long CACHE_SIZE = 50 * 1024 * 1024;
     private final static String TAG = "League-Api", HEADER_USER_AGENT = "User-Agent", HEADER_ACCEPT = "Accept", ENCODING_JSON = "application/json";
     private final static int CACHE_INDEX_EXPIRES = 1, CACHE_INDEX_BODY = 0, CACHE_INDEX_URL = 2;
     private static final MainThreadExecutor mMainThreadExecutor = new MainThreadExecutor();
@@ -83,7 +87,7 @@ public class LeagueApi {
             this.mDiskLruCache = null;
         else {
             try {
-                this.mDiskLruCache = DiskLruCache.open(new File(builder.mCacheDir, "rcache"), 1, 3, 100000);
+                this.mDiskLruCache = DiskLruCache.open(new File(builder.mCacheDir, "rcache"), 1, 3, CACHE_SIZE);
             } catch (IOException e) {
                 this.mDiskLruCache = null;
             }
