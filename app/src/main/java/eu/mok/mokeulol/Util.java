@@ -81,6 +81,7 @@ public class Util {
         if (mLeagueApi == null) {
             LeagueApi.Builder builder = new LeagueApi.Builder();
             builder.setLogLevel(LogLevel.BASIC);
+            builder.setCacheDir(mContext.getCacheDir());
             builder.setApiKey(new ApiKey(getLeagueApiToken()));
             mLeagueApi = builder.build();
         }
