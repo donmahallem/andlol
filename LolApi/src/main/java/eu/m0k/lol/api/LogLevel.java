@@ -9,5 +9,10 @@
 package eu.m0k.lol.api;
 
 public enum LogLevel {
-    NONE, BASIC;
+    NONE(0), BASIC(1), FULL(3);
+    public final int LEVEL;
+
+    LogLevel(int level) {
+        this.LEVEL = level;
+    }
 }
