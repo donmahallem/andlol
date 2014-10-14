@@ -26,7 +26,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import eu.m0k.lol.api.internal.LeagueError;
-import eu.m0k.lol.api.internal.MD5;
 import eu.m0k.lol.api.internal.MainThreadExecutor;
 import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Champion;
@@ -85,15 +84,31 @@ public class LeagueApi {
         }
     }
 
-    private DiskLruCache.Snapshot getCache(String key) throws IOException {
+    private <T> LeagueResponse<T> getCache(String url, Class<T> clazz) throws IOException {
         synchronized (this) {
-            DiskLruCache.Snapshot snapShot = this.mDiskLruCache.get(key);
+            if (LogLevel.BASIC == this.mLogLevel) {
+                Log.d("LeagueApi-Query", "CACHE --> " + url);
+            }
+            DiskLruCache.Snapshot snapShot = this.mDiskLruCache.get(url);
             if (Long.parseLong(snapShot.getString(CACHE_INDEX_EXPIRES)) < System.currentTimeMillis()) {
                 snapShot.close();
-                this.mDiskLruCache.remove(key);
+                this.mDiskLruCache.remove(url);
+                Log.d("LeagueApi-Query", "CACHE MISS <-- " + url);
                 return null;
             }
-            return snapShot;
+            if (LogLevel.BASIC == this.mLogLevel) {
+                Log.d("LeagueApi-Query", "GSON --> Start Conversion");
+            }
+            T obj = this.mGson.fromJson(new BufferedReader(new InputStreamReader(snapShot.getInputStream(CACHE_INDEX_BODY))), clazz);
+            if (LogLevel.BASIC == this.mLogLevel) {
+                Log.d("LeagueApi-Query", "GSON <-- End Conversion");
+            }
+            snapShot.close();
+            LeagueResponse<T> response = new LeagueResponse<T>(url, 200, "", null, obj, true);
+            if (LogLevel.BASIC == this.mLogLevel) {
+                Log.d("LeagueApi-Query", "CACHE HIT <-- " + url);
+            }
+            return response;
         }
     }
 
@@ -106,23 +121,7 @@ public class LeagueApi {
         }
     }
 
-    private <T> LeagueResponse<T> query(String url, Region region, PathSegments segments, Parameters parameters, CachePolicy cachePolicy, Class<T> clazz) {
-        if (cachePolicy == CachePolicy.NORMAL) {
-            try {
-                DiskLruCache.Snapshot snap = getCache(MD5.computeMD5String(url.getBytes()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    private String createKeyHash(String url) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(url.getBytes("UTF-8"));
-        return new String(md.digest());
-    }
-    private <T> LeagueResponse<T> queryNetwork(String url, Region region, PathSegments segments, Parameters parameters, CachePolicy cachePolicy, Class<T> clazz) {
+    private <T> LeagueResponse<T> query(final String url, final Region region, final PathSegments segments, final Parameters parameters, final CachePolicy cachePolicy, final Class<T> clazz) throws IOException {
         /**
          * Check if PathSegements is null otherwise sets one
          */
@@ -136,14 +135,35 @@ public class LeagueApi {
         for (String segment : segments.keySet()) {
             _url = _url.replace("{" + segment + "}", segments.get(segment));
         }
+
+        if (cachePolicy == CachePolicy.NORMAL) {
+            LeagueResponse<T> response = getCache(_url, clazz);
+            if (response != null) {
+                /**
+                 * Response was cached and will be delivered
+                 */
+                return response;
+            }
+        }
+        return null;
+    }
+
+    private String createKeyHash(String url) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(url.getBytes("UTF-8"));
+        return new String(md.digest());
+    }
+
+    private <T> LeagueResponse<T> queryNetwork(final String url, final Region region, final CachePolicy cachePolicy, final Class<T> clazz) {
+
         if (LogLevel.BASIC == this.mLogLevel) {
-            Log.d("LeagueApi", "HTTP --> " + _url);
+            Log.d("LeagueApi-Query", "HTTP --> " + url);
         }
         /**
          * The Builder for the request to be send
          */
         final Request.Builder requestBuilder = new Request.Builder();
-        requestBuilder.url(_url);
+        requestBuilder.url(url);
         requestBuilder.addHeader(HEADER_USER_AGENT, mUserAgent);
         requestBuilder.addHeader(HEADER_ACCEPT, ENCODING_JSON);
         /**
@@ -155,10 +175,10 @@ public class LeagueApi {
         try {
             response = this.mOkHttpClient.newCall(request).execute();
             if (LogLevel.BASIC == this.mLogLevel) {
-                Log.d("LeagueApi", "HTTP <-- " + response.code() + " " + _url);
+                Log.d("LeagueApi-Query", "HTTP <-- " + response.code() + " " + url);
             }
         } catch (IOException e) {
-            throw LeagueError.networkError(_url, e);
+            throw LeagueError.networkError(url, e);
         }
         if (response.isSuccessful()) {
             if (LogLevel.BASIC == this.mLogLevel) {
@@ -169,11 +189,11 @@ public class LeagueApi {
                 Log.d("LeagueApi", "GSON <-- End Conversion");
             }
             if (obj == null) {
-                throw LeagueError.conversionError("Could not convert", _url, clazz);
+                throw LeagueError.conversionError("Could not convert", url, clazz);
             }
-            return new LeagueResponse<T>(_url, response.code(), "", response.headers(), obj, true);
+            return new LeagueResponse<T>(url, response.code(), "", response.headers(), obj, true);
         } else {
-            throw LeagueError.httpError(response.code(), _url);
+            throw LeagueError.httpError(response.code(), url);
         }
     }
 
@@ -208,7 +228,7 @@ public class LeagueApi {
         parameters.put(locale);
         PathSegments mPathSegments = new PathSegments();
         mPathSegments.putChampId(champion);
-        return queryNetwork(Endpoint.CHAMPION, region, mPathSegments, parameters, CachePolicy.NORMAL, Champion.class);
+        return query(Endpoint.CHAMPION, region, mPathSegments, parameters, CachePolicy.NORMAL, Champion.class);
     }
 
     @SuppressWarnings("unused")
@@ -221,7 +241,7 @@ public class LeagueApi {
         parameters.put(Parameters.INCLUDE_TIMELINE, includeTimeline);
         PathSegments mPathSegments = new PathSegments();
         mPathSegments.putMatchId(matchId);
-        return queryNetwork(Endpoint.CHAMPION + matchId, region, mPathSegments, parameters, CachePolicy.NORMAL, Champion.class);
+        return query(Endpoint.CHAMPION + matchId, region, mPathSegments, parameters, CachePolicy.NORMAL, Champion.class);
     }
     /**
      * Retrieves the Championlist
@@ -240,7 +260,7 @@ public class LeagueApi {
         Parameters parameters = new Parameters();
         parameters.put(champData);
         parameters.put(locale);
-        return queryNetwork(Endpoint.CHAMPION, region, new PathSegments(), parameters, CachePolicy.NORMAL, ChampionList.class);
+        return query(Endpoint.CHAMPION, region, new PathSegments(), parameters, CachePolicy.NORMAL, ChampionList.class);
     }
 
     /**
