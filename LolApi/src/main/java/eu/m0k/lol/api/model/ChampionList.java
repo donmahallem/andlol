@@ -23,6 +23,9 @@ import java.util.Comparator;
 import java.util.Map;
 
 public class ChampionList extends ArrayList<Champion> {
+    /**
+     * Sorts the Champions by Name Ascending
+     */
     public final static Comparator<Champion> SortChampByNameAsc = new Comparator<Champion>() {
 
         @Override
@@ -30,6 +33,9 @@ public class ChampionList extends ArrayList<Champion> {
             return lhs.getName().compareTo(rhs.getName());
         }
     };
+    /**
+     * Sorts the Champions by Name Descending
+     */
     public final static Comparator<Champion> SortChampByNameDesc = new Comparator<Champion>() {
 
         @Override
@@ -37,12 +43,22 @@ public class ChampionList extends ArrayList<Champion> {
             return rhs.getName().compareTo(lhs.getName());
         }
     };
+
     private String mVersion;
 
+    /**
+     * returns the Version for this ChampionList
+     *
+     * @return the ChampionList Version
+     */
     public String getVersion() {
         return mVersion;
     }
 
+    /**
+     * Sorts the ChampionList ascending or descending
+     * @param asc sort ascending or descending
+     */
     public void sortByName(boolean asc) {
         if (asc)
             Collections.sort(this, SortChampByNameAsc);
@@ -58,6 +74,9 @@ public class ChampionList extends ArrayList<Champion> {
                 '}';
     }
 
+    /**
+     * TypeAdapter required for GSON
+     */
     public static class TypeAdapter implements JsonDeserializer<ChampionList>, JsonSerializer<ChampionList> {
 
         @Override

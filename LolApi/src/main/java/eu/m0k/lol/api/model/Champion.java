@@ -68,6 +68,11 @@ public class Champion {
     @SerializedName("recommended")
     private List<ChampionRecommendation> mRecommended;
 
+    /**
+     * Gets the Champion Lore
+     *
+     * @return the Champion Lore if queried or null
+     */
     public String getLore() {
         return mLore;
     }

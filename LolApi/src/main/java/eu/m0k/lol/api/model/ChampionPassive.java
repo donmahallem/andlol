@@ -27,22 +27,43 @@ public class ChampionPassive {
     @SerializedName("image")
     private Image mImage;
 
+    /**
+     * gets the name of the passive
+     *
+     * @return the passive
+     */
     public String getName() {
         return mName;
     }
 
+    /**
+     * gets the Passives Description
+     * @return
+     */
     public String getDescription() {
         return mDescription;
     }
 
+    /**
+     * gets the sanitized Description of the Passive
+     * @return the sanitized Description
+     */
     public String getSanitizedDescription() {
         return mSanitizedDescription;
     }
 
+    /**
+     * returns the Image containing infos
+     * @return the Image Object for the Spell
+     */
     public Image getImage() {
         return mImage;
     }
 
+    /**
+     * returns the ImageUri required for Picasso
+     * @return
+     */
     public String getImageUri() {
         return Constants.PATH_IMG_PASSIVE + this.getImage().getFull();
     }
