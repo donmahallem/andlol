@@ -20,7 +20,9 @@ import com.squareup.okhttp.internal.DiskLruCache;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -112,12 +114,20 @@ public class LeagueApi {
         }
     }
 
-    private void putCache(String key, String body, long expires) throws IOException {
+    private boolean putCache(String key, InputStream inputStream, long expires) throws IOException {
         synchronized (this) {
             DiskLruCache.Editor editor = this.mDiskLruCache.edit(key);
-            editor.set(CACHE_INDEX_BODY, body);
-            editor.set(CACHE_INDEX_EXPIRES, "" + expires);
+            OutputStream outputStream = editor.newOutputStream(CACHE_INDEX_BODY);
+            byte[] buffer = new byte[1024];
+            int len = inputStream.read(buffer);
+            while (len != -1) {
+                outputStream.write(buffer, 0, len);
+                len = inputStream.read(buffer);
+            }
+            outputStream.close();
+            editor.set(CACHE_INDEX_EXPIRES, "" + (System.currentTimeMillis() + expires));
             editor.commit();
+            return true;
         }
     }
 
@@ -144,6 +154,8 @@ public class LeagueApi {
                  */
                 return response;
             }
+            queryNetwork(_url, region, clazz);
+
         }
         return null;
     }
@@ -154,7 +166,7 @@ public class LeagueApi {
         return new String(md.digest());
     }
 
-    private <T> LeagueResponse<T> queryNetwork(final String url, final Region region, final CachePolicy cachePolicy, final Class<T> clazz) {
+    private <T> LeagueResponse<T> queryNetwork(final String url, final Region region, final Class<T> clazz) {
 
         if (LogLevel.BASIC == this.mLogLevel) {
             Log.d("LeagueApi-Query", "HTTP --> " + url);
