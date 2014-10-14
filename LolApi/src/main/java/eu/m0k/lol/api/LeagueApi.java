@@ -49,7 +49,7 @@ import eu.m0k.lol.api.response.RunePageResponse;
 
 public class LeagueApi {
     private final static String TAG = "League-Api", HEADER_USER_AGENT = "User-Agent", HEADER_ACCEPT = "Accept", ENCODING_JSON = "application/json";
-    private final static int CACHE_INDEX_EXPIRES = 1, CACHE_INDEX_BODY = 0;
+    private final static int CACHE_INDEX_EXPIRES = 1, CACHE_INDEX_BODY = 0, CACHE_INDEX_URL = 2;
     private static final MainThreadExecutor mMainThreadExecutor = new MainThreadExecutor();
     private final String mUserAgent;
     /**
@@ -83,7 +83,7 @@ public class LeagueApi {
             this.mDiskLruCache = null;
         else {
             try {
-                this.mDiskLruCache = DiskLruCache.open(new File(builder.mCacheDir, "rcache"), 0, 2, 100000);
+                this.mDiskLruCache = DiskLruCache.open(new File(builder.mCacheDir, "rcache"), 1, 3, 100000);
             } catch (IOException e) {
                 this.mDiskLruCache = null;
             }
@@ -114,7 +114,7 @@ public class LeagueApi {
                 this.mCacheStatistics.incrementCacheMiss();
                 return null;
             }
-            if (Long.parseLong(snapShot.getString(CACHE_INDEX_EXPIRES)) < System.currentTimeMillis()) {
+            if (Long.parseLong(snapShot.getString(CACHE_INDEX_EXPIRES)) < System.currentTimeMillis() || !url.equals(snapShot.getString(CACHE_INDEX_URL))) {
                 snapShot.close();
                 this.mDiskLruCache.remove(keyHash);
                 this.mCacheStatistics.incrementCacheMiss();
@@ -141,6 +141,7 @@ public class LeagueApi {
             log(LogLevel.FULL, "putCache " + url + "ID: \"" + keyHash + "\" for " + expires);
             DiskLruCache.Editor editor = this.mDiskLruCache.edit(keyHash);
             editor.set(CACHE_INDEX_BODY, body);
+            editor.set(CACHE_INDEX_URL, url);
             editor.set(CACHE_INDEX_EXPIRES, "" + (System.currentTimeMillis() + expires));
             editor.commit();
             return true;
