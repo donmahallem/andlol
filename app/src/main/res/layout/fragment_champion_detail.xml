@@ -118,40 +118,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lore"/>
-
-            <TextView
-                android:id="@id/txtDescription"
-                style="@style/Text.Description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <eu.mok.mokeulol.view.ChampionSpellView
-                android:id="@id/ivSpell1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@color/very_light_grey"/>
-
-            <eu.mok.mokeulol.view.ChampionSpellView
-                android:id="@id/ivSpell2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@color/very_light_grey"/>
-
-            <eu.mok.mokeulol.view.ChampionSpellView
-                android:id="@id/ivSpell3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@color/very_light_grey"/>
-
-            <eu.mok.mokeulol.view.ChampionSpellView
-                android:id="@id/ivSpell4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@color/very_light_grey"/>
         </LinearLayout>
     </LinearLayout>
 </com.nirhart.parallaxscroll.views.ParallaxScrollView>
