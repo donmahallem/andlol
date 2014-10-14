@@ -118,6 +118,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lore"/>
+
+            <TextView
+                android:id="@id/txtDescription"
+                style="@style/Text.Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         </LinearLayout>
     </LinearLayout>
 </com.nirhart.parallaxscroll.views.ParallaxScrollView>
