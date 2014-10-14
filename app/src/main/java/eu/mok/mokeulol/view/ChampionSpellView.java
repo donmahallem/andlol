@@ -41,7 +41,7 @@ public class ChampionSpellView extends LinearLayout {
         this.mSubTitle = (TextView) this.findViewById(R.id.subTitle);
     }
 
-    public void setChampion(final ChampionSpell champion) {
+    public void setChampionSpell(final ChampionSpell champion) {
         this.mChampionSpell = champion;
         this.update();
     }
