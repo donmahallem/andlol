@@ -30,6 +30,7 @@ import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.activities.ChampionSkinActivity;
 import eu.mok.mokeulol.adapter.SkinListAdapter;
+import eu.mok.mokeulol.view.ChampionPassiveView;
 import eu.mok.mokeulol.view.ChampionSpellView;
 import it.sephiroth.android.library.widget.AdapterView;
 import it.sephiroth.android.library.widget.HListView;
@@ -38,9 +39,10 @@ public class ChampionFragment extends LeagueFragment implements AdapterView.OnIt
     private final static String ARGS_CHAMP_ID = "champid";
     private TextView mTxtTitle, mTxtSubTitle, mTxtDescription, mTxtLore;
     private CircularImageView mIvChampIcon;
-    private ChampionSpellView mIvSpell1, mIvSpell2, mIvSpell3, mIvSpell4;
+    private ChampionSpellView mChampionSpellView1, mChampionSpellView2, mChampionSpellView3, mChampionSpellView4;
     private HListView mHListView;
     private SkinListAdapter mSkinListAdapter = new SkinListAdapter();
+    private ChampionPassiveView mChampionPassiveView;
     private Champion mChampion;
 
     public ChampionFragment() {
@@ -73,10 +75,11 @@ public class ChampionFragment extends LeagueFragment implements AdapterView.OnIt
         this.mIvChampIcon = (CircularImageView) view.findViewById(R.id.ivChampionIcon);
         this.mTxtSubTitle = (TextView) view.findViewById(R.id.subTitle);
         this.mTxtDescription = (TextView) view.findViewById(R.id.txtDescription);
-        this.mIvSpell1 = (ChampionSpellView) view.findViewById(R.id.ivSpell1);
-        this.mIvSpell2 = (ChampionSpellView) view.findViewById(R.id.ivSpell2);
-        this.mIvSpell3 = (ChampionSpellView) view.findViewById(R.id.ivSpell3);
-        this.mIvSpell4 = (ChampionSpellView) view.findViewById(R.id.ivSpell4);
+        this.mChampionSpellView1 = (ChampionSpellView) view.findViewById(R.id.championSpellView1);
+        this.mChampionSpellView2 = (ChampionSpellView) view.findViewById(R.id.championSpellView2);
+        this.mChampionSpellView3 = (ChampionSpellView) view.findViewById(R.id.championSpellView3);
+        this.mChampionSpellView4 = (ChampionSpellView) view.findViewById(R.id.championSpellView4);
+        this.mChampionPassiveView = (ChampionPassiveView) view.findViewById(R.id.championPassiveView);
         Task task = new Task();
         task.execute(getArguments().getInt(ARGS_CHAMP_ID, 32));
         this.mHListView.setAdapter(this.mSkinListAdapter);
@@ -94,11 +97,14 @@ public class ChampionFragment extends LeagueFragment implements AdapterView.OnIt
                     .placeholder(android.R.drawable.ic_menu_rotate)
                     .error(android.R.drawable.ic_delete)
                     .into(this.mIvChampIcon);
-            if (mChampion.getSpells() != null) {
-                this.mIvSpell1.setChampion(this.mChampion.getSpells().get(0));
-                this.mIvSpell2.setChampion(this.mChampion.getSpells().get(1));
-                this.mIvSpell3.setChampion(this.mChampion.getSpells().get(2));
-                this.mIvSpell4.setChampion(this.mChampion.getSpells().get(3));
+            if (this.mChampion.getSpells() != null) {
+                this.mChampionSpellView1.setChampionSpell(this.mChampion.getSpells().get(0));
+                this.mChampionSpellView2.setChampionSpell(this.mChampion.getSpells().get(1));
+                this.mChampionSpellView3.setChampionSpell(this.mChampion.getSpells().get(2));
+                this.mChampionSpellView4.setChampionSpell(this.mChampion.getSpells().get(3));
+            }
+            if (this.mChampion.getPassive() != null) {
+                this.mChampionPassiveView.setChampionPassive(this.mChampion.getPassive());
             }
             if (this.mChampion.getSkins() != null) {
                 this.mSkinListAdapter.setKey(this.mChampion.getKey());

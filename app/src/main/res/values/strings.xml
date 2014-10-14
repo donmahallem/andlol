@@ -30,4 +30,5 @@
     <string name="checked">Checked!</string>
     <string name="network_error">Network Error</string>
     <string name="unknown_error">Unknown Error</string>
+    <string name="passive">Passive</string>
 </resources>

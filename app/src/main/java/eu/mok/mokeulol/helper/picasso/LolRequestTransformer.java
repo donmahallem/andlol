@@ -25,6 +25,8 @@ public class LolRequestTransformer implements Picasso.RequestTransformer {
             if (request.uri.getHost().equals(Constants.IMAGE) && pathSegments.size() == 2) {
                 if (pathSegments.get(0).equals(Constants.SPELL)) {
                     return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/4.17.1/img/spell/" + pathSegments.get(1))).build();
+                } else if (pathSegments.get(0).equals(Constants.PASSIVE)) {
+                    return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/4.17.1/img/passive/" + pathSegments.get(1))).build();
                 } else if (pathSegments.get(0).equals(Constants.CHAMPION_ICON)) {
                     return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/4.17.1/img/champion/" + pathSegments.get(1) + ".png")).build();
                 } else if (pathSegments.get(0).equals(Constants.SPLASH)) {

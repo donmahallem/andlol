@@ -78,35 +78,47 @@
             </LinearLayout>
 
             <TextView
-                android:id="@id/title"
+                style="@style/Text.Description.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/passive"/>
+
+            <eu.mok.mokeulol.view.ChampionPassiveView
+                android:id="@id/championPassiveView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/very_light_grey"/>
+
+            <TextView
                 style="@style/Text.Description.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/abilities"/>
 
             <eu.mok.mokeulol.view.ChampionSpellView
-                android:id="@id/ivSpell1"
+                android:id="@id/championSpellView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="@color/very_light_grey"/>
 
             <eu.mok.mokeulol.view.ChampionSpellView
-                android:id="@id/ivSpell2"
+                android:id="@id/championSpellView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="@color/very_light_grey"/>
 
             <eu.mok.mokeulol.view.ChampionSpellView
-                android:id="@id/ivSpell3"
+                android:id="@id/championSpellView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="@color/very_light_grey"/>
 
             <eu.mok.mokeulol.view.ChampionSpellView
-                android:id="@id/ivSpell4"
+                android:id="@id/championSpellView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"

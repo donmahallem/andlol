@@ -11,10 +11,11 @@
     <item name="title" type="id"/>
     <item name="subTitle" type="id"/>
     <item name="icon" type="id"/>
-    <item name="ivSpell1" type="id"/>
-    <item name="ivSpell2" type="id"/>
-    <item name="ivSpell3" type="id"/>
-    <item name="ivSpell4" type="id"/>
+    <item name="championSpellView1" type="id"/>
+    <item name="championSpellView2" type="id"/>
+    <item name="championSpellView3" type="id"/>
+    <item name="championSpellView4" type="id"/>
+    <item name="championPassiveView" type="id"/>
     <item name="txtDescription" type="id"/>
     <item name="txtLore" type="id"/>
     <item name="ivChampionIcon" type="id"/>

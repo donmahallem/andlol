@@ -26,4 +26,6 @@ public interface Constants {
     public final static String PATH_IMG_CHAMPION_LOADING = SCHEME + "://" + IMAGE + "/" + LOADING + "/";
     public final static String SPLASH = "splash";
     public final static String PATH_IMG_CHAMPION_SPLASH = SCHEME + "://" + IMAGE + "/" + SPLASH + "/";
+    public final static String PASSIVE = "passive";
+    public final static String PATH_IMG_PASSIVE = SCHEME + "://" + IMAGE + "/" + PASSIVE + "/";
 }

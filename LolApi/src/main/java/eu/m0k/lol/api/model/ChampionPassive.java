@@ -44,6 +44,6 @@ public class ChampionPassive {
     }
 
     public String getImageUri() {
-        return Constants.PATH_IMG_SPELL + this.getImage().getFull();
+        return Constants.PATH_IMG_PASSIVE + this.getImage().getFull();
     }
 }
