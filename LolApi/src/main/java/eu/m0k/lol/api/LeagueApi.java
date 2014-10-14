@@ -65,6 +65,7 @@ public class LeagueApi {
     private final LogLevel mLogLevel;
     private DiskLruCache mDiskLruCache;
     private MessageDigest mMessageDigest;
+    private CacheStatistics mCacheStatistics = new CacheStatistics();
 
     private LeagueApi(Builder builder) {
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -90,21 +91,30 @@ public class LeagueApi {
         }
     }
 
+    public CacheStatistics getCacheStatistics() {
+        return mCacheStatistics;
+    }
+
     private <T> LeagueResponse<T> getCache(String url, Class<T> clazz) throws IOException, NoSuchAlgorithmException {
         synchronized (this) {
             final String keyHash = hashUrl(url);
+            this.mCacheStatistics.incrementCacheRequest();
             if (LogLevel.BASIC == this.mLogLevel) {
                 Log.d("LeagueApi-Query", "CACHE --> " + url);
             }
             DiskLruCache.Snapshot snapShot = this.mDiskLruCache.get(keyHash);
-            if (snapShot == null)
+            if (snapShot == null) {
+                this.mCacheStatistics.incrementCacheMiss();
                 return null;
+            }
             if (Long.parseLong(snapShot.getString(CACHE_INDEX_EXPIRES)) < System.currentTimeMillis()) {
                 snapShot.close();
                 this.mDiskLruCache.remove(keyHash);
+                this.mCacheStatistics.incrementCacheMiss();
                 Log.d("LeagueApi-Query", "CACHE MISS <-- " + url);
                 return null;
             }
+            this.mCacheStatistics.incrementCacheHit();
             if (LogLevel.BASIC == this.mLogLevel) {
                 Log.d("LeagueApi-Query", "GSON --> Start Conversion");
             }
@@ -277,8 +287,9 @@ public class LeagueApi {
         parameters.put(Parameters.INCLUDE_TIMELINE, includeTimeline);
         PathSegments mPathSegments = new PathSegments();
         mPathSegments.putMatchId(matchId);
-        return query(Endpoint.CHAMPION + matchId, region, mPathSegments, parameters, CachePolicy.NORMAL, 5, TimeUnit.MINUTES, Champion.class);
+        return query(Endpoint.CHAMPION + matchId, region, mPathSegments, parameters, CachePolicy.NORMAL, 6, TimeUnit.HOURS, Champion.class);
     }
+
     /**
      * Retrieves the Championlist
      *
@@ -296,7 +307,50 @@ public class LeagueApi {
         Parameters parameters = new Parameters();
         parameters.put(champData);
         parameters.put(locale);
-        return query(Endpoint.CHAMPION_LIST, region, new PathSegments(), parameters, CachePolicy.NORMAL, 5, TimeUnit.MINUTES, ChampionList.class);
+        return query(Endpoint.CHAMPION_LIST, region, new PathSegments(), parameters, CachePolicy.NORMAL, 6, TimeUnit.HOURS, ChampionList.class);
+    }
+
+    /**
+     * Class containing Cache Statistics
+     */
+    public static final class CacheStatistics {
+
+        private long mCacheHits = 0;
+        private long mCacheMiss = 0;
+        private long mCacheRequests = 0;
+
+        public void incrementCacheHit() {
+            this.mCacheHits++;
+        }
+
+        public void incrementCacheMiss() {
+            this.mCacheMiss++;
+        }
+
+        public void incrementCacheRequest() {
+            this.mCacheRequests++;
+        }
+
+        @Override
+        public String toString() {
+            return "CacheStatistics{" +
+                    "cacheHits=" + mCacheHits +
+                    ", cacheMiss=" + mCacheMiss +
+                    ", cacheRequests=" + mCacheRequests +
+                    '}';
+        }
+
+        public long getCacheHits() {
+            return mCacheHits;
+        }
+
+        public long getCacheMiss() {
+            return mCacheMiss;
+        }
+
+        public long getCacheRequests() {
+            return mCacheRequests;
+        }
     }
 
     /**
