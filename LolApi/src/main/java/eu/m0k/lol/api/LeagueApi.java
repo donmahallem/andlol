@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -49,7 +48,7 @@ import eu.m0k.lol.api.network.PathSegments;
 import eu.m0k.lol.api.response.RunePageResponse;
 
 public class LeagueApi {
-    private final static String HEADER_USER_AGENT = "User-Agent", HEADER_ACCEPT = "Accept", ENCODING_JSON = "application/json";
+    private final static String TAG = "League-Api", HEADER_USER_AGENT = "User-Agent", HEADER_ACCEPT = "Accept", ENCODING_JSON = "application/json";
     private final static int CACHE_INDEX_EXPIRES = 1, CACHE_INDEX_BODY = 0;
     private static final MainThreadExecutor mMainThreadExecutor = new MainThreadExecutor();
     private final String mUserAgent;
@@ -91,17 +90,25 @@ public class LeagueApi {
         }
     }
 
+    public static void log(final LogLevel system, final LogLevel level, final String tag, final String msg) {
+        if (system.LEVEL >= level.LEVEL) {
+            Log.d(tag, msg);
+        }
+    }
+
     public CacheStatistics getCacheStatistics() {
         return mCacheStatistics;
+    }
+
+    public void log(final LogLevel logLevel, final String msg) {
+        log(this.mLogLevel, logLevel, TAG, msg);
     }
 
     private <T> LeagueResponse<T> getCache(String url, Class<T> clazz) throws IOException, NoSuchAlgorithmException {
         synchronized (this) {
             final String keyHash = hashUrl(url);
             this.mCacheStatistics.incrementCacheRequest();
-            if (LogLevel.BASIC == this.mLogLevel) {
-                Log.d("LeagueApi-Query", "CACHE --> " + url);
-            }
+            log(LogLevel.FULL, "CACHE --> " + url);
             DiskLruCache.Snapshot snapShot = this.mDiskLruCache.get(keyHash);
             if (snapShot == null) {
                 this.mCacheStatistics.incrementCacheMiss();
@@ -111,22 +118,16 @@ public class LeagueApi {
                 snapShot.close();
                 this.mDiskLruCache.remove(keyHash);
                 this.mCacheStatistics.incrementCacheMiss();
-                Log.d("LeagueApi-Query", "CACHE MISS <-- " + url);
+                log(LogLevel.FULL, "CACHE MISS <-- " + url);
                 return null;
             }
             this.mCacheStatistics.incrementCacheHit();
-            if (LogLevel.BASIC == this.mLogLevel) {
-                Log.d("LeagueApi-Query", "GSON --> Start Conversion");
-            }
+            log(LogLevel.FULL, "CACHE HIT <-- " + url);
+            log(LogLevel.FULL, "GSON --> Start Conversion");
             T obj = this.mGson.fromJson(new BufferedReader(new InputStreamReader(snapShot.getInputStream(CACHE_INDEX_BODY))), clazz);
-            if (LogLevel.BASIC == this.mLogLevel) {
-                Log.d("LeagueApi-Query", "GSON <-- End Conversion");
-            }
+            log(LogLevel.FULL, "GSON <-- End Conversion");
             snapShot.close();
             LeagueResponse<T> response = new LeagueResponse<T>(url, 200, "", Headers.of("Accept", "application/json"), obj, true);
-            if (LogLevel.BASIC == this.mLogLevel) {
-                Log.d("LeagueApi-Query", "CACHE HIT <-- " + url);
-            }
             return response;
         }
     }
@@ -135,21 +136,12 @@ public class LeagueApi {
         return new String(UUID.nameUUIDFromBytes(toHash.getBytes("UTF-8")).toString());
     }
 
-    private boolean putCache(String url, InputStream inputStream, long expires) throws IOException, NoSuchAlgorithmException {
+    private boolean putCache(String url, String body, long expires) throws IOException, NoSuchAlgorithmException {
         synchronized (this) {
             final String keyHash = hashUrl(url);
-            if (LogLevel.BASIC == this.mLogLevel) {
-                Log.d("LeagueApi-Query", "putCache " + url + "ID: \"" + keyHash + "\" for " + expires);
-            }
+            log(LogLevel.FULL, "putCache " + url + "ID: \"" + keyHash + "\" for " + expires);
             DiskLruCache.Editor editor = this.mDiskLruCache.edit(keyHash);
-            OutputStream outputStream = editor.newOutputStream(CACHE_INDEX_BODY);
-            byte[] buffer = new byte[1024];
-            int len = inputStream.read(buffer);
-            while (len != -1) {
-                outputStream.write(buffer, 0, len);
-                len = inputStream.read(buffer);
-            }
-            outputStream.close();
+            editor.set(CACHE_INDEX_BODY, body);
             editor.set(CACHE_INDEX_EXPIRES, "" + (System.currentTimeMillis() + expires));
             editor.commit();
             return true;
@@ -167,6 +159,7 @@ public class LeagueApi {
                                         final PathSegments segments, final Parameters parameters,
                                         final CachePolicy cachePolicy, long cacheTime,
                                         final Class<T> clazz) throws IOException {
+        final long callTime = System.currentTimeMillis();
         /**
          * Check if PathSegements is null otherwise sets one
          */
@@ -180,28 +173,37 @@ public class LeagueApi {
         for (String segment : segments.keySet()) {
             _url = _url.replace("{" + segment + "}", segments.get(segment));
         }
+        log(LogLevel.BASIC, "Query: url( " + _url + " )");
+        LeagueResponse<T> response = null;
         try {
             if (cachePolicy == CachePolicy.NORMAL) {
-                LeagueResponse<T> response = getCache(_url, clazz);
-                if (response != null) {
-                    /**
-                     * Response was cached and will be delivered
-                     */
-                    return response;
+                response = getCache(_url, clazz);
+                if (response == null) {
+                    String body = queryNetwork(_url, region);
+                    T object = convertToResponse(body, clazz);
+                    if (object == null)
+                        throw LeagueError.conversionError("Could not convert stream", _url, clazz);
+                    putCache(_url, body, cacheTime);
+                    response = new LeagueResponse<T>(_url, 200, "Success", Headers.of("Accept", "application/json"), object, false);
                 }
-                InputStream stream = queryNetwork(_url, region);
-                if (stream == null)
-                    throw LeagueError.networkError(_url, null);
-                putCache(_url, stream, cacheTime);
-                stream.close();
-                return getCache(_url, clazz);
             }
         } catch (IOException exception) {
             throw LeagueError.networkError(_url, exception);
         } catch (NoSuchAlgorithmException e) {
             throw LeagueError.unexpectedError("No MD5", e);
         }
-        return null;
+        if (response == null)
+            throw LeagueError.unexpectedError(_url, new RuntimeException("Response is null"));
+        log(LogLevel.BASIC, "Query: url( " + _url + " ), cached: " + response.isCached() + ", time: " + (System.currentTimeMillis() - callTime) + "ms");
+        return response;
+    }
+
+    private <T> T convertToResponse(InputStream stream, Class<T> clazz) {
+        return this.mGson.fromJson(new BufferedReader(new InputStreamReader(stream)), clazz);
+    }
+
+    private <T> T convertToResponse(String body, Class<T> clazz) {
+        return this.mGson.fromJson(body, clazz);
     }
 
     private String createKeyHash(String url) throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -210,11 +212,9 @@ public class LeagueApi {
         return new String(md.digest());
     }
 
-    private InputStream queryNetwork(final String url, final Region region) {
+    private String queryNetwork(final String url, final Region region) throws IOException {
 
-        if (LogLevel.BASIC == this.mLogLevel) {
-            Log.d("LeagueApi-Query", "HTTP --> " + url);
-        }
+        log(LogLevel.FULL, "HTTP --> " + url);
         /**
          * The Builder for the request to be send
          */
@@ -230,14 +230,12 @@ public class LeagueApi {
         Response response = null;
         try {
             response = this.mOkHttpClient.newCall(request).execute();
-            if (LogLevel.BASIC == this.mLogLevel) {
-                Log.d("LeagueApi-Query", "HTTP <-- " + response.code() + " " + url);
-            }
+            log(LogLevel.FULL, "HTTP <-- " + response.code() + " " + url);
         } catch (IOException e) {
             throw LeagueError.networkError(url, e);
         }
         if (response.isSuccessful()) {
-            return response.body().byteStream();
+            return response.body().string();
         } else {
             throw LeagueError.httpError(response.code(), url);
         }
@@ -361,6 +359,7 @@ public class LeagueApi {
         private LogLevel mLogLevel = LogLevel.NONE;
         private String mUserAgent = "LeagueApi (github.com/donmahallem/andlol)";
         private File mCacheDir;
+
         public ApiKey getApiKey() {
             return mApiKey;
         }
