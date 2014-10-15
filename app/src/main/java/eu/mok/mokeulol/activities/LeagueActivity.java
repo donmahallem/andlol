@@ -8,8 +8,13 @@
 
 package eu.mok.mokeulol.activities;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.fragments.LeagueFragment;
 
 /**
@@ -29,5 +34,25 @@ public class LeagueActivity extends ActionBarActivity implements LeagueFragment.
     @Override
     public void onShowApiTokenFragment() {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.my, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(this, LeaguePreferenceActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -10,7 +10,6 @@ package eu.mok.mokeulol.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 
 import eu.mok.mokeulol.R;
@@ -19,7 +18,7 @@ import eu.mok.mokeulol.fragments.ChampionFragment;
 import eu.mok.mokeulol.fragments.ChampionListFragment;
 import eu.mok.mokeulol.fragments.LeagueFragment;
 
-public class LeagueMainActivity extends FragmentActivity implements LeagueFragment.LeagueFragmentListener {
+public class LeagueMainActivity extends LeagueActivity implements LeagueFragment.LeagueFragmentListener {
     private final String FRAGMENT_CHAMPION_LIST = "fgr_champ_list", FRAGMENT_CHAMPION_DETAIL = "fgr_champ_detail", FRAGMENT_API_TOKEN = "fgr_api_token";
 
     @Override

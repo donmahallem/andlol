@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2014.
+  ~
+  ~ Visit https://github.com/donmahallem/andlol for more info!
+  ~
+  ~ Romanes eunt domus - Brian!
+  -->
+
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+    <header
+        android:fragment="eu.mok.mokeulol.fragments.PreferencesCacheStatistics"
+        android:summary="@string/pref_cache_statistics"
+        android:title="@string/pref_cache_statistics"/>
+</preference-headers>
