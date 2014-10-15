@@ -37,6 +37,7 @@ import eu.m0k.lol.api.model.ChampionList;
 import eu.m0k.lol.api.model.ChampionSpell;
 import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.MasteryList;
+import eu.m0k.lol.api.model.Match;
 import eu.m0k.lol.api.model.NameList;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.SummonerList;
@@ -269,11 +270,11 @@ public class LeagueApi {
         parameters.put(locale);
         PathSegments mPathSegments = new PathSegments();
         mPathSegments.putChampId(champion);
-        return query(Endpoint.CHAMPION, region, mPathSegments, parameters, CachePolicy.NORMAL, 5, TimeUnit.MINUTES, Champion.class);
+        return query(Endpoint.CHAMPION, region, mPathSegments, parameters, CachePolicy.NORMAL, 6, TimeUnit.HOURS, Champion.class);
     }
 
     @SuppressWarnings("unused")
-    public LeagueResponse<Champion> getMatch(long matchId, boolean includeTimeline, Region region, boolean cache) throws IOException {
+    public LeagueResponse<Match> getMatch(long matchId, boolean includeTimeline, Region region, boolean cache) throws IOException {
         if (matchId < 0)
             throw new IllegalArgumentException("Champion ID must be greater then 0");
         if (region == null)
@@ -282,7 +283,7 @@ public class LeagueApi {
         parameters.put(Parameters.INCLUDE_TIMELINE, includeTimeline);
         PathSegments mPathSegments = new PathSegments();
         mPathSegments.putMatchId(matchId);
-        return query(Endpoint.CHAMPION + matchId, region, mPathSegments, parameters, CachePolicy.NORMAL, 6, TimeUnit.HOURS, Champion.class);
+        return query(Endpoint.CHAMPION + matchId, region, mPathSegments, parameters, CachePolicy.NORMAL, 15, TimeUnit.MINUTES, Match.class);
     }
 
     /**
