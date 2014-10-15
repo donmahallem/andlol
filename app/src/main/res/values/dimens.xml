@@ -14,4 +14,5 @@
     <dimen name="hl_divider_width">2dp</dimen>
     <dimen name="divider_height">2dp</dimen>
     <dimen name="divider_margin">3dp</dimen>
+    <dimen name="skin_placeholder">50dp</dimen>
 </resources>

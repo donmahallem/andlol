@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2014.
+  ~
+  ~ Visit https://github.com/donmahallem/andlol for more info!
+  ~
+  ~ Romanes eunt domus - Brian!
+  -->
+
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@id/swipe_refresh_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/hello_world"/>
+    </ScrollView>
+
+</android.support.v4.widget.SwipeRefreshLayout>

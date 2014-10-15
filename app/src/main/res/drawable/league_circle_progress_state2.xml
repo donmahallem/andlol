@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2014.
+  ~
+  ~ Visit https://github.com/donmahallem/andlol for more info!
+  ~
+  ~ Romanes eunt domus - Brian!
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="ring">
+    <stroke
+        android:width="3dp"
+        android:color="@color/amber_600"/>
+    <gradient
+        android:angle="90"
+        android:endColor="@color/light_blue_300"
+        android:startColor="@color/light_blue_800"
+        android:type="sweep"
+        />
+</shape>
