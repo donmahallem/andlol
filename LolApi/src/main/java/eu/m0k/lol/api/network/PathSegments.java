@@ -16,7 +16,7 @@ import eu.m0k.lol.api.model.Region;
  * Created by Don on 11.10.2014.
  */
 public class PathSegments extends HashMap<String, String> {
-    public final static String REGION = "region", MATCH_ID = "matchId", CHAMP_ID = "champId";
+    public final static String REGION = "region", MATCH_ID = "matchId", CHAMP_ID = "champId", SUMMONER_ID = "summonerId";
 
     public void put(Region region) {
         this.put(REGION, region.getRegion());
@@ -38,5 +38,9 @@ public class PathSegments extends HashMap<String, String> {
     public void put(String string, long number) {
         if (string != null)
             this.put(string, "" + number);
+    }
+
+    public void putSummonerId(long summonerId) {
+        this.put(SUMMONER_ID, summonerId);
     }
 }

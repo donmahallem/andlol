@@ -286,6 +286,26 @@ public class LeagueApi {
         return query(Endpoint.CHAMPION + matchId, region, mPathSegments, parameters, CachePolicy.NORMAL, 15, TimeUnit.MINUTES, Match.class);
     }
 
+    @SuppressWarnings("unused")
+    public LeagueResponse<Match> getMatchHistory(long summonerId, int[] championIds
+            , String[] rankedQueues, int beginIndex, int endIndex, Region region
+            , boolean cache) throws IOException {
+        if (summonerId < 0)
+            throw new IllegalArgumentException("Champion ID must be greater then 0");
+        if (region == null)
+            throw new IllegalArgumentException("Region must not be null");
+        if (endIndex < 0 || beginIndex <= 0)
+            throw new IllegalArgumentException("Indeces must be greater or equal to 0");
+        if (endIndex <= beginIndex)
+            throw new IllegalArgumentException("EndIndex must be larger than BeginIndex");
+        Parameters parameters = new Parameters();
+        parameters.put(Parameters.BEGIN_INDEX, beginIndex);
+        parameters.put(Parameters.END_INDEX, endIndex);
+        PathSegments mPathSegments = new PathSegments();
+        mPathSegments.putSummonerId(summonerId);
+        return query(Endpoint.MATCH_HISTORY, region, mPathSegments, parameters, CachePolicy.NORMAL, 15, TimeUnit.MINUTES, Match.class);
+    }
+
     /**
      * Retrieves the Championlist
      *
