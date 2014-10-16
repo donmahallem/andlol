@@ -111,7 +111,8 @@ public class ChampionFragment extends LeagueFragment implements AdapterView.OnIt
                 this.mSkinListAdapter.setSkins(this.mChampion.getSkins());
             }
             if (this.mChampion.getLore() != null) {
-                this.mTxtDescription.setText(this.mChampion.getLore());
+
+                this.mTxtDescription.setText(android.text.Html.fromHtml(this.mChampion.getLore()));
             }
         }
     }
