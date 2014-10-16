@@ -35,7 +35,7 @@ import eu.mok.mokeulol.view.ChampionSpellView;
 import it.sephiroth.android.library.widget.AdapterView;
 import it.sephiroth.android.library.widget.HListView;
 
-public class ChampionFragment extends LeagueFragment implements AdapterView.OnItemClickListener {
+public class ChampionDetailsFragment extends LeagueFragment implements AdapterView.OnItemClickListener {
     private final static String ARGS_CHAMP_ID = "champid";
     private TextView mTxtTitle, mTxtSubTitle, mTxtDescription, mTxtLore;
     private CircularImageView mIvChampIcon;
@@ -45,14 +45,14 @@ public class ChampionFragment extends LeagueFragment implements AdapterView.OnIt
     private ChampionPassiveView mChampionPassiveView;
     private Champion mChampion;
 
-    public ChampionFragment() {
+    public ChampionDetailsFragment() {
         super();
     }
 
-    public static ChampionFragment getInstance(int id) {
+    public static ChampionDetailsFragment getInstance(int id) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARGS_CHAMP_ID, id);
-        ChampionFragment fragment = new ChampionFragment();
+        ChampionDetailsFragment fragment = new ChampionDetailsFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -157,8 +157,8 @@ public class ChampionFragment extends LeagueFragment implements AdapterView.OnIt
                 } else {
                     msg = R.string.network_error;
                 }
-                if (ChampionFragment.this.isAdded()) {
-                    Toast.makeText(ChampionFragment.this.getActivity(), msg, Toast.LENGTH_LONG);
+                if (ChampionDetailsFragment.this.isAdded()) {
+                    Toast.makeText(ChampionDetailsFragment.this.getActivity(), msg, Toast.LENGTH_LONG);
                 }
             }
         }

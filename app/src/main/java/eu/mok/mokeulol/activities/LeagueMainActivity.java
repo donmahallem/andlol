@@ -14,7 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.fragments.ApiTokenFragment;
-import eu.mok.mokeulol.fragments.ChampionFragment;
+import eu.mok.mokeulol.fragments.ChampionDetailsFragment;
 import eu.mok.mokeulol.fragments.ChampionListFragment;
 import eu.mok.mokeulol.fragments.LeagueFragment;
 
@@ -42,7 +42,7 @@ public class LeagueMainActivity extends LeagueActivity implements LeagueFragment
     public void onShowChampionDetailsFragment(int id) {
         FragmentTransaction trans = this.getSupportFragmentManager().beginTransaction();
         trans.addToBackStack(FRAGMENT_CHAMPION_DETAIL);
-        trans.replace(android.R.id.content, ChampionFragment.getInstance(id), FRAGMENT_CHAMPION_DETAIL);
+        trans.replace(android.R.id.content, ChampionDetailsFragment.getInstance(id), FRAGMENT_CHAMPION_DETAIL);
         trans.commit();
     }
 
