@@ -18,11 +18,11 @@ import android.view.ViewGroup;
 
 import eu.mok.mokeulol.R;
 
-public class SummonerDetailFragment extends LeagueFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class MatchHistoryFragment extends LeagueFragment implements SwipeRefreshLayout.OnRefreshListener {
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public static Fragment getInstance() {
-        return new SummonerDetailFragment();
+        return new MatchHistoryFragment();
     }
 
     @Override
@@ -33,12 +33,18 @@ public class SummonerDetailFragment extends LeagueFragment implements SwipeRefre
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_summoner_detail, container, false);
+        return inflater.inflate(R.layout.fragment_summoner_match_history, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_container);
+        this.mSwipeRefreshLayout.setOnRefreshListener(this);
+        this.mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
     @Override
@@ -46,7 +52,7 @@ public class SummonerDetailFragment extends LeagueFragment implements SwipeRefre
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                SummonerDetailFragment.this.mSwipeRefreshLayout.setRefreshing(false);
+                MatchHistoryFragment.this.mSwipeRefreshLayout.setRefreshing(false);
             }
         }, 5000);
     }
