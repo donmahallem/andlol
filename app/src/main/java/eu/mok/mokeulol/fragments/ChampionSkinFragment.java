@@ -46,7 +46,6 @@ public class ChampionSkinFragment extends LeagueFragment {
         return this.getArguments().getInt(ARGS_SKIN_NUM, 0);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.mImageView = new ImageView(container.getContext());

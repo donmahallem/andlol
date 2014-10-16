@@ -8,13 +8,15 @@
 
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="League.AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:actionBarStyle">@style/League.ActionBar</item>
-        <item name="android:windowBackground">@color/grey_100</item>
-        <item name="android:popupMenuStyle">@style/League.PopupMenu</item>
-        <item name="android:windowContentOverlay">@null</item>
+
+    <style name="Widget.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/ab_transluecent_background</item>
     </style>
+
+    <style name="Widget.ActionBar.Transparent">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 
     <style name="League.ActionBar"
            parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">

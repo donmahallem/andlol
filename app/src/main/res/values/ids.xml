@@ -24,4 +24,6 @@
     <item name="apiToken" type="id"/>
     <item name="btnCheckToken" type="id"/>
     <item name="swipe_refresh_container" type="id"/>
+    <item name="scrollView" type="id"/>
+    <item name="stickyHeadContainer" type="id"/>
 </resources>

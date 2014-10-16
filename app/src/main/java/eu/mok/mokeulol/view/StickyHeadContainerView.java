@@ -20,6 +20,7 @@ import static eu.mok.mokeulol.view.StickyHeadScrollView.OnScrollListener;
 public class StickyHeadContainerView extends FrameLayout implements OnScrollListener {
     private StickyHeadScrollView mStickyHeadScrollView;
     private View mHead, mGhost;
+    private int mOffsetTop = 0;
 
     public StickyHeadContainerView(Context context) {
         super(context);
@@ -43,10 +44,11 @@ public class StickyHeadContainerView extends FrameLayout implements OnScrollList
         } catch (ClassCastException exception) {
             throw new RuntimeException("First child item should be StickyHeadContainerView", exception);
         }
-        this.mStickyHeadScrollView.setOnScrollListener(this);
+        this.mStickyHeadScrollView.addOnScrollListener(this);
         this.mHead = this.getChildAt(1);
         this.mGhost = this.findViewById(R.id.test);
         updateGhost();
+        alignStickyHead();
     }
 
     private void updateGhost() {
@@ -54,14 +56,22 @@ public class StickyHeadContainerView extends FrameLayout implements OnScrollList
         this.mGhost.getLayoutParams().height = height;
     }
 
-    @Override
-    public void onScrollViewScrolled(int l, int t, int oldl, int oldt) {
+    private void alignStickyHead() {
         int[] locationGhost = new int[2];
         int[] locationScrollView = new int[2];
         this.getLocationOnScreen(locationScrollView);
         this.mGhost.getLocationOnScreen(locationGhost);
         final int ghostY = locationGhost[1] - locationScrollView[1];
-        ((MarginLayoutParams) this.mHead.getLayoutParams()).setMargins(0, Math.max(ghostY, 0), 0, 0);
-        requestLayout();
+        ((MarginLayoutParams) this.mHead.getLayoutParams()).setMargins(0, Math.max(ghostY, this.mOffsetTop), 0, 0);
+        this.mHead.requestLayout();
+    }
+
+    @Override
+    public void onScrollViewScrolled(int l, int t, int oldl, int oldt) {
+        alignStickyHead();
+    }
+
+    public void setTopOffset(int height) {
+        this.mOffsetTop = Math.max(0, height);
     }
 }

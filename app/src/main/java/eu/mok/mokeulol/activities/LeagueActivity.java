@@ -22,6 +22,7 @@ import eu.mok.mokeulol.fragments.SummonerDetailFragment;
 public class LeagueActivity extends ActionBarActivity implements LeagueFragment.LeagueFragmentListener {
 
     private final static String FRAGMENT_SUMMONER_DETAILS = "fragment_summoner_details";
+
     @Override
     public void onShowChampionListFragment() {
 

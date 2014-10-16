@@ -12,13 +12,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ScrollView;
 
-import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Don on 16.10.2014.
  */
 public class StickyHeadScrollView extends ScrollView {
-    private WeakReference<OnScrollListener> mOnScrollListener;
+    private List<OnScrollListener> mOnScrollListener = new ArrayList<OnScrollListener>();
 
     public StickyHeadScrollView(Context context) {
         super(context);
@@ -35,26 +36,31 @@ public class StickyHeadScrollView extends ScrollView {
     public void removeOnScrollListener() {
         if (this.mOnScrollListener != null) {
             this.mOnScrollListener.clear();
-            this.mOnScrollListener = null;
         }
     }
 
     public void removeOnScrollListener(OnScrollListener onScrollListener) {
-        if (this.mOnScrollListener != null && this.mOnScrollListener.get() == onScrollListener) {
-            this.removeOnScrollListener();
+        if (null != onScrollListener) {
+            this.mOnScrollListener.remove(onScrollListener);
         }
     }
 
+    @Deprecated
     public void setOnScrollListener(OnScrollListener onScrollListener) {
+        this.addOnScrollListener(onScrollListener);
+    }
+
+    public void addOnScrollListener(OnScrollListener onScrollListener) {
         if (onScrollListener != null)
-            this.mOnScrollListener = new WeakReference<OnScrollListener>(onScrollListener);
+            this.mOnScrollListener.add(onScrollListener);
     }
 
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        if (this.mOnScrollListener != null)
-            this.mOnScrollListener.get().onScrollViewScrolled(l, t, oldl, oldt);
+        for (OnScrollListener listener : this.mOnScrollListener) {
+            listener.onScrollViewScrolled(l, t, oldl, oldt);
+        }
     }
 
     public static interface OnScrollListener {
