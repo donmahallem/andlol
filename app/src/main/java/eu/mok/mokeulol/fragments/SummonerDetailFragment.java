@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,11 +31,9 @@ public class SummonerDetailFragment extends LeagueFragment implements SwipeRefre
     private StickyHeadScrollView.OnScrollListener ActionBarScrollListener = new StickyHeadScrollView.OnScrollListener() {
         @Override
         public void onScrollViewScrolled(int l, int t, int oldl, int oldt) {
-            //Log.d("outa", "Scrollscroll");
             final int headerHeight = getView().findViewById(R.id.icon).getHeight() - getActivity().getActionBar().getHeight();
             final float ratio = (float) Math.min(Math.max(t, 0), headerHeight) / headerHeight;
             final int newAlpha = (int) (ratio * 255);
-            Log.d("outa", "headerHeight: " + headerHeight + " ratio: " + ratio + " newAlpha: " + newAlpha);
             mActionBarBackgroundDrawable.setAlpha(newAlpha);
 
         }
