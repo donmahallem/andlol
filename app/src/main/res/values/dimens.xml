@@ -15,4 +15,5 @@
     <dimen name="divider_height">2dp</dimen>
     <dimen name="divider_margin">3dp</dimen>
     <dimen name="skin_placeholder">50dp</dimen>
+    <dimen name="sticky_header_vertical_padding">8dp</dimen>
 </resources>

@@ -26,4 +26,6 @@
     <item name="swipe_refresh_container" type="id"/>
     <item name="scrollView" type="id"/>
     <item name="stickyHeadContainer" type="id"/>
+    <item name="btnFavorite" type="id"/>
+    <item name="txtTitle" type="id"/>
 </resources>
