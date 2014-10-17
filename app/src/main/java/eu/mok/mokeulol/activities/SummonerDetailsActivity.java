@@ -83,7 +83,8 @@ public class SummonerDetailsActivity extends LeagueActivity {
         Util.getPicasso()
                 .load("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Draven_1.jpg")
                 .placeholder(android.R.drawable.ic_menu_rotate)
-                .error(android.R.drawable.ic_delete).into(this.mIvHeader);
+                .error(android.R.drawable.ic_delete)
+                .into(this.mIvHeader);
     }
 
     @Override
