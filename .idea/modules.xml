@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/LeagueViews/LeagueViews.iml" filepath="$PROJECT_DIR$/LeagueViews/LeagueViews.iml" />
       <module fileurl="file://$PROJECT_DIR$/LolApi/LolApi.iml" filepath="$PROJECT_DIR$/LolApi/LolApi.iml" />
       <module fileurl="file://$PROJECT_DIR$/MokeuLol.iml" filepath="$PROJECT_DIR$/MokeuLol.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MokeuViews/MokeuViews.iml" filepath="$PROJECT_DIR$/MokeuViews/MokeuViews.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestApp/TestApp.iml" filepath="$PROJECT_DIR$/TestApp/TestApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
