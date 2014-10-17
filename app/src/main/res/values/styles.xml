@@ -22,16 +22,20 @@
            parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/light_blue_900</item>
     </style>
-    <!--  -->
+    <!-- kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk -->
 
-    <style name="PopupMenu.Example" parent="@android:style/Widget.Holo.ListPopupWindow">
+    <style name="League.AppTheme.Actionbar.PopupMenu" parent="@android:style/Widget.Holo.ListPopupWindow">
         <item name="android:popupBackground">@drawable/ab_popupmenu_background</item>
+        <item name="android:textColor">@color/grey_1000b</item>
     </style>
 
+    <style name="League.AppTheme.Widget.ActionBarStyle" parent="@android:Widget">
+        <item name="android:textColor">@color/grey_800</item>
+    </style>
+    <!-- -->
     <style name="DropDownListView.Example" parent="@android:style/Widget.Holo.ListView.DropDown">
         <item name="android:listSelector">@color/light_blue_200</item>
     </style>
-
 
     <style name="DropDownNav.Example" parent="@android:style/Widget.Holo.Spinner">
         <item name="android:background">@color/amber_200</item>
@@ -40,18 +44,12 @@
         <item name="android:dropDownSelector">@color/brown_900</item>
     </style>
 
-
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
     <style name="Theme.Example.Widget" parent="@android:style/Theme.Holo">
-        <item name="android:popupMenuStyle">@style/PopupMenu.Example</item>
+        <item name="android:popupMenuStyle">@style/League.AppTheme.Actionbar.PopupMenu</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Example</item>
     </style>
     <!--  -->
-    <style name="League.PopupMenu" parent="@android:style/Widget.Holo.ListPopupWindow">
-    <item name="android:popupBackground">@color/grey_200</item>
-        <item name="android:textColor">@color/grey_800</item>
-    </style>
-
 
     <style name="Text.Description.Title" parent="android:style/TextAppearance">
         <item name="android:textColor">@color/grey_1000b</item>

@@ -21,9 +21,9 @@
         <activity
             android:name=".activities.LeagueMainActivity"
             android:label="@string/app_name"
-            android:theme="@style/League.AppTheme.TranslucentActionBar.ActionBar.Overlay">
-        <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+            android:theme="@style/League.AppTheme">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
@@ -35,6 +35,11 @@
         <activity
             android:name=".activities.LeaguePreferenceActivity"
             android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".activities.SummonerDetailsActivity"
+            android:label="@string/summoner"
+            android:theme="@style/League.AppTheme.TranslucentActionBar.ActionBar.Overlay">
         </activity>
     </application>
 

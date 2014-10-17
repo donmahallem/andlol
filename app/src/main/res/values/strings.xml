@@ -39,4 +39,5 @@
     <string name="pref_cache_statistics_queries_summary">The amount of queries that where issued</string>
     <string name="pref_cache_statistics_hits_summary">The amount of queries that hit the cache</string>
     <string name="pref_cache_statistics_miss_summary">The amount of queries that missed the cache</string>
+    <string name="summoner">Summoner</string>
 </resources>
