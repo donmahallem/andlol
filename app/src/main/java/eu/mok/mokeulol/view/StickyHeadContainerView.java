@@ -47,7 +47,7 @@ public class StickyHeadContainerView extends FrameLayout implements OnScrollList
         this.mStickyHeadScrollView.addOnScrollListener(this);
         this.mHead = this.getChildAt(1);
         this.mGhost = this.findViewById(R.id.test);
-        updateGhost();
+        //updateGhost();
         alignStickyHead();
     }
 
