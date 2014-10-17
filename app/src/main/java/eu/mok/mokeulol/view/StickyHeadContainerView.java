@@ -9,8 +9,10 @@
 package eu.mok.mokeulol.view;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
 import eu.mok.mokeulol.R;
@@ -22,6 +24,12 @@ public class StickyHeadContainerView extends FrameLayout implements OnScrollList
     private View mHead, mGhost;
     private int mOffsetTop = 0;
 
+    private ViewTreeObserver.OnGlobalLayoutListener GlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+        @Override
+        public void onGlobalLayout() {
+            alignStickyHead();
+        }
+    };
     public StickyHeadContainerView(Context context) {
         super(context);
     }
@@ -51,6 +59,19 @@ public class StickyHeadContainerView extends FrameLayout implements OnScrollList
         alignStickyHead();
     }
 
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            this.getViewTreeObserver().removeOnGlobalLayoutListener(GlobalLayoutListener);
+        }
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        this.getViewTreeObserver().addOnGlobalLayoutListener(GlobalLayoutListener);
+    }
     private void updateGhost() {
         final int height = this.mHead.getMeasuredHeight();
         this.mGhost.getLayoutParams().height = height;
