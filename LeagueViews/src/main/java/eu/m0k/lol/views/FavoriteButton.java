@@ -15,17 +15,24 @@ import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
 
+import eu.m0k.lol.views.drawable.FavoriteDrawable;
+
 public class FavoriteButton extends ImageButton {
+    private FavoriteDrawable mFavoriteDrawable = new FavoriteDrawable();
+
     public FavoriteButton(Context context) {
         super(context);
+        super.setImageDrawable(this.mFavoriteDrawable);
     }
 
     public FavoriteButton(Context context, AttributeSet attrs) {
         super(context, attrs);
+        super.setImageDrawable(this.mFavoriteDrawable);
     }
 
     public FavoriteButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        super.setImageDrawable(this.mFavoriteDrawable);
     }
 
     @Override
