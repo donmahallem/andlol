@@ -9,15 +9,21 @@
 package eu.mok.mokeulol.activities;
 
 import android.app.FragmentTransaction;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
@@ -65,6 +71,15 @@ public class SummonerDetailsActivity extends LeagueActivity {
         }
     };
 
+    private Palette.PaletteAsyncListener ThemePaletteListener = new Palette.PaletteAsyncListener() {
+        @Override
+        public void onGenerated(Palette palette) {
+            mToolbar.setBackgroundColor(palette.getMutedColor(R.color.light_blue_700));
+            findViewById(R.id.test1).setBackgroundColor(palette.getMutedColor(R.color.light_blue_700));
+            getWindow().setStatusBarColor(palette.getDarkMutedColor(R.color.light_blue_900));
+
+        }
+    };
     @Override
     public void onCreate(Bundle instanceState) {
         super.onCreate(instanceState);
@@ -86,10 +101,26 @@ public class SummonerDetailsActivity extends LeagueActivity {
         ///////////////////////////////
         this.mIvHeader = (ImageView) findViewById(R.id.icon);
         Util.getPicasso()
-                .load("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Draven_1.jpg")
+                .load("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Sona_1.jpg")
                 .placeholder(android.R.drawable.ic_menu_rotate)
                 .error(android.R.drawable.ic_delete)
-                .into(this.mIvHeader);
+                .into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        mIvHeader.setImageDrawable(new BitmapDrawable(bitmap));
+                        Palette.generateAsync(bitmap, ThemePaletteListener);
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+                        mIvHeader.setImageDrawable(errorDrawable);
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+                        mIvHeader.setImageDrawable(placeHolderDrawable);
+                    }
+                });
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 //Title and subtitle
         mToolbar.setTitle("MY toolbar");
