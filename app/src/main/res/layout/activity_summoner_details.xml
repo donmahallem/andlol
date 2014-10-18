@@ -83,12 +83,11 @@
                 android:textColor="@android:color/white"
                 android:textStyle="bold"/>
 
-            <ImageButton
+            <eu.m0k.lol.views.FavoriteButton
                 android:id="@id/btnFavorite"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@drawable/image_btn_invisible_background"
-                android:src="@android:drawable/ic_menu_add"/>
+                android:background="@drawable/image_btn_invisible_background"/>
         </LinearLayout>
 
     </eu.mok.mokeulol.view.StickyHeadContainerView>

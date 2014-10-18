@@ -91,6 +91,7 @@
     <orderEntry type="library" exported="" name="appcompat-v7-20.0.0" level="project" />
     <orderEntry type="library" exported="" name="okhttp-urlconnection-2.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.0" level="project" />
+    <orderEntry type="module" module-name="LeagueViews" exported="" />
     <orderEntry type="module" module-name="LolApi" exported="" />
   </component>
 </module>

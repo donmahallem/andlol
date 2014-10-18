@@ -37,4 +37,5 @@ dependencies {
     compile 'com.pkmmte.view:circularimageview:1.+'
     compile 'com.github.nirhart:parallaxscroll:1.+'
     compile 'com.android.support:appcompat-v7:20.+'
+    compile project(':LeagueViews')
 }
