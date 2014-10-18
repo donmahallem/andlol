@@ -9,31 +9,17 @@
 
 <resources>
 
-    <style name="League.AppTheme" parent="@android:style/Theme.Material">
-        <item name="android:actionBarStyle">@style/League.ActionBar</item>
-        <item name="android:windowBackground">@color/grey_100</item>
-        <item name="android:windowContentOverlay">@null</item>
+    <style name="League.AppTheme" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowActionBar">false</item>
 
-        <item name="android:popupMenuStyle">@style/League.AppTheme.Actionbar.PopupMenu</item>
-        <item name="android:dropDownListViewStyle">@style/DropDownListView.Example</item>
-        <item name="android:actionDropDownStyle">@style/DropDownNav.Example</item>
-        <item name="android:actionBarWidgetTheme">@style/League.AppTheme.Widget.ActionBarStyle
-        </item>
-        <item name="actionBarWidgetTheme">@style/League.AppTheme.Widget.ActionBarStyle</item>
+        <item name="android:colorPrimary">@color/light_blue_700</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="android:colorPrimaryDark">@color/light_blue_900</item>
+        <!--   theme UI controls like checkboxes and text fields -->
+        <item name="android:colorAccent">@color/amber_500</item>
 
         <!-- You can also set colorControlNormal, colorControlActivated
              colorControlHighlight & colorSwitchThumbNormal. -->
 
-    </style>
-
-    <style name="League.AppTheme.TranslucentActionBar" parent="League.AppTheme">
-        <item name="android:actionBarStyle">@style/Widget.ActionBar</item>
-    </style>
-
-    <style name="League.AppTheme.TranslucentActionBar.ActionBar"/>
-
-    <style name="League.AppTheme.TranslucentActionBar.ActionBar.Overlay">
-        <item name="android:actionBarStyle">@style/Widget.ActionBar.Transparent</item>
-        <item name="android:windowActionBarOverlay">true</item>
     </style>
 </resources>

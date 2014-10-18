@@ -79,8 +79,8 @@ public class SummonerDetailsActivity extends LeagueActivity {
         this.mScrollView = (StickyHeadScrollView) this.findViewById(R.id.scrollView);
         this.mScrollView.addOnScrollListener(ActionBarScrollListener);
         this.mStickyContainerView = (StickyHeadContainerView) this.findViewById(R.id.stickyHeadContainer);
-        this.mStickyContainerView.setTopOffset(getActionBar().getHeight());
-        this.getActionBar().setBackgroundDrawable(this.mActionBarBackgroundDrawable);
+//        this.mStickyContainerView.setTopOffset(getActionBar().getHeight());
+//
         this.getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(GlobalLayoutListener);
 
         ///////////////////////////////
@@ -94,7 +94,7 @@ public class SummonerDetailsActivity extends LeagueActivity {
 //Title and subtitle
         toolbar.setTitle("MY toolbar");
         toolbar.setSubtitle("Subtitle");
-
+        toolbar.setBackgroundColor(getResources().getColor(R.color.light_blue_600));
 //Menu
         toolbar.inflateMenu(R.menu.toolbar_menu);
 
@@ -119,12 +119,14 @@ public class SummonerDetailsActivity extends LeagueActivity {
                 Toast.makeText(SummonerDetailsActivity.this, "Navigation", Toast.LENGTH_SHORT).show();
             }
         });
+        this.setActionBar(toolbar);
+        toolbar.setBackground(this.mActionBarBackgroundDrawable);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        this.mStickyContainerView.setTopOffset(getActionBar().getHeight());
+        //this.mStickyContainerView.setTopOffset(getActionBar().getHeight());
     }
 
     private void showSummonerFragment() {
