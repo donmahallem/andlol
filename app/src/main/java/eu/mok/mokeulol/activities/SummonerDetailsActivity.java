@@ -12,12 +12,12 @@ import android.app.FragmentTransaction;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
@@ -31,11 +31,11 @@ public class SummonerDetailsActivity extends LeagueActivity {
     private StickyHeadScrollView mScrollView;
     private StickyHeadContainerView mStickyContainerView;
     private ImageView mIvHeader;
-
+    private Toolbar mToolbar;
     private StickyHeadScrollView.OnScrollListener ActionBarScrollListener = new StickyHeadScrollView.OnScrollListener() {
         @Override
         public void onScrollViewScrolled(int l, int t, int oldl, int oldt) {
-            final int headerHeight = findViewById(R.id.icon).getHeight() - getActionBar().getHeight();
+            final int headerHeight = findViewById(R.id.icon).getHeight() - mToolbar.getHeight();
             final float ratio = (float) Math.min(Math.max(t, 0), headerHeight) / headerHeight;
             final int newAlpha = (int) (ratio * 255);
             mActionBarBackgroundDrawable.setAlpha(newAlpha);
@@ -45,7 +45,7 @@ public class SummonerDetailsActivity extends LeagueActivity {
     private Drawable.Callback mDrawableCallback = new Drawable.Callback() {
         @Override
         public void invalidateDrawable(Drawable who) {
-            getActionBar().setBackgroundDrawable(who);
+            mToolbar.setBackgroundDrawable(who);
         }
 
         @Override
@@ -60,7 +60,7 @@ public class SummonerDetailsActivity extends LeagueActivity {
     private ViewTreeObserver.OnGlobalLayoutListener GlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
         @Override
         public void onGlobalLayout() {
-            mStickyContainerView.setTopOffset(getActionBar().getHeight());
+            mStickyContainerView.setTopOffset(getSupportActionBar().getHeight());
             mStickyContainerView.invalidate();
         }
     };
@@ -90,15 +90,15 @@ public class SummonerDetailsActivity extends LeagueActivity {
                 .placeholder(android.R.drawable.ic_menu_rotate)
                 .error(android.R.drawable.ic_delete)
                 .into(this.mIvHeader);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 //Title and subtitle
-        toolbar.setTitle("MY toolbar");
-        toolbar.setSubtitle("Subtitle");
-        toolbar.setBackgroundColor(getResources().getColor(R.color.light_blue_600));
+        mToolbar.setTitle("MY toolbar");
+        mToolbar.setSubtitle("Subtitle");
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.light_blue_600));
 //Menu
-        toolbar.inflateMenu(R.menu.toolbar_menu);
+        mToolbar.inflateMenu(R.menu.toolbar_menu);
 
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
 
@@ -112,15 +112,15 @@ public class SummonerDetailsActivity extends LeagueActivity {
             }
         });
 //Navigation Icon
-        toolbar.setNavigationIcon(R.drawable.ic_launcher);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        mToolbar.setNavigationIcon(R.drawable.ic_launcher);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(SummonerDetailsActivity.this, "Navigation", Toast.LENGTH_SHORT).show();
             }
         });
-        this.setActionBar(toolbar);
-        toolbar.setBackground(this.mActionBarBackgroundDrawable);
+        this.setSupportActionBar(mToolbar);
+        mToolbar.setBackground(this.mActionBarBackgroundDrawable);
     }
 
     @Override
