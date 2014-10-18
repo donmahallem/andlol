@@ -53,12 +53,14 @@ public class ChampionDetailsFragment extends LeagueFragment implements AdapterVi
     private ChampionPassiveView mChampionPassiveView;
     private Champion mChampion;
     private ImageView mIvHeader;
+    private Toolbar mToolbar;
     private Palette.PaletteAsyncListener IvHeaderAsyncListener = new Palette.PaletteAsyncListener() {
         @Override
         public void onGenerated(Palette palette) {
             if (isAdded()) {
-                getActivity().getWindow().getDecorView().setBackgroundColor(palette.getVibrantColor(R.color.red_200));
+                getActivity().getWindow().getDecorView().setBackgroundColor(palette.getDarkVibrantColor(R.color.red_200));
             }
+            mToolbar.setBackgroundColor(palette.getVibrantColor(R.color.light_blue_700));
         }
     };
     private Target IvHeaderTarget = new Target() {
@@ -66,6 +68,7 @@ public class ChampionDetailsFragment extends LeagueFragment implements AdapterVi
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
             mIvHeader.setImageDrawable(new BitmapDrawable(bitmap));
             Palette.generateAsync(bitmap, IvHeaderAsyncListener);
+
         }
 
         @Override
@@ -116,7 +119,7 @@ public class ChampionDetailsFragment extends LeagueFragment implements AdapterVi
         Task task = new Task();
         task.execute(getArguments().getInt(ARGS_CHAMP_ID, 32));
         this.mIvHeader = (ImageView) view.findViewById(R.id.ivHeader);
-        Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
 //Title and subtitle
         mToolbar.setTitle("MY toolbar");
         mToolbar.setSubtitle("Subtitle");
@@ -153,9 +156,7 @@ public class ChampionDetailsFragment extends LeagueFragment implements AdapterVi
             this.mTxtTitle.setText(this.mChampion.getName());
             this.mTxtSubTitle.setText(this.mChampion.getTitle());
             Util.getPicasso()
-                    .load(this.mChampion.getImageUri())
-                    .resize(200, 200)
-                    .centerCrop()
+                    .load("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + this.mChampion.getKey() + "_0.jpg")
                     .placeholder(android.R.drawable.ic_menu_rotate)
                     .error(android.R.drawable.ic_delete)
                     .into(IvHeaderTarget);

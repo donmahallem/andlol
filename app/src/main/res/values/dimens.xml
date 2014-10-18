@@ -16,4 +16,7 @@
     <dimen name="divider_margin">3dp</dimen>
     <dimen name="skin_placeholder">50dp</dimen>
     <dimen name="sticky_header_vertical_padding">8dp</dimen>
+    <dimen name="content_container_horizontal_margin">96dp</dimen>
+    <dimen name="content_horizontal_padding">16dp</dimen>
+    <dimen name="content_vertical_padding">16dp</dimen>
 </resources>
