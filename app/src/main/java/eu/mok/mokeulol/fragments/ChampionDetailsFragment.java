@@ -9,16 +9,26 @@
 package eu.mok.mokeulol.fragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.graphics.Palette;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pkmmte.view.CircularImageView;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.IOException;
 
@@ -33,17 +43,41 @@ import eu.mok.mokeulol.adapter.SkinListAdapter;
 import eu.mok.mokeulol.view.ChampionPassiveView;
 import eu.mok.mokeulol.view.ChampionSpellView;
 import it.sephiroth.android.library.widget.AdapterView;
-import it.sephiroth.android.library.widget.HListView;
 
 public class ChampionDetailsFragment extends LeagueFragment implements AdapterView.OnItemClickListener {
     private final static String ARGS_CHAMP_ID = "champid";
     private TextView mTxtTitle, mTxtSubTitle, mTxtDescription, mTxtLore;
     private CircularImageView mIvChampIcon;
     private ChampionSpellView mChampionSpellView1, mChampionSpellView2, mChampionSpellView3, mChampionSpellView4;
-    private HListView mHListView;
     private SkinListAdapter mSkinListAdapter = new SkinListAdapter();
     private ChampionPassiveView mChampionPassiveView;
     private Champion mChampion;
+    private ImageView mIvHeader;
+    private Palette.PaletteAsyncListener IvHeaderAsyncListener = new Palette.PaletteAsyncListener() {
+        @Override
+        public void onGenerated(Palette palette) {
+            if (isAdded()) {
+                getActivity().getWindow().getDecorView().setBackgroundColor(palette.getVibrantColor(R.color.red_200));
+            }
+        }
+    };
+    private Target IvHeaderTarget = new Target() {
+        @Override
+        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+            mIvHeader.setImageDrawable(new BitmapDrawable(bitmap));
+            Palette.generateAsync(bitmap, IvHeaderAsyncListener);
+        }
+
+        @Override
+        public void onBitmapFailed(Drawable errorDrawable) {
+            mIvHeader.setImageDrawable(errorDrawable);
+        }
+
+        @Override
+        public void onPrepareLoad(Drawable placeHolderDrawable) {
+            mIvHeader.setImageDrawable(placeHolderDrawable);
+        }
+    };
 
     public ChampionDetailsFragment() {
         super();
@@ -71,7 +105,6 @@ public class ChampionDetailsFragment extends LeagueFragment implements AdapterVi
         super.onViewCreated(view, savedInstanceState);
         this.mTxtTitle = (TextView) view.findViewById(R.id.title);
         this.mTxtSubTitle = (TextView) view.findViewById(R.id.subTitle);
-        this.mHListView = (HListView) view.findViewById(R.id.hListView);
         this.mIvChampIcon = (CircularImageView) view.findViewById(R.id.ivChampionIcon);
         this.mTxtSubTitle = (TextView) view.findViewById(R.id.subTitle);
         this.mTxtDescription = (TextView) view.findViewById(R.id.txtDescription);
@@ -82,8 +115,37 @@ public class ChampionDetailsFragment extends LeagueFragment implements AdapterVi
         this.mChampionPassiveView = (ChampionPassiveView) view.findViewById(R.id.championPassiveView);
         Task task = new Task();
         task.execute(getArguments().getInt(ARGS_CHAMP_ID, 32));
-        this.mHListView.setAdapter(this.mSkinListAdapter);
-        this.mHListView.setOnItemClickListener(this);
+        this.mIvHeader = (ImageView) view.findViewById(R.id.ivHeader);
+        Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+//Title and subtitle
+        mToolbar.setTitle("MY toolbar");
+        mToolbar.setSubtitle("Subtitle");
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.light_blue_600));
+//Menu
+        mToolbar.inflateMenu(R.menu.toolbar_menu);
+
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                switch (menuItem.getItemId()) {
+                    case R.id.action_share:
+                        Toast.makeText(ChampionDetailsFragment.this.getActivity(), "Share", Toast.LENGTH_SHORT).show();
+                        return true;
+                }
+
+                return false;
+            }
+        });
+//Navigation Icon
+        mToolbar.setNavigationIcon(R.drawable.ic_launcher);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ChampionDetailsFragment.this.getActivity(), "Navigation", Toast.LENGTH_SHORT).show();
+            }
+        });
+        ((ActionBarActivity) getActivity()).setSupportActionBar(mToolbar);
     }
 
     private void updateViews() {
@@ -96,7 +158,7 @@ public class ChampionDetailsFragment extends LeagueFragment implements AdapterVi
                     .centerCrop()
                     .placeholder(android.R.drawable.ic_menu_rotate)
                     .error(android.R.drawable.ic_delete)
-                    .into(this.mIvChampIcon);
+                    .into(IvHeaderTarget);
             if (this.mChampion.getSpells() != null) {
                 this.mChampionSpellView1.setChampionSpell(this.mChampion.getSpells().get(0));
                 this.mChampionSpellView2.setChampionSpell(this.mChampion.getSpells().get(1));

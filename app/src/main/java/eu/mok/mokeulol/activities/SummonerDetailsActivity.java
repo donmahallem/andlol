@@ -151,7 +151,7 @@ public class SummonerDetailsActivity extends LeagueActivity {
             }
         });
         this.setSupportActionBar(mToolbar);
-        mToolbar.setBackground(this.mActionBarBackgroundDrawable);
+        mToolbar.setBackgroundDrawable(this.mActionBarBackgroundDrawable);
     }
 
     @Override

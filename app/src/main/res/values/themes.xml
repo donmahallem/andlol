@@ -9,7 +9,7 @@
 
 <resources>
 
-    <style name="League.AppTheme" parent="@style/Theme.AppCompat.NoActionBar">
+    <style name="League.AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowActionBar">false</item>
 
         <item name="colorPrimary">@color/light_blue_700</item>

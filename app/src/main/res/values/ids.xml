@@ -28,4 +28,5 @@
     <item name="stickyHeadContainer" type="id"/>
     <item name="btnFavorite" type="id"/>
     <item name="txtTitle" type="id"/>
+    <item name="ivHeader" type="id"/>
 </resources>

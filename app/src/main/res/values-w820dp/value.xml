@@ -8,6 +8,5 @@
   -->
 
 <resources>
-    <color name="very_light_grey">#FFDDDDDD</color>
-    <color name="champion_item_tint">#44000000</color>
+    <integer name="columns">5</integer>
 </resources>
