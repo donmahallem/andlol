@@ -9,10 +9,8 @@
 package eu.mok.mokeulol.adapter;
 
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +58,6 @@ public class RVChampionAdapter extends RecyclerView.Adapter<RVChampionAdapter.Ch
         /**
          * Remove eventual loading of recycled image
          */
-        championViewHolder.setCardColor(championViewHolder.itemView.getContext().getResources().getColor(R.color.light_blue_700));
         Util.getPicasso().cancelRequest(championViewHolder.mImageView);
         Util.getPicasso()
                 .load(champion.getImageUri())
@@ -81,18 +78,11 @@ public class RVChampionAdapter extends RecyclerView.Adapter<RVChampionAdapter.Ch
     public class ChampionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final ImageView mImageView;
         public final TextView mTextView;
-        private Palette.PaletteAsyncListener PaletteListener = new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                setCardColor(palette.getVibrantColor(R.color.light_blue_700));
-            }
-        };
         private Target ChampionTarget = new Target() {
 
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 mImageView.setImageDrawable(new BitmapDrawable(bitmap));
-                Palette.generateAsync(bitmap, PaletteListener);
             }
 
             @Override
@@ -108,15 +98,10 @@ public class RVChampionAdapter extends RecyclerView.Adapter<RVChampionAdapter.Ch
 
         public ChampionViewHolder(View itemView) {
             super(itemView);
-            itemView.getBackground().mutate();
             itemView.setClickable(true);
             itemView.setOnClickListener(this);
             this.mImageView = (ImageView) itemView.findViewById(R.id.ivChampionIcon);
             this.mTextView = (TextView) itemView.findViewById(R.id.txtTitle);
-        }
-
-        public void setCardColor(int color) {
-            itemView.getBackground().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
         }
 
         @Override

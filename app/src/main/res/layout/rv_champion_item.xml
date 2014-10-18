@@ -13,7 +13,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_margin="5dp"
                                     android:orientation="horizontal"
-                                    card_view:cardBackgroundColor="@color/amber_500"
+                                    card_view:cardBackgroundColor="?colorPrimary"
                                     card_view:cardCornerRadius="5dp"
                                     card_view:cardElevation="5dp">
 

@@ -29,4 +29,8 @@
     <item name="btnFavorite" type="id"/>
     <item name="txtTitle" type="id"/>
     <item name="ivHeader" type="id"/>
+    <item name="content1" type="id"/>
+
+    <!-- MENUS -->
+    <item name="action_favorite" type="id"/>
 </resources>

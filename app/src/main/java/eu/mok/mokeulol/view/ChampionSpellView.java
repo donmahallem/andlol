@@ -46,6 +46,10 @@ public class ChampionSpellView extends LinearLayout {
         this.update();
     }
 
+    public void setIconBorderColor(int color) {
+        this.mImageView.setBorderColor(color);
+    }
+
     public void update() {
         if (this.mChampionSpell != null) {
             this.mTitle.setText(this.mChampionSpell.getName());

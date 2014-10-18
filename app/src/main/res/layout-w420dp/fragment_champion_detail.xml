@@ -8,10 +8,12 @@
   -->
 
 <com.nirhart.parallaxscroll.views.ParallaxScrollView
+    android:id="@id/content1"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:hlist="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?colorPrimaryDark"
     hlist:parallax_factor="1.9">
 
     <LinearLayout
@@ -23,6 +25,7 @@
             android:id="@id/ivHeader"
             android:layout_width="match_parent"
             android:layout_height="400dp"
+            android:background="?colorAccent"
             android:elevation="10dp"
             android:scaleType="centerCrop"/>
 
@@ -104,8 +107,7 @@
                     android:id="@id/championPassiveView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@color/very_light_grey"/>
+                    android:layout_margin="5dp"/>
 
                 <TextView
                     style="@style/Text.Description.Title"
@@ -117,29 +119,25 @@
                     android:id="@id/championSpellView1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@color/very_light_grey"/>
+                    android:layout_margin="5dp"/>
 
                 <eu.mok.mokeulol.view.ChampionSpellView
                     android:id="@id/championSpellView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@color/very_light_grey"/>
+                    android:layout_margin="5dp"/>
 
                 <eu.mok.mokeulol.view.ChampionSpellView
                     android:id="@id/championSpellView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@color/very_light_grey"/>
+                    android:layout_margin="5dp"/>
 
                 <eu.mok.mokeulol.view.ChampionSpellView
                     android:id="@id/championSpellView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@color/very_light_grey"/>
+                    android:layout_margin="5dp"/>
 
                 <TextView
                     android:id="@id/title"

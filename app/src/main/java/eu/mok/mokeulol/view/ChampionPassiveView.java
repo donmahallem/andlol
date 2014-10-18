@@ -41,6 +41,10 @@ public class ChampionPassiveView extends LinearLayout {
         this.mSubTitle = (TextView) this.findViewById(R.id.subTitle);
     }
 
+    public void setIconBorderColor(int color) {
+        this.mImageView.setBorderColor(color);
+    }
+
     public void setChampionPassive(final ChampionPassive champion) {
         this.mChampionSpell = champion;
         this.update();

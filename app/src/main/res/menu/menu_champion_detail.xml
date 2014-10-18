@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2014.
+  ~
+  ~ Visit https://github.com/donmahallem/andlol for more info!
+  ~
+  ~ Romanes eunt domus - Brian!
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:support="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@id/action_favorite"
+        android:icon="@drawable/ic_favorite"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/action_settings"
+        support:showAsAction="always"/>
+</menu>
