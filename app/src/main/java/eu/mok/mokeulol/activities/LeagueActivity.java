@@ -8,8 +8,8 @@
 
 package eu.mok.mokeulol.activities;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.fragments.LeagueFragment;
 
-public abstract class LeagueActivity extends ActionBarActivity implements LeagueFragment.LeagueFragmentListener {
+public abstract class LeagueActivity extends Activity implements LeagueFragment.LeagueFragmentListener {
 
     private final static String FRAGMENT_SUMMONER_DETAILS = "fragment_summoner_details";
 
@@ -41,6 +41,7 @@ public abstract class LeagueActivity extends ActionBarActivity implements League
         Intent intent = new Intent(this, SummonerDetailsActivity.class);
         startActivity(intent);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

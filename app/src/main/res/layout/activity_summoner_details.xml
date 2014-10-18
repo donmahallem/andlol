@@ -41,6 +41,11 @@
 
             </FrameLayout>
 
+            <Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp">
+            </Toolbar>
 
             <View
                 android:id="@+id/test"
@@ -48,6 +53,7 @@
                 android:layout_height="60dp"/>
 
             <fragment
+                android:id="@+id/summonerDetailFragment"
                 android:name="eu.mok.mokeulol.fragments.SummonerDetailFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

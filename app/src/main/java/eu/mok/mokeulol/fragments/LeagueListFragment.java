@@ -9,7 +9,7 @@
 package eu.mok.mokeulol.fragments;
 
 import android.app.Activity;
-import android.support.v4.app.ListFragment;
+import android.app.ListFragment;
 
 public class LeagueListFragment extends ListFragment {
 

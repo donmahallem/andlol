@@ -46,7 +46,6 @@ import eu.m0k.lol.api.network.CachePolicy;
 import eu.m0k.lol.api.network.LeagueResponse;
 import eu.m0k.lol.api.network.Parameters;
 import eu.m0k.lol.api.network.PathSegments;
-import eu.m0k.lol.api.response.RunePageResponse;
 
 public class LeagueApi {
     /**
@@ -77,7 +76,6 @@ public class LeagueApi {
         gsonBuilder.registerTypeAdapter(SummonerList.class, new SummonerList.TypeAdapter());
         gsonBuilder.registerTypeAdapter(NameList.class, new NameList.TypeAdapter());
         gsonBuilder.registerTypeAdapter(MasteryList.class, new MasteryList.TypeAdapter());
-        gsonBuilder.registerTypeAdapter(RunePageResponse.class, new RunePageResponse.TypeAdapter());
         gsonBuilder.registerTypeAdapter(ChampionList.class, new ChampionList.TypeAdapter());
         gsonBuilder.registerTypeAdapter(ChampionSpell.SpellRange.class, new ChampionSpell.SpellRange.TypeAdapter());
         this.mGson = gsonBuilder.create();

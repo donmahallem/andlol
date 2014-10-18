@@ -9,7 +9,7 @@
 package eu.mok.mokeulol.fragments;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 
 public abstract class LeagueFragment extends Fragment {
 

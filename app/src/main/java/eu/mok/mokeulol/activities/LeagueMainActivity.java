@@ -8,9 +8,9 @@
 
 package eu.mok.mokeulol.activities;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.fragments.ApiTokenFragment;
@@ -25,7 +25,7 @@ public class LeagueMainActivity extends LeagueActivity implements LeagueFragment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Fragment fragment = this.getSupportFragmentManager().findFragmentById(android.R.id.content);
+        Fragment fragment = this.getFragmentManager().findFragmentById(android.R.id.content);
         if (fragment == null) {
             onShowApiTokenFragment();
         }
@@ -33,14 +33,14 @@ public class LeagueMainActivity extends LeagueActivity implements LeagueFragment
 
     @Override
     public void onShowChampionListFragment() {
-        FragmentTransaction trans = this.getSupportFragmentManager().beginTransaction();
+        FragmentTransaction trans = this.getFragmentManager().beginTransaction();
         trans.replace(android.R.id.content, ChampionListFragment.getInstance(), FRAGMENT_CHAMPION_LIST);
         trans.commit();
     }
 
     @Override
     public void onShowChampionDetailsFragment(int id) {
-        FragmentTransaction trans = this.getSupportFragmentManager().beginTransaction();
+        FragmentTransaction trans = this.getFragmentManager().beginTransaction();
         trans.addToBackStack(FRAGMENT_CHAMPION_DETAIL);
         trans.replace(android.R.id.content, ChampionDetailsFragment.getInstance(id), FRAGMENT_CHAMPION_DETAIL);
         trans.commit();
@@ -48,7 +48,7 @@ public class LeagueMainActivity extends LeagueActivity implements LeagueFragment
 
     @Override
     public void onShowApiTokenFragment() {
-        FragmentTransaction trans = this.getSupportFragmentManager().beginTransaction();
+        FragmentTransaction trans = this.getFragmentManager().beginTransaction();
         trans.replace(android.R.id.content, ApiTokenFragment.getInstance(), FRAGMENT_API_TOKEN);
         trans.commit();
     }

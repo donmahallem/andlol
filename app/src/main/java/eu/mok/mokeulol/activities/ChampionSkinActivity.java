@@ -24,7 +24,6 @@ import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.network.LeagueResponse;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
-import eu.mok.mokeulol.fragments.ChampionSkinFragment;
 
 public class ChampionSkinActivity extends LeagueActivity {
     public final static String EXTRA_CHAMPION_ID = "extra_id_champion";
@@ -52,8 +51,8 @@ public class ChampionSkinActivity extends LeagueActivity {
 
     private void updateViews() {
         if (this.mChampion != null) {
-            this.mChampionSkinFragmentAdapter = new ChampionSkinFragmentAdapter(this.getSupportFragmentManager(), this.mChampion);
-            this.mViewPager.setAdapter(this.mChampionSkinFragmentAdapter);
+            /*this.mChampionSkinFragmentAdapter = new ChampionSkinFragmentAdapter(this.getSupportFragmentManager(), this.mChampion);
+            this.mViewPager.setAdapter(this.mChampionSkinFragmentAdapter);*/
         }
     }
 
@@ -106,7 +105,7 @@ public class ChampionSkinActivity extends LeagueActivity {
 
         @Override
         public Fragment getItem(int i) {
-            return ChampionSkinFragment.createInstance(this.mChampion.getKey(), i);
+            return null;//ChampionSkinFragment.createInstance(this.mChampion.getKey(), i);
         }
 
         @Override

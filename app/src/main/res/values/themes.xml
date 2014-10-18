@@ -9,7 +9,7 @@
 
 <resources>
 
-    <style name="League.AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+    <style name="League.AppTheme" parent="@android:style/Theme.Material">
         <item name="android:actionBarStyle">@style/League.ActionBar</item>
         <item name="android:windowBackground">@color/grey_100</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -20,6 +20,9 @@
         <item name="android:actionBarWidgetTheme">@style/League.AppTheme.Widget.ActionBarStyle
         </item>
         <item name="actionBarWidgetTheme">@style/League.AppTheme.Widget.ActionBarStyle</item>
+
+        <!-- You can also set colorControlNormal, colorControlActivated
+             colorControlHighlight & colorSwitchThumbNormal. -->
 
     </style>
 

@@ -8,12 +8,16 @@
 
 package eu.mok.mokeulol.activities;
 
+import android.app.FragmentTransaction;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
@@ -60,6 +64,7 @@ public class SummonerDetailsActivity extends LeagueActivity {
             mStickyContainerView.invalidate();
         }
     };
+
     @Override
     public void onCreate(Bundle instanceState) {
         super.onCreate(instanceState);
@@ -85,6 +90,35 @@ public class SummonerDetailsActivity extends LeagueActivity {
                 .placeholder(android.R.drawable.ic_menu_rotate)
                 .error(android.R.drawable.ic_delete)
                 .into(this.mIvHeader);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//Title and subtitle
+        toolbar.setTitle("MY toolbar");
+        toolbar.setSubtitle("Subtitle");
+
+//Menu
+        toolbar.inflateMenu(R.menu.toolbar_menu);
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                switch (menuItem.getItemId()) {
+                    case R.id.action_share:
+                        Toast.makeText(SummonerDetailsActivity.this, "Share", Toast.LENGTH_SHORT).show();
+                        return true;
+                }
+
+                return false;
+            }
+        });
+//Navigation Icon
+        toolbar.setNavigationIcon(R.drawable.ic_launcher);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(SummonerDetailsActivity.this, "Navigation", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -94,7 +128,7 @@ public class SummonerDetailsActivity extends LeagueActivity {
     }
 
     private void showSummonerFragment() {
-        FragmentTransaction mTransaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction mTransaction = getFragmentManager().beginTransaction();
         mTransaction.replace(android.R.id.content, new SummonerDetailFragment(), FRAGMENT_DETAILS);
         mTransaction.commit();
     }
