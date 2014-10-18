@@ -10,7 +10,11 @@ package eu.mok.mokeulol.activities;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.fragments.ApiTokenFragment;
@@ -51,5 +55,28 @@ public class LeagueMainActivity extends LeagueActivity implements LeagueFragment
         FragmentTransaction trans = this.getFragmentManager().beginTransaction();
         trans.replace(android.R.id.content, ApiTokenFragment.getInstance(), FRAGMENT_API_TOKEN);
         trans.commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.my, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(this, LeaguePreferenceActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_summoner_detail:
+                this.onShowSummonerDetailsFragment(99);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -10,11 +10,7 @@ package eu.mok.mokeulol.activities;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
-import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.fragments.LeagueFragment;
 
 public abstract class LeagueActivity extends ActionBarActivity implements LeagueFragment.LeagueFragmentListener {
@@ -42,26 +38,4 @@ public abstract class LeagueActivity extends ActionBarActivity implements League
         startActivity(intent);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.my, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent intent = new Intent(this, LeaguePreferenceActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.action_summoner_detail:
-                this.onShowSummonerDetailsFragment(99);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 }

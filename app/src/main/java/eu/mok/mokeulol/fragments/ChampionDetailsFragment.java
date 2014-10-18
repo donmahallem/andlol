@@ -8,11 +8,11 @@
 
 package eu.mok.mokeulol.fragments;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.graphics.Palette;
@@ -38,13 +38,11 @@ import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.network.LeagueResponse;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
-import eu.mok.mokeulol.activities.ChampionSkinActivity;
 import eu.mok.mokeulol.adapter.SkinListAdapter;
 import eu.mok.mokeulol.view.ChampionPassiveView;
 import eu.mok.mokeulol.view.ChampionSpellView;
-import it.sephiroth.android.library.widget.AdapterView;
 
-public class ChampionDetailsFragment extends LeagueFragment implements AdapterView.OnItemClickListener {
+public class ChampionDetailsFragment extends LeagueFragment {
     private final static String ARGS_CHAMP_ID = "champid";
     private TextView mTxtTitle, mTxtSubTitle, mTxtDescription, mTxtLore;
     private CircularImageView mIvChampIcon;
@@ -58,9 +56,16 @@ public class ChampionDetailsFragment extends LeagueFragment implements AdapterVi
         @Override
         public void onGenerated(Palette palette) {
             if (isAdded()) {
-                getActivity().getWindow().getDecorView().setBackgroundColor(palette.getDarkVibrantColor(R.color.red_200));
+                /**
+                 * If Lollipop set StatusBarColor call
+                 */
+                if (Build.VERSION.SDK_INT >= 21) {
+                    getActivity().getWindow().setStatusBarColor(palette.getDarkVibrantColor(R.color.light_blue_900));
+                }
+                getActivity().getWindow().getDecorView().setBackgroundColor(palette.getDarkVibrantColor(R.color.light_blue_900));
             }
             mToolbar.setBackgroundColor(palette.getVibrantColor(R.color.light_blue_700));
+            mIvChampIcon.setBorderColor(palette.getVibrantColor(R.color.light_blue_700));
         }
     };
     private Target IvHeaderTarget = new Target() {
@@ -96,6 +101,7 @@ public class ChampionDetailsFragment extends LeagueFragment implements AdapterVi
 
     public void onCreate() {
         this.onCreate();
+        this.setHasOptionsMenu(true);
     }
 
     @Override
@@ -122,7 +128,6 @@ public class ChampionDetailsFragment extends LeagueFragment implements AdapterVi
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
 //Title and subtitle
         mToolbar.setTitle("MY toolbar");
-        mToolbar.setSubtitle("Subtitle");
         mToolbar.setBackgroundColor(getResources().getColor(R.color.light_blue_600));
 //Menu
         mToolbar.inflateMenu(R.menu.toolbar_menu);
@@ -145,6 +150,7 @@ public class ChampionDetailsFragment extends LeagueFragment implements AdapterVi
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("outa", "outa outa outa outa ");
                 Toast.makeText(ChampionDetailsFragment.this.getActivity(), "Navigation", Toast.LENGTH_SHORT).show();
             }
         });
@@ -160,6 +166,13 @@ public class ChampionDetailsFragment extends LeagueFragment implements AdapterVi
                     .placeholder(android.R.drawable.ic_menu_rotate)
                     .error(android.R.drawable.ic_delete)
                     .into(IvHeaderTarget);
+            Util.getPicasso()
+                    .load(this.mChampion.getImageUri())
+                    .placeholder(android.R.drawable.ic_menu_rotate)
+                    .error(android.R.drawable.ic_delete)
+                    .into(mIvChampIcon);
+            this.mToolbar.setTitle(this.mChampion.getName());
+            this.mToolbar.setSubtitle(this.mChampion.getTitle());
             if (this.mChampion.getSpells() != null) {
                 this.mChampionSpellView1.setChampionSpell(this.mChampion.getSpells().get(0));
                 this.mChampionSpellView2.setChampionSpell(this.mChampion.getSpells().get(1));
@@ -178,14 +191,6 @@ public class ChampionDetailsFragment extends LeagueFragment implements AdapterVi
                 this.mTxtDescription.setText(android.text.Html.fromHtml(this.mChampion.getLore()));
             }
         }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Intent intent = new Intent(this.getActivity(), ChampionSkinActivity.class);
-        intent.putExtra(ChampionSkinActivity.EXTRA_CHAMPION_ID, this.mChampion.getId());
-        startActivity(intent);
-        Log.d("outa", " outa " + i + " - " + l);
     }
 
     private class Task extends AsyncTask<Integer, Void, LeagueResponse<Champion>> {
