@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <eu.mok.mokeulol.view.StickyHeadScrollView
+        <eu.mok.mokeulol.view.ListenerScrollView
             android:id="@id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -59,7 +59,7 @@
                     tools:layout="@layout/fragment_summoner_detail"/>
             </LinearLayout>
 
-        </eu.mok.mokeulol.view.StickyHeadScrollView>
+        </eu.mok.mokeulol.view.ListenerScrollView>
 
         <LinearLayout
             android:id="@+id/test1"

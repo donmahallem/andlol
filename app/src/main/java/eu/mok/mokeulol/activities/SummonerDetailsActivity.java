@@ -28,17 +28,17 @@ import com.squareup.picasso.Target;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.fragments.SummonerDetailFragment;
+import eu.mok.mokeulol.view.ListenerScrollView;
 import eu.mok.mokeulol.view.StickyHeadContainerView;
-import eu.mok.mokeulol.view.StickyHeadScrollView;
 
 public class SummonerDetailsActivity extends LeagueActivity {
     private final String FRAGMENT_DETAILS = "fragment_details";
     private Drawable mActionBarBackgroundDrawable;
-    private StickyHeadScrollView mScrollView;
+    private ListenerScrollView mScrollView;
     private StickyHeadContainerView mStickyContainerView;
     private ImageView mIvHeader;
     private Toolbar mToolbar;
-    private StickyHeadScrollView.OnScrollListener ActionBarScrollListener = new StickyHeadScrollView.OnScrollListener() {
+    private ListenerScrollView.OnScrollListener ActionBarScrollListener = new ListenerScrollView.OnScrollListener() {
         @Override
         public void onScrollViewScrolled(int l, int t, int oldl, int oldt) {
             final int headerHeight = findViewById(R.id.icon).getHeight() - mToolbar.getHeight();
@@ -80,6 +80,7 @@ public class SummonerDetailsActivity extends LeagueActivity {
 
         }
     };
+
     @Override
     public void onCreate(Bundle instanceState) {
         super.onCreate(instanceState);
@@ -91,7 +92,7 @@ public class SummonerDetailsActivity extends LeagueActivity {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
             mActionBarBackgroundDrawable.setCallback(mDrawableCallback);
         }
-        this.mScrollView = (StickyHeadScrollView) this.findViewById(R.id.scrollView);
+        this.mScrollView = (ListenerScrollView) this.findViewById(R.id.scrollView);
         this.mScrollView.addOnScrollListener(ActionBarScrollListener);
         this.mStickyContainerView = (StickyHeadContainerView) this.findViewById(R.id.stickyHeadContainer);
 //        this.mStickyContainerView.setTopOffset(getActionBar().getHeight());

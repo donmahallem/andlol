@@ -18,18 +18,18 @@ import java.util.List;
 /**
  * Created by Don on 16.10.2014.
  */
-public class StickyHeadScrollView extends ScrollView {
+public class ListenerScrollView extends ScrollView {
     private List<OnScrollListener> mOnScrollListener = new ArrayList<OnScrollListener>();
 
-    public StickyHeadScrollView(Context context) {
+    public ListenerScrollView(Context context) {
         super(context);
     }
 
-    public StickyHeadScrollView(Context context, AttributeSet attrs) {
+    public ListenerScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public StickyHeadScrollView(Context context, AttributeSet attrs, int defStyle) {
+    public ListenerScrollView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

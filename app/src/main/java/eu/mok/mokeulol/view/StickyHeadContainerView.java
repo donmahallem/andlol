@@ -17,10 +17,10 @@ import android.widget.FrameLayout;
 
 import eu.mok.mokeulol.R;
 
-import static eu.mok.mokeulol.view.StickyHeadScrollView.OnScrollListener;
+import static eu.mok.mokeulol.view.ListenerScrollView.OnScrollListener;
 
 public class StickyHeadContainerView extends FrameLayout implements OnScrollListener {
-    private StickyHeadScrollView mStickyHeadScrollView;
+    private ListenerScrollView mListenerScrollView;
     private View mHead, mGhost;
     private int mOffsetTop = 0;
 
@@ -30,6 +30,7 @@ public class StickyHeadContainerView extends FrameLayout implements OnScrollList
             alignStickyHead();
         }
     };
+
     public StickyHeadContainerView(Context context) {
         super(context);
     }
@@ -48,11 +49,11 @@ public class StickyHeadContainerView extends FrameLayout implements OnScrollList
         if (this.getChildCount() != 2)
             throw new RuntimeException("StickyHeadContainerView should contain 2 childs");
         try {
-            this.mStickyHeadScrollView = (StickyHeadScrollView) this.getChildAt(0);
+            this.mListenerScrollView = (ListenerScrollView) this.getChildAt(0);
         } catch (ClassCastException exception) {
             throw new RuntimeException("First child item should be StickyHeadContainerView", exception);
         }
-        this.mStickyHeadScrollView.addOnScrollListener(this);
+        this.mListenerScrollView.addOnScrollListener(this);
         this.mHead = this.getChildAt(1);
         this.mGhost = this.findViewById(R.id.test);
         //updateGhost();
@@ -72,6 +73,7 @@ public class StickyHeadContainerView extends FrameLayout implements OnScrollList
         super.onAttachedToWindow();
         this.getViewTreeObserver().addOnGlobalLayoutListener(GlobalLayoutListener);
     }
+
     private void updateGhost() {
         final int height = this.mHead.getMeasuredHeight();
         this.mGhost.getLayoutParams().height = height;
