@@ -72,7 +72,7 @@ public class ChampionDetailsActivity extends LeagueActivity {
     private ValueAnimator.AnimatorUpdateListener HeaderImageAlphaAnimator = new ValueAnimator.AnimatorUpdateListener() {
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
-            //mIvHeader.setAlpha((Integer) animation.getAnimatedValue());
+            mIvHeader.setAlpha((Integer) animation.getAnimatedValue());
         }
     };
     private Target IvHeaderTarget = new Target() {
@@ -81,7 +81,7 @@ public class ChampionDetailsActivity extends LeagueActivity {
             mIvHeader.setImageDrawable(new BitmapDrawable(bitmap));
             Palette.generateAsync(bitmap, IvHeaderAsyncListener);
             ValueAnimator imageFade = ValueAnimator.ofObject(new IntEvaluator(), 0, 255);
-            imageFade.setDuration(2000);
+            imageFade.setDuration(1000);
             imageFade.addUpdateListener(HeaderImageAlphaAnimator);
             imageFade.start();
         }
@@ -99,10 +99,7 @@ public class ChampionDetailsActivity extends LeagueActivity {
     private ValueAnimator.AnimatorUpdateListener SecondaryColorAnimator = new ValueAnimator.AnimatorUpdateListener() {
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
-            if (Build.VERSION.SDK_INT >= 21) {
-                getWindow().setStatusBarColor((Integer) animation.getAnimatedValue());
-            }
-            //findViewById(R.id.content1).setBackgroundColor((Integer) animation.getAnimatedValue());
+            setThemeSecondaryColor((Integer) animation.getAnimatedValue());
         }
     };
     private ToolbarBackground mToolbarBackground = new ToolbarBackground();
@@ -110,15 +107,7 @@ public class ChampionDetailsActivity extends LeagueActivity {
     private ValueAnimator.AnimatorUpdateListener PrimaryColorAnimator = new ValueAnimator.AnimatorUpdateListener() {
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
-            final int color = (Integer) animation.getAnimatedValue();
-            mToolbarBackground.setRgb(color);
-            //mToolbar.setBackgroundColor(Color.argb(255,Color.red(color),Color.green(color),Color.blue(color)));
-            mIvChampIcon.setBorderColor(color);
-            mChampionPassiveView.setIconBorderColor(color);
-            mChampionSpellView1.setIconBorderColor(color);
-            mChampionSpellView2.setIconBorderColor(color);
-            mChampionSpellView3.setIconBorderColor(color);
-            mChampionSpellView4.setIconBorderColor(color);
+            setThemePrimaryColor((Integer) animation.getAnimatedValue());
         }
     };
     private ListenerScrollView.OnScrollListener ActionBarFadeListener = new ListenerScrollView.OnScrollListener() {
@@ -137,12 +126,38 @@ public class ChampionDetailsActivity extends LeagueActivity {
     }
 
     private void setThemeColors(final int primaryColor, final int secondaryColor) {
+        this.setThemeColors(primaryColor, secondaryColor, false);
+    }
+
+    private void setThemeSecondaryColor(final int color) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().setStatusBarColor(color);
+        }
+        findViewById(R.id.content1).setBackgroundColor(color);
+    }
+
+    private void setThemePrimaryColor(final int color) {
+        mToolbarBackground.setRgb(color);
+        mIvChampIcon.setBorderColor(color);
+        mChampionPassiveView.setIconBorderColor(color);
+        mChampionSpellView1.setIconBorderColor(color);
+        mChampionSpellView2.setIconBorderColor(color);
+        mChampionSpellView3.setIconBorderColor(color);
+        mChampionSpellView4.setIconBorderColor(color);
+    }
+
+    private void setThemeColors(final int primaryColor, final int secondaryColor, boolean instant) {
+        if (instant) {
+            setThemePrimaryColor(primaryColor);
+            setThemePrimaryColor(secondaryColor);
+            return;
+        }
         ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), getResources().getColor(R.color.light_blue_700), primaryColor);
-        colorAnimation.setDuration(2000);
+        colorAnimation.setDuration(1000);
         colorAnimation.addUpdateListener(PrimaryColorAnimator);
         colorAnimation.start();
         ValueAnimator colorAnimationSecondary = ValueAnimator.ofObject(new ArgbEvaluator(), getResources().getColor(R.color.light_blue_900), secondaryColor);
-        colorAnimationSecondary.setDuration(2000);
+        colorAnimationSecondary.setDuration(1000);
         colorAnimationSecondary.addUpdateListener(SecondaryColorAnimator);
         colorAnimationSecondary.start();
     }
@@ -187,6 +202,7 @@ public class ChampionDetailsActivity extends LeagueActivity {
         });
         setSupportActionBar(mToolbar);
         mToolbar.setBackgroundDrawable(mToolbarBackground);
+        this.setThemeColors(getResources().getColor(R.color.light_blue_700), getResources().getColor(R.color.light_blue_900), true);
     }
 
     @Override
