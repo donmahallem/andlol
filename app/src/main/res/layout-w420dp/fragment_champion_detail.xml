@@ -25,7 +25,7 @@
             android:id="@id/ivHeader"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:background="?colorAccent"
+            android:background="@color/grey_300"
             android:elevation="10dp"
             android:scaleType="centerCrop"/>
 

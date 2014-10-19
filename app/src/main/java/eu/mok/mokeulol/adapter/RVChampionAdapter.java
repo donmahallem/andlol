@@ -107,7 +107,7 @@ public class RVChampionAdapter extends RecyclerView.Adapter<RVChampionAdapter.Ch
         @Override
         public void onClick(View v) {
             for (OnChampSelectListener champSelectListener : mOnChampSelectListener) {
-                champSelectListener.onChampSelected(mChampionList.get(getPosition()), v);
+                champSelectListener.onChampSelected(mChampionList.get(getPosition()), mImageView);
             }
         }
     }

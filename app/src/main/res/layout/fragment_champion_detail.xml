@@ -45,7 +45,7 @@
                     android:id="@id/ivHeader"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:background="?colorAccent"
+                    android:background="@color/grey_300"
                     android:elevation="0dp"
                     android:scaleType="centerCrop"/>
 
@@ -127,7 +127,7 @@
                 android:elevation="100dp"
                 android:src="@android:drawable/ic_menu_search"
                 support:border="true"
-                support:border_color="@color/grey_200"
+                support:border_color="?colorPrimary"
                 support:border_width="4dp"
                 support:shadow="true"/>
         </FrameLayout>

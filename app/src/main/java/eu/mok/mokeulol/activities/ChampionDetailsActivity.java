@@ -69,7 +69,7 @@ public class ChampionDetailsActivity extends LeagueActivity {
     private ValueAnimator.AnimatorUpdateListener HeaderImageAlphaAnimator = new ValueAnimator.AnimatorUpdateListener() {
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
-            mIvHeader.setAlpha((Integer) animation.getAnimatedValue());
+            //mIvHeader.setAlpha((Integer) animation.getAnimatedValue());
         }
     };
     private Target IvHeaderTarget = new Target() {
