@@ -10,6 +10,8 @@ package eu.mok.mokeulol.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -72,8 +74,11 @@ public class ChampionListFragment extends LeagueFragment implements RVChampionAd
     }
 
     @Override
-    public void onChampSelected(Champion champion) {
-        startActivity(ChampionDetailsActivity.createIntent(this.getActivity(), champion.getId()));
+    public void onChampSelected(Champion champion, View view) {
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this.getActivity(), view, "test");
+        ActivityCompat.startActivity(this.getActivity(), ChampionDetailsActivity.createIntent(this.getActivity(), champion.getId()),
+                options.toBundle());
     }
 
     private class Task extends AsyncTask<Void, Void, ChampionList> {

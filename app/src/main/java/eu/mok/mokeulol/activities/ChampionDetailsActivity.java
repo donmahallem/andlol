@@ -19,6 +19,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -165,6 +166,8 @@ public class ChampionDetailsActivity extends LeagueActivity {
             }
         });
         setSupportActionBar(mToolbar);
+
+        ViewCompat.setTransitionName(mIvHeader, "test");
     }
 
     @Override

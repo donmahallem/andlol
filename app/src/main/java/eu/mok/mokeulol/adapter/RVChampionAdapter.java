@@ -72,7 +72,7 @@ public class RVChampionAdapter extends RecyclerView.Adapter<RVChampionAdapter.Ch
     }
 
     public static interface OnChampSelectListener {
-        public void onChampSelected(Champion champion);
+        public void onChampSelected(Champion champion, View view);
     }
 
     public class ChampionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -107,7 +107,7 @@ public class RVChampionAdapter extends RecyclerView.Adapter<RVChampionAdapter.Ch
         @Override
         public void onClick(View v) {
             for (OnChampSelectListener champSelectListener : mOnChampSelectListener) {
-                champSelectListener.onChampSelected(mChampionList.get(getPosition()));
+                champSelectListener.onChampSelected(mChampionList.get(getPosition()), v);
             }
         }
     }
