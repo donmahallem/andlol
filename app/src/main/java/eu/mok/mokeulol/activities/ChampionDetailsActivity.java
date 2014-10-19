@@ -14,7 +14,9 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -45,6 +47,7 @@ import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.adapter.SkinListAdapter;
 import eu.mok.mokeulol.view.ChampionPassiveView;
 import eu.mok.mokeulol.view.ChampionSpellView;
+import eu.mok.mokeulol.view.ListenerScrollView;
 
 public class ChampionDetailsActivity extends LeagueActivity {
     private final static String EXTRA_CHAMP_ID = "champid";
@@ -56,6 +59,7 @@ public class ChampionDetailsActivity extends LeagueActivity {
     private Champion mChampion;
     private ImageView mIvHeader;
     private Toolbar mToolbar;
+    private ListenerScrollView mListenerScrollView;
     private Palette.PaletteAsyncListener IvHeaderAsyncListener = new Palette.PaletteAsyncListener() {
         @Override
         public void onGenerated(Palette palette) {
@@ -101,16 +105,28 @@ public class ChampionDetailsActivity extends LeagueActivity {
             //findViewById(R.id.content1).setBackgroundColor((Integer) animation.getAnimatedValue());
         }
     };
+    private ToolbarBackground mToolbarBackground = new ToolbarBackground();
+    ;
     private ValueAnimator.AnimatorUpdateListener PrimaryColorAnimator = new ValueAnimator.AnimatorUpdateListener() {
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
-            mToolbar.setBackgroundColor((Integer) animation.getAnimatedValue());
-            mIvChampIcon.setBorderColor((Integer) animation.getAnimatedValue());
-            mChampionPassiveView.setIconBorderColor((Integer) animation.getAnimatedValue());
-            mChampionSpellView1.setIconBorderColor((Integer) animation.getAnimatedValue());
-            mChampionSpellView2.setIconBorderColor((Integer) animation.getAnimatedValue());
-            mChampionSpellView3.setIconBorderColor((Integer) animation.getAnimatedValue());
-            mChampionSpellView4.setIconBorderColor((Integer) animation.getAnimatedValue());
+            final int color = (Integer) animation.getAnimatedValue();
+            mToolbarBackground.setRgb(color);
+            //mToolbar.setBackgroundColor(Color.argb(255,Color.red(color),Color.green(color),Color.blue(color)));
+            mIvChampIcon.setBorderColor(color);
+            mChampionPassiveView.setIconBorderColor(color);
+            mChampionSpellView1.setIconBorderColor(color);
+            mChampionSpellView2.setIconBorderColor(color);
+            mChampionSpellView3.setIconBorderColor(color);
+            mChampionSpellView4.setIconBorderColor(color);
+        }
+    };
+    private ListenerScrollView.OnScrollListener ActionBarFadeListener = new ListenerScrollView.OnScrollListener() {
+        @Override
+        public void onScrollViewScrolled(int l, int t, int oldl, int oldt) {
+            final int h = mIvHeader.getHeight() / 2;
+            final int ratio = Math.min(255, Math.max(0, 255 * t / h));
+            mToolbarBackground.setAlpha(ratio);
         }
     };
 
@@ -145,6 +161,10 @@ public class ChampionDetailsActivity extends LeagueActivity {
         this.mChampionSpellView3 = (ChampionSpellView) this.findViewById(R.id.championSpellView3);
         this.mChampionSpellView4 = (ChampionSpellView) this.findViewById(R.id.championSpellView4);
         this.mChampionPassiveView = (ChampionPassiveView) this.findViewById(R.id.championPassiveView);
+        this.mListenerScrollView = (ListenerScrollView) this.findViewById(R.id.scrollView);
+        if (this.mListenerScrollView != null) {
+            this.mListenerScrollView.addOnScrollListener(ActionBarFadeListener);
+        }
         Task task = new Task();
         int id = 32;
         if (this.getIntent() != null && this.getIntent().getExtras() != null)
@@ -154,7 +174,8 @@ public class ChampionDetailsActivity extends LeagueActivity {
         mToolbar = (Toolbar) this.findViewById(R.id.toolbar);
         //Title and subtitle
         mToolbar.setTitle("MY toolbar");
-        mToolbar.setBackgroundColor(getResources().getColor(R.color.light_blue_600));
+        mToolbarBackground.setColor(getResources().getColor(R.color.light_blue_600));
+        //mToolbarBackground.setAlpha(0);
 //Navigation Icon
         mToolbar.setNavigationIcon(R.drawable.ic_launcher);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -165,6 +186,7 @@ public class ChampionDetailsActivity extends LeagueActivity {
             }
         });
         setSupportActionBar(mToolbar);
+        mToolbar.setBackgroundDrawable(mToolbarBackground);
     }
 
     @Override
@@ -223,6 +245,26 @@ public class ChampionDetailsActivity extends LeagueActivity {
 
                 this.mTxtDescription.setText(android.text.Html.fromHtml(this.mChampion.getLore()));
             }
+        }
+    }
+
+    private class ToolbarBackground extends ColorDrawable {
+        @Override
+        public void setAlpha(int alpha) {
+            super.setAlpha(alpha);
+            //setRgb(Color.argb(alpha,Color.red(getColor()),Color.green(getColor()),Color.blue(getColor())));
+        }
+
+        public int getSupportAlpha() {
+            return Color.alpha(this.getColor());
+        }
+
+        public void setRgb(int color) {
+            this.setRgb(Color.red(color), Color.green(color), Color.blue(color));
+        }
+
+        public void setRgb(int red, int green, int blue) {
+            setColor(Color.argb(getSupportAlpha(), red, green, blue));
         }
     }
 
