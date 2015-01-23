@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2014.
+  ~ Copyright (c) 2015.
   ~
   ~ Visit https://github.com/donmahallem/andlol for more info!
   ~
@@ -13,7 +13,7 @@
 
     <item
         android:id="@id/action_favorite"
-        android:icon="@drawable/ic_favorite"
+        android:icon="@drawable/ic_favorite_outline_white_24dp"
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="@string/action_settings"

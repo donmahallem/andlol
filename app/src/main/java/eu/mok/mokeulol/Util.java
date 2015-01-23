@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -14,9 +14,13 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.IOException;
 
 import eu.m0k.lol.api.LeagueApi;
 import eu.m0k.lol.api.LogLevel;
@@ -24,8 +28,9 @@ import eu.m0k.lol.api.network.ApiKey;
 import eu.mok.mokeulol.helper.picasso.LolRequestTransformer;
 
 public class Util {
-    private static Picasso mPicasso;
+    private static Cache mOkHttpCache;
     private static OkHttpClient mOkHttpClient;
+    private static Picasso mPicasso;
     private static Context mContext;
     private static LeagueApi mLeagueApi;
 
@@ -44,8 +49,20 @@ public class Util {
     public static OkHttpClient getOkHttpClient() {
         if (mOkHttpClient == null) {
             mOkHttpClient = new OkHttpClient();
+            mOkHttpClient.setCache(getOkHttpCache());
         }
         return mOkHttpClient;
+    }
+
+    public static Cache getOkHttpCache() {
+        if (mOkHttpCache == null) {
+            try {
+                mOkHttpCache = new Cache(new File(mContext.getCacheDir(), "app"), 50 * 1024 * 1024);
+            } catch (IOException e) {
+                return null;
+            }
+        }
+        return mOkHttpCache;
     }
 
     /**

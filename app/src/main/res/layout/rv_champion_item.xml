@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2014.
+  ~ Copyright (c) 2015.
   ~
   ~ Visit https://github.com/donmahallem/andlol for more info!
   ~
@@ -13,6 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
+    android:foreground="?android:selectableItemBackground"
     android:orientation="horizontal"
     card_view:cardBackgroundColor="?colorPrimary"
     card_view:cardCornerRadius="5dp"
@@ -35,7 +36,6 @@
             android:id="@id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:selectableItemBackground"
             android:clickable="false"
             android:focusable="true"
             android:gravity="center"
