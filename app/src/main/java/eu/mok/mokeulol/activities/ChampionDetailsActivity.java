@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -66,7 +66,7 @@ public class ChampionDetailsActivity extends LeagueActivity {
             /**
              * If Lollipop set StatusBarColor call
              */
-            setThemeColors(palette.getVibrantColor(R.color.light_blue_700), palette.getDarkVibrantColor(R.color.light_blue_900));
+            setThemeColors(palette.getVibrantColor(R.color.light_blue_700));
         }
     };
     private ValueAnimator.AnimatorUpdateListener HeaderImageAlphaAnimator = new ValueAnimator.AnimatorUpdateListener() {
@@ -125,8 +125,8 @@ public class ChampionDetailsActivity extends LeagueActivity {
         return intent;
     }
 
-    private void setThemeColors(final int primaryColor, final int secondaryColor) {
-        this.setThemeColors(primaryColor, secondaryColor, false);
+    private void setThemeColors(final int primaryColor) {
+        this.setThemeColors(primaryColor, false);
     }
 
     private void setThemeSecondaryColor(final int color) {
@@ -146,17 +146,21 @@ public class ChampionDetailsActivity extends LeagueActivity {
         mChampionSpellView4.setIconBorderColor(color);
     }
 
-    private void setThemeColors(final int primaryColor, final int secondaryColor, boolean instant) {
+    private void setThemeColors(final int primaryColor, boolean instant) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(primaryColor, hsv);
+        hsv[2] *= 0.75f; // value component
+        final int darkerColor = Color.HSVToColor(hsv);
         if (instant) {
             setThemePrimaryColor(primaryColor);
-            setThemePrimaryColor(secondaryColor);
+            setThemeSecondaryColor(darkerColor);
             return;
         }
         ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), getResources().getColor(R.color.light_blue_700), primaryColor);
         colorAnimation.setDuration(1000);
         colorAnimation.addUpdateListener(PrimaryColorAnimator);
         colorAnimation.start();
-        ValueAnimator colorAnimationSecondary = ValueAnimator.ofObject(new ArgbEvaluator(), getResources().getColor(R.color.light_blue_900), secondaryColor);
+        ValueAnimator colorAnimationSecondary = ValueAnimator.ofObject(new ArgbEvaluator(), getResources().getColor(R.color.light_blue_900), darkerColor);
         colorAnimationSecondary.setDuration(1000);
         colorAnimationSecondary.addUpdateListener(SecondaryColorAnimator);
         colorAnimationSecondary.start();
@@ -202,7 +206,7 @@ public class ChampionDetailsActivity extends LeagueActivity {
         });
         setSupportActionBar(mToolbar);
         mToolbar.setBackgroundDrawable(mToolbarBackground);
-        this.setThemeColors(getResources().getColor(R.color.light_blue_700), getResources().getColor(R.color.light_blue_900), true);
+        this.setThemeColors(getResources().getColor(R.color.light_blue_700), true);
     }
 
     @Override

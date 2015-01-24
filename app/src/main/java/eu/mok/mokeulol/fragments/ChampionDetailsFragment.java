@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -9,6 +9,7 @@
 package eu.mok.mokeulol.fragments;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -19,7 +20,6 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -41,6 +41,7 @@ import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.adapter.SkinListAdapter;
 import eu.mok.mokeulol.view.ChampionPassiveView;
 import eu.mok.mokeulol.view.ChampionSpellView;
+import timber.log.Timber;
 
 public class ChampionDetailsFragment extends LeagueFragment {
     private final static String ARGS_CHAMP_ID = "champid";
@@ -55,17 +56,25 @@ public class ChampionDetailsFragment extends LeagueFragment {
     private Palette.PaletteAsyncListener IvHeaderAsyncListener = new Palette.PaletteAsyncListener() {
         @Override
         public void onGenerated(Palette palette) {
+            Log.d("ChampionDetailsFragment", "onGenerated()");
+            final int primaryColor = palette.getVibrantColor(R.color.light_blue_700);
+            int darkerColor = getResources().getColor(R.color.light_blue_900);
             if (isAdded()) {
+                float[] hsv = new float[3];
+                Color.colorToHSV(primaryColor, hsv);
+                hsv[2] = Math.min(1f, Math.max(0f, hsv[2] * 0.9f)); // value component
+                darkerColor = Color.HSVToColor(hsv);
                 /**
                  * If Lollipop set StatusBarColor call
                  */
                 if (Build.VERSION.SDK_INT >= 21) {
-                    getActivity().getWindow().setStatusBarColor(palette.getDarkVibrantColor(R.color.light_blue_900));
+                    getActivity().getWindow().setStatusBarColor(darkerColor);
                 }
-                getActivity().getWindow().getDecorView().setBackgroundColor(palette.getDarkVibrantColor(R.color.light_blue_900));
+                getActivity().getWindow().getDecorView().setBackgroundColor(darkerColor);
             }
-            mToolbar.setBackgroundColor(palette.getVibrantColor(R.color.light_blue_700));
-            mIvChampIcon.setBorderColor(palette.getVibrantColor(R.color.light_blue_700));
+            mToolbar.setBackgroundColor(primaryColor);
+            mIvChampIcon.setBorderColor(primaryColor);
+            Log.d("IvHeaderAsync", "C _ " + colorToString(primaryColor) + " - " + colorToString(darkerColor));
         }
     };
     private Target IvHeaderTarget = new Target() {
@@ -73,7 +82,6 @@ public class ChampionDetailsFragment extends LeagueFragment {
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
             mIvHeader.setImageDrawable(new BitmapDrawable(bitmap));
             Palette.generateAsync(bitmap, IvHeaderAsyncListener);
-
         }
 
         @Override
@@ -86,12 +94,17 @@ public class ChampionDetailsFragment extends LeagueFragment {
             mIvHeader.setImageDrawable(placeHolderDrawable);
         }
     };
+    private int mChampionId;
 
     public ChampionDetailsFragment() {
         super();
     }
 
-    public static ChampionDetailsFragment getInstance(int id) {
+    private static String colorToString(int color) {
+        return "(" + Color.red(color) + " , " + Color.green(color) + " , " + Color.blue(color) + ")";
+    }
+
+    public static ChampionDetailsFragment getInstance(final int id) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARGS_CHAMP_ID, id);
         ChampionDetailsFragment fragment = new ChampionDetailsFragment();
@@ -101,12 +114,14 @@ public class ChampionDetailsFragment extends LeagueFragment {
 
     public void onCreate() {
         this.onCreate();
+        this.mChampionId = getArguments().getInt(ARGS_CHAMP_ID, 32);
+        Timber.d("onCreate() - champId: " + this.mChampionId);
         this.setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_champion_detail, null);
+        return inflater.inflate(R.layout.fragment_champion_detail, container, false);
     }
 
     @Override
@@ -123,7 +138,7 @@ public class ChampionDetailsFragment extends LeagueFragment {
         this.mChampionSpellView4 = (ChampionSpellView) view.findViewById(R.id.championSpellView4);
         this.mChampionPassiveView = (ChampionPassiveView) view.findViewById(R.id.championPassiveView);
         Task task = new Task();
-        task.execute(getArguments().getInt(ARGS_CHAMP_ID, 32));
+        task.execute(this.mChampionId);
         this.mIvHeader = (ImageView) view.findViewById(R.id.ivHeader);
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
 //Title and subtitle
@@ -132,28 +147,6 @@ public class ChampionDetailsFragment extends LeagueFragment {
 //Menu
         mToolbar.inflateMenu(R.menu.toolbar_menu);
 
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-
-                switch (menuItem.getItemId()) {
-                    case R.id.action_share:
-                        Toast.makeText(ChampionDetailsFragment.this.getActivity(), "Share", Toast.LENGTH_SHORT).show();
-                        return true;
-                }
-
-                return false;
-            }
-        });
-//Navigation Icon
-        mToolbar.setNavigationIcon(R.drawable.ic_launcher);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("outa", "outa outa outa outa ");
-                Toast.makeText(ChampionDetailsFragment.this.getActivity(), "Navigation", Toast.LENGTH_SHORT).show();
-            }
-        });
         ((ActionBarActivity) getActivity()).setSupportActionBar(mToolbar);
     }
 

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2014.
+  ~ Copyright (c) 2015.
   ~
   ~ Visit https://github.com/donmahallem/andlol for more info!
   ~
   ~ Romanes eunt domus - Brian!
   -->
-<FrameLayout
-    android:id="@id/content1"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:support="http://schemas.android.com/apk/res-auto"
+    android:id="@id/content1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorPrimaryDark"
@@ -47,7 +46,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:background="@drawable/ab_header_gradient_light"/>
+                        android:background="@drawable/ab_header_gradient" />
                 </FrameLayout>
 
 
@@ -55,6 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/grey_100"
+                    android:elevation="4dp"
                     android:orientation="vertical"
                     android:paddingBottom="@dimen/content_vertical_padding"
                     android:paddingLeft="@dimen/content_horizontal_padding"
@@ -126,7 +126,7 @@
                 android:layout_height="120dp"
                 android:layout_marginLeft="@dimen/content_vertical_padding"
                 android:layout_marginTop="140dp"
-                android:elevation="100dp"
+                android:elevation="4dp"
                 android:src="@android:drawable/ic_menu_search"
                 support:border="true"
                 support:border_color="?colorPrimary"
@@ -140,8 +140,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:elevation="20dp"
+        android:elevation="8dp"
         android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Theme.AppCompat"
         />
 
 </FrameLayout>
