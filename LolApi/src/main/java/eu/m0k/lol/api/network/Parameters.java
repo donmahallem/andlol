@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -14,7 +14,10 @@ import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Locale;
 
 public class Parameters extends HashMap<String, String> {
-    public final static String CHAMP_DATA = "champData", LOCALE = "locale", API_KEY = "api_key", INCLUDE_TIMELINE = "includeTimeline", BEGIN_INDEX = "beginIndex", END_INDEX = "endIndex", RANKED_QUEUES = "rankedQueues", CHAMPION_IDS = "championIds";
+    public final static String CHAMP_DATA = "champData", LOCALE = "locale", API_KEY = "api_key",
+            INCLUDE_TIMELINE = "includeTimeline", BEGIN_INDEX = "beginIndex",
+            END_INDEX = "endIndex", RANKED_QUEUES = "rankedQueues", CHAMPION_IDS = "championIds",
+            VERSION = "version";
 
     public void put(ChampData champData) {
         if (champData != null)

@@ -18,7 +18,6 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
@@ -36,18 +35,19 @@ import com.pkmmte.view.CircularImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.io.IOException;
-
 import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Champion;
+import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.Region;
-import eu.m0k.lol.api.network.LeagueResponse;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.adapter.SkinListAdapter;
 import eu.mok.mokeulol.view.ChampionPassiveView;
 import eu.mok.mokeulol.view.ChampionSpellView;
 import eu.mok.mokeulol.view.ListenerScrollView;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class ChampionDetailsActivity extends LeagueActivity {
     private final static String EXTRA_CHAMP_ID = "champid";
@@ -57,8 +57,21 @@ public class ChampionDetailsActivity extends LeagueActivity {
     private SkinListAdapter mSkinListAdapter = new SkinListAdapter();
     private ChampionPassiveView mChampionPassiveView;
     private Champion mChampion;
+    private Callback<Champion> CHAMPION_CALLBACK = new Callback<Champion>() {
+        @Override
+        public void success(Champion champion, Response response) {
+            ChampionDetailsActivity.this.mChampion = champion;
+            updateViews();
+        }
+
+        @Override
+        public void failure(RetrofitError error) {
+
+        }
+    };
     private ImageView mIvHeader;
     private Toolbar mToolbar;
+    private int mChampionId = 32;
     private ListenerScrollView mListenerScrollView;
     private Palette.PaletteAsyncListener IvHeaderAsyncListener = new Palette.PaletteAsyncListener() {
         @Override
@@ -102,8 +115,8 @@ public class ChampionDetailsActivity extends LeagueActivity {
             setThemeSecondaryColor((Integer) animation.getAnimatedValue());
         }
     };
-    private ToolbarBackground mToolbarBackground = new ToolbarBackground();
     ;
+    private ToolbarBackground mToolbarBackground = new ToolbarBackground();
     private ValueAnimator.AnimatorUpdateListener PrimaryColorAnimator = new ValueAnimator.AnimatorUpdateListener() {
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
@@ -169,6 +182,9 @@ public class ChampionDetailsActivity extends LeagueActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (this.getIntent() != null && this.getIntent().getExtras() != null)
+            this.mChampionId = this.getIntent().getExtras().getInt(EXTRA_CHAMP_ID, 32);
+
         setContentView(R.layout.fragment_champion_detail);
         this.mTxtTitle = (TextView) this.findViewById(R.id.title);
         this.mTxtSubTitle = (TextView) this.findViewById(R.id.subTitle);
@@ -184,11 +200,6 @@ public class ChampionDetailsActivity extends LeagueActivity {
         if (this.mListenerScrollView != null) {
             this.mListenerScrollView.addOnScrollListener(ActionBarFadeListener);
         }
-        Task task = new Task();
-        int id = 32;
-        if (this.getIntent() != null && this.getIntent().getExtras() != null)
-            id = this.getIntent().getExtras().getInt(EXTRA_CHAMP_ID, 32);
-        task.execute(id);
         this.mIvHeader = (ImageView) this.findViewById(R.id.ivHeader);
         mToolbar = (Toolbar) this.findViewById(R.id.toolbar);
         //Title and subtitle
@@ -207,6 +218,19 @@ public class ChampionDetailsActivity extends LeagueActivity {
         setSupportActionBar(mToolbar);
         mToolbar.setBackgroundDrawable(mToolbarBackground);
         this.setThemeColors(getResources().getColor(R.color.light_blue_700), true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ChampData data = new ChampData();
+        data.setSpells(true);
+        data.setSkins(true);
+        data.setLore(true);
+        data.setInfo(true);
+        data.setPassive(true);
+        data.setImage(true);
+        Util.getLeagueApi().getEndpointStatic().getChampion(Region.EUW, this.mChampionId, Locale.GERMAN, "5.1.2", true, data, CHAMPION_CALLBACK);
     }
 
     @Override
@@ -288,40 +312,4 @@ public class ChampionDetailsActivity extends LeagueActivity {
         }
     }
 
-    private class Task extends AsyncTask<Integer, Void, LeagueResponse<Champion>> {
-
-        @Override
-        protected LeagueResponse<Champion> doInBackground(Integer... params) {
-            ChampData data = new ChampData();
-            data.setSpells(true);
-            data.setSkins(true);
-            data.setLore(true);
-            data.setInfo(true);
-            data.setPassive(true);
-            data.setImage(true);
-            LeagueResponse<Champion> champ = null;
-            try {
-                champ = Util.getLeagueApi().getChampion(params[0], Region.EUW, data);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return champ;
-        }
-
-        @Override
-        protected void onPostExecute(LeagueResponse<Champion> result) {
-            if (result != null && result.getBody() != null) {
-                mChampion = result.getBody();
-                updateViews();
-            } else {
-                int msg = 0;
-                if (result == null) {
-                    msg = R.string.unknown_error;
-                } else {
-                    msg = R.string.network_error;
-                }
-                Toast.makeText(ChampionDetailsActivity.this, msg, Toast.LENGTH_LONG);
-            }
-        }
-    }
 }

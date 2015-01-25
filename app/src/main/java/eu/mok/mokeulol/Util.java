@@ -22,7 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.IOException;
 
-import eu.m0k.lol.api.LeagueApi;
+import eu.m0k.lol.api.LeagueClient;
 import eu.m0k.lol.api.LogLevel;
 import eu.m0k.lol.api.network.ApiKey;
 import eu.mok.mokeulol.helper.picasso.LolRequestTransformer;
@@ -32,7 +32,7 @@ public class Util {
     private static OkHttpClient mOkHttpClient;
     private static Picasso mPicasso;
     private static Context mContext;
-    private static LeagueApi mLeagueApi;
+    private static LeagueClient mLeagueClient;
 
     /**
      * Inits with the given Context
@@ -94,14 +94,14 @@ public class Util {
         }
     }
 
-    public static LeagueApi getLeagueApi() {
-        if (mLeagueApi == null) {
-            LeagueApi.Builder builder = new LeagueApi.Builder();
+    public static LeagueClient getLeagueApi() {
+        if (mLeagueClient == null) {
+            LeagueClient.Builder builder = new LeagueClient.Builder();
             builder.setLogLevel(LogLevel.BASIC);
             builder.setCacheDir(mContext.getCacheDir());
             builder.setApiKey(new ApiKey(getLeagueApiToken()));
-            mLeagueApi = builder.build();
+            mLeagueClient = builder.build();
         }
-        return mLeagueApi;
+        return mLeagueClient;
     }
 }

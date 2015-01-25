@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -8,10 +8,10 @@
 
 package eu.m0k.lol.api.internal;
 
-import eu.m0k.lol.api.network.LeagueResponse;
+import eu.m0k.lol.api.network.LeagueResult;
 
 public interface LeagueCallback<T> {
-    public void onSuccess(T t, LeagueResponse response);
+    public void onSuccess(T t, LeagueResult response);
 
     public void onFailure(LeagueError error);
 }

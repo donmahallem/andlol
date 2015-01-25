@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -10,7 +10,7 @@ package eu.m0k.lol.api.network;
 
 import com.squareup.okhttp.Headers;
 
-public class LeagueResponse<T> {
+public class LeagueResult<T> {
     private final String mUrl;
     private final int mStatus;
     private final boolean mCached;
@@ -18,7 +18,7 @@ public class LeagueResponse<T> {
     private final Headers mHeaders;
     private final T mBody;
 
-    private LeagueResponse(String url, int status, String reason, Headers headers, T body, boolean cached) {
+    private LeagueResult(String url, int status, String reason, Headers headers, T body, boolean cached) {
         if (url == null) {
             throw new IllegalArgumentException("url == null");
         }
@@ -36,17 +36,18 @@ public class LeagueResponse<T> {
         this.mCached = cached;
     }
 
-    public static <T> LeagueResponse<T> cache(final String url, final boolean success, final T body) {
-        return new LeagueResponse<T>(url, 200, "", null, body, true);
+    public static <T> LeagueResult<T> cache(final String url, final boolean success, final T body) {
+        return new LeagueResult<T>(url, 200, "", null, body, true);
     }
 
-    public static <T> LeagueResponse<T> network(final String url, final int code, final String reason, final Headers headers, final T body) {
-        return new LeagueResponse<T>(url, code, reason, headers, body, false);
+    public static <T> LeagueResult<T> network(final String url, final int code, final String reason, final Headers headers, final T body) {
+        return new LeagueResult<T>(url, code, reason, headers, body, false);
     }
 
 
     /**
      * is cached response
+     *
      * @return true if cached
      */
     public boolean isCached() {

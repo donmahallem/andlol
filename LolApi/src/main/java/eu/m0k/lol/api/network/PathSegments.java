@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -12,11 +12,9 @@ import java.util.HashMap;
 
 import eu.m0k.lol.api.model.Region;
 
-/**
- * Created by Don on 11.10.2014.
- */
+
 public class PathSegments extends HashMap<String, String> {
-    public final static String REGION = "region", MATCH_ID = "matchId", CHAMP_ID = "champId", SUMMONER_ID = "summonerId";
+    public final static String REGION = "region", MATCH_ID = "matchId", CHAMP_ID = "champId", SUMMONER_ID = "summonerId", ID = "id";
 
     public void put(Region region) {
         this.put(REGION, region.getRegion());
