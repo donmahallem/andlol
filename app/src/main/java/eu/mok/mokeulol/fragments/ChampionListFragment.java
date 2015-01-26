@@ -42,8 +42,9 @@ public class ChampionListFragment extends LeagueFragment implements RVChampionAd
         @Override
         public void success(ChampionList champions, Response response) {
             champions.sortByName(true);
-            Timber.d("success", "Data");
+            Timber.d("success - cached: " + response);
             ChampionListFragment.this.mRVChampionAdapter.setChampionList(champions);
+            setLoading(false);
         }
 
         @Override
@@ -51,6 +52,7 @@ public class ChampionListFragment extends LeagueFragment implements RVChampionAd
             Timber.e(error.getMessage());
         }
     };
+    private View mLoadingContainer;
 
     public static ChampionListFragment getInstance() {
         return new ChampionListFragment();
@@ -62,21 +64,22 @@ public class ChampionListFragment extends LeagueFragment implements RVChampionAd
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.mRecyclerView = new RecyclerView(container.getContext());
+        return inflater.inflate(R.layout.fragment_champion_list, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        this.mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        this.mLoadingContainer = view.findViewById(R.id.loadingContainer);
         this.mRecyclerView.setLayoutManager(
                 new StaggeredGridLayoutManager(
-                        container.getContext().getResources().
+                        view.getContext().getResources().
                                 getInteger(R.integer.columns), StaggeredGridLayoutManager.VERTICAL));
         /**
          * All cards are the same
          */
         this.mRecyclerView.setHasFixedSize(true);
         this.mRecyclerView.setItemAnimator(RevealAnimator);
-        return this.mRecyclerView;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.mRVChampionAdapter = new RVChampionAdapter();
         this.mRVChampionAdapter.setOnChampSelectListener(this);
@@ -89,7 +92,13 @@ public class ChampionListFragment extends LeagueFragment implements RVChampionAd
         Log.d("ChampionListFragment", "onResume()");
         ChampData data = new ChampData();
         data.setImage(true);
+        this.setLoading(true);
         Util.getLeagueApi().getEndpointStatic().getChampions(Region.EUW, Locale.GERMAN, "5.2.1", data, CHAMPIONS_CALLBACK);
+    }
+
+    private void setLoading(final boolean loading) {
+        this.mRecyclerView.setVisibility(loading ? View.GONE : View.VISIBLE);
+        this.mLoadingContainer.setVisibility(loading ? View.VISIBLE : View.GONE);
     }
 
     @Override

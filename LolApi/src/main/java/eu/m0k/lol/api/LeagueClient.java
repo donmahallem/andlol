@@ -47,8 +47,11 @@ public class LeagueClient {
         public Response intercept(Chain chain) throws IOException {
             final Response originalResponse = chain.proceed(chain.request());
             final String cacheMod = chain.request().header("Cache-Control");
+            Log.d("Interceptor", "Cache-Control: " + cacheMod);
+            Log.d("Interceptor", "Cached: " + (originalResponse.cacheResponse() != null));
             return originalResponse.newBuilder()
                     .header("Cache-Control", cacheMod)
+
                     .build();
         }
     };
@@ -132,8 +135,6 @@ public class LeagueClient {
     private String hashUrl(String toHash) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         return new String(UUID.nameUUIDFromBytes(toHash.getBytes("UTF-8")).toString());
     }
-
-
 
 
     /**

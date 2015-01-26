@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2015.
   ~
   ~ Visit https://github.com/donmahallem/andlol for more info!
@@ -8,14 +7,29 @@
   -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:support="http://schemas.android.com/apk/res-auto"
-    android:id="@id/content1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimaryDark"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
-    <eu.mok.mokeulol.view.ListenerScrollView
+    <LinearLayout
+        android:id="@id/loadingContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading" />
+    </LinearLayout>
+
+    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
         android:id="@id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -28,12 +42,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="10dp"
                 android:orientation="vertical">
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="200dp">
+
+                    <ProgressBar
+                        android:id="@id/progressBar1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
 
                     <ImageView
                         android:id="@id/ivHeader"
@@ -41,7 +60,7 @@
                         android:layout_height="200dp"
                         android:background="@color/grey_300"
                         android:elevation="0dp"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerCrop" />
 
                     <View
                         android:layout_width="match_parent"
@@ -66,56 +85,56 @@
                         style="@style/Text.Description.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/passive"/>
+                        android:text="@string/passive" />
 
                     <eu.mok.mokeulol.view.ChampionPassiveView
                         android:id="@id/championPassiveView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"/>
+                        android:layout_margin="5dp" />
 
                     <TextView
                         style="@style/Text.Description.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/abilities"/>
+                        android:text="@string/abilities" />
 
                     <eu.mok.mokeulol.view.ChampionSpellView
                         android:id="@id/championSpellView1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"/>
+                        android:layout_margin="5dp" />
 
                     <eu.mok.mokeulol.view.ChampionSpellView
                         android:id="@id/championSpellView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"/>
+                        android:layout_margin="5dp" />
 
                     <eu.mok.mokeulol.view.ChampionSpellView
                         android:id="@id/championSpellView3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"/>
+                        android:layout_margin="5dp" />
 
                     <eu.mok.mokeulol.view.ChampionSpellView
                         android:id="@id/championSpellView4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"/>
+                        android:layout_margin="5dp" />
 
                     <TextView
                         android:id="@id/title"
                         style="@style/Text.Description.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/lore"/>
+                        android:text="@string/lore" />
 
                     <TextView
                         android:id="@id/txtDescription"
                         style="@style/Text.Description"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -131,9 +150,9 @@
                 support:border="true"
                 support:border_color="?colorPrimary"
                 support:border_width="4dp"
-                support:shadow="true"/>
+                support:shadow="true" />
         </FrameLayout>
-    </eu.mok.mokeulol.view.ListenerScrollView>
+    </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
 
     <android.support.v7.widget.Toolbar
         android:id="@id/toolbar"
@@ -142,7 +161,6 @@
         android:background="?attr/colorPrimary"
         android:elevation="8dp"
         android:minHeight="?attr/actionBarSize"
-        android:theme="@style/Theme.AppCompat"
-        />
+        android:theme="@style/Theme.AppCompat" />
 
 </FrameLayout>

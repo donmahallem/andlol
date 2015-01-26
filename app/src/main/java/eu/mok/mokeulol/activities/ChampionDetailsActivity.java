@@ -8,7 +8,6 @@
 
 package eu.mok.mokeulol.activities;
 
-import android.animation.ArgbEvaluator;
 import android.animation.IntEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
@@ -16,7 +15,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,9 +26,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
+import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
 import com.pkmmte.view.CircularImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -44,13 +47,12 @@ import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.adapter.SkinListAdapter;
 import eu.mok.mokeulol.view.ChampionPassiveView;
 import eu.mok.mokeulol.view.ChampionSpellView;
-import eu.mok.mokeulol.view.ListenerScrollView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class ChampionDetailsActivity extends LeagueActivity {
-    private final static String EXTRA_CHAMP_ID = "champid";
+public class ChampionDetailsActivity extends LeagueActivity implements ObservableScrollViewCallbacks {
+    private final static String EXTRA_CHAMP_ID = "champid", KEY_THEME_COLOR = "keyThemeColor";
     private TextView mTxtTitle, mTxtSubTitle, mTxtDescription, mTxtLore;
     private CircularImageView mIvChampIcon;
     private ChampionSpellView mChampionSpellView1, mChampionSpellView2, mChampionSpellView3, mChampionSpellView4;
@@ -60,6 +62,7 @@ public class ChampionDetailsActivity extends LeagueActivity {
     private Callback<Champion> CHAMPION_CALLBACK = new Callback<Champion>() {
         @Override
         public void success(Champion champion, Response response) {
+            ChampionDetailsActivity.this.setLoading(false);
             ChampionDetailsActivity.this.mChampion = champion;
             updateViews();
         }
@@ -72,7 +75,10 @@ public class ChampionDetailsActivity extends LeagueActivity {
     private ImageView mIvHeader;
     private Toolbar mToolbar;
     private int mChampionId = 32;
-    private ListenerScrollView mListenerScrollView;
+    private ObservableScrollView mListenerScrollView;
+    private ProgressBar mIvHeaderProgressBar;
+    private View mLoadingContainer;
+    private int mThemeColor = -1;
     private Palette.PaletteAsyncListener IvHeaderAsyncListener = new Palette.PaletteAsyncListener() {
         @Override
         public void onGenerated(Palette palette) {
@@ -91,10 +97,12 @@ public class ChampionDetailsActivity extends LeagueActivity {
     private Target IvHeaderTarget = new Target() {
         @Override
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+            mIvHeader.setVisibility(View.VISIBLE);
+            mIvHeaderProgressBar.setVisibility(View.GONE);
             mIvHeader.setImageDrawable(new BitmapDrawable(bitmap));
             Palette.generateAsync(bitmap, IvHeaderAsyncListener);
             ValueAnimator imageFade = ValueAnimator.ofObject(new IntEvaluator(), 0, 255);
-            imageFade.setDuration(1000);
+            imageFade.setDuration(250);
             imageFade.addUpdateListener(HeaderImageAlphaAnimator);
             imageFade.start();
         }
@@ -107,30 +115,11 @@ public class ChampionDetailsActivity extends LeagueActivity {
         @Override
         public void onPrepareLoad(Drawable placeHolderDrawable) {
             mIvHeader.setImageDrawable(placeHolderDrawable);
+            mIvHeader.setVisibility(View.GONE);
+            mIvHeaderProgressBar.setVisibility(View.VISIBLE);
         }
     };
-    private ValueAnimator.AnimatorUpdateListener SecondaryColorAnimator = new ValueAnimator.AnimatorUpdateListener() {
-        @Override
-        public void onAnimationUpdate(ValueAnimator animation) {
-            setThemeSecondaryColor((Integer) animation.getAnimatedValue());
-        }
-    };
-    ;
-    private ToolbarBackground mToolbarBackground = new ToolbarBackground();
-    private ValueAnimator.AnimatorUpdateListener PrimaryColorAnimator = new ValueAnimator.AnimatorUpdateListener() {
-        @Override
-        public void onAnimationUpdate(ValueAnimator animation) {
-            setThemePrimaryColor((Integer) animation.getAnimatedValue());
-        }
-    };
-    private ListenerScrollView.OnScrollListener ActionBarFadeListener = new ListenerScrollView.OnScrollListener() {
-        @Override
-        public void onScrollViewScrolled(int l, int t, int oldl, int oldt) {
-            final int h = mIvHeader.getHeight() / 2;
-            final int ratio = Math.min(255, Math.max(0, 255 * t / h));
-            mToolbarBackground.setAlpha(ratio);
-        }
-    };
+
 
     public static Intent createIntent(Activity activity, int id) {
         Intent intent = new Intent(activity, ChampionDetailsActivity.class);
@@ -138,19 +127,14 @@ public class ChampionDetailsActivity extends LeagueActivity {
         return intent;
     }
 
-    private void setThemeColors(final int primaryColor) {
-        this.setThemeColors(primaryColor, false);
-    }
 
     private void setThemeSecondaryColor(final int color) {
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(color);
         }
-        findViewById(R.id.content1).setBackgroundColor(color);
     }
 
     private void setThemePrimaryColor(final int color) {
-        mToolbarBackground.setRgb(color);
         mIvChampIcon.setBorderColor(color);
         mChampionPassiveView.setIconBorderColor(color);
         mChampionSpellView1.setIconBorderColor(color);
@@ -159,24 +143,29 @@ public class ChampionDetailsActivity extends LeagueActivity {
         mChampionSpellView4.setIconBorderColor(color);
     }
 
-    private void setThemeColors(final int primaryColor, boolean instant) {
+    private void setThemeColors(final int primaryColor) {
+        this.mThemeColor = primaryColor;
         float[] hsv = new float[3];
         Color.colorToHSV(primaryColor, hsv);
         hsv[2] *= 0.75f; // value component
         final int darkerColor = Color.HSVToColor(hsv);
-        if (instant) {
             setThemePrimaryColor(primaryColor);
             setThemeSecondaryColor(darkerColor);
-            return;
-        }
-        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), getResources().getColor(R.color.light_blue_700), primaryColor);
-        colorAnimation.setDuration(1000);
-        colorAnimation.addUpdateListener(PrimaryColorAnimator);
-        colorAnimation.start();
-        ValueAnimator colorAnimationSecondary = ValueAnimator.ofObject(new ArgbEvaluator(), getResources().getColor(R.color.light_blue_900), darkerColor);
-        colorAnimationSecondary.setDuration(1000);
-        colorAnimationSecondary.addUpdateListener(SecondaryColorAnimator);
-        colorAnimationSecondary.start();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle instanceState) {
+        instanceState.putInt(KEY_THEME_COLOR, this.mThemeColor);
+        super.onSaveInstanceState(instanceState);
+
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle instanceState) {
+        super.onRestoreInstanceState(instanceState);
+        if (instanceState != null)
+            this.setThemePrimaryColor(instanceState.getInt(KEY_THEME_COLOR, getResources().getColor(R.color.blue_700)));
+        onScrollChanged(this.mListenerScrollView.getCurrentScrollY(), false, false);
     }
 
     @Override
@@ -184,8 +173,9 @@ public class ChampionDetailsActivity extends LeagueActivity {
         super.onCreate(savedInstanceState);
         if (this.getIntent() != null && this.getIntent().getExtras() != null)
             this.mChampionId = this.getIntent().getExtras().getInt(EXTRA_CHAMP_ID, 32);
-
         setContentView(R.layout.fragment_champion_detail);
+        this.mThemeColor = getResources().getColor(R.color.blue_700);
+        this.mLoadingContainer = this.findViewById(R.id.loadingContainer);
         this.mTxtTitle = (TextView) this.findViewById(R.id.title);
         this.mTxtSubTitle = (TextView) this.findViewById(R.id.subTitle);
         this.mIvChampIcon = (CircularImageView) this.findViewById(R.id.ivChampionIcon);
@@ -196,15 +186,13 @@ public class ChampionDetailsActivity extends LeagueActivity {
         this.mChampionSpellView3 = (ChampionSpellView) this.findViewById(R.id.championSpellView3);
         this.mChampionSpellView4 = (ChampionSpellView) this.findViewById(R.id.championSpellView4);
         this.mChampionPassiveView = (ChampionPassiveView) this.findViewById(R.id.championPassiveView);
-        this.mListenerScrollView = (ListenerScrollView) this.findViewById(R.id.scrollView);
-        if (this.mListenerScrollView != null) {
-            this.mListenerScrollView.addOnScrollListener(ActionBarFadeListener);
-        }
+        this.mListenerScrollView = (ObservableScrollView) this.findViewById(R.id.scrollView);
+        this.mListenerScrollView.setScrollViewCallbacks(this);
+        this.mIvHeaderProgressBar = (ProgressBar) this.findViewById(R.id.progressBar1);
         this.mIvHeader = (ImageView) this.findViewById(R.id.ivHeader);
         mToolbar = (Toolbar) this.findViewById(R.id.toolbar);
         //Title and subtitle
         mToolbar.setTitle("MY toolbar");
-        mToolbarBackground.setColor(getResources().getColor(R.color.light_blue_600));
         //mToolbarBackground.setAlpha(0);
 //Navigation Icon
         mToolbar.setNavigationIcon(R.drawable.ic_launcher);
@@ -216,13 +204,14 @@ public class ChampionDetailsActivity extends LeagueActivity {
             }
         });
         setSupportActionBar(mToolbar);
-        mToolbar.setBackgroundDrawable(mToolbarBackground);
-        this.setThemeColors(getResources().getColor(R.color.light_blue_700), true);
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
+        this.setLoading(true);
+        this.setThemeColors(getResources().getColor(R.color.light_blue_700));
         ChampData data = new ChampData();
         data.setSpells(true);
         data.setSkins(true);
@@ -231,6 +220,11 @@ public class ChampionDetailsActivity extends LeagueActivity {
         data.setPassive(true);
         data.setImage(true);
         Util.getLeagueApi().getEndpointStatic().getChampion(Region.EUW, this.mChampionId, Locale.GERMAN, "5.1.2", true, data, CHAMPION_CALLBACK);
+    }
+
+    private void setLoading(final boolean loading) {
+        this.mLoadingContainer.setVisibility(loading ? View.VISIBLE : View.GONE);
+        this.mListenerScrollView.setVisibility(loading ? View.GONE : View.VISIBLE);
     }
 
     @Override
@@ -292,24 +286,22 @@ public class ChampionDetailsActivity extends LeagueActivity {
         }
     }
 
-    private class ToolbarBackground extends ColorDrawable {
-        @Override
-        public void setAlpha(int alpha) {
-            super.setAlpha(alpha);
-            //setRgb(Color.argb(alpha,Color.red(getColor()),Color.green(getColor()),Color.blue(getColor())));
-        }
-
-        public int getSupportAlpha() {
-            return Color.alpha(this.getColor());
-        }
-
-        public void setRgb(int color) {
-            this.setRgb(Color.red(color), Color.green(color), Color.blue(color));
-        }
-
-        public void setRgb(int red, int green, int blue) {
-            setColor(Color.argb(getSupportAlpha(), red, green, blue));
-        }
+    @Override
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+        float alpha = 1 - (float) Math.max(0, mIvHeader.getHeight() - scrollY) / mIvHeader.getHeight();
+        mToolbar.setBackgroundColor(ScrollUtils.getColorWithAlpha(alpha, this.mThemeColor));
+        mIvHeader.setTranslationY(scrollY / 2);
     }
+
+    @Override
+    public void onDownMotionEvent() {
+
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+
+    }
+
 
 }

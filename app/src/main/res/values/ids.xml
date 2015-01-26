@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2014.
+  ~ Copyright (c) 2015.
   ~
   ~ Visit https://github.com/donmahallem/andlol for more info!
   ~
@@ -30,6 +30,10 @@
     <item name="txtTitle" type="id"/>
     <item name="ivHeader" type="id"/>
     <item name="content1" type="id"/>
+    <item name="loadingContainer" type="id" />
+    <item name="recyclerView" type="id" />
+    <item name="progressBar1" type="id" />
+
 
     <!-- MENUS -->
     <item name="action_favorite" type="id"/>
