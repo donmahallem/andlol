@@ -164,7 +164,7 @@ public class ChampionDetailsActivity extends LeagueActivity implements Observabl
     public void onRestoreInstanceState(Bundle instanceState) {
         super.onRestoreInstanceState(instanceState);
         if (instanceState != null)
-            this.setThemePrimaryColor(instanceState.getInt(KEY_THEME_COLOR, getResources().getColor(R.color.blue_700)));
+            this.setThemeColors(instanceState.getInt(KEY_THEME_COLOR, getResources().getColor(R.color.blue_700)));
         onScrollChanged(this.mListenerScrollView.getCurrentScrollY(), false, false);
     }
 
@@ -193,7 +193,7 @@ public class ChampionDetailsActivity extends LeagueActivity implements Observabl
         mToolbar = (Toolbar) this.findViewById(R.id.toolbar);
         //Title and subtitle
         mToolbar.setTitle("MY toolbar");
-        //mToolbarBackground.setAlpha(0);
+        mToolbar.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, this.mThemeColor));
 //Navigation Icon
         mToolbar.setNavigationIcon(R.drawable.ic_launcher);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
