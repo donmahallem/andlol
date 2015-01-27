@@ -8,10 +8,13 @@
 
 package eu.m0k.lol.api;
 
+import java.util.List;
+
 import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Item;
 import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.Region;
+import eu.m0k.lol.api.model.VersionList;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Headers;
@@ -58,6 +61,14 @@ public class Lol {
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/v1.2/item/{id}")
         public void getItem(@Path("region") final Region region, @Path("id") final int itemId, @Query("locale") final Locale locale, @Query("locale") final String version, final Callback<Item> callback);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
+        @GET("/api/lol/static-data/{region}/v1.2/versions")
+        public List<VersionList> getVersions(@Path("region") final Region region);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
+        @GET("/api/lol/static-data/{region}/v1.2/versions")
+        public void getVersions(@Path("region") final Region region, final Callback<VersionList> callback);
 
     }
 

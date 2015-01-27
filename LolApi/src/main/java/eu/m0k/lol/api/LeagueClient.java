@@ -30,6 +30,7 @@ import eu.m0k.lol.api.model.ChampionSpell;
 import eu.m0k.lol.api.model.MasteryList;
 import eu.m0k.lol.api.model.NameList;
 import eu.m0k.lol.api.model.SummonerList;
+import eu.m0k.lol.api.model.Version;
 import eu.m0k.lol.api.network.ApiKey;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -82,6 +83,7 @@ public class LeagueClient {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.excludeFieldsWithoutExposeAnnotation();
         gsonBuilder.registerTypeAdapter(SummonerList.class, new SummonerList.TypeAdapter());
+        gsonBuilder.registerTypeAdapter(Version.class, new Version.TypeAdapter());
         gsonBuilder.registerTypeAdapter(NameList.class, new NameList.TypeAdapter());
         gsonBuilder.registerTypeAdapter(MasteryList.class, new MasteryList.TypeAdapter());
         gsonBuilder.registerTypeAdapter(ChampionList.class, new ChampionList.TypeAdapter());
