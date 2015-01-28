@@ -20,4 +20,10 @@
     <dimen name="content_horizontal_padding">16dp</dimen>
     <dimen name="content_vertical_padding">16dp</dimen>
     <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="navbar_horizontal_margin">16dp</dimen>
+    <dimen name="navbar_item_height">48dp</dimen>
+    <dimen name="navbar_cover_image_height">140dp</dimen>
+    <dimen name="navbar_item_icon_size">24dp</dimen>
+    <dimen name="navbar_item_title_margin">32dp</dimen>
+    <dimen name="space_height">8dp</dimen>
 </resources>

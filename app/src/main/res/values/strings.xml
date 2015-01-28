@@ -42,4 +42,6 @@
     <string name="summoner">Summoner</string>
     <string name="champion">Champion</string>
     <string name="loading">Loading</string>
+    <string name="search_summoner">Search Summoner</string>
+    <string name="favorites">Favorites</string>
 </resources>

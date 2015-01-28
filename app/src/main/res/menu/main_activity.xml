@@ -1,0 +1,22 @@
+<!--
+  ~ Copyright (c) 2015.
+  ~
+  ~ Visit https://github.com/donmahallem/andlol for more info!
+  ~
+  ~ Romanes eunt domus - Brian!
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:support="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="eu.mok.mokeulol.activities.LeagueMainActivity">
+    <item
+        android:id="@+id/action_search"
+        android:actionViewClass="android.support.v7.widget.SearchView"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:orderInCategory="100"
+        android:showAsAction="always|collapseActionView"
+        android:title="@string/search_summoner"
+        support:actionViewClass="android.support.v7.widget.SearchView"
+        support:showAsAction="always|collapseActionView" />
+</menu>

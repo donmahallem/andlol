@@ -45,4 +45,6 @@ public class NavigationDrawerFragment extends Fragment {
         super.onResume();
         Util.getPicasso().load(COVER_IMAGE_PATH).into(mCoverImage);
     }
+
+
 }

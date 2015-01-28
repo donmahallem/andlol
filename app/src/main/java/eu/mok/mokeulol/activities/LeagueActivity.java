@@ -10,16 +10,11 @@ package eu.mok.mokeulol.activities;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.fragments.LeagueFragment;
 
-/**
- * Created by Don on 11.10.2014.
- */
 public class LeagueActivity extends ActionBarActivity implements LeagueFragment.LeagueFragmentListener {
     @Override
     public void onShowChampionListFragment() {
@@ -36,12 +31,6 @@ public class LeagueActivity extends ActionBarActivity implements LeagueFragment.
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.my, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
