@@ -16,6 +16,7 @@ import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.MasteryMap;
 import eu.m0k.lol.api.model.NameMap;
 import eu.m0k.lol.api.model.Region;
+import eu.m0k.lol.api.model.RuneMap;
 import eu.m0k.lol.api.model.SummonerIds;
 import eu.m0k.lol.api.model.SummonerList;
 import eu.m0k.lol.api.model.SummonerNames;
@@ -104,6 +105,14 @@ public class Lol {
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/masteries")
         public void getMasteries(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds, final Callback<MasteryMap> callback);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
+        @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/runes")
+        public RuneMap getRunes(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
+        @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/runes")
+        public void getRunes(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds, final Callback<RuneMap> callback);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/name")

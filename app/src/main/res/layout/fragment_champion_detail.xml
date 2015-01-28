@@ -46,7 +46,8 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
+                    android:layout_height="200dp"
+                    android:background="@color/grey_600">
 
                     <ProgressBar
                         android:id="@id/progressBar1"
