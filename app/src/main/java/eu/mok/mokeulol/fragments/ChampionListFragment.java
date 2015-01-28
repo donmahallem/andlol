@@ -22,8 +22,6 @@ import eu.m0k.lol.api.model.Champion;
 import eu.m0k.lol.api.model.ChampionList;
 import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.Region;
-import eu.m0k.lol.api.model.Version;
-import eu.m0k.lol.api.model.VersionList;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.activities.ChampionDetailsActivity;
@@ -86,19 +84,6 @@ public class ChampionListFragment extends LeagueFragment implements RVChampionAd
         this.mRVChampionAdapter = new RVChampionAdapter();
         this.mRVChampionAdapter.setOnChampSelectListener(this);
         this.mRecyclerView.setAdapter(this.mRVChampionAdapter);
-        Util.getLeagueApi().getStaticEndpoint(Region.EUW).getVersions(new Callback<VersionList>() {
-            @Override
-            public void success(VersionList versions, Response response) {
-                for (Version version : versions) {
-                    Log.d("outa", "outa: " + version);
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });
     }
 
     @Override

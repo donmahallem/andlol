@@ -8,8 +8,6 @@
 
 package eu.m0k.lol.api.model;
 
-import android.util.Log;
-
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -30,7 +28,6 @@ public class Version {
     }
 
     public static Version parse(String version) {
-        Log.d("parse Version", version);
         if (version == null)
             return null;
         int major = 0, minor = 0, patch = 0;
