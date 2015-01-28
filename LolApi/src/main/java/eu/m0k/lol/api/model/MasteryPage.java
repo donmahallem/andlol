@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -41,5 +41,13 @@ public class MasteryPage {
 
     public List<Mastery> getMasteries() {
         return mMasteries;
+    }
+
+    @Override
+    public String toString() {
+        return "MasteryPage{" +
+                "mId=" + mId +
+                ", mName='" + mName + '\'' +
+                '}';
     }
 }
