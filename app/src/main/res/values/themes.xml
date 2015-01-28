@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2014.
+  ~ Copyright (c) 2015.
   ~
   ~ Visit https://github.com/donmahallem/andlol for more info!
   ~
@@ -10,8 +10,6 @@
 <resources>
 
     <style name="League.AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowActionBar">false</item>
-
         <item name="colorPrimary">@color/light_blue_700</item>
         <!--   darker variant for the status bar and contextual app bars -->
         <item name="colorPrimaryDark">@color/light_blue_900</item>
@@ -21,5 +19,10 @@
         <!-- You can also set colorControlNormal, colorControlActivated
              colorControlHighlight & colorSwitchThumbNormal. -->
 
+    </style>
+
+    <style name="League.AppTheme.NavigationDrawer" parent="League.AppTheme">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 </resources>

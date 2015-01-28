@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2014.
+  ~ Copyright (c) 2015.
   ~
   ~ Visit https://github.com/donmahallem/andlol for more info!
   ~
   ~ Romanes eunt domus - Brian!
   -->
 
-<manifest
-    package="eu.mok.mokeulol"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="eu.mok.mokeulol">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
@@ -20,8 +19,9 @@
         android:theme="@style/League.AppTheme">
         <activity
             android:name=".activities.LeagueMainActivity"
-            android:label="@string/app_name">
-            <intent-filter>
+            android:label="@string/app_name"
+            android:theme="@style/League.AppTheme.NavigationDrawer">
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>

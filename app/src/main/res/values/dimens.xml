@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2014.
+  ~ Copyright (c) 2015.
   ~
   ~ Visit https://github.com/donmahallem/andlol for more info!
   ~
@@ -19,4 +19,5 @@
     <dimen name="content_container_horizontal_margin">96dp</dimen>
     <dimen name="content_horizontal_padding">16dp</dimen>
     <dimen name="content_vertical_padding">16dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
 </resources>

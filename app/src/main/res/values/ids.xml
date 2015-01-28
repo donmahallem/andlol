@@ -33,6 +33,9 @@
     <item name="loadingContainer" type="id" />
     <item name="recyclerView" type="id" />
     <item name="progressBar1" type="id" />
+    <item name="fgrContent" type="id" />
+    <item name="toolbar" type="id" />
+    <item name="coverImage" type="id" />
 
 
     <!-- MENUS -->
