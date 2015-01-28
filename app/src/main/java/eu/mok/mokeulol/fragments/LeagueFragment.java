@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -9,7 +9,7 @@
 package eu.mok.mokeulol.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
 public abstract class LeagueFragment extends Fragment {
 
@@ -44,7 +44,5 @@ public abstract class LeagueFragment extends Fragment {
         public void onShowChampionDetailsFragment(int id);
 
         public void onShowApiTokenFragment();
-
-        public void onShowSummonerDetailsFragment(long id);
     }
 }

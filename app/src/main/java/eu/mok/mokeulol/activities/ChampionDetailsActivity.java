@@ -219,7 +219,7 @@ public class ChampionDetailsActivity extends LeagueActivity implements Observabl
         data.setInfo(true);
         data.setPassive(true);
         data.setImage(true);
-        Util.getLeagueApi().getEndpointStatic().getChampion(Region.EUW, this.mChampionId, Locale.GERMAN, "5.1.2", true, data, CHAMPION_CALLBACK);
+        Util.getLeagueApi().getStaticEndpoint(Region.EUW).getChampion(this.mChampionId, Locale.GERMAN, "5.1.2", true, data, CHAMPION_CALLBACK);
     }
 
     private void setLoading(final boolean loading) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -45,6 +45,7 @@ public class ChampionSkinFragment extends LeagueFragment {
             return 0;
         return this.getArguments().getInt(ARGS_SKIN_NUM, 0);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

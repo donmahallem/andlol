@@ -42,12 +42,4 @@ public class MasteryPage {
     public List<Mastery> getMasteries() {
         return mMasteries;
     }
-
-    @Override
-    public String toString() {
-        return "MasteryPage{" +
-                "mId=" + mId +
-                ", mName='" + mName + '\'' +
-                '}';
-    }
 }

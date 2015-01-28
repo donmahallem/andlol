@@ -86,7 +86,7 @@ public class ChampionListFragment extends LeagueFragment implements RVChampionAd
         this.mRVChampionAdapter = new RVChampionAdapter();
         this.mRVChampionAdapter.setOnChampSelectListener(this);
         this.mRecyclerView.setAdapter(this.mRVChampionAdapter);
-        Util.getLeagueApi().getEndpointStatic().getVersions(Region.EUW, new Callback<VersionList>() {
+        Util.getLeagueApi().getStaticEndpoint(Region.EUW).getVersions(new Callback<VersionList>() {
             @Override
             public void success(VersionList versions, Response response) {
                 for (Version version : versions) {
@@ -108,7 +108,7 @@ public class ChampionListFragment extends LeagueFragment implements RVChampionAd
         ChampData data = new ChampData();
         data.setImage(true);
         this.setLoading(true);
-        Util.getLeagueApi().getEndpointStatic().getChampions(Region.EUW, Locale.GERMAN, "5.2.1", data, CHAMPIONS_CALLBACK);
+        Util.getLeagueApi().getStaticEndpoint(Region.EUW).getChampions(Locale.GERMAN, "5.2.1", data, CHAMPIONS_CALLBACK);
     }
 
     private void setLoading(final boolean loading) {

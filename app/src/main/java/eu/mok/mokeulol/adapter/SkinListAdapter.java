@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -18,7 +18,6 @@ import java.util.List;
 
 import eu.m0k.lol.api.model.ChampionSkin;
 import eu.m0k.lol.api.picasso.Constants;
-import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
 
 /**
@@ -75,11 +74,9 @@ public class SkinListAdapter extends BaseAdapter {
             view = (ImageView) convertView;
         } else
             view = new ImageView(parent.getContext());
-        view.setImageResource(R.drawable.league_circle_progress);
-        view.setMinimumHeight(parent.getContext().getResources().getDimensionPixelSize(R.dimen.skin_placeholder));
-        view.setMinimumWidth(parent.getContext().getResources().getDimensionPixelSize(R.dimen.skin_placeholder));
         Util.getPicasso()
                 .load(Constants.PATH_IMG_CHAMPION_LOADING + this.mKey + "_" + position)
+                .placeholder(android.R.drawable.ic_menu_rotate)
                 .error(android.R.drawable.ic_delete)
                 .into(view);
         return view;

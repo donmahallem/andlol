@@ -14,10 +14,7 @@ import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Locale;
 
 public class Parameters extends HashMap<String, String> {
-    public final static String CHAMP_DATA = "champData", LOCALE = "locale", API_KEY = "api_key",
-            INCLUDE_TIMELINE = "includeTimeline", BEGIN_INDEX = "beginIndex",
-            END_INDEX = "endIndex", RANKED_QUEUES = "rankedQueues", CHAMPION_IDS = "championIds",
-            VERSION = "version";
+    public final static String CHAMP_DATA = "champData", LOCALE = "locale", API_KEY = "api_key", INCLUDE_TIMELINE = "includeTimeline";
 
     public void put(ChampData champData) {
         if (champData != null)
@@ -47,9 +44,5 @@ public class Parameters extends HashMap<String, String> {
             str += key + "=" + this.get(key);
         }
         return str;
-    }
-
-    public void put(String title, int value) {
-        this.put(title, "" + value);
     }
 }

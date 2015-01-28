@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -10,7 +10,6 @@ package eu.mok.mokeulol.fragments;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,17 +19,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import eu.mok.mokeulol.R;
-import eu.mok.mokeulol.activities.SummonerDetailsActivity;
 
 public class ApiTokenFragment
         extends LeagueFragment
         implements View.OnClickListener, DialogInterface.OnCancelListener, TextWatcher {
     private EditText mTxtApiToken;
     private Button mBtnCheckToken;
-    private ImageButton mBtnUrl;
     private ProgressDialog mProgressDialog;
     private Task mTask;
 
@@ -52,11 +48,10 @@ public class ApiTokenFragment
         super.onViewCreated(view, savedInstanceState);
         this.mTxtApiToken = (EditText) view.findViewById(R.id.apiToken);
         this.mBtnCheckToken = (Button) view.findViewById(R.id.btnCheckToken);
-        this.mBtnUrl = (ImageButton) view.findViewById(R.id.btnUrl);
         // Adding Listeners
         this.mTxtApiToken.addTextChangedListener(this);
         this.mBtnCheckToken.setOnClickListener(this);
-        this.mBtnUrl.setOnClickListener(this);
+
     }
 
     @Override
@@ -68,9 +63,6 @@ public class ApiTokenFragment
             this.mProgressDialog.setOnCancelListener(this);
             this.mProgressDialog.show();
             this.mTask.execute("token");
-        } else if (v == this.mBtnUrl) {
-            Intent intent = new Intent(this.getActivity(), SummonerDetailsActivity.class);
-            startActivity(intent);
         }
     }
 

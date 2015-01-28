@@ -33,49 +33,50 @@ public class Lol {
 
     public static interface Static {
         final static String VERSION = "v1.2";
-        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
-        @GET("/api/lol/static-data/{region}/" + VERSION + "/champion")
-        public eu.m0k.lol.api.model.ChampionList getChampions(@Path("region") final Region region, @Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/champion")
-        public void getChampions(@Path("region") final Region region, @Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.ChampionList> cb);
+        public eu.m0k.lol.api.model.ChampionList getChampions(@Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
+        @GET("/api/lol/static-data/{region}/" + VERSION + "/champion")
+        public void getChampions(@Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.ChampionList> cb);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/champion?dataById=false")
-        public void getChampions(@Path("region") final Region region, @Query("locale") final Locale locale, @Query("version") final String version, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.ChampionList> cb);
+        public void getChampions(@Query("locale") final Locale locale, @Query("version") final String version, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.ChampionList> cb);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/champion/{id}")
-        public eu.m0k.lol.api.model.Champion getChampion(@Path("region") final Region region, @Path("id") final int id, @Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData);
+        public eu.m0k.lol.api.model.Champion getChampion(@Path("id") final int id, @Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/champion/{id}")
-        public void getChampion(@Path("region") final Region region, @Path("id") final int id, @Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.Champion> cb);
+        public void getChampion(@Path("id") final int id, @Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.Champion> cb);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item")
-        public Item getItems(@Path("region") final Region region, @Query("locale") final Locale locale, @Query("locale") final String version);
+        public Item getItems(@Query("locale") final Locale locale, @Query("locale") final String version);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item")
-        public void getItems(@Path("region") final Region region, @Query("locale") final Locale locale, @Query("locale") final String version, final Callback<Item> callback);
+        public void getItems(@Query("locale") final Locale locale, @Query("locale") final String version, final Callback<Item> callback);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item/{id}")
-        public Item getItem(@Path("region") final Region region, @Path("id") final int itemId, @Query("locale") final Locale locale, @Query("locale") final String version);
+        public Item getItem(@Path("id") final int itemId, @Query("locale") final Locale locale, @Query("locale") final String version);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item/{id}")
-        public void getItem(@Path("region") final Region region, @Path("id") final int itemId, @Query("locale") final Locale locale, @Query("locale") final String version, final Callback<Item> callback);
+        public void getItem(@Path("id") final int itemId, @Query("locale") final Locale locale, @Query("locale") final String version, final Callback<Item> callback);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/versions")
-        public List<VersionList> getVersions(@Path("region") final Region region);
+        public List<VersionList> getVersions();
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/versions")
-        public void getVersions(@Path("region") final Region region, final Callback<VersionList> callback);
+        public void getVersions(final Callback<VersionList> callback);
 
     }
 
@@ -84,43 +85,43 @@ public class Lol {
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
         @GET("/api/lol/{region}/" + VERSION + "/summoner/by-name/{summonerNames}")
-        public SummonerList getSummonersByName(@Path("region") final Region region, @Path("summonerNames") final SummonerNames summonerNames);
+        public SummonerList getSummonersByName(@Path("summonerNames") final SummonerNames summonerNames);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
         @GET("/api/lol/{region}/" + VERSION + "/summoner/by-name/{summonerNames}")
-        public void getSummonersByName(@Path("region") final Region region, @Path("summonerNames") final SummonerNames summonerNames, final Callback<SummonerList> callback);
+        public void getSummonersByName(@Path("summonerNames") final SummonerNames summonerNames, final Callback<SummonerList> callback);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}")
-        public SummonerList getSummoner(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds);
+        public SummonerList getSummoner(@Path("summonerIds") final SummonerIds summonerIds);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}")
-        public void getSummoners(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds, final Callback<SummonerList> callback);
+        public void getSummoners(@Path("summonerIds") final SummonerIds summonerIds, final Callback<SummonerList> callback);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/masteries")
-        public MasteryMap getMasteries(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds);
+        public MasteryMap getMasteries(@Path("summonerIds") final SummonerIds summonerIds);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/masteries")
-        public void getMasteries(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds, final Callback<MasteryMap> callback);
+        public void getMasteries(@Path("summonerIds") final SummonerIds summonerIds, final Callback<MasteryMap> callback);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/runes")
-        public RuneMap getRunes(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds);
+        public RuneMap getRunes(@Path("summonerIds") final SummonerIds summonerIds);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/runes")
-        public void getRunes(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds, final Callback<RuneMap> callback);
+        public void getRunes(@Path("summonerIds") final SummonerIds summonerIds, final Callback<RuneMap> callback);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/name")
-        public NameMap getName(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds);
+        public NameMap getName(@Path("summonerIds") final SummonerIds summonerIds);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/name")
-        public void getName(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds, final Callback<NameMap> callback);
+        public void getName(@Path("summonerIds") final SummonerIds summonerIds, final Callback<NameMap> callback);
     }
 
     public static class Game {

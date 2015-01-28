@@ -16,6 +16,7 @@ import android.support.v4.view.ViewPager;
 
 import eu.m0k.lol.api.model.Champion;
 import eu.mok.mokeulol.R;
+import eu.mok.mokeulol.fragments.ChampionSkinFragment;
 
 public class ChampionSkinActivity extends LeagueActivity {
     public final static String EXTRA_CHAMPION_ID = "extra_id_champion";
@@ -41,11 +42,10 @@ public class ChampionSkinActivity extends LeagueActivity {
 
     private void updateViews() {
         if (this.mChampion != null) {
-            /*this.mChampionSkinFragmentAdapter = new ChampionSkinFragmentAdapter(this.getSupportFragmentManager(), this.mChampion);
-            this.mViewPager.setAdapter(this.mChampionSkinFragmentAdapter);*/
+            this.mChampionSkinFragmentAdapter = new ChampionSkinFragmentAdapter(this.getSupportFragmentManager(), this.mChampion);
+            this.mViewPager.setAdapter(this.mChampionSkinFragmentAdapter);
         }
     }
-
 
     private class ChampionSkinFragmentAdapter extends FragmentStatePagerAdapter {
         private Champion mChampion;
@@ -59,7 +59,7 @@ public class ChampionSkinActivity extends LeagueActivity {
 
         @Override
         public Fragment getItem(int i) {
-            return null;//ChampionSkinFragment.createInstance(this.mChampion.getKey(), i);
+            return ChampionSkinFragment.createInstance(this.mChampion.getKey(), i);
         }
 
         @Override

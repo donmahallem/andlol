@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -8,7 +8,6 @@
 
 package eu.mok.mokeulol.activities;
 
-import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -27,7 +26,6 @@ import com.squareup.picasso.Target;
 
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
-import eu.mok.mokeulol.fragments.SummonerDetailFragment;
 import eu.mok.mokeulol.view.ListenerScrollView;
 import eu.mok.mokeulol.view.StickyHeadContainerView;
 
@@ -159,11 +157,5 @@ public class SummonerDetailsActivity extends LeagueActivity {
     public void onResume() {
         super.onResume();
         //this.mStickyContainerView.setTopOffset(getActionBar().getHeight());
-    }
-
-    private void showSummonerFragment() {
-        FragmentTransaction mTransaction = getFragmentManager().beginTransaction();
-        mTransaction.replace(android.R.id.content, new SummonerDetailFragment(), FRAGMENT_DETAILS);
-        mTransaction.commit();
     }
 }

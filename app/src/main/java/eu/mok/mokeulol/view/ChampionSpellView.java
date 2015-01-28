@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -46,18 +46,23 @@ public class ChampionSpellView extends LinearLayout {
         this.update();
     }
 
-    public void setIconBorderColor(int color) {
-        this.mImageView.setBorderColor(color);
-    }
-
     public void update() {
         if (this.mChampionSpell != null) {
             this.mTitle.setText(this.mChampionSpell.getName());
             this.mSubTitle.setText(this.mChampionSpell.getSanitizedDescription());
-            Util.getPicasso()
-                    .load(this.mChampionSpell.getImageUri())
-                    .placeholder(android.R.drawable.ic_menu_rotate)
-                    .error(android.R.drawable.ic_delete).into(this.mImageView);
+            Util.getPicasso().load(this.mChampionSpell.getImageUri()).placeholder(android.R.drawable.ic_menu_rotate).error(android.R.drawable.ic_delete).into(this.mImageView);
         }
+    }
+
+    public void setIconBorderColor(int iconBorderColor) {
+        this.mImageView.setBorderColor(iconBorderColor);
+    }
+
+    public CircularImageView getImageView() {
+        return mImageView;
+    }
+
+    public void setmImageView(CircularImageView mImageView) {
+        this.mImageView = mImageView;
     }
 }

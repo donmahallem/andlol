@@ -23,8 +23,6 @@ import java.io.File;
 import java.io.IOException;
 
 import eu.m0k.lol.api.LeagueClient;
-import eu.m0k.lol.api.LogLevel;
-import eu.m0k.lol.api.network.ApiKey;
 import eu.mok.mokeulol.helper.picasso.LolRequestTransformer;
 
 public class Util {
@@ -96,11 +94,7 @@ public class Util {
 
     public static LeagueClient getLeagueApi() {
         if (mLeagueClient == null) {
-            LeagueClient.Builder builder = new LeagueClient.Builder();
-            builder.setLogLevel(LogLevel.BASIC);
-            builder.setCacheDir(mContext.getCacheDir());
-            builder.setApiKey(new ApiKey(getLeagueApiToken()));
-            mLeagueClient = builder.build();
+            mLeagueClient = new LeagueClient.Builder().setApiKey(getLeagueApiToken()).build();
         }
         return mLeagueClient;
     }

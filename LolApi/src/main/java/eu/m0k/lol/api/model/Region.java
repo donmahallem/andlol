@@ -9,7 +9,8 @@
 package eu.m0k.lol.api.model;
 
 public enum Region {
-    EUW("euw"), NA("na"), BR("br"), EUNE("eune"), KR("kr"), LAS("las"), LAN("lan"), OCE("oce"), TR("tr"), RU("ru");
+    EUW("euw"), NA("na"), BR("br"), EUNE("eune"), KR("kr"),
+    LAS("las"), LAN("lan"), OCE("oce"), TR("tr"), RU("ru"), STATIC("global");
 
     private final String mRegion;
 
@@ -23,6 +24,8 @@ public enum Region {
 
     @Override
     public String toString() {
-        return this.mRegion;
+        return "Region{" +
+                "region='" + mRegion + '\'' +
+                '}';
     }
 }
