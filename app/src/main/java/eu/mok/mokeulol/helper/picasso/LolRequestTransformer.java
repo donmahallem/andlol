@@ -33,6 +33,8 @@ public class LolRequestTransformer implements Picasso.RequestTransformer {
                     return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + pathSegments.get(1) + ".jpg")).build();
                 } else if (pathSegments.get(0).equals(Constants.LOADING)) {
                     return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/img/champion/loading/" + pathSegments.get(1) + ".jpg")).build();
+                } else if (pathSegments.get(0).equals(Constants.PROFILE_ICON)) {
+                    return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/5.1.2/img/profileicon/" + pathSegments.get(1) + ".png")).build();
                 }
             }
         }

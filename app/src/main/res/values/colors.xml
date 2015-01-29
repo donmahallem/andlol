@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2014.
+  ~ Copyright (c) 2015.
   ~
   ~ Visit https://github.com/donmahallem/andlol for more info!
   ~
@@ -10,4 +10,7 @@
 <resources>
     <color name="very_light_grey">#FFDDDDDD</color>
     <color name="champion_item_tint">#44000000</color>
+    <color name="league_gold">#f4d755</color>
+    <color name="league_platinum">#58959a</color>
+    <color name="league_bronze">#c69e60</color>
 </resources>

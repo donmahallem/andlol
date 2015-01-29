@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -10,6 +10,8 @@ package eu.m0k.lol.api.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import eu.m0k.lol.api.picasso.Constants;
 
 public class Summoner {
     @Expose
@@ -46,6 +48,27 @@ public class Summoner {
 
     public int getSummonerLevel() {
         return mSummonerLevel;
+    }
+
+    public String getProfileIcon() {
+        return Constants.PATH_IMG_PROFILE_ICON + this.getProfileIconId();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Summoner summoner = (Summoner) o;
+
+        if (mId != summoner.mId) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (mId ^ (mId >>> 32));
     }
 
     @Override

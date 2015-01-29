@@ -12,6 +12,14 @@ import java.util.ArrayList;
 
 public class SummonerNames extends ArrayList<String> {
 
+    public static SummonerNames create(String... searchQuery) {
+        SummonerNames summonerNames = new SummonerNames();
+        for (String name : searchQuery) {
+            summonerNames.add(name);
+        }
+        return summonerNames;
+    }
+
     @Override
     public boolean add(String string) {
         if (!this.contains(string))

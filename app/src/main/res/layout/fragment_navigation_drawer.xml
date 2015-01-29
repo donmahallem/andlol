@@ -65,5 +65,9 @@
                 android:layout_marginLeft="@dimen/navbar_item_title_margin"
                 android:text="@string/favorites" />
         </LinearLayout>
+
+        <android.support.v7.widget.SwitchCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>

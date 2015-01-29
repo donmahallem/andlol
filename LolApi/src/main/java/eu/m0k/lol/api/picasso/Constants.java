@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -12,13 +12,13 @@ public interface Constants {
     public final static String VERSION = "4.17.1";
     public final static String SCHEME = "league";
     public final static String SPELL = "spell";
-    public final static String SUMMONER_ICON = "summonericon";
+    public final static String PROFILE_ICON = "profileicon";
     public final static String CHAMPION_ICON = "championicon";
     public final static String CHAMPION_SKIN = "championskin";
     public final static String MASTERY = "mastery";
     public final static String IMAGE = "img";
     public final static String PATH_IMG_SPELL = SCHEME + "://" + IMAGE + "/" + SPELL + "/";
-    public final static String PATH_IMG_SUMMONER_ICON = SCHEME + "://" + IMAGE + "/" + SUMMONER_ICON + "/";
+    public final static String PATH_IMG_PROFILE_ICON = SCHEME + "://" + IMAGE + "/" + PROFILE_ICON + "/";
     public final static String PATH_IMG_CHAMPION_ICON = SCHEME + "://" + IMAGE + "/" + CHAMPION_ICON + "/";
     public final static String PATH_IMG_CHAMPION_SKIN = SCHEME + "://" + IMAGE + "/" + CHAMPION_SKIN + "/";
     public final static String PATH_IMG_MASTERY = SCHEME + "://" + IMAGE + "/" + MASTERY + "/";

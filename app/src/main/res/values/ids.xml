@@ -36,6 +36,8 @@
     <item name="fgrContent" type="id" />
     <item name="toolbar" type="id" />
     <item name="coverImage" type="id" />
+    <item name="txtName" type="id" />
+    <item name="txtLevel" type="id" />
 
 
     <!-- MENUS -->

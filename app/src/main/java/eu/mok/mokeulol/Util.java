@@ -98,4 +98,10 @@ public class Util {
         }
         return mLeagueClient;
     }
+
+    public static String formatUsername(final String username) {
+        String output = username.replaceAll("\\s", "");
+        output = output.toLowerCase();
+        return output;
+    }
 }

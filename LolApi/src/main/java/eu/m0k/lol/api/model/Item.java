@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -18,12 +18,27 @@ public class Item {
     @Expose
     @SerializedName("count")
     private int mCount;
+    @Expose
+    @SerializedName("name")
+    private String mName;
 
     public int getId() {
         return mId;
     }
 
+    public String getName() {
+        return mName;
+    }
+
     public int getCount() {
         return mCount;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "mId=" + mId +
+                ", mName='" + mName + '\'' +
+                '}';
     }
 }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2015.
   ~
   ~ Visit https://github.com/donmahallem/andlol for more info!
@@ -10,7 +9,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="eu.mok.mokeulol">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name="eu.mok.mokeulol.LolApp"
         android:allowBackup="true"
@@ -21,37 +20,36 @@
             android:name=".activities.LeagueMainActivity"
             android:label="@string/app_name"
             android:theme="@style/League.AppTheme.NavigationDrawer">
-        <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
+                android:name="android.app.default_searchable"
+                android:value=".activities.SummonerSearchActivity" />
 
         </activity>
         <activity android:name=".activities.SummonerSearchActivity">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.ChampionSkinActivity"
-            android:label="@string/app_name">
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name=".activities.LeaguePreferenceActivity"
-            android:label="@string/app_name">
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name=".activities.SummonerDetailsActivity"
-            android:label="@string/summoner">
-        </activity>
+            android:label="@string/summoner"></activity>
         <activity
             android:name=".activities.ChampionDetailsActivity"
-            android:label="@string/summoner">
-        </activity>
+            android:label="@string/summoner"></activity>
     </application>
 
 </manifest>

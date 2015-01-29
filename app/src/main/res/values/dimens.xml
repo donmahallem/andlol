@@ -26,4 +26,6 @@
     <dimen name="navbar_item_icon_size">24dp</dimen>
     <dimen name="navbar_item_title_margin">32dp</dimen>
     <dimen name="space_height">8dp</dimen>
+    <dimen name="card_elevation_default">4dp</dimen>
+    <dimen name="card_corner_radius_default">4dp</dimen>
 </resources>

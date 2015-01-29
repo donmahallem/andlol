@@ -12,6 +12,7 @@ import java.util.List;
 
 import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Item;
+import eu.m0k.lol.api.model.ItemList;
 import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.MasteryMap;
 import eu.m0k.lol.api.model.NameMap;
@@ -56,19 +57,19 @@ public class Lol {
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item")
-        public Item getItems(@Query("locale") final Locale locale, @Query("locale") final String version);
+        public ItemList getItems(@Query("locale") final Locale locale, @Query("version") final String version);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item")
-        public void getItems(@Query("locale") final Locale locale, @Query("locale") final String version, final Callback<Item> callback);
+        public void getItems(@Query("locale") final Locale locale, @Query("version") final String version, final Callback<ItemList> callback);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item/{id}")
-        public Item getItem(@Path("id") final int itemId, @Query("locale") final Locale locale, @Query("locale") final String version);
+        public Item getItem(@Path("id") final int itemId, @Query("locale") final Locale locale, @Query("version") final String version);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item/{id}")
-        public void getItem(@Path("id") final int itemId, @Query("locale") final Locale locale, @Query("locale") final String version, final Callback<Item> callback);
+        public void getItem(@Path("id") final int itemId, @Query("locale") final Locale locale, @Query("version") final String version, final Callback<Item> callback);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/versions")
