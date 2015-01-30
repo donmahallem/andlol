@@ -24,12 +24,15 @@ import java.util.HashMap;
 import eu.m0k.lol.api.model.ChampionList;
 import eu.m0k.lol.api.model.ChampionSpell;
 import eu.m0k.lol.api.model.ItemList;
+import eu.m0k.lol.api.model.LeagueEntryMap;
 import eu.m0k.lol.api.model.MasteryMap;
 import eu.m0k.lol.api.model.NameList;
 import eu.m0k.lol.api.model.NameMap;
+import eu.m0k.lol.api.model.Queue;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.RuneMap;
 import eu.m0k.lol.api.model.SummonerList;
+import eu.m0k.lol.api.model.Tier;
 import eu.m0k.lol.api.model.Version;
 import eu.m0k.lol.api.network.ApiKey;
 import retrofit.RequestInterceptor;
@@ -88,6 +91,9 @@ public class LeagueClient {
         gsonBuilder.registerTypeAdapter(MasteryMap.class, new MasteryMap.TypeAdapter());
         gsonBuilder.registerTypeAdapter(RuneMap.class, new RuneMap.TypeAdapter());
         gsonBuilder.registerTypeAdapter(ItemList.class, new ItemList.TypeAdapter());
+        gsonBuilder.registerTypeAdapter(Tier.class, new Tier.TypeAdapter());
+        gsonBuilder.registerTypeAdapter(LeagueEntryMap.class, new LeagueEntryMap.TypeAdapter());
+        gsonBuilder.registerTypeAdapter(Queue.class, new Queue.TypeAdapter());
         this.mGson = gsonBuilder.create();
         this.mApiKey = builder.getApiKey();
         this.mLogLevel = builder.getLogLevel();
@@ -154,6 +160,10 @@ public class LeagueClient {
         return mRestAdapters.get(true).get(region).create(Lol.Static.class);
     }
 
+    public Lol.League getLeagueEndpoint(Region region) {
+        return getRestAdapterForRegion(region).create(Lol.League.class);
+    }
+
     /**
      * Builder for the League Api
      */
@@ -167,13 +177,13 @@ public class LeagueClient {
             return mApiKey;
         }
 
-        public Builder setApiKey(String apiKey) {
-            return this.setApiKey(new ApiKey(apiKey));
-        }
-
         public Builder setApiKey(ApiKey apiKey) {
             this.mApiKey = apiKey;
             return this;
+        }
+
+        public Builder setApiKey(String apiKey) {
+            return this.setApiKey(new ApiKey(apiKey));
         }
 
         public String getUserAgent() {

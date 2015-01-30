@@ -13,6 +13,7 @@ import java.util.List;
 import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Item;
 import eu.m0k.lol.api.model.ItemList;
+import eu.m0k.lol.api.model.LeagueEntryMap;
 import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.MasteryMap;
 import eu.m0k.lol.api.model.NameMap;
@@ -125,31 +126,36 @@ public class Lol {
         public void getName(@Path("summonerIds") final SummonerIds summonerIds, final Callback<NameMap> callback);
     }
 
-    public static class Game {
-        public static void getRecentGames(final LeagueClient leagueClient, final Region region, final long summonerId) {
+    public static interface League {
+        final static String VERSION = "v2.5";
 
-        }
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
+        @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}/entry")
+        public void getLeagueForSummoner(@Path("region") final Region region, @Path("summonerIds") final long... summonerIds);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
+        @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}/entry")
+        public LeagueEntryMap getLeagueEntryForSummoner(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
+        @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}/entry")
+        public void getLeagueEntryForSummoner(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds, final Callback<LeagueEntryMap> callback);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
+        @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}/entry")
+        public void getLeagueForTeam(@Path("region") final Region region, @Path("summonerIds") final long... teamIds);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
+        @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}/entry")
+        public void getLeagueEntriesForTeam(@Path("region") final Region region, @Path("summonerIds") final long... teamIds);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
+        @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}/entry")
+        public void getChallenger(@Path("region") final Region region);
     }
 
-    public static class League {
-
-        public static void getLeagueForSummoner(final LeagueClient leagueClient, final Region region, final long... summonerIds) {
-
-        }
-
-        public static void getLeagueEntryForSummoner(final LeagueClient leagueClient, final Region region, final long summonerIds) {
-
-        }
-
-        public static void getLeagueForTeam(final LeagueClient leagueClient, final Region region, final long... teamIds) {
-
-        }
-
-        public static void getLeagueEntriesForTeam(final LeagueClient leagueClient, final Region region, final long... teamIds) {
-
-        }
-
-        public static void getChallenger(final LeagueClient leagueClient, final Region region) {
+    public static class Game {
+        public static void getRecentGames(final LeagueClient leagueClient, final Region region, final long summonerId) {
 
         }
     }

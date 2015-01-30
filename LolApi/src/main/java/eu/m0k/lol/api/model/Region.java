@@ -24,8 +24,6 @@ public enum Region {
 
     @Override
     public String toString() {
-        return "Region{" +
-                "region='" + mRegion + '\'' +
-                '}';
+        return mRegion;
     }
 }

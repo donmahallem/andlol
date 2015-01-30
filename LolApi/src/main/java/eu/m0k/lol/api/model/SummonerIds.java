@@ -12,6 +12,13 @@ import java.util.ArrayList;
 
 public class SummonerIds extends ArrayList<Long> {
 
+    public static SummonerIds create(long... ids) {
+        SummonerIds summonerIds = new SummonerIds();
+        for (long id : ids)
+            summonerIds.add(id);
+        return summonerIds;
+    }
+
     @Override
     public boolean add(Long string) {
         if (!this.contains(string)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -8,7 +8,17 @@
 
 package eu.m0k.lol.api.model;
 
-public enum QueueType {
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+
+import java.lang.reflect.Type;
+
+public enum Queue {
     /**
      * Custom games
      */
@@ -125,4 +135,20 @@ public enum QueueType {
      * Ascension games
      */
     ASCENSION_5x5;
+
+    /**
+     * TypeAdapter required for GSON
+     */
+    public static class TypeAdapter implements JsonDeserializer<Queue>, JsonSerializer<Queue> {
+
+        @Override
+        public Queue deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            return Queue.valueOf(json.getAsJsonPrimitive().getAsString());
+        }
+
+        @Override
+        public JsonElement serialize(Queue src, Type typeOfSrc, JsonSerializationContext context) {
+            return new JsonPrimitive(src.name());
+        }
+    }
 }
