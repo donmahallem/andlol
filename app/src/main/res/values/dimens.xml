@@ -28,4 +28,7 @@
     <dimen name="space_height">8dp</dimen>
     <dimen name="card_elevation_default">4dp</dimen>
     <dimen name="card_corner_radius_default">4dp</dimen>
+    <dimen name="card_margin_horizontal_default">8dp</dimen>
+    <dimen name="card_margin_vertical_default">4dp</dimen>
+    <dimen name="navbar_max_width">320dp</dimen>
 </resources>

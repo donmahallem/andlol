@@ -13,4 +13,5 @@
     <color name="league_gold">#f4d755</color>
     <color name="league_platinum">#58959a</color>
     <color name="league_bronze">#c69e60</color>
+    <color name="league_silver">#DDDDDD</color>
 </resources>

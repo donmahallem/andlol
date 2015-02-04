@@ -24,6 +24,7 @@ import java.util.HashMap;
 import eu.m0k.lol.api.model.ChampionList;
 import eu.m0k.lol.api.model.ChampionSpell;
 import eu.m0k.lol.api.model.ItemList;
+import eu.m0k.lol.api.model.Ladder;
 import eu.m0k.lol.api.model.LeagueEntryMap;
 import eu.m0k.lol.api.model.MasteryMap;
 import eu.m0k.lol.api.model.NameList;
@@ -93,6 +94,7 @@ public class LeagueClient {
         gsonBuilder.registerTypeAdapter(ItemList.class, new ItemList.TypeAdapter());
         gsonBuilder.registerTypeAdapter(Tier.class, new Tier.TypeAdapter());
         gsonBuilder.registerTypeAdapter(LeagueEntryMap.class, new LeagueEntryMap.TypeAdapter());
+        gsonBuilder.registerTypeAdapter(Ladder.class, new Ladder.TypeAdapter());
         gsonBuilder.registerTypeAdapter(Queue.class, new Queue.TypeAdapter());
         this.mGson = gsonBuilder.create();
         this.mApiKey = builder.getApiKey();
@@ -177,13 +179,13 @@ public class LeagueClient {
             return mApiKey;
         }
 
+        public Builder setApiKey(String apiKey) {
+            return this.setApiKey(new ApiKey(apiKey));
+        }
+
         public Builder setApiKey(ApiKey apiKey) {
             this.mApiKey = apiKey;
             return this;
-        }
-
-        public Builder setApiKey(String apiKey) {
-            return this.setApiKey(new ApiKey(apiKey));
         }
 
         public String getUserAgent() {

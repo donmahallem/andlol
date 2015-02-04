@@ -31,6 +31,7 @@ import eu.mok.mokeulol.view.SummonerViewHolder;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import timber.log.Timber;
 
 public class SummonerSearchActivity extends LeagueActivity {
 
@@ -99,7 +100,7 @@ public class SummonerSearchActivity extends LeagueActivity {
         handleIntent(getIntent());
     }
 
-    private class ADAPTER extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private class ADAPTER extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements SummonerViewHolder.OnSummonerClickListener {
         private final int TYPE_SUMMONER = 1, TYPE_UNKNOWN = 0;
         private ArrayList<Summoner> mSummoners = new ArrayList<Summoner>();
 
@@ -112,7 +113,9 @@ public class SummonerSearchActivity extends LeagueActivity {
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             switch (viewType) {
                 case TYPE_SUMMONER:
-                    return new SummonerViewHolder(parent);
+                    final SummonerViewHolder summonerViewHolder = new SummonerViewHolder(parent);
+                    summonerViewHolder.setOnSummonerClickListener(this);
+                    return summonerViewHolder;
                 default:
                     return null;
             }
@@ -135,6 +138,12 @@ public class SummonerSearchActivity extends LeagueActivity {
                 this.mSummoners.add(summoner);
                 notifyDataSetChanged();
             }
+        }
+
+        @Override
+        public void onSummonerClicked(Summoner summoner) {
+            Timber.d("onSummonerClicked - " + summoner);
+
         }
     }
 

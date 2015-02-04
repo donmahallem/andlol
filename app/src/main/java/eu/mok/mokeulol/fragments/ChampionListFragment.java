@@ -69,6 +69,7 @@ public class ChampionListFragment extends LeagueFragment implements RVChampionAd
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         this.mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         this.mLoadingContainer = view.findViewById(R.id.loadingContainer);
         this.mRecyclerView.setLayoutManager(
@@ -80,7 +81,6 @@ public class ChampionListFragment extends LeagueFragment implements RVChampionAd
          */
         this.mRecyclerView.setHasFixedSize(true);
         this.mRecyclerView.setItemAnimator(RevealAnimator);
-        super.onViewCreated(view, savedInstanceState);
         this.mRVChampionAdapter = new RVChampionAdapter();
         this.mRVChampionAdapter.setOnChampSelectListener(this);
         this.mRecyclerView.setAdapter(this.mRVChampionAdapter);

@@ -11,6 +11,7 @@ package eu.mok.mokeulol.view;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class SummonerViewHolder extends RecyclerView.ViewHolder {
+public class SummonerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private Summoner mSummoner;
     private CircularImageView mImageView;
     private TextView mTxtName, mTxtLevel;
@@ -34,7 +35,24 @@ public class SummonerViewHolder extends RecyclerView.ViewHolder {
         @Override
         public void success(LeagueEntryMap leagueEntryMap, Response response) {
             Log.d("success", "yeah");
-            //Log.d("outa", leagueEntryMap.get(mSummoner.getId()).name());
+            if (leagueEntryMap.get(mSummoner.getId()) != null) {
+                if (leagueEntryMap.get(mSummoner.getId()).getRankedSolo() != null) {
+                    switch (leagueEntryMap.get(mSummoner.getId()).getRankedSolo().getTier()) {
+                        case BRONZE:
+                            mImageView.setBorderColor(itemView.getContext().getResources().getColor(R.color.league_bronze));
+                            break;
+                        case SILVER:
+                            mImageView.setBorderColor(itemView.getContext().getResources().getColor(R.color.league_silver));
+                            break;
+                        case GOLD:
+                            mImageView.setBorderColor(itemView.getContext().getResources().getColor(R.color.league_gold));
+                            break;
+                        case PLATINUM:
+                            mImageView.setBorderColor(itemView.getContext().getResources().getColor(R.color.league_platinum));
+                            break;
+                    }
+                }
+            }
         }
 
         @Override
@@ -43,12 +61,15 @@ public class SummonerViewHolder extends RecyclerView.ViewHolder {
 
         }
     };
+    private OnSummonerClickListener mOnSummonerClickListener;
 
     public SummonerViewHolder(ViewGroup viewGroup) {
         super(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_summoner, viewGroup, false));
         this.mImageView = (CircularImageView) this.itemView.findViewById(R.id.ivChampionIcon);
         this.mTxtName = (TextView) this.itemView.findViewById(R.id.txtName);
         this.mTxtLevel = (TextView) this.itemView.findViewById(R.id.txtLevel);
+        this.itemView.setClickable(true);
+        this.itemView.setOnClickListener(this);
     }
 
     public void setSummoner(Summoner summoner) {
@@ -59,5 +80,21 @@ public class SummonerViewHolder extends RecyclerView.ViewHolder {
             this.mTxtLevel.setText("" + this.mSummoner.getSummonerLevel());
             Util.getLeagueApi().getLeagueEndpoint(Region.EUW).getLeagueEntryForSummoner(Region.EUW, SummonerIds.create(this.mSummoner.getId()), LEAGUE_CALLBACK);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == this.itemView) {
+            if (this.mOnSummonerClickListener != null)
+                this.mOnSummonerClickListener.onSummonerClicked(this.mSummoner);
+        }
+    }
+
+    public void setOnSummonerClickListener(final OnSummonerClickListener onSummonerClickListener) {
+        this.mOnSummonerClickListener = onSummonerClickListener;
+    }
+
+    public static interface OnSummonerClickListener {
+        public void onSummonerClicked(Summoner summoner);
     }
 }

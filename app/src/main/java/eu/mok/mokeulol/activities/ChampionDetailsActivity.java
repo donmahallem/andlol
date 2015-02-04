@@ -98,7 +98,7 @@ public class ChampionDetailsActivity extends LeagueActivity implements Observabl
         @Override
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
             mIvHeader.setVisibility(View.VISIBLE);
-            mIvHeaderProgressBar.setVisibility(View.GONE);
+            //mIvHeaderProgressBar.setVisibility(View.GONE);
             mIvHeader.setImageDrawable(new BitmapDrawable(bitmap));
             Palette.generateAsync(bitmap, IvHeaderAsyncListener);
             ValueAnimator imageFade = ValueAnimator.ofObject(new IntEvaluator(), 0, 255);
@@ -116,7 +116,7 @@ public class ChampionDetailsActivity extends LeagueActivity implements Observabl
         public void onPrepareLoad(Drawable placeHolderDrawable) {
             mIvHeader.setImageDrawable(placeHolderDrawable);
             mIvHeader.setVisibility(View.GONE);
-            mIvHeaderProgressBar.setVisibility(View.VISIBLE);
+            //mIvHeaderProgressBar.setVisibility(View.VISIBLE);
         }
     };
 
