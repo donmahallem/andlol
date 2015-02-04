@@ -154,6 +154,18 @@ public class Lol {
         public void getChallenger(@Path("region") final Region region);
     }
 
+    public static interface MatchHistory {
+        final static String VERSION = "2.2";
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
+        @GET("/api/lol/{region}/" + VERSION + "/matchhistory/{summonerId}")
+        public eu.m0k.lol.api.model.MatchHistory getMatchHistory(@Path("summonerId") final long summonerId, @Query("startIndex") int beginIndex, @Query("endIndex") int endIndex);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
+        @GET("/api/lol/{region}/" + VERSION + "/matchhistory/{summonerId}")
+        public void getMatchHistory(@Path("summonerId") final long summonerId, @Query("startIndex") int beginIndex, @Query("endIndex") int endIndex, final Callback<eu.m0k.lol.api.model.MatchHistory> callback);
+    }
+
     public static class Game {
         public static void getRecentGames(final LeagueClient leagueClient, final Region region, final long summonerId) {
 

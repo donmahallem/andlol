@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -57,5 +57,49 @@ public class Match {
                 ", matchMode='" + mMatchMode +
                 ", matchType='" + mMatchType +
                 '}';
+    }
+
+    public long getMatchId() {
+        return mMatchId;
+    }
+
+    public String getRegion() {
+        return mRegion;
+    }
+
+    public String getMatchMode() {
+        return mMatchMode;
+    }
+
+    public String getMatchType() {
+        return mMatchType;
+    }
+
+    public long getMatchCreation() {
+        return mMatchCreation;
+    }
+
+    public int getMatchDuration() {
+        return mMatchDuration;
+    }
+
+    public String getQueueType() {
+        return mQueueType;
+    }
+
+    public int getMapId() {
+        return mMapId;
+    }
+
+    public String getSeason() {
+        return mSeason;
+    }
+
+    public String getMatchVersion() {
+        return mMatchVersion;
+    }
+
+    public List<Participant> getParticipants() {
+        return mParticipants;
     }
 }
