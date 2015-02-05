@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -34,4 +34,31 @@ public class Participant {
     @SerializedName("timeline")
     private TimeLine mTimeLine;
 
+    public int getParticipantId() {
+        return mParticipantId;
+    }
+
+    public int getTeamId() {
+        return mTeamId;
+    }
+
+    public int getChampionId() {
+        return mChampionId;
+    }
+
+    public int getSpell1Id() {
+        return mSpell1Id;
+    }
+
+    public int getSpell2Id() {
+        return mSpell2Id;
+    }
+
+    public ParticipantStats getStats() {
+        return mStats;
+    }
+
+    public TimeLine getTimeLine() {
+        return mTimeLine;
+    }
 }

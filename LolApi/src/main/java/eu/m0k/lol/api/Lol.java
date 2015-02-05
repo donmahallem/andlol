@@ -22,6 +22,7 @@ import eu.m0k.lol.api.model.RuneMap;
 import eu.m0k.lol.api.model.SummonerIds;
 import eu.m0k.lol.api.model.SummonerList;
 import eu.m0k.lol.api.model.SummonerNames;
+import eu.m0k.lol.api.model.SummonerSpell;
 import eu.m0k.lol.api.model.VersionList;
 import retrofit.Callback;
 import retrofit.http.GET;
@@ -79,6 +80,14 @@ public class Lol {
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/versions")
         public void getVersions(final Callback<VersionList> callback);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
+        @GET("/api/lol/static-data/{region}/" + VERSION + "/summoner-spell/{spellId}")
+        public SummonerSpell getSummonerSpell(@Path("region") final Region region, @Path("spellId") final int spellId);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
+        @GET("/api/lol/static-data/{region}/" + VERSION + "/summoner-spell/{spellId}")
+        public void getSummonerSpell(@Path("region") final Region region, @Path("spellId") final int spellId, final Callback<SummonerSpell> callback);
 
     }
 
