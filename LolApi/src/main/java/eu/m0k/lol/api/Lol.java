@@ -58,6 +58,14 @@ public class Lol {
         public void getChampion(@Path("id") final int id, @Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.Champion> cb);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
+        @GET("/api/lol/static-data/{region}/" + VERSION + "/champion/{id}")
+        public eu.m0k.lol.api.model.Champion getChampion(@Path("id") final int id, @Query("locale") final Locale locale);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
+        @GET("/api/lol/static-data/{region}/" + VERSION + "/champion/{id}")
+        public void getChampion(@Path("id") final int id, @Query("locale") final Locale locale, final Callback<eu.m0k.lol.api.model.Champion> cb);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item")
         public ItemList getItems(@Query("locale") final Locale locale, @Query("version") final String version);
 
@@ -83,11 +91,11 @@ public class Lol {
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/summoner-spell/{spellId}")
-        public SummonerSpell getSummonerSpell(@Path("region") final Region region, @Path("spellId") final int spellId);
+        public SummonerSpell getSummonerSpell(@Path("spellId") final int spellId);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/summoner-spell/{spellId}")
-        public void getSummonerSpell(@Path("region") final Region region, @Path("spellId") final int spellId, final Callback<SummonerSpell> callback);
+        public void getSummonerSpell(@Path("spellId") final int spellId, final Callback<SummonerSpell> callback);
 
     }
 
