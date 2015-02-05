@@ -104,4 +104,8 @@ public class Util {
         output = output.toLowerCase();
         return output;
     }
+
+    public static Context getContext() {
+        return mContext;
+    }
 }

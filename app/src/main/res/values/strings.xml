@@ -44,4 +44,6 @@
     <string name="loading">Loading</string>
     <string name="search_summoner">Search Summoner</string>
     <string name="favorites">Favorites</string>
+    <string name="victory">Victory</string>
+    <string name="defeat">Defeat</string>
 </resources>

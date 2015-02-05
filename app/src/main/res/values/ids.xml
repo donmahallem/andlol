@@ -30,14 +30,16 @@
     <item name="txtTitle" type="id"/>
     <item name="ivHeader" type="id"/>
     <item name="content1" type="id"/>
-    <item name="loadingContainer" type="id" />
-    <item name="recyclerView" type="id" />
-    <item name="progressBar1" type="id" />
-    <item name="fgrContent" type="id" />
-    <item name="toolbar" type="id" />
-    <item name="coverImage" type="id" />
-    <item name="txtName" type="id" />
-    <item name="txtLevel" type="id" />
+    <item name="loadingContainer" type="id"/>
+    <item name="recyclerView" type="id"/>
+    <item name="progressBar1" type="id"/>
+    <item name="fgrContent" type="id"/>
+    <item name="toolbar" type="id"/>
+    <item name="coverImage" type="id"/>
+    <item name="txtName" type="id"/>
+    <item name="txtLevel" type="id"/>
+    <item name="ivSummonerSpell1" type="id"/>
+    <item name="ivSummonerSpell2" type="id"/>
 
 
     <!-- MENUS -->

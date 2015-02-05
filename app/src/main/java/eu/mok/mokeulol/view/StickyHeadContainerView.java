@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -14,8 +14,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
-
-import eu.mok.mokeulol.R;
 
 import static eu.mok.mokeulol.view.ListenerScrollView.OnScrollListener;
 
@@ -55,7 +53,7 @@ public class StickyHeadContainerView extends FrameLayout implements OnScrollList
         }
         this.mListenerScrollView.addOnScrollListener(this);
         this.mHead = this.getChildAt(1);
-        this.mGhost = this.findViewById(R.id.test);
+        // this.mGhost = this.findViewById(R.id.test);
         //updateGhost();
         alignStickyHead();
     }

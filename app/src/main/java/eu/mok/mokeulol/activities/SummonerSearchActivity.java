@@ -31,7 +31,6 @@ import eu.mok.mokeulol.view.SummonerViewHolder;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import timber.log.Timber;
 
 public class SummonerSearchActivity extends LeagueActivity {
 
@@ -142,8 +141,7 @@ public class SummonerSearchActivity extends LeagueActivity {
 
         @Override
         public void onSummonerClicked(Summoner summoner) {
-            Timber.d("onSummonerClicked - " + summoner);
-
+            startActivity(SummonerDetailsActivity.getInstance(SummonerSearchActivity.this, Region.EUW, summoner));
         }
     }
 
