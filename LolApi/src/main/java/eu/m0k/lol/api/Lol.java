@@ -155,7 +155,7 @@ public class Lol {
     }
 
     public static interface MatchHistory {
-        final static String VERSION = "2.2";
+        final static String VERSION = "v2.2";
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_1)
         @GET("/api/lol/{region}/" + VERSION + "/matchhistory/{summonerId}")
