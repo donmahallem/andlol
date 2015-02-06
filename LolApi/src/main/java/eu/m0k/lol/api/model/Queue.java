@@ -134,7 +134,11 @@ public enum Queue {
     /**
      * Ascension games
      */
-    ASCENSION_5x5;
+    ASCENSION_5x5,
+    /*
+    * KING PORO
+     */
+    KING_PORO;
 
     /**
      * TypeAdapter required for GSON

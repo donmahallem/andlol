@@ -19,7 +19,7 @@ import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class MatchHistory extends ArrayList<Match> {
+public class MatchHistory extends ArrayList<MatchSummary> {
     /**
      * TypeAdapter required for GSON
      */
@@ -30,7 +30,7 @@ public class MatchHistory extends ArrayList<Match> {
             MatchHistory matchHistory = new MatchHistory();
             final JsonArray jsonArray = json.getAsJsonObject().getAsJsonArray("matches");
             for (JsonElement element : jsonArray)
-                matchHistory.add((Match) context.deserialize(element, Match.class));
+                matchHistory.add((MatchSummary) context.deserialize(element, MatchDetail.class));
             return matchHistory;
         }
 

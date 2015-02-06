@@ -11,9 +11,10 @@ package eu.m0k.lol.api.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Match {
+public class MatchDetail {
 
     @Expose
     @SerializedName("matchId")
@@ -23,31 +24,40 @@ public class Match {
     private Region mRegion;
     @Expose
     @SerializedName("matchMode")
-    private String mMatchMode;
+    private MatchMode mMatchMode;
     @Expose
     @SerializedName("matchType")
-    private String mMatchType;
+    private MatchType mMatchType;
     @Expose
     @SerializedName("matchCreation")
     private long mMatchCreation;
     @Expose
     @SerializedName("matchDuration")
-    private int mMatchDuration;
+    private long mMatchDuration;
     @Expose
     @SerializedName("queueType")
-    private String mQueueType;
+    private Queue mQueueType;
     @Expose
     @SerializedName("mapId")
-    private int mMapId;
+    private long mMapId;
     @Expose
     @SerializedName("season")
-    private String mSeason;
+    private Season mSeason;
     @Expose
     @SerializedName("matchVersion")
     private String mMatchVersion;
     @Expose
     @SerializedName("participants")
     private List<Participant> mParticipants;
+    @Expose
+    @SerializedName("participantIdentities")
+    private List<ParticipantIdentity> mParticipantIdentities;
+    @Expose
+    @SerializedName("teams")
+    private ArrayList<Team> mTeams;
+    @Expose
+    @SerializedName("timeline")
+    private TimeLine mTimeLine;
 
     @Override
     public String toString() {
@@ -67,11 +77,11 @@ public class Match {
         return mRegion;
     }
 
-    public String getMatchMode() {
+    public MatchMode getMatchMode() {
         return mMatchMode;
     }
 
-    public String getMatchType() {
+    public MatchType getMatchType() {
         return mMatchType;
     }
 
@@ -79,19 +89,19 @@ public class Match {
         return mMatchCreation;
     }
 
-    public int getMatchDuration() {
+    public long getMatchDuration() {
         return mMatchDuration;
     }
 
-    public String getQueueType() {
+    public Queue getQueueType() {
         return mQueueType;
     }
 
-    public int getMapId() {
+    public long getMapId() {
         return mMapId;
     }
 
-    public String getSeason() {
+    public Season getSeason() {
         return mSeason;
     }
 
@@ -101,5 +111,17 @@ public class Match {
 
     public List<Participant> getParticipants() {
         return mParticipants;
+    }
+
+    public TimeLine getTimeLine() {
+        return mTimeLine;
+    }
+
+    public List<ParticipantIdentity> getParticipantIdentities() {
+        return mParticipantIdentities;
+    }
+
+    public ArrayList<Team> getTeams() {
+        return mTeams;
     }
 }

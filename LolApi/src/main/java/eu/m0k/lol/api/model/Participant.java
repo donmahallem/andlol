@@ -32,7 +32,7 @@ public class Participant {
     private ParticipantStats mStats;
     @Expose
     @SerializedName("timeline")
-    private TimeLine mTimeLine;
+    private ParticipantTimeLine mTimeLine;
 
     public int getParticipantId() {
         return mParticipantId;
@@ -58,7 +58,7 @@ public class Participant {
         return mStats;
     }
 
-    public TimeLine getTimeLine() {
+    public ParticipantTimeLine getTimeLine() {
         return mTimeLine;
     }
 }

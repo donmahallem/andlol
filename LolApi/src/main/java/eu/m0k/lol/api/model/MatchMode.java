@@ -18,22 +18,22 @@ import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 
-public enum LaneType {
-    BOT_LANE, MID_LANE, TOP_LANE,;
+public enum MatchMode {
+    CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO;
 
-    public static final class TypeAdapter implements JsonDeserializer<LaneType>, JsonSerializer<LaneType> {
+    public static final class TypeAdapter implements JsonDeserializer<MatchMode>, JsonSerializer<MatchMode> {
 
         @Override
-        public LaneType deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public MatchMode deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             try {
-                return LaneType.valueOf(json.getAsJsonPrimitive().getAsString().toUpperCase());
+                return MatchMode.valueOf(json.getAsJsonPrimitive().getAsString().toUpperCase());
             } catch (IllegalArgumentException exp) {
                 return null;
             }
         }
 
         @Override
-        public JsonElement serialize(LaneType src, Type typeOfSrc, JsonSerializationContext context) {
+        public JsonElement serialize(MatchMode src, Type typeOfSrc, JsonSerializationContext context) {
             return new JsonPrimitive(src.name());
         }
     }

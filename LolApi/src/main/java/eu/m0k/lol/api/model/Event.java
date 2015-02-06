@@ -79,5 +79,87 @@ public class Event {
     @SerializedName("wardType")
     private WardType mWardType;
 
+    public AscendedType getAscendedType() {
+        return mAscendedType;
+    }
 
+    public ArrayList<Integer> getAssistingParticipantIds() {
+        return mAssistingParticipantIds;
+    }
+
+    public BuildingType getBuildingType() {
+        return mBuildingType;
+    }
+
+    public int getCreatorId() {
+        return mCreatorId;
+    }
+
+    public EventType getEventType() {
+        return mEventType;
+    }
+
+    public int getItemAfter() {
+        return mItemAfter;
+    }
+
+    public int getItemBefore() {
+        return mItemBefore;
+    }
+
+    public int getItemId() {
+        return mItemId;
+    }
+
+    public int getKillerId() {
+        return mKillerId;
+    }
+
+    public LaneType getLaneType() {
+        return mLaneType;
+    }
+
+    public LevelUpType getLevelUpType() {
+        return mLevelUpType;
+    }
+
+    public MonsterType getMonsterType() {
+        return mMonsterType;
+    }
+
+    public int getParticipantId() {
+        return mParticipantId;
+    }
+
+    public Point getPointCaptured() {
+        return mPointCaptured;
+    }
+
+    public Position getPosition() {
+        return mPosition;
+    }
+
+    public int getSkillSlot() {
+        return mSkillSlot;
+    }
+
+    public int getTeamId() {
+        return mTeamId;
+    }
+
+    public int getTimestamp() {
+        return mTimestamp;
+    }
+
+    public TowerType getTowerType() {
+        return mTowerType;
+    }
+
+    public int getVictimId() {
+        return mVictimId;
+    }
+
+    public WardType getWardType() {
+        return mWardType;
+    }
 }
