@@ -98,6 +98,7 @@ public class LeagueClient {
         gsonBuilder.registerTypeAdapter(Ladder.class, new Ladder.TypeAdapter());
         gsonBuilder.registerTypeAdapter(Queue.class, new Queue.TypeAdapter());
         gsonBuilder.registerTypeAdapter(MatchHistory.class, new MatchHistory.TypeAdapter());
+        gsonBuilder.registerTypeAdapter(Region.class, new Region.TypeAdapter());
         this.mGson = gsonBuilder.create();
         this.mApiKey = builder.getApiKey();
         this.mLogLevel = builder.getLogLevel();
@@ -185,13 +186,13 @@ public class LeagueClient {
             return mApiKey;
         }
 
-        public Builder setApiKey(String apiKey) {
-            return this.setApiKey(new ApiKey(apiKey));
-        }
-
         public Builder setApiKey(ApiKey apiKey) {
             this.mApiKey = apiKey;
             return this;
+        }
+
+        public Builder setApiKey(String apiKey) {
+            return this.setApiKey(new ApiKey(apiKey));
         }
 
         public String getUserAgent() {

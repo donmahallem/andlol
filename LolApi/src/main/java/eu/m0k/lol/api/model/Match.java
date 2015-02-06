@@ -20,7 +20,7 @@ public class Match {
     private long mMatchId;
     @Expose
     @SerializedName("region")
-    private String mRegion;
+    private Region mRegion;
     @Expose
     @SerializedName("matchMode")
     private String mMatchMode;
@@ -63,7 +63,7 @@ public class Match {
         return mMatchId;
     }
 
-    public String getRegion() {
+    public Region getRegion() {
         return mRegion;
     }
 

@@ -32,7 +32,7 @@ import retrofit.http.Query;
 
 public class Lol {
     public static final String HEADER_CACHE_MOD = "x-cache-mod", CACHE_CONTROL = "Cache-Control";
-    private static final long HOURS_1 = 60 * 60, HOURS_6 = HOURS_1 * 6, HOURS_12 = HOURS_1 * 12;
+    private static final long HOURS_1 = 60 * 60, HOURS_6 = HOURS_1 * 6, HOURS_12 = HOURS_1 * 12, DAY_1 = HOURS_12 * 2, YEAR_1 = DAY_1 * 365;
 
     public static interface Static {
         final static String VERSION = "v1.2";
@@ -96,6 +96,19 @@ public class Lol {
         @Headers(CACHE_CONTROL + ": public, max-age=" + HOURS_12)
         @GET("/api/lol/static-data/{region}/" + VERSION + "/summoner-spell/{spellId}")
         public void getSummonerSpell(@Path("spellId") final int spellId, final Callback<SummonerSpell> callback);
+
+    }
+
+    public static interface Match {
+        final static String VERSION = "v2.2";
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + YEAR_1)
+        @GET("/api/lol/{region}/v2.2/match/{matchId}")
+        public SummonerList getMatch(@Path("matchId") final long matchId, @Query("includeTimeline") final boolean includeTimeline);
+
+        @Headers(CACHE_CONTROL + ": public, max-age=" + YEAR_1)
+        @GET("/api/lol/{region}/v2.2/match/{matchId}")
+        public void getMatch(@Path("matchId") final long matchId, @Query("includeTimeline") final boolean includeTimeline, final Callback<SummonerList> callback);
 
     }
 
