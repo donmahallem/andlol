@@ -16,6 +16,7 @@ import eu.m0k.lol.api.model.ItemList;
 import eu.m0k.lol.api.model.LeagueEntryMap;
 import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.MasteryMap;
+import eu.m0k.lol.api.model.MatchDetail;
 import eu.m0k.lol.api.model.NameMap;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.RuneMap;
@@ -104,11 +105,11 @@ public class Lol {
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + YEAR_1)
         @GET("/api/lol/{region}/v2.2/match/{matchId}")
-        public SummonerList getMatch(@Path("matchId") final long matchId, @Query("includeTimeline") final boolean includeTimeline);
+        public MatchDetail getMatch(@Path("matchId") final long matchId, @Query("includeTimeline") final boolean includeTimeline);
 
         @Headers(CACHE_CONTROL + ": public, max-age=" + YEAR_1)
         @GET("/api/lol/{region}/v2.2/match/{matchId}")
-        public void getMatch(@Path("matchId") final long matchId, @Query("includeTimeline") final boolean includeTimeline, final Callback<SummonerList> callback);
+        public void getMatch(@Path("matchId") final long matchId, @Query("includeTimeline") final boolean includeTimeline, final Callback<MatchDetail> callback);
 
     }
 

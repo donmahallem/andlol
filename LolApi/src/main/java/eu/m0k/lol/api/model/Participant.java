@@ -11,6 +11,8 @@ package eu.m0k.lol.api.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Participant {
     @Expose
     @SerializedName("participantId")
@@ -33,6 +35,13 @@ public class Participant {
     @Expose
     @SerializedName("timeline")
     private ParticipantTimeLine mTimeLine;
+    @Expose
+    @SerializedName("runes")
+    private ArrayList<Rune> mRunes;
+    @Expose
+    @SerializedName("masteries")
+    private ArrayList<Mastery> mMasteries;
+
 
     public int getParticipantId() {
         return mParticipantId;

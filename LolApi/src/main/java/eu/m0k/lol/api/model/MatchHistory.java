@@ -30,7 +30,7 @@ public class MatchHistory extends ArrayList<MatchSummary> {
             MatchHistory matchHistory = new MatchHistory();
             final JsonArray jsonArray = json.getAsJsonObject().getAsJsonArray("matches");
             for (JsonElement element : jsonArray)
-                matchHistory.add((MatchSummary) context.deserialize(element, MatchDetail.class));
+                matchHistory.add((MatchSummary) context.deserialize(element, MatchSummary.class));
             return matchHistory;
         }
 

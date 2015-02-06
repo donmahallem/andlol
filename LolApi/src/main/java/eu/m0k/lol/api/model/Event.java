@@ -79,14 +79,27 @@ public class Event {
     @SerializedName("wardType")
     private WardType mWardType;
 
+    /**
+     * The ascended type of the event. Only present if relevant. Note that CLEAR_ASCENDED refers to when a participants kills the ascended player.
+     *
+     * @return the type of ascension
+     */
     public AscendedType getAscendedType() {
         return mAscendedType;
     }
 
+    /**
+     * The assisting participant IDs of the event. Only present if relevant.
+     * @return
+     */
     public ArrayList<Integer> getAssistingParticipantIds() {
         return mAssistingParticipantIds;
     }
 
+    /**
+     * The building type of the event. Only present if relevant.
+     * @return
+     */
     public BuildingType getBuildingType() {
         return mBuildingType;
     }

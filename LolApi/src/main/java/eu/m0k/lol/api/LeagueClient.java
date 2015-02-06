@@ -173,6 +173,10 @@ public class LeagueClient {
         return getRestAdapterForRegion(region).create(Lol.MatchHistory.class);
     }
 
+    public Lol.Match getMatchEndpoint(Region region) {
+        return getRestAdapterForRegion(region).create(Lol.Match.class);
+    }
+
     /**
      * Builder for the League Api
      */
@@ -186,13 +190,13 @@ public class LeagueClient {
             return mApiKey;
         }
 
+        public Builder setApiKey(String apiKey) {
+            return this.setApiKey(new ApiKey(apiKey));
+        }
+
         public Builder setApiKey(ApiKey apiKey) {
             this.mApiKey = apiKey;
             return this;
-        }
-
-        public Builder setApiKey(String apiKey) {
-            return this.setApiKey(new ApiKey(apiKey));
         }
 
         public String getUserAgent() {
