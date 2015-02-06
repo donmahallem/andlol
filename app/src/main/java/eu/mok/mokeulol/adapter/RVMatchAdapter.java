@@ -13,12 +13,12 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import eu.m0k.lol.api.model.Match;
+import eu.m0k.lol.api.model.MatchSummary;
 import eu.mok.mokeulol.viewholder.MatchViewHolder;
 
 public class RVMatchAdapter extends RecyclerView.Adapter<MatchViewHolder> {
     private final int TYPE_UNKNOWN = 0, TYPE_MATCH = 1;
-    private ArrayList<Match> mMatches = new ArrayList<Match>();
+    private ArrayList<MatchSummary> mMatches = new ArrayList<MatchSummary>();
     private MatchViewHolder.OnMatchSelectListener mOnMatchSelectListener;
 
     public RVMatchAdapter() {
@@ -26,7 +26,7 @@ public class RVMatchAdapter extends RecyclerView.Adapter<MatchViewHolder> {
         this.setHasStableIds(true);
     }
 
-    public void addMatch(Match match) {
+    public void addMatch(MatchSummary match) {
         if (this.mMatches.contains(match))
             return;
         this.mMatches.add(match);
@@ -76,7 +76,7 @@ public class RVMatchAdapter extends RecyclerView.Adapter<MatchViewHolder> {
         return this.mMatches.size();
     }
 
-    public void setMatches(ArrayList<Match> matches) {
+    public void setMatches(ArrayList<MatchSummary> matches) {
         this.mMatches.clear();
         this.mMatches.addAll(matches);
         notifyDataSetChanged();

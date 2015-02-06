@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import eu.m0k.lol.api.model.Match;
+import eu.m0k.lol.api.model.MatchSummary;
 import eu.m0k.lol.api.model.Participant;
 import eu.m0k.lol.api.model.Region;
 import eu.mok.mokeulol.R;
@@ -23,7 +23,7 @@ public class MatchViewHolder extends LayoutViewHolder implements View.OnClickLis
     private SummonerSpellImageView mIvSummonerSpell1, mIvSummonerSpell2;
     private ChampionIconImageView mIvChampionIcon;
     private TextView mTxtTitle, mTxtDeaths, mTxtKills, mTxtAssists;
-    private Match mMatch;
+    private MatchSummary mMatch;
     private OnMatchSelectListener mOnMatchSelectListener;
 
     public MatchViewHolder(ViewGroup parent) {
@@ -39,7 +39,7 @@ public class MatchViewHolder extends LayoutViewHolder implements View.OnClickLis
     }
 
 
-    public void setMatch(Match match) {
+    public void setMatch(MatchSummary match) {
         if (match != null) {
             this.mMatch = match;
             final Participant participant = match.getParticipants().get(0);
@@ -76,6 +76,6 @@ public class MatchViewHolder extends LayoutViewHolder implements View.OnClickLis
     }
 
     public static interface OnMatchSelectListener {
-        public void onMatchSelected(Match match);
+        public void onMatchSelected(MatchSummary match);
     }
 }

@@ -17,8 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import eu.m0k.lol.api.model.Match;
 import eu.m0k.lol.api.model.MatchHistory;
+import eu.m0k.lol.api.model.MatchSummary;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.Summoner;
 import eu.mok.mokeulol.R;
@@ -106,7 +106,7 @@ public class MatchHistoryFragment extends LeagueFragment implements SwipeRefresh
     }
 
     @Override
-    public void onMatchSelected(final Match match) {
+    public void onMatchSelected(final MatchSummary match) {
         startActivity(MatchDetailActivity.generateIntent(getActivity(), match.getRegion(), match.getMatchId()));
     }
 }
