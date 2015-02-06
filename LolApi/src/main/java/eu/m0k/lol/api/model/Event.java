@@ -12,9 +12,16 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Event {
 
+    public static Comparator<Event> SortDescending = new Comparator<Event>() {
+        @Override
+        public int compare(Event lhs, Event rhs) {
+            return lhs.getTimestamp() - rhs.getTimestamp();
+        }
+    };
     @Expose
     @SerializedName("ascendedType")
     private AscendedType mAscendedType;
@@ -98,6 +105,7 @@ public class Event {
 
     /**
      * The building type of the event. Only present if relevant.
+     *
      * @return
      */
     public BuildingType getBuildingType() {

@@ -11,4 +11,8 @@ package eu.m0k.lol.api.model;
 import java.util.HashMap;
 
 public class ParticipantFrames extends HashMap<String, ParticipantFrame> {
+
+    public ParticipantFrame get(final Participant participant) {
+        return this.get(participant.getParticipantId());
+    }
 }

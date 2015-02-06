@@ -28,4 +28,12 @@ public class TimeLine {
     public long getFrameInterval() {
         return mFrameInterval;
     }
+
+    public int getTotalEvents() {
+        int totalEvents = 0;
+        for (TimeLineFrame frame : this.mFrames)
+            if (frame.getEvents() != null)
+                totalEvents += frame.getEvents().size();
+        return totalEvents;
+    }
 }
