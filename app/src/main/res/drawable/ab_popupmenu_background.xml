@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2014.
+  ~
+  ~ Visit https://github.com/donmahallem/andlol for more info!
+  ~
+  ~ Romanes eunt domus - Brian!
+  -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+          android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+    <item android:drawable="@color/yellow_500"
+          android:state_focused="true"
+          android:state_pressed="false"/>
+    <item android:drawable="@color/yellow_700"
+          android:state_pressed="true"/>
+    <item android:drawable="@drawable/ab_popup_background"/>
+</selector>

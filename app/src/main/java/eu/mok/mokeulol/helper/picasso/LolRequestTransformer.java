@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -24,15 +24,17 @@ public class LolRequestTransformer implements Picasso.RequestTransformer {
             final List<String> pathSegments = request.uri.getPathSegments();
             if (request.uri.getHost().equals(Constants.IMAGE) && pathSegments.size() == 2) {
                 if (pathSegments.get(0).equals(Constants.SPELL)) {
-                    return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/4.17.1/img/spell/" + pathSegments.get(1))).build();
+                    return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/5.1.2/img/spell/" + pathSegments.get(1) + ".png")).build();
                 } else if (pathSegments.get(0).equals(Constants.PASSIVE)) {
-                    return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/4.17.1/img/passive/" + pathSegments.get(1))).build();
+                    return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/5.1.2/img/passive/" + pathSegments.get(1))).build();
                 } else if (pathSegments.get(0).equals(Constants.CHAMPION_ICON)) {
-                    return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/4.17.1/img/champion/" + pathSegments.get(1) + ".png")).build();
+                    return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/5.1.2/img/champion/" + pathSegments.get(1) + ".png")).build();
                 } else if (pathSegments.get(0).equals(Constants.SPLASH)) {
                     return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/" + pathSegments.get(1) + ".jpg")).build();
                 } else if (pathSegments.get(0).equals(Constants.LOADING)) {
                     return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/img/champion/loading/" + pathSegments.get(1) + ".jpg")).build();
+                } else if (pathSegments.get(0).equals(Constants.PROFILE_ICON)) {
+                    return request.buildUpon().setUri(Uri.parse("https://ddragon.leagueoflegends.com/cdn/5.1.2/img/profileicon/" + pathSegments.get(1) + ".png")).build();
                 }
             }
         }

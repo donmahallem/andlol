@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -14,20 +14,23 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
-import eu.m0k.lol.api.LeagueApi;
-import eu.m0k.lol.api.LogLevel;
-import eu.m0k.lol.api.network.ApiKey;
+import java.io.File;
+import java.io.IOException;
+
+import eu.m0k.lol.api.LeagueClient;
 import eu.mok.mokeulol.helper.picasso.LolRequestTransformer;
 
 public class Util {
-    private static Picasso mPicasso;
+    private static Cache mOkHttpCache;
     private static OkHttpClient mOkHttpClient;
+    private static Picasso mPicasso;
     private static Context mContext;
-    private static LeagueApi mLeagueApi;
+    private static LeagueClient mLeagueClient;
 
     /**
      * Inits with the given Context
@@ -44,8 +47,20 @@ public class Util {
     public static OkHttpClient getOkHttpClient() {
         if (mOkHttpClient == null) {
             mOkHttpClient = new OkHttpClient();
+            mOkHttpClient.setCache(getOkHttpCache());
         }
         return mOkHttpClient;
+    }
+
+    public static Cache getOkHttpCache() {
+        if (mOkHttpCache == null) {
+            try {
+                mOkHttpCache = new Cache(new File(mContext.getCacheDir(), "app"), 50 * 1024 * 1024);
+            } catch (IOException e) {
+                return null;
+            }
+        }
+        return mOkHttpCache;
     }
 
     /**
@@ -77,14 +92,20 @@ public class Util {
         }
     }
 
-    public static LeagueApi getLeagueApi() {
-        if (mLeagueApi == null) {
-            LeagueApi.Builder builder = new LeagueApi.Builder();
-            builder.setLogLevel(LogLevel.BASIC);
-            builder.setCacheDir(mContext.getCacheDir());
-            builder.setApiKey(new ApiKey(getLeagueApiToken()));
-            mLeagueApi = builder.build();
+    public static LeagueClient getLeagueApi() {
+        if (mLeagueClient == null) {
+            mLeagueClient = new LeagueClient.Builder().setApiKey(getLeagueApiToken()).build();
         }
-        return mLeagueApi;
+        return mLeagueClient;
+    }
+
+    public static String formatUsername(final String username) {
+        String output = username.replaceAll("\\s", "");
+        output = output.toLowerCase();
+        return output;
+    }
+
+    public static Context getContext() {
+        return mContext;
     }
 }

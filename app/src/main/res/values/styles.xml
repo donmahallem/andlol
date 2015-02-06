@@ -8,23 +8,60 @@
 
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="League.AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-    <item name="android:actionBarStyle">@style/League.ActionBar</item>
-        <item name="android:windowBackground">@color/grey_100</item>
-        <item name="android:popupMenuStyle">@style/League.PopupMenu</item>
+
+    <style name="Widget.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/ab_transluecent_background</item>
     </style>
+
+    <style name="Widget.ActionBar.Transparent">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 
     <style name="League.ActionBar"
            parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/light_blue_900</item>
     </style>
+    <!-- kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk -->
 
-    <style name="League.PopupMenu" parent="android:Widget.Holo.Light.ListPopupWindow">
-        <item name="android:popupBackground">@color/grey_200</item>
-        <item name="android:textColor">@color/grey_800</item>
+    <style name="League.AppTheme.Actionbar.PopupMenu" parent="@android:style/Widget.Holo.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/ab_popupmenu_background</item>
+        <item name="android:textColor">@color/grey_1000b</item>
     </style>
 
+    <style name="League.AppTheme.Widget.ActionBarStyle" parent="@android:Widget">
+        <item name="android:textColor">@color/grey_800</item>
+    </style>
+    <!-- -->
+    <style name="DropDownListView.Example" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:listSelector">@color/light_blue_200</item>
+    </style>
+
+    <style name="DropDownNav.Example" parent="@android:style/Widget.Holo.Spinner">
+        <item name="android:background">@color/amber_200</item>
+        <item name="android:textColor">@color/grey_1000b</item>
+        <item name="android:popupBackground">@color/grey_400</item>
+        <item name="android:dropDownSelector">@color/brown_900</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Example.Widget" parent="@android:style/Theme.Holo">
+        <item name="android:popupMenuStyle">@style/League.AppTheme.Actionbar.PopupMenu</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Example</item>
+    </style>
+    <!--  -->
+
+
+    <style name="League.AppTheme.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
+    </style>
+
+    <style name="League.AppTheme.Toolbar.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@color/grey_1000w</item>
+    </style>
+
+    <style name="League.AppTheme.Toolbar.SubTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textColor">@color/grey_1000w</item>
+    </style>
 
     <style name="Text.Description.Title" parent="android:style/TextAppearance">
         <item name="android:textColor">@color/grey_1000b</item>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -26,8 +26,6 @@ public enum Locale {
 
     @Override
     public String toString() {
-        return "Locale{" +
-                "local='" + mLocal + '\'' +
-                '}';
+        return this.mLocal;
     }
 }

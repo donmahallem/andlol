@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -53,4 +53,9 @@ public class ChampionPassiveView extends LinearLayout {
             Util.getPicasso().load(this.mChampionSpell.getImageUri()).placeholder(android.R.drawable.ic_menu_rotate).error(android.R.drawable.ic_delete).into(this.mImageView);
         }
     }
+
+    public void setIconBorderColor(int iconBorderColor) {
+        this.mImageView.setBorderColor(iconBorderColor);
+    }
+
 }

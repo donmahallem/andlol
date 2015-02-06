@@ -19,7 +19,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         hlist:border="true"
-        hlist:border_color="@color/grey_200"
+        hlist:border_color="?colorPrimary"
         hlist:border_width="3dp"
         hlist:shadow="true"/>
 

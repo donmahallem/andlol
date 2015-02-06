@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2014.
+  ~ Copyright (c) 2015.
   ~
   ~ Visit https://github.com/donmahallem/andlol for more info!
   ~
@@ -23,4 +23,28 @@
     <item name="hListView" type="id"/>
     <item name="apiToken" type="id"/>
     <item name="btnCheckToken" type="id"/>
+    <item name="swipe_refresh_container" type="id"/>
+    <item name="scrollView" type="id"/>
+    <item name="stickyHeadContainer" type="id"/>
+    <item name="btnFavorite" type="id"/>
+    <item name="txtTitle" type="id"/>
+    <item name="ivHeader" type="id"/>
+    <item name="content1" type="id"/>
+    <item name="loadingContainer" type="id"/>
+    <item name="recyclerView" type="id"/>
+    <item name="progressBar1" type="id"/>
+    <item name="fgrContent" type="id"/>
+    <item name="toolbar" type="id"/>
+    <item name="coverImage" type="id"/>
+    <item name="txtName" type="id"/>
+    <item name="txtLevel" type="id"/>
+    <item name="ivSummonerSpell1" type="id"/>
+    <item name="ivSummonerSpell2" type="id"/>
+    <item name="txtKills" type="id"/>
+    <item name="txtAssists" type="id"/>
+    <item name="txtDeaths" type="id"/>
+
+
+    <!-- MENUS -->
+    <item name="action_favorite" type="id"/>
 </resources>

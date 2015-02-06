@@ -1,1 +1,9 @@
-include ':app', ':TestApp', ':LolApi'
+/*
+ * Copyright (c) 2014.
+ *
+ * Visit https://github.com/donmahallem/andlol for more info!
+ *
+ * Romanes eunt domus - Brian!
+ */
+
+include ':app', ':TestApp', ':LolApi', ':MokeuViews', ':LeagueViews'

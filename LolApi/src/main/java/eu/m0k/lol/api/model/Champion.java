@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -67,6 +67,10 @@ public class Champion {
     @Expose
     @SerializedName("recommended")
     private List<ChampionRecommendation> mRecommended;
+
+    public static String generateChampionIconUri(final int id) {
+        return Constants.PATH_IMG_CHAMPION_ICON + id;
+    }
 
     /**
      * Gets the Champion Lore

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -8,22 +8,14 @@
 
 package eu.mok.mokeulol.activities;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.widget.Toast;
 
-import java.io.IOException;
-
-import eu.m0k.lol.api.model.ChampData;
 import eu.m0k.lol.api.model.Champion;
-import eu.m0k.lol.api.model.Region;
-import eu.m0k.lol.api.network.LeagueResponse;
 import eu.mok.mokeulol.R;
-import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.fragments.ChampionSkinFragment;
 
 public class ChampionSkinActivity extends LeagueActivity {
@@ -39,8 +31,6 @@ public class ChampionSkinActivity extends LeagueActivity {
         this.mViewPager.setId(R.id.viewPager);
         this.setContentView(this.mViewPager);
         if (this.getChampionId() != -1) {
-            Task t = new Task();
-            t.execute(this.getChampionId());
         }
     }
 
@@ -54,43 +44,6 @@ public class ChampionSkinActivity extends LeagueActivity {
         if (this.mChampion != null) {
             this.mChampionSkinFragmentAdapter = new ChampionSkinFragmentAdapter(this.getSupportFragmentManager(), this.mChampion);
             this.mViewPager.setAdapter(this.mChampionSkinFragmentAdapter);
-        }
-    }
-
-    private class Task extends AsyncTask<Integer, Void, LeagueResponse<Champion>> {
-
-        @Override
-        protected LeagueResponse<Champion> doInBackground(Integer... params) {
-            ChampData data = new ChampData();
-            data.setSpells(true);
-            data.setSkins(true);
-            data.setLore(true);
-            data.setInfo(true);
-            data.setPassive(true);
-            data.setImage(true);
-            LeagueResponse<Champion> champ = null;
-            try {
-                champ = Util.getLeagueApi().getChampion(params[0], Region.EUW, data);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return champ;
-        }
-
-        @Override
-        protected void onPostExecute(LeagueResponse<Champion> result) {
-            if (result != null && result.getBody() != null) {
-                mChampion = result.getBody();
-                updateViews();
-            } else {
-                int msg = 0;
-                if (result == null) {
-                    msg = R.string.unknown_error;
-                } else {
-                    msg = R.string.network_error;
-                }
-                Toast.makeText(ChampionSkinActivity.this, msg, Toast.LENGTH_LONG);
-            }
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -94,23 +94,7 @@ public class ChampData {
 
     @Override
     public String toString() {
-        return "ChampData{" +
-                "all=" + mAll +
-                ", allyTips=" + mAllyTips +
-                ", altImages=" + mAltImages +
-                ", blurb=" + mBlurb +
-                ", enemyTips=" + mEnemyTips +
-                ", image=" + mImage +
-                ", info=" + mInfo +
-                ", lore=" + mLore +
-                ", parType=" + mParType +
-                ", passive=" + mPassive +
-                ", recommended=" + mRecommended +
-                ", skins=" + mSkins +
-                ", spells=" + mSpells +
-                ", stats=" + mStats +
-                ", tags=" + mTags +
-                '}';
+        return this.getChampData();
     }
 
     public String getChampData() {

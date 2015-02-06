@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2014.
+  ~ Copyright (c) 2015.
   ~
   ~ Visit https://github.com/donmahallem/andlol for more info!
   ~
@@ -14,4 +14,22 @@
     <dimen name="hl_divider_width">2dp</dimen>
     <dimen name="divider_height">2dp</dimen>
     <dimen name="divider_margin">3dp</dimen>
+    <dimen name="skin_placeholder">50dp</dimen>
+    <dimen name="sticky_header_vertical_padding">8dp</dimen>
+    <dimen name="content_container_horizontal_margin">96dp</dimen>
+    <dimen name="content_horizontal_padding">16dp</dimen>
+    <dimen name="content_vertical_padding">16dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="navbar_horizontal_margin">16dp</dimen>
+    <dimen name="navbar_item_height">48dp</dimen>
+    <dimen name="navbar_cover_image_height">140dp</dimen>
+    <dimen name="navbar_item_icon_size">24dp</dimen>
+    <dimen name="navbar_item_title_margin">32dp</dimen>
+    <dimen name="space_height">8dp</dimen>
+    <dimen name="card_elevation_default">4dp</dimen>
+    <dimen name="card_corner_radius_default">4dp</dimen>
+    <dimen name="card_margin_horizontal_default">8dp</dimen>
+    <dimen name="card_margin_vertical_default">4dp</dimen>
+    <dimen name="card_content_padding">16dp</dimen>
+    <dimen name="navbar_max_width">320dp</dimen>
 </resources>

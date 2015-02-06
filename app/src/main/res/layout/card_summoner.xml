@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2015.
+  ~
+  ~ Visit https://github.com/donmahallem/andlol for more info!
+  ~
+  ~ Romanes eunt domus - Brian!
+  -->
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/card_margin_vertical_default"
+    android:layout_marginLeft="@dimen/card_margin_horizontal_default"
+    android:layout_marginRight="@dimen/card_margin_horizontal_default"
+    android:layout_marginTop="@dimen/card_margin_vertical_default"
+    android:clickable="true"
+    android:foreground="?android:selectableItemBackground"
+    android:orientation="horizontal"
+    app:cardBackgroundColor="?colorPrimary"
+    app:cardCornerRadius="@dimen/card_corner_radius_default"
+    app:cardElevation="@dimen/card_elevation_default">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.pkmmte.view.CircularImageView
+            android:id="@id/ivChampionIcon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:src="@android:drawable/ic_menu_search"
+            app:border="true"
+            app:border_color="@color/grey_300"
+            app:border_width="4dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@id/txtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+            <TextView
+                android:id="@id/txtLevel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

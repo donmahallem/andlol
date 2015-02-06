@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2015.
+  ~
+  ~ Visit https://github.com/donmahallem/andlol for more info!
+  ~
+  ~ Romanes eunt domus - Brian!
+  -->
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorPrimaryDark">
+
+
+    <ImageView
+        android:id="@id/ivHeader"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@color/grey_300"
+        android:elevation="2dp"
+        android:scaleType="centerCrop"/>
+
+    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+        android:id="@id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="200dp"
+                android:background="@color/grey_100"
+                android:elevation="20dp"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@id/toolbar"
+                    layout="@layout/toolbar"
+                    />
+
+                <LinearLayout
+                    android:id="@id/loadingContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loading"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/content_vertical_padding"
+                    android:paddingLeft="@dimen/content_horizontal_padding"
+                    android:paddingRight="@dimen/content_horizontal_padding"
+                    android:paddingTop="@dimen/content_vertical_padding">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.pkmmte.view.CircularImageView
+                            android:id="@id/ivChampionIcon"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:src="@android:drawable/ic_menu_search"
+                            app:border="true"
+                            app:border_color="@color/grey_200"
+                            app:border_width="4dp"
+                            app:shadow="true"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@id/title"
+                                style="@style/Text.Description.Title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/title"
+                                android:textAppearance="@android:style/TextAppearance.Large"/>
+
+                            <TextView
+                                android:id="@id/subTitle"
+                                style="@style/Text.Description.Subtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/subtitle"
+                                android:textAppearance="@android:style/TextAppearance.Small"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/Text.Description.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/passive"/>
+
+                    <eu.mok.mokeulol.view.ChampionPassiveView
+                        android:id="@id/championPassiveView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"/>
+
+                    <TextView
+                        style="@style/Text.Description.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/abilities"/>
+
+                    <eu.mok.mokeulol.view.ChampionSpellView
+                        android:id="@id/championSpellView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"/>
+
+                    <eu.mok.mokeulol.view.ChampionSpellView
+                        android:id="@id/championSpellView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"/>
+
+                    <eu.mok.mokeulol.view.ChampionSpellView
+                        android:id="@id/championSpellView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"/>
+
+                    <eu.mok.mokeulol.view.ChampionSpellView
+                        android:id="@id/championSpellView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"/>
+
+                    <TextView
+                        android:id="@id/title"
+                        style="@style/Text.Description.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lore"/>
+
+                    <TextView
+                        android:id="@id/txtDescription"
+                        style="@style/Text.Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
+</FrameLayout>

@@ -1,142 +1,167 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2014.
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2015.
   ~
   ~ Visit https://github.com/donmahallem/andlol for more info!
   ~
   ~ Romanes eunt domus - Brian!
   -->
-
-<com.nirhart.parallaxscroll.views.ParallaxScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:hlist="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:support="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    hlist:parallax_factor="1.9">
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@id/loadingContainer"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="vertical">
 
-        <it.sephiroth.android.library.widget.HListView
-            android:id="@id/hListView"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:background="@color/light_blue_600"
-            android:listSelector="@color/blue_400"
-            hlist:hlv_dividerWidth="@dimen/hl_divider_width"
-            hlist:hlv_footerDividersEnabled="false"
-            hlist:hlv_headerDividersEnabled="false"/>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
 
-        <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading" />
+    </LinearLayout>
+
+    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+        android:id="@id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/grey_100"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <com.pkmmte.view.CircularImageView
-                    android:id="@id/ivChampionIcon"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:src="@android:drawable/ic_menu_search"
-                    hlist:border="true"
-                    hlist:border_color="@color/grey_200"
-                    hlist:border_width="4dp"
-                    hlist:shadow="true"/>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@color/grey_600">
+
+                    <ProgressBar
+                        android:id="@id/progressBar1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+
+                    <ImageView
+                        android:id="@id/ivHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:background="@color/grey_300"
+                        android:elevation="0dp"
+                        android:scaleType="centerCrop" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:background="@drawable/ab_header_gradient" />
+                </FrameLayout>
+
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:orientation="vertical">
+                    android:background="@color/grey_100"
+                    android:elevation="4dp"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/content_vertical_padding"
+                    android:paddingLeft="@dimen/content_horizontal_padding"
+                    android:paddingRight="@dimen/content_horizontal_padding"
+                    android:paddingTop="70dp">
+
+
+                    <TextView
+                        style="@style/Text.Description.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/passive" />
+
+                    <eu.mok.mokeulol.view.ChampionPassiveView
+                        android:id="@id/championPassiveView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp" />
+
+                    <TextView
+                        style="@style/Text.Description.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/abilities" />
+
+                    <eu.mok.mokeulol.view.ChampionSpellView
+                        android:id="@id/championSpellView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp" />
+
+                    <eu.mok.mokeulol.view.ChampionSpellView
+                        android:id="@id/championSpellView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp" />
+
+                    <eu.mok.mokeulol.view.ChampionSpellView
+                        android:id="@id/championSpellView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp" />
+
+                    <eu.mok.mokeulol.view.ChampionSpellView
+                        android:id="@id/championSpellView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp" />
 
                     <TextView
                         android:id="@id/title"
                         style="@style/Text.Description.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/title"
-                        android:textAppearance="@android:style/TextAppearance.Large"/>
+                        android:text="@string/lore" />
 
                     <TextView
-                        android:id="@id/subTitle"
-                        style="@style/Text.Description.Subtitle"
+                        android:id="@id/txtDescription"
+                        style="@style/Text.Description"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/subtitle"
-                        android:textAppearance="@android:style/TextAppearance.Small"/>
+                        android:layout_height="wrap_content" />
+
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                style="@style/Text.Description.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/passive"/>
+            <com.pkmmte.view.CircularImageView
+                android:id="@id/ivChampionIcon"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginLeft="@dimen/content_vertical_padding"
+                android:layout_marginTop="140dp"
+                android:elevation="4dp"
+                android:src="@android:drawable/ic_menu_search"
+                support:border="true"
+                support:border_color="?colorPrimary"
+                support:border_width="4dp"
+                support:shadow="true" />
+        </FrameLayout>
+    </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
 
-            <eu.mok.mokeulol.view.ChampionPassiveView
-                android:id="@id/championPassiveView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@color/very_light_grey"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="8dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Theme.AppCompat" />
 
-            <TextView
-                style="@style/Text.Description.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/abilities"/>
-
-            <eu.mok.mokeulol.view.ChampionSpellView
-                android:id="@id/championSpellView1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@color/very_light_grey"/>
-
-            <eu.mok.mokeulol.view.ChampionSpellView
-                android:id="@id/championSpellView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@color/very_light_grey"/>
-
-            <eu.mok.mokeulol.view.ChampionSpellView
-                android:id="@id/championSpellView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@color/very_light_grey"/>
-
-            <eu.mok.mokeulol.view.ChampionSpellView
-                android:id="@id/championSpellView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@color/very_light_grey"/>
-
-            <TextView
-                android:id="@id/title"
-                style="@style/Text.Description.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lore"/>
-
-            <TextView
-                android:id="@id/txtDescription"
-                style="@style/Text.Description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-    </LinearLayout>
-</com.nirhart.parallaxscroll.views.ParallaxScrollView>
+</FrameLayout>
