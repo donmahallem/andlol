@@ -9,38 +9,31 @@
 package eu.mok.mokeulol.fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import eu.m0k.lol.api.model.MatchDetail;
 import eu.m0k.lol.api.model.Region;
-import eu.m0k.lol.api.model.Summoner;
-import eu.m0k.lol.api.model.TimeLine;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
-import eu.mok.mokeulol.adapter.RVMatchAdapter;
+import eu.mok.mokeulol.adapter.RVMatchEventAdapter;
 
 public class MatchTimelineFragment extends LeagueFragment {
     private final static String KEY_SUMMONER_ID = "summonerId", KEY_REGION = "region";
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private RVMatchAdapter mRVMatchAdapter = new RVMatchAdapter();
+    private RVMatchEventAdapter mRVMatchTimelineAdapter = new RVMatchEventAdapter();
     private long mSummonerId = -1;
     private Region mRegion;
-    private TimeLine mTimeLine;
+    private MatchDetail mTimeLine;
 
-    public static Fragment getInstance(Region region, Summoner summoner) {
-        return getInstance(region, summoner.getId());
-    }
 
-    public static Fragment getInstance(Region region, long summonerId) {
+    public static MatchTimelineFragment getInstance() {
         final MatchTimelineFragment matchHistoryFragment = new MatchTimelineFragment();
         final Bundle bundle = new Bundle();
-        bundle.putLong(KEY_SUMMONER_ID, summonerId);
-        bundle.putSerializable(KEY_REGION, region);
         matchHistoryFragment.setArguments(bundle);
         return matchHistoryFragment;
     }
@@ -63,7 +56,7 @@ public class MatchTimelineFragment extends LeagueFragment {
         super.onViewCreated(view, savedInstanceState);
         this.mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         this.mRecyclerView.setLayoutManager(this.mLayoutManager);
-        this.mRecyclerView.setAdapter(this.mRVMatchAdapter);
+        this.mRecyclerView.setAdapter(this.mRVMatchTimelineAdapter);
     }
 
     @Override
@@ -71,9 +64,10 @@ public class MatchTimelineFragment extends LeagueFragment {
         super.onResume();
     }
 
-    public void setTimeLine(final TimeLine timeLine) {
+    public void setTimeLine(final MatchDetail timeLine) {
         if (timeLine != null) {
             this.mTimeLine = timeLine;
+            this.mRVMatchTimelineAdapter.setMatchDetail(this.mTimeLine);
         }
     }
 }
