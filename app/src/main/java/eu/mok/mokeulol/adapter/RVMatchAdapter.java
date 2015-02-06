@@ -19,6 +19,7 @@ import eu.mok.mokeulol.viewholder.MatchViewHolder;
 public class RVMatchAdapter extends RecyclerView.Adapter<MatchViewHolder> {
     private final int TYPE_UNKNOWN = 0, TYPE_MATCH = 1;
     private ArrayList<Match> mMatches = new ArrayList<Match>();
+    private MatchViewHolder.OnMatchSelectListener mOnMatchSelectListener;
 
     public RVMatchAdapter() {
         super();
@@ -46,10 +47,17 @@ public class RVMatchAdapter extends RecyclerView.Adapter<MatchViewHolder> {
     public MatchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case TYPE_MATCH:
-                return new MatchViewHolder(parent);
+                final MatchViewHolder matchViewHolder = new MatchViewHolder(parent);
+                matchViewHolder.setOnMatchSelectListener(this.mOnMatchSelectListener);
+                return matchViewHolder;
             default:
                 return null;
         }
+    }
+
+    public void setOnMatchSelectListener(MatchViewHolder.OnMatchSelectListener onMatchSelectListener) {
+        this.mOnMatchSelectListener = onMatchSelectListener;
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -59,8 +67,8 @@ public class RVMatchAdapter extends RecyclerView.Adapter<MatchViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(MatchViewHolder holder, int position) {
-        holder.setMatch(this.mMatches.get(position));
+    public void onBindViewHolder(MatchViewHolder matchViewHolder, int position) {
+        matchViewHolder.setMatch(this.mMatches.get(position));
     }
 
     @Override
