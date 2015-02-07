@@ -43,6 +43,9 @@
     <item name="txtKills" type="id"/>
     <item name="txtAssists" type="id"/>
     <item name="txtDeaths" type="id"/>
+    <item name="ivIcon" type="id"/>
+    <item name="ivChampionIcon1" type="id"/>
+    <item name="ivChampionIcon2" type="id"/>
 
 
     <!-- MENUS -->
