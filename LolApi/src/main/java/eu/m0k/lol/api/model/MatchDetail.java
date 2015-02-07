@@ -48,7 +48,7 @@ public class MatchDetail {
     private String mMatchVersion;
     @Expose
     @SerializedName("participants")
-    private List<Participant> mParticipants;
+    private ParticipantList mParticipants;
     @Expose
     @SerializedName("participantIdentities")
     private List<ParticipantIdentity> mParticipantIdentities;
@@ -109,7 +109,7 @@ public class MatchDetail {
         return mMatchVersion;
     }
 
-    public List<Participant> getParticipants() {
+    public ParticipantList getParticipants() {
         return mParticipants;
     }
 
