@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2014.
+  ~ Copyright (c) 2015.
   ~
   ~ Visit https://github.com/donmahallem/andlol for more info!
   ~
@@ -13,62 +13,20 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
+    <include
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/amber_500"
-        android:gravity="center"
-        android:text="@string/hello_world"/>
+        android:layout_height="wrap_content"/>
 
-    <TextView
+    <com.example.android.common.view.SlidingTabLayout
+        android:id="@id/slidingTabs"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="center"
-        android:text="@string/hello_world"/>
+        android:layout_height="wrap_content"/>
 
-    <TextView
+    <android.support.v4.view.ViewPager
+        android:id="@id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="center"
-        android:text="@string/hello_world"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="center"
-        android:text="@string/hello_world"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="center"
-        android:text="@string/hello_world"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/hello_world"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/hello_world"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/hello_world"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/hello_world"/>
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@android:color/white"/>
 </LinearLayout>

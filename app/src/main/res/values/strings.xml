@@ -59,4 +59,6 @@
     <string name="skill_level_up">Skill Level Up</string>
     <string name="ward_kill">Ward killed</string>
     <string name="ward_placed">Ward placed</string>
+    <string name="error_requesting_server">Error requesting Server</string>
+    <string name="error_player_not_in_match">Player isn\'t in a Match</string>
 </resources>

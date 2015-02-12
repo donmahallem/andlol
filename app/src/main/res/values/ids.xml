@@ -49,6 +49,8 @@
     <item name="txtMatchType" type="id"/>
     <item name="txtPlaytime" type="id"/>
     <item name="ivItem" type="id"/>
+    <item name="slidingTabs" type="id"/>
+    <item name="txtStatus" type="id"/>
 
 
     <!-- MENUS -->

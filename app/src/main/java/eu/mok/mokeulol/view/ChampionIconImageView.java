@@ -23,7 +23,7 @@ import retrofit.client.Response;
 
 public class ChampionIconImageView extends ImageView {
     private Champion mChampion;
-    private int mChampionId = -1;
+    private long mChampionId = -1;
     private Callback<Champion> SPELL_CALLBACK = new Callback<Champion>() {
 
         @Override
