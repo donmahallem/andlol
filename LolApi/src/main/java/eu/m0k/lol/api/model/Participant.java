@@ -18,6 +18,12 @@ public class Participant {
     @SerializedName("participantId")
     private int mParticipantId;
     @Expose
+    @SerializedName("summonerName")
+    private String mSummonerName;
+    @Expose
+    @SerializedName("profileIconId")
+    private long mProfileIconId;
+    @Expose
     @SerializedName("teamId")
     private int mTeamId;
     @Expose
@@ -42,6 +48,21 @@ public class Participant {
     @SerializedName("masteries")
     private ArrayList<Mastery> mMasteries;
 
+    public long getProfileIconId() {
+        return mProfileIconId;
+    }
+
+    public String getSummonerName() {
+        return mSummonerName;
+    }
+
+    public ArrayList<Rune> getRunes() {
+        return mRunes;
+    }
+
+    public ArrayList<Mastery> getMasteries() {
+        return mMasteries;
+    }
 
     public int getParticipantId() {
         return mParticipantId;

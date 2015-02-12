@@ -11,6 +11,7 @@ package eu.m0k.lol.api;
 import java.util.List;
 
 import eu.m0k.lol.api.model.ChampData;
+import eu.m0k.lol.api.model.CurrentGameInfo;
 import eu.m0k.lol.api.model.Item;
 import eu.m0k.lol.api.model.ItemList;
 import eu.m0k.lol.api.model.LeagueEntryMap;
@@ -18,6 +19,7 @@ import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.MasteryMap;
 import eu.m0k.lol.api.model.MatchDetail;
 import eu.m0k.lol.api.model.NameMap;
+import eu.m0k.lol.api.model.Platform;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.RuneMap;
 import eu.m0k.lol.api.model.SummonerIds;
@@ -33,7 +35,9 @@ import retrofit.http.Query;
 
 public class Lol {
     public static final String CUSTOM_CACHE = "Lol-Custom-Cache";
-    private static final long MINUTES_30 = 30 * 60,
+    private static final long
+            MINUTES_10 = 10 * 60,
+            MINUTES_30 = 30 * 60,
             HOURS_1 = 60 * 60,
             HOURS_6 = HOURS_1 * 6,
             HOURS_12 = HOURS_1 * 12,
@@ -163,6 +167,23 @@ public class Lol {
         @GET("/api/lol/static-data/{region}/" + VERSION + "/summoner-spell/{spellId}")
         public void getSummonerSpell(@Path("spellId") final int spellId, final Callback<SummonerSpell> callback);
 
+    }
+
+    public static interface CurrentGame {
+
+        @Headers({
+                "Cache-Control: max-stale=" + MINUTES_30,
+                CUSTOM_CACHE + ": " + MINUTES_10
+        })
+        @GET("/observer-mode/rest/consumer/getSpectatorGameInfo/{platformId}/{summonerId}")
+        public CurrentGameInfo getMatch(@Path("platformId") final Platform platform, @Path("summonerId") final long summonerId);
+
+        @Headers({
+                "Cache-Control: max-stale=" + MINUTES_30,
+                CUSTOM_CACHE + ": " + MINUTES_10
+        })
+        @GET("/observer-mode/rest/consumer/getSpectatorGameInfo/{platformId}/{summonerId}")
+        public void getMatch(@Path("platformId") final Platform platform, @Path("summonerId") final long summonerId, final Callback<CurrentGameInfo> callback);
     }
 
     public static interface Match {
