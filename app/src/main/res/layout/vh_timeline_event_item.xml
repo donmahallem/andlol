@@ -15,10 +15,11 @@
     android:orientation="horizontal">
 
     <ImageView
+        android:id="@id/ivIcon"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_add_grey600_18dp"
+        android:src="@drawable/ic_delete_grey600_18dp"
         />
 
     <LinearLayout
@@ -42,8 +43,10 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@id/ivIcon"
+        android:id="@id/ivItem"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/ic_launcher"/>
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_launcher"
+        />
 </LinearLayout>

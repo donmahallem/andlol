@@ -19,7 +19,12 @@ public class Event {
     public static Comparator<Event> SortDescending = new Comparator<Event>() {
         @Override
         public int compare(Event lhs, Event rhs) {
-            return lhs.getTimestamp() - rhs.getTimestamp();
+            if (lhs.getTimestamp() - rhs.getTimestamp() < 0)
+                return -1;
+            else if (lhs.getTimestamp() - rhs.getTimestamp() < 0)
+                return 1;
+            else
+                return 0;
         }
     };
     @Expose
@@ -75,7 +80,7 @@ public class Event {
     private int mTeamId;
     @Expose
     @SerializedName("timestamp")
-    private int mTimestamp;
+    private long mTimestamp;
     @Expose
     @SerializedName("towerType")
     private TowerType mTowerType;
@@ -168,7 +173,7 @@ public class Event {
         return mTeamId;
     }
 
-    public int getTimestamp() {
+    public long getTimestamp() {
         return mTimestamp;
     }
 

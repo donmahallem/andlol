@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import eu.m0k.lol.api.model.MatchSummary;
 import eu.mok.mokeulol.viewholder.MatchViewHolder;
@@ -79,6 +80,7 @@ public class RVMatchAdapter extends RecyclerView.Adapter<MatchViewHolder> {
     public void setMatches(ArrayList<MatchSummary> matches) {
         this.mMatches.clear();
         this.mMatches.addAll(matches);
+        Collections.sort(this.mMatches, MatchSummary.SORT_DESC);
         notifyDataSetChanged();
     }
 }

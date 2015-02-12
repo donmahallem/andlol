@@ -48,23 +48,21 @@ public class LeagueClient {
      */
 
     private final static long DEFAULT_CACHE_TIME = 5 * 60; //5 min
-    private static final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            final Response originalResponse = chain.proceed(chain.request());
-            final String cacheMod = chain.request().header("Cache-Control");
-            Log.d("Interceptor", "Cache-Control: " + cacheMod);
-            Log.d("Interceptor", "Cached: " + (originalResponse.cacheResponse() != null));
-            return originalResponse.newBuilder()
-                    .header("Cache-Control", cacheMod)
-
-                    .build();
-        }
-    };
     private final static long CACHE_SIZE = 50 * 1024 * 1024;
     private final static String TAG = "League-Api", HEADER_USER_AGENT = "User-Agent",
             HEADER_ACCEPT = "Accept", ENCODING_JSON = "application/json",
             HEADER_CACHE_MOD = "x-cache-mod", BASE_AUTHORITY = ".api.pvp.net";
+    private final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            final Response originalResponse = chain.proceed(chain.request());
+            final String cacheMod = chain.request().header(Lol.CUSTOM_CACHE);
+            Log.d("Interceptor", "Cache-Stats: " + mCache.getRequestCount() + " network: " + mCache.getNetworkCount() + " cache: " + mCache.getHitCount());
+            return originalResponse.newBuilder()
+                    .header("Cache-Control", "public, max-age=" + cacheMod)
+                    .build();
+        }
+    };
     private final String mUserAgent;
     /**
      * The Api token to be used
@@ -81,7 +79,7 @@ public class LeagueClient {
 
 
     private LeagueClient(Builder builder) {
-        this.mOkHttpClient.interceptors().add(REWRITE_CACHE_CONTROL_INTERCEPTOR);
+        this.mOkHttpClient.networkInterceptors().add(REWRITE_CACHE_CONTROL_INTERCEPTOR);
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.excludeFieldsWithoutExposeAnnotation();
         gsonBuilder.registerTypeAdapter(SummonerList.class, new SummonerList.TypeAdapter());
@@ -104,7 +102,7 @@ public class LeagueClient {
         this.mLogLevel = builder.getLogLevel();
         this.mUserAgent = builder.getUserAgent();
 
-        if (builder.getCacheDir() != null) {
+        if (builder.mCacheDir != null) {
             try {
                 mCache = new Cache(new File(builder.mCacheDir, "rcache"), CACHE_SIZE);
             } catch (IOException e) {
@@ -126,7 +124,7 @@ public class LeagueClient {
 
     private RestAdapter.Builder createDefaultRestAdapterBuilder(final Region region) {
         final RestAdapter.Builder restAdapterBuilder = new RestAdapter.Builder()
-                .setLogLevel(RestAdapter.LogLevel.BASIC)
+                .setLogLevel(RestAdapter.LogLevel.HEADERS)
                 .setConverter(new GsonConverter(this.mGson))
                 .setRequestInterceptor(new RequestInterceptor() {
                     @Override
@@ -185,6 +183,7 @@ public class LeagueClient {
         private LogLevel mLogLevel = LogLevel.NONE;
         private String mUserAgent = "LeagueApi (github.com/donmahallem/andlol)";
         private File mCacheDir;
+        private OkHttpClient mOkHttpClient;
 
         public ApiKey getApiKey() {
             return mApiKey;
@@ -208,11 +207,8 @@ public class LeagueClient {
             return this;
         }
 
-        public File getCacheDir() {
-            return mCacheDir;
-        }
 
-        public Builder setCacheDir(File file) {
+        public Builder cacheDir(File file) {
             this.mCacheDir = file;
             return this;
         }
@@ -231,6 +227,11 @@ public class LeagueClient {
                 throw new NullPointerException("You have to set an api token");
             }
             return new LeagueClient(this);
+        }
+
+        public Builder okHttpClient(OkHttpClient okHttpClient) {
+            this.mOkHttpClient = okHttpClient;
+            return this;
         }
     }
 

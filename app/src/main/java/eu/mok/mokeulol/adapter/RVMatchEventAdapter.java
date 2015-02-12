@@ -11,23 +11,32 @@ package eu.mok.mokeulol.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+import eu.m0k.lol.api.model.Champion;
 import eu.m0k.lol.api.model.Event;
+import eu.m0k.lol.api.model.Item;
+import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.MatchDetail;
 import eu.m0k.lol.api.model.Participant;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.TimeLineFrame;
 import eu.mok.mokeulol.R;
+import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.view.ChampionIconImageView;
 import eu.mok.mokeulol.viewholder.LayoutViewHolder;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import timber.log.Timber;
 
 public class RVMatchEventAdapter extends RecyclerView.Adapter<RVMatchEventAdapter.EventViewHolder> {
-    private final int TYPE_GENERAL = 0, TYPE_PURCHASE = 1, TYPE_CHAMPION_KILL = 2;
+    private final int TYPE_GENERAL = 0, TYPE_CHAMPION_KILL = 2, TYPE_ITEM_PURCHASE = 3,
+            TYPE_WARD_PLACED = 1, TYPE_SPELL_LEVEL_UP = 4;
     private MatchDetail mMatchDetail;
     private ArrayList<Event> mEvents = new ArrayList<Event>();
 
@@ -36,9 +45,20 @@ public class RVMatchEventAdapter extends RecyclerView.Adapter<RVMatchEventAdapte
         switch (viewType) {
             case TYPE_CHAMPION_KILL:
                 return new TimelineChampionKillViewHolder(parent);
+            case TYPE_ITEM_PURCHASE:
+                return new ItemEventViewHolder(parent);
+            case TYPE_WARD_PLACED:
+                return new WardEventViewHolder(parent);
+            case TYPE_SPELL_LEVEL_UP:
+                return new SpellLevelUpEventViewHolder(parent);
             default:
                 return new SimpleEventViewHolder(parent);
         }
+    }
+
+    @Override
+    public void onViewRecycled(EventViewHolder holder) {
+        holder.reset();
     }
 
     @Override
@@ -49,10 +69,17 @@ public class RVMatchEventAdapter extends RecyclerView.Adapter<RVMatchEventAdapte
     @Override
     public int getItemViewType(int position) {
         switch (this.mEvents.get(position).getEventType()) {
-            case ITEM_PURCHASED:
-                return TYPE_PURCHASE;
             case CHAMPION_KILL:
                 return TYPE_CHAMPION_KILL;
+            case ITEM_DESTROYED:
+            case ITEM_UNDO:
+            case ITEM_PURCHASED:
+            case ITEM_SOLD:
+                return TYPE_ITEM_PURCHASE;
+            case WARD_PLACED:
+                return TYPE_WARD_PLACED;
+            case SKILL_LEVEL_UP:
+                return TYPE_SPELL_LEVEL_UP;
             default:
                 return TYPE_GENERAL;
         }
@@ -80,9 +107,11 @@ public class RVMatchEventAdapter extends RecyclerView.Adapter<RVMatchEventAdapte
 
     static abstract class EventViewHolder extends LayoutViewHolder {
         private Event mEvent;
+        private TextView mTxtPlaytime;
 
         public EventViewHolder(ViewGroup viewGroup, int layout) {
             super(viewGroup, layout);
+            this.mTxtPlaytime = (TextView) this.itemView.findViewById(R.id.txtPlaytime);
         }
 
         public Event getEvent() {
@@ -92,11 +121,19 @@ public class RVMatchEventAdapter extends RecyclerView.Adapter<RVMatchEventAdapte
         public final void setEvent(Event event) {
             if (this.mEvent != event && event != null) {
                 this.mEvent = event;
+                this.mTxtPlaytime.setText(formatPlaytime(this.mEvent.getTimestamp()));
                 this.onEventUpdated(this.mEvent);
             }
         }
 
+        private String formatPlaytime(final long playtime) {
+            final long seconds = playtime / 1000L;
+            return "" + (seconds / 60) + ":" + (seconds % 60);
+        }
+
         protected abstract void onEventUpdated(final Event event);
+
+        protected abstract void reset();
     }
 
     class SimpleEventViewHolder extends EventViewHolder {
@@ -155,6 +192,145 @@ public class RVMatchEventAdapter extends RecyclerView.Adapter<RVMatchEventAdapte
                     this.mTxtTitle.setText(R.string.unknown_error);
             }
         }
+
+        @Override
+        protected void reset() {
+
+        }
+    }
+
+    class WardEventViewHolder extends EventViewHolder {
+        private TextView mTxtTitle;
+        private ImageView mIvIcon;
+
+        public WardEventViewHolder(ViewGroup viewGroup) {
+            super(viewGroup, R.layout.vh_timeline_event);
+            this.mTxtTitle = (TextView) this.itemView.findViewById(R.id.txtTitle);
+            this.mIvIcon = (ImageView) this.itemView.findViewById(R.id.ivIcon);
+        }
+
+        @Override
+        protected void onEventUpdated(Event event) {
+            if (event == null)
+                return;
+            this.mTxtTitle.setText(event.getEventType().name());
+            switch (event.getWardType()) {
+                case SIGHT_WARD:
+                    Util.getPicasso().load(Item.getUri(2044)).placeholder(R.drawable.ic_favorite).into(this.mIvIcon);
+                    break;
+                case VISION_WARD:
+                    Util.getPicasso().load(Item.getUri(2043)).placeholder(R.drawable.ic_favorite).into(this.mIvIcon);
+                    break;
+                case YELLOW_TRINKET:
+                    Util.getPicasso().load(Item.getUri(3340)).placeholder(R.drawable.ic_favorite).into(this.mIvIcon);
+                    break;
+                case YELLOW_TRINKET_UPGRADE:
+                    Util.getPicasso().load(Item.getUri(3361)).placeholder(R.drawable.ic_favorite).into(this.mIvIcon);
+                    break;
+            }
+        }
+
+        @Override
+        protected void reset() {
+            Util.getPicasso().cancelRequest(this.mIvIcon);
+            this.mIvIcon.setImageResource(R.drawable.ic_launcher);
+            this.mTxtTitle.setText("Ward Event");
+        }
+    }
+
+    class SpellLevelUpEventViewHolder extends EventViewHolder {
+        private TextView mTxtTitle;
+        private ImageView mIvIcon;
+        private Callback<Champion> CALLBACK = new Callback<Champion>() {
+            @Override
+            public void success(Champion champion, Response response) {
+                Util.getPicasso().load(champion.getSpells().get(getEvent().getSkillSlot() - 1).getImageUri()).placeholder(R.drawable.ic_favorite).into(mIvIcon);
+                SpellLevelUpEventViewHolder.this.mTxtTitle.setText(champion.getSpells().get(getEvent().getSkillSlot() - 1).getName());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        };
+
+        public SpellLevelUpEventViewHolder(ViewGroup viewGroup) {
+            super(viewGroup, R.layout.vh_timeline_event);
+            this.mTxtTitle = (TextView) this.itemView.findViewById(R.id.txtTitle);
+            this.mIvIcon = (ImageView) this.itemView.findViewById(R.id.ivIcon);
+        }
+
+        @Override
+        protected void onEventUpdated(Event event) {
+            if (event == null)
+                return;
+            Util.getLeagueApi().getStaticEndpoint(Region.EUW).getChampion(mMatchDetail.getParticipants().getParticipantById(event.getParticipantId()).getChampionId(), Locale.GERMAN, CALLBACK);
+
+        }
+
+        @Override
+        protected void reset() {
+            Util.getPicasso().cancelRequest(this.mIvIcon);
+            this.mTxtTitle.setText("Spell Skilled");
+            this.mIvIcon.setImageResource(R.drawable.ic_launcher);
+        }
+    }
+
+
+    class ItemEventViewHolder extends EventViewHolder {
+        private TextView mTxtTitle;
+        private ImageView mIvIcon, mIvItem;
+        private Callback<Item> CALLBACK = new Callback<Item>() {
+            @Override
+            public void success(Item item, Response response) {
+                if (getEvent().getItemId() == item.getId())
+                    mTxtTitle.setText(item.getName());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        };
+
+        public ItemEventViewHolder(ViewGroup viewGroup) {
+            super(viewGroup, R.layout.vh_timeline_event_item);
+            this.mTxtTitle = (TextView) this.itemView.findViewById(R.id.txtTitle);
+            this.mIvIcon = (ImageView) this.itemView.findViewById(R.id.ivIcon);
+            this.mIvItem = (ImageView) this.itemView.findViewById(R.id.ivItem);
+        }
+
+        @Override
+        protected void onEventUpdated(Event event) {
+            if (event == null)
+                return;
+            switch (event.getEventType()) {
+                case ITEM_DESTROYED:
+                    this.mTxtTitle.setText(R.string.item_destroyed);
+                    this.mIvIcon.setImageResource(R.drawable.ic_delete_grey600_18dp);
+                    break;
+                case ITEM_PURCHASED:
+                    this.mTxtTitle.setText(R.string.item_purchased);
+                    this.mIvIcon.setImageResource(R.drawable.ic_add_grey600_18dp);
+                    break;
+                case ITEM_SOLD:
+                    this.mTxtTitle.setText(R.string.item_sold);
+                    break;
+                case ITEM_UNDO:
+                    this.mTxtTitle.setText(R.string.item_undo);
+                    this.mIvIcon.setImageResource(R.drawable.ic_undo_grey600_18dp);
+                    break;
+            }
+            Util.getPicasso().load(Item.getUri(event.getItemId())).placeholder(R.drawable.ic_favorite).into(this.mIvItem);
+            Util.getLeagueApi().getStaticEndpoint(Region.EUW).getItem(event.getItemId(), Locale.GERMAN, CALLBACK);
+        }
+
+        @Override
+        protected void reset() {
+            Util.getPicasso().cancelRequest(this.mIvItem);
+            this.mTxtTitle.setText("Buy Item");
+            this.mIvIcon.setImageResource(R.drawable.ic_launcher);
+        }
     }
 
     class TimelineChampionKillViewHolder extends EventViewHolder {
@@ -177,6 +353,14 @@ public class RVMatchEventAdapter extends RecyclerView.Adapter<RVMatchEventAdapte
                 this.mIvChampionIcon1.loadChampionById(Region.EUW, killer.getChampionId());
             if (victim != null)
                 this.mIvChampionIcon2.loadChampionById(Region.EUW, victim.getChampionId());
+        }
+
+        @Override
+        protected void reset() {
+            Util.getPicasso().cancelRequest(this.mIvChampionIcon1);
+            Util.getPicasso().cancelRequest(this.mIvChampionIcon2);
+            this.mIvChampionIcon1.setImageResource(R.drawable.ic_launcher);
+            this.mIvChampionIcon2.setImageResource(R.drawable.ic_launcher);
         }
     }
 

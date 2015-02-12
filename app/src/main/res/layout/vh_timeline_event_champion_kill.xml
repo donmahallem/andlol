@@ -32,6 +32,12 @@
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textColor="@color/grey_800"/>
+
+        <TextView
+            android:id="@id/txtPlaytime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey_800"/>
     </LinearLayout>
 
     <eu.mok.mokeulol.view.ChampionIconImageView

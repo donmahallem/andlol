@@ -18,9 +18,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import eu.m0k.lol.api.model.Item;
-import eu.m0k.lol.api.model.ItemList;
-import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.Summoner;
 import eu.m0k.lol.api.model.SummonerList;
@@ -38,19 +35,6 @@ public class SummonerSearchActivity extends LeagueActivity {
     private RecyclerView mRecylcerView;
     private LinearLayoutManager mLinearLayoutManager;
     private ADAPTER mAdapter = new ADAPTER();
-    private Callback<ItemList> ITEMS_CALLBACK = new Callback<ItemList>() {
-        @Override
-        public void success(ItemList itemList, Response response) {
-            for (Item item : itemList)
-                if (item.getName().toLowerCase().contains(mSearchQuery.toLowerCase()))
-                    Log.d("items", "item: " + item.toString());
-        }
-
-        @Override
-        public void failure(RetrofitError error) {
-
-        }
-    };
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -85,7 +69,6 @@ public class SummonerSearchActivity extends LeagueActivity {
 
                 }
             });
-        Util.getLeagueApi().getStaticEndpoint(Region.EUW).getItems(Locale.ENGLISH_US, "5.1.2", ITEMS_CALLBACK);
     }
 
     @Override

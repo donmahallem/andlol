@@ -46,6 +46,9 @@
     <item name="ivIcon" type="id"/>
     <item name="ivChampionIcon1" type="id"/>
     <item name="ivChampionIcon2" type="id"/>
+    <item name="txtMatchType" type="id"/>
+    <item name="txtPlaytime" type="id"/>
+    <item name="ivItem" type="id"/>
 
 
     <!-- MENUS -->
