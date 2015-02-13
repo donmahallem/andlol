@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014.
+ * Copyright (c) 2015.
  *
  * Visit https://github.com/donmahallem/andlol for more info!
  *
@@ -149,7 +149,7 @@ public class ChampionSpell {
     }
 
     public String getImageUri() {
-        return Constants.PATH_IMG_SPELL + this.getImage().getFull();
+        return Constants.PATH_IMG_SPELL + this.getKey();
     }
 
     public static class SpellRange {

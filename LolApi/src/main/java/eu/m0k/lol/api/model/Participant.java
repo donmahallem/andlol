@@ -11,10 +11,18 @@ package eu.m0k.lol.api.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Participant {
     @Expose
     @SerializedName("participantId")
     private int mParticipantId;
+    @Expose
+    @SerializedName("summonerName")
+    private String mSummonerName;
+    @Expose
+    @SerializedName("profileIconId")
+    private long mProfileIconId;
     @Expose
     @SerializedName("teamId")
     private int mTeamId;
@@ -33,6 +41,28 @@ public class Participant {
     @Expose
     @SerializedName("timeline")
     private ParticipantTimeLine mTimeLine;
+    @Expose
+    @SerializedName("runes")
+    private ArrayList<Rune> mRunes;
+    @Expose
+    @SerializedName("masteries")
+    private ArrayList<Mastery> mMasteries;
+
+    public long getProfileIconId() {
+        return mProfileIconId;
+    }
+
+    public String getSummonerName() {
+        return mSummonerName;
+    }
+
+    public ArrayList<Rune> getRunes() {
+        return mRunes;
+    }
+
+    public ArrayList<Mastery> getMasteries() {
+        return mMasteries;
+    }
 
     public int getParticipantId() {
         return mParticipantId;

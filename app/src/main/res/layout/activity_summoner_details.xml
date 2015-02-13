@@ -6,10 +6,30 @@
   ~ Romanes eunt domus - Brian!
   -->
 
-<FrameLayout
-    android:id="@id/fgrContent"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-</FrameLayout>
+    <include
+        android:id="@id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <eu.mok.mokeulol.view.SlidingTabLayout
+        android:id="@id/slidingTabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?colorPrimary"
+        android:elevation="4dp"
+        />
+
+    <android.support.v4.view.ViewPager
+        android:id="@id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@android:color/white"/>
+</LinearLayout>

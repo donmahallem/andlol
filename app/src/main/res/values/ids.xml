@@ -43,6 +43,16 @@
     <item name="txtKills" type="id"/>
     <item name="txtAssists" type="id"/>
     <item name="txtDeaths" type="id"/>
+    <item name="ivIcon" type="id"/>
+    <item name="ivChampionIcon1" type="id"/>
+    <item name="ivChampionIcon2" type="id"/>
+    <item name="txtMatchType" type="id"/>
+    <item name="txtPlaytime" type="id"/>
+    <item name="ivItem" type="id"/>
+    <item name="slidingTabs" type="id"/>
+    <item name="txtStatus" type="id"/>
+    <item name="ivSummonerIcon" type="id"/>
+    <item name="txtChampionName" type="id"/>
 
 
     <!-- MENUS -->

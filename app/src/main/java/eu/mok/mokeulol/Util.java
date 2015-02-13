@@ -94,7 +94,7 @@ public class Util {
 
     public static LeagueClient getLeagueApi() {
         if (mLeagueClient == null) {
-            mLeagueClient = new LeagueClient.Builder().setApiKey(getLeagueApiToken()).build();
+            mLeagueClient = new LeagueClient.Builder().setApiKey(getLeagueApiToken()).cacheDir(new File(mContext.getCacheDir(), "api")).build();
         }
         return mLeagueClient;
     }

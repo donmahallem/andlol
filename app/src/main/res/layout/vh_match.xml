@@ -72,6 +72,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/search_summoner"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+            <TextView
+                android:id="@id/txtMatchType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_summoner"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
         </LinearLayout>
 
         <LinearLayout

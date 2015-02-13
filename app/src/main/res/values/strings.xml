@@ -46,4 +46,25 @@
     <string name="favorites">Favorites</string>
     <string name="victory">Victory</string>
     <string name="defeat">Defeat</string>
+    <string name="ascended_event">Ascended Event</string>
+    <string name="building_kill">Building Kill</string>
+    <string name="capture_point">Capture Point</string>
+    <string name="champion_kill">Champion Kill</string>
+    <string name="elite_monster_kill">Elite Monster Kill</string>
+    <string name="item_destroyed">Item destroyed</string>
+    <string name="item_purchased">Item purchased</string>
+    <string name="item_sold">Item sold</string>
+    <string name="item_undo">Item undo</string>
+    <string name="poro_king_summon">Poro King summon</string>
+    <string name="skill_level_up">Skill Level Up</string>
+    <string name="ward_kill">Ward killed</string>
+    <string name="ward_placed">Ward placed</string>
+    <string name="error_requesting_server">Error requesting Server</string>
+    <string name="error_player_not_in_match">Player isn\'t in a Match</string>
+    <string name="match_history">Match History</string>
+    <string name="current_game">Current Game</string>
+    <string name="runes">Runes</string>
+    <string name="masteries">Masteries</string>
+    <string name="league">League</string>
+    <string name="summary">Summary</string>
 </resources>

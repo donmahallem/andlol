@@ -22,6 +22,8 @@ public interface Constants {
     public final static String PATH_IMG_CHAMPION_ICON = SCHEME + "://" + IMAGE + "/" + CHAMPION_ICON + "/";
     public final static String PATH_IMG_CHAMPION_SKIN = SCHEME + "://" + IMAGE + "/" + CHAMPION_SKIN + "/";
     public final static String PATH_IMG_MASTERY = SCHEME + "://" + IMAGE + "/" + MASTERY + "/";
+    public final static String ITEM = "item";
+    public final static String PATH_IMG_ITEM_ICON = SCHEME + "://" + IMAGE + "/" + ITEM + "/";
     public final static String LOADING = "loading";
     public final static String PATH_IMG_CHAMPION_LOADING = SCHEME + "://" + IMAGE + "/" + LOADING + "/";
     public final static String SPLASH = "splash";

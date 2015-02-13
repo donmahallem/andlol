@@ -12,9 +12,21 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Event {
 
+    public static Comparator<Event> SortDescending = new Comparator<Event>() {
+        @Override
+        public int compare(Event lhs, Event rhs) {
+            if (lhs.getTimestamp() - rhs.getTimestamp() < 0)
+                return -1;
+            else if (lhs.getTimestamp() - rhs.getTimestamp() < 0)
+                return 1;
+            else
+                return 0;
+        }
+    };
     @Expose
     @SerializedName("ascendedType")
     private AscendedType mAscendedType;
@@ -68,7 +80,7 @@ public class Event {
     private int mTeamId;
     @Expose
     @SerializedName("timestamp")
-    private int mTimestamp;
+    private long mTimestamp;
     @Expose
     @SerializedName("towerType")
     private TowerType mTowerType;
@@ -79,14 +91,28 @@ public class Event {
     @SerializedName("wardType")
     private WardType mWardType;
 
+    /**
+     * The ascended type of the event. Only present if relevant. Note that CLEAR_ASCENDED refers to when a participants kills the ascended player.
+     *
+     * @return the type of ascension
+     */
     public AscendedType getAscendedType() {
         return mAscendedType;
     }
 
+    /**
+     * The assisting participant IDs of the event. Only present if relevant.
+     * @return
+     */
     public ArrayList<Integer> getAssistingParticipantIds() {
         return mAssistingParticipantIds;
     }
 
+    /**
+     * The building type of the event. Only present if relevant.
+     *
+     * @return
+     */
     public BuildingType getBuildingType() {
         return mBuildingType;
     }
@@ -147,7 +173,7 @@ public class Event {
         return mTeamId;
     }
 
-    public int getTimestamp() {
+    public long getTimestamp() {
         return mTimestamp;
     }
 

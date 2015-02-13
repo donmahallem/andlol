@@ -12,8 +12,19 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class MatchSummary {
+    public static Comparator<MatchSummary> SORT_DESC = new Comparator<MatchSummary>() {
+        @Override
+        public int compare(MatchSummary lhs, MatchSummary rhs) {
+            if (lhs.getMatchCreation() < rhs.getMatchCreation())
+                return 1;
+            else if (lhs.getMatchCreation() > rhs.getMatchCreation())
+                return -1;
+            else return 0;
+        }
+    };
     @Expose
     @SerializedName("mapId")
     private int mMapId;

@@ -22,7 +22,7 @@ import eu.mok.mokeulol.view.SummonerSpellImageView;
 public class MatchViewHolder extends LayoutViewHolder implements View.OnClickListener {
     private SummonerSpellImageView mIvSummonerSpell1, mIvSummonerSpell2;
     private ChampionIconImageView mIvChampionIcon;
-    private TextView mTxtTitle, mTxtDeaths, mTxtKills, mTxtAssists;
+    private TextView mTxtTitle, mTxtDeaths, mTxtKills, mTxtAssists, mTxtMatchType;
     private MatchSummary mMatch;
     private OnMatchSelectListener mOnMatchSelectListener;
 
@@ -32,6 +32,7 @@ public class MatchViewHolder extends LayoutViewHolder implements View.OnClickLis
         this.mTxtKills = (TextView) this.itemView.findViewById(R.id.txtKills);
         this.mTxtAssists = (TextView) this.itemView.findViewById(R.id.txtAssists);
         this.mTxtDeaths = (TextView) this.itemView.findViewById(R.id.txtDeaths);
+        this.mTxtMatchType = (TextView) this.itemView.findViewById(R.id.txtMatchType);
         this.mIvChampionIcon = (ChampionIconImageView) this.itemView.findViewById(R.id.ivChampionIcon);
         this.mIvSummonerSpell1 = (SummonerSpellImageView) this.itemView.findViewById(R.id.ivSummonerSpell1);
         this.mIvSummonerSpell2 = (SummonerSpellImageView) this.itemView.findViewById(R.id.ivSummonerSpell2);
@@ -56,6 +57,7 @@ public class MatchViewHolder extends LayoutViewHolder implements View.OnClickLis
             this.mTxtKills.setText("" + participant.getStats().getKills());
             this.mTxtAssists.setText("" + participant.getStats().getAssists());
             this.mTxtDeaths.setText("" + participant.getStats().getDeaths());
+            this.mTxtMatchType.setText(this.mMatch.getMatchType().name() + " - " + this.mMatch.getMatchMode().name() + " - " + this.mMatch.getQueueType().name());
         }
     }
 

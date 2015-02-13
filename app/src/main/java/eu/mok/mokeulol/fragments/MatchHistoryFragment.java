@@ -69,7 +69,6 @@ public class MatchHistoryFragment extends LeagueFragment implements SwipeRefresh
         super.onCreate(savedInstanceState);
         this.mSummonerId = this.getArguments().getLong(KEY_SUMMONER_ID);
         this.mRegion = (Region) this.getArguments().getSerializable(KEY_REGION);
-        this.mLayoutManager = new LinearLayoutManager(Util.getContext());
     }
 
     @Override
@@ -87,6 +86,7 @@ public class MatchHistoryFragment extends LeagueFragment implements SwipeRefresh
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         this.mRVMatchAdapter.setOnMatchSelectListener(this);
+        this.mLayoutManager = new LinearLayoutManager(view.getContext());
         this.mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         this.mRecyclerView.setLayoutManager(this.mLayoutManager);
         this.mRecyclerView.setAdapter(this.mRVMatchAdapter);
