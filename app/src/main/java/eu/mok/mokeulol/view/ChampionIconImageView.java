@@ -29,7 +29,7 @@ public class ChampionIconImageView extends ImageView {
         @Override
         public void success(Champion champion, Response response) {
             if (champion.getId() == mChampionId) {
-                ChampionIconImageView.this.setSummonerSpell(champion);
+                ChampionIconImageView.this.setChampion(champion);
             }
         }
 
@@ -60,7 +60,11 @@ public class ChampionIconImageView extends ImageView {
         Util.getLeagueApi().getStaticEndpoint(region).getChampion(id, Locale.ENGLISH_US, SPELL_CALLBACK);
     }
 
-    public void setSummonerSpell(final Champion summonerSpell) {
+    public Champion getChampion() {
+        return this.mChampion;
+    }
+
+    public void setChampion(final Champion summonerSpell) {
         if (summonerSpell != null) {
             this.mChampion = summonerSpell;
             Util.getPicasso().cancelRequest(this);
@@ -69,9 +73,5 @@ public class ChampionIconImageView extends ImageView {
                     .error(R.drawable.ic_star_grey600_24dp)
                     .into(this);
         }
-    }
-
-    public Champion getChampion() {
-        return this.mChampion;
     }
 }

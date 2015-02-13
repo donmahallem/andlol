@@ -51,6 +51,8 @@
     <item name="ivItem" type="id"/>
     <item name="slidingTabs" type="id"/>
     <item name="txtStatus" type="id"/>
+    <item name="ivSummonerIcon" type="id"/>
+    <item name="txtChampionName" type="id"/>
 
 
     <!-- MENUS -->

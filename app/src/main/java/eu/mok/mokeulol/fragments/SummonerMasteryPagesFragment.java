@@ -17,37 +17,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import eu.m0k.lol.api.model.MatchHistory;
-import eu.m0k.lol.api.model.MatchSummary;
+import eu.m0k.lol.api.model.MasteryMap;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.Summoner;
+import eu.m0k.lol.api.model.SummonerIds;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
-import eu.mok.mokeulol.activities.MatchDetailActivity;
-import eu.mok.mokeulol.adapter.RVMatchAdapter;
-import eu.mok.mokeulol.viewholder.MatchViewHolder;
+import eu.mok.mokeulol.adapter.RVMasteryPageAdapter;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MatchHistoryFragment extends LeagueFragment implements SwipeRefreshLayout.OnRefreshListener, MatchViewHolder.OnMatchSelectListener {
+public class SummonerMasteryPagesFragment extends LeagueFragment implements SwipeRefreshLayout.OnRefreshListener {
     private final static String KEY_SUMMONER_ID = "summonerId", KEY_REGION = "region";
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private RVMatchAdapter mRVMatchAdapter = new RVMatchAdapter();
+    private RVMasteryPageAdapter mRVMatchAdapter = new RVMasteryPageAdapter();
     private long mSummonerId = -1;
     private Region mRegion;
-    private Callback<MatchHistory> MATCH_CALLBACK = new Callback<MatchHistory>() {
+    private Callback<MasteryMap> MASTERY_CALLBACK = new Callback<MasteryMap>() {
         @Override
-        public void success(MatchHistory matches, Response response) {
-            MatchHistoryFragment.this.mRVMatchAdapter.setMatches(matches);
-            MatchHistoryFragment.this.mSwipeRefreshLayout.setRefreshing(false);
+        public void success(MasteryMap matches, Response response) {
+            SummonerMasteryPagesFragment.this.mRVMatchAdapter.setMasteryPages(matches.get(null));
+            SummonerMasteryPagesFragment.this.mSwipeRefreshLayout.setRefreshing(false);
         }
 
         @Override
         public void failure(RetrofitError error) {
-            MatchHistoryFragment.this.mSwipeRefreshLayout.setRefreshing(false);
+            SummonerMasteryPagesFragment.this.mSwipeRefreshLayout.setRefreshing(false);
         }
     };
 
@@ -56,7 +54,7 @@ public class MatchHistoryFragment extends LeagueFragment implements SwipeRefresh
     }
 
     public static Fragment getInstance(Region region, long summonerId) {
-        final MatchHistoryFragment matchHistoryFragment = new MatchHistoryFragment();
+        final SummonerMasteryPagesFragment matchHistoryFragment = new SummonerMasteryPagesFragment();
         final Bundle bundle = new Bundle();
         bundle.putLong(KEY_SUMMONER_ID, summonerId);
         bundle.putSerializable(KEY_REGION, region);
@@ -73,7 +71,7 @@ public class MatchHistoryFragment extends LeagueFragment implements SwipeRefresh
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_summoner_match_history, container, false);
+        return inflater.inflate(R.layout.fragment_summoner_mastery_pages, container, false);
     }
 
     @Override
@@ -85,7 +83,6 @@ public class MatchHistoryFragment extends LeagueFragment implements SwipeRefresh
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        this.mRVMatchAdapter.setOnMatchSelectListener(this);
         this.mLayoutManager = new LinearLayoutManager(view.getContext());
         this.mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         this.mRecyclerView.setLayoutManager(this.mLayoutManager);
@@ -95,18 +92,17 @@ public class MatchHistoryFragment extends LeagueFragment implements SwipeRefresh
     @Override
     public void onResume() {
         super.onResume();
-        Util.getLeagueApi().getMatchHistoryEndpoint(this.mRegion).getMatchHistory(this.mSummonerId, 0, 15, MATCH_CALLBACK);
-        this.mSwipeRefreshLayout.setRefreshing(true);
+        refresh();
     }
 
     @Override
     public void onRefresh() {
-        Util.getLeagueApi().getMatchHistoryEndpoint(this.mRegion).getMatchHistory(this.mSummonerId, 0, 15, MATCH_CALLBACK);
+        refresh();
+    }
+
+    private void refresh() {
+        Util.getLeagueApi().getSummonerEndpoint(this.mRegion).getMasteries(SummonerIds.create(this.mSummonerId), MASTERY_CALLBACK);
         this.mSwipeRefreshLayout.setRefreshing(true);
     }
 
-    @Override
-    public void onMatchSelected(final MatchSummary match) {
-        startActivity(MatchDetailActivity.generateIntent(getActivity(), match.getRegion(), match.getMatchId()));
-    }
 }

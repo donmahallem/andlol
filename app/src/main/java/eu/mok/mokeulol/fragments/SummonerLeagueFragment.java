@@ -30,7 +30,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MatchHistoryFragment extends LeagueFragment implements SwipeRefreshLayout.OnRefreshListener, MatchViewHolder.OnMatchSelectListener {
+public class SummonerLeagueFragment extends LeagueFragment implements SwipeRefreshLayout.OnRefreshListener, MatchViewHolder.OnMatchSelectListener {
     private final static String KEY_SUMMONER_ID = "summonerId", KEY_REGION = "region";
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -41,13 +41,13 @@ public class MatchHistoryFragment extends LeagueFragment implements SwipeRefresh
     private Callback<MatchHistory> MATCH_CALLBACK = new Callback<MatchHistory>() {
         @Override
         public void success(MatchHistory matches, Response response) {
-            MatchHistoryFragment.this.mRVMatchAdapter.setMatches(matches);
-            MatchHistoryFragment.this.mSwipeRefreshLayout.setRefreshing(false);
+            SummonerLeagueFragment.this.mRVMatchAdapter.setMatches(matches);
+            SummonerLeagueFragment.this.mSwipeRefreshLayout.setRefreshing(false);
         }
 
         @Override
         public void failure(RetrofitError error) {
-            MatchHistoryFragment.this.mSwipeRefreshLayout.setRefreshing(false);
+            SummonerLeagueFragment.this.mSwipeRefreshLayout.setRefreshing(false);
         }
     };
 
@@ -56,7 +56,7 @@ public class MatchHistoryFragment extends LeagueFragment implements SwipeRefresh
     }
 
     public static Fragment getInstance(Region region, long summonerId) {
-        final MatchHistoryFragment matchHistoryFragment = new MatchHistoryFragment();
+        final SummonerLeagueFragment matchHistoryFragment = new SummonerLeagueFragment();
         final Bundle bundle = new Bundle();
         bundle.putLong(KEY_SUMMONER_ID, summonerId);
         bundle.putSerializable(KEY_REGION, region);
@@ -73,7 +73,7 @@ public class MatchHistoryFragment extends LeagueFragment implements SwipeRefresh
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_summoner_match_history, container, false);
+        return inflater.inflate(R.layout.fragment_summoner_league, container, false);
     }
 
     @Override
