@@ -27,6 +27,8 @@ import eu.m0k.lol.api.model.ItemList;
 import eu.m0k.lol.api.model.Ladder;
 import eu.m0k.lol.api.model.LeagueEntryMap;
 import eu.m0k.lol.api.model.MasteryMap;
+import eu.m0k.lol.api.model.MasteryPagesResponse;
+import eu.m0k.lol.api.model.MasteryTreeType;
 import eu.m0k.lol.api.model.MatchHistory;
 import eu.m0k.lol.api.model.NameList;
 import eu.m0k.lol.api.model.NameMap;
@@ -99,6 +101,8 @@ public class LeagueClient {
         gsonBuilder.registerTypeAdapter(MatchHistory.class, new MatchHistory.TypeAdapter());
         gsonBuilder.registerTypeAdapter(Region.class, new Region.TypeAdapter());
         gsonBuilder.registerTypeAdapter(Platform.class, new Platform.TypeAdapter());
+        gsonBuilder.registerTypeAdapter(MasteryPagesResponse.class, new MasteryPagesResponse.TypeAdapter());
+        gsonBuilder.registerTypeAdapter(MasteryTreeType.class, new MasteryTreeType.TypeAdapter());
         this.mGson = gsonBuilder.create();
         this.mApiKey = builder.getApiKey();
         this.mLogLevel = builder.getLogLevel();
@@ -195,13 +199,13 @@ public class LeagueClient {
             return mApiKey;
         }
 
+        public Builder setApiKey(String apiKey) {
+            return this.setApiKey(new ApiKey(apiKey));
+        }
+
         public Builder setApiKey(ApiKey apiKey) {
             this.mApiKey = apiKey;
             return this;
-        }
-
-        public Builder setApiKey(String apiKey) {
-            return this.setApiKey(new ApiKey(apiKey));
         }
 
         public String getUserAgent() {

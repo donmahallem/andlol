@@ -16,7 +16,9 @@ import eu.m0k.lol.api.model.Item;
 import eu.m0k.lol.api.model.ItemList;
 import eu.m0k.lol.api.model.LeagueEntryMap;
 import eu.m0k.lol.api.model.Locale;
+import eu.m0k.lol.api.model.Masteries;
 import eu.m0k.lol.api.model.MasteryMap;
+import eu.m0k.lol.api.model.MasteryPagesResponse;
 import eu.m0k.lol.api.model.MatchDetail;
 import eu.m0k.lol.api.model.NameMap;
 import eu.m0k.lol.api.model.Platform;
@@ -167,6 +169,34 @@ public class Lol {
         @GET("/api/lol/static-data/{region}/" + VERSION + "/summoner-spell/{spellId}")
         public void getSummonerSpell(@Path("spellId") final int spellId, final Callback<SummonerSpell> callback);
 
+        @Headers({
+                "Cache-Control: max-stale=" + WEEK_1,
+                CUSTOM_CACHE + ": " + DAY_1
+        })
+        @GET("/api/lol/static-data/{region}/" + VERSION + "/mastery?masteryListData=all")
+        public Masteries getMasteries(@Query("locale") final Locale locale);
+
+        @Headers({
+                "Cache-Control: max-stale=" + WEEK_1,
+                CUSTOM_CACHE + ": " + DAY_1
+        })
+        @GET("/api/lol/static-data/{region}/" + VERSION + "/mastery?masteryListData=all")
+        public void getMasteries(@Query("locale") final Locale locale, final Callback<Masteries> callback);
+
+        @Headers({
+                "Cache-Control: max-stale=" + WEEK_1,
+                CUSTOM_CACHE + ": " + DAY_1
+        })
+        @GET("/api/lol/static-data/{region}/" + VERSION + "/mastery/{masteryId}?masteryListData=all")
+        public Masteries getMasteries(@Path("masteryId") final String masteryId, @Query("locale") final Locale locale);
+
+        @Headers({
+                "Cache-Control: max-stale=" + WEEK_1,
+                CUSTOM_CACHE + ": " + DAY_1
+        })
+        @GET("/api/lol/static-data/{region}/" + VERSION + "/mastery/{masteryId}?masteryListData=all")
+        public void getMasteries(@Path("masteryId") final String masteryId, @Query("locale") final Locale locale, final Callback<Masteries> callback);
+
     }
 
     public static interface CurrentGame {
@@ -249,6 +279,20 @@ public class Lol {
         })
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/masteries")
         public void getMasteries(@Path("summonerIds") final SummonerIds summonerIds, final Callback<MasteryMap> callback);
+
+        @Headers({
+                "Cache-Control: max-stale=" + WEEK_1,
+                CUSTOM_CACHE + ": " + DAY_1
+        })
+        @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerId}/masteries")
+        public MasteryPagesResponse getMasteryPages(@Path("summonerId") final long summonerId);
+
+        @Headers({
+                "Cache-Control: max-stale=" + WEEK_1,
+                CUSTOM_CACHE + ": " + DAY_1
+        })
+        @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerId}/masteries")
+        public void getMasteryPages(@Path("summonerId") final long summonerId, final Callback<MasteryPagesResponse> callback);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
