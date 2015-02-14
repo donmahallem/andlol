@@ -15,6 +15,7 @@ import eu.m0k.lol.api.model.CurrentGameInfo;
 import eu.m0k.lol.api.model.Item;
 import eu.m0k.lol.api.model.ItemList;
 import eu.m0k.lol.api.model.LeagueEntryMap;
+import eu.m0k.lol.api.model.LeagueSummonerMap;
 import eu.m0k.lol.api.model.Locale;
 import eu.m0k.lol.api.model.Masteries;
 import eu.m0k.lol.api.model.MasteryMap;
@@ -330,43 +331,57 @@ public class Lol {
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
-        @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}/entry")
-        public void getLeagueForSummoner(@Path("region") final Region region, @Path("summonerIds") final long... summonerIds);
+        @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}")
+        public LeagueSummonerMap getLeague(@Path("summonerIds") final SummonerIds summonerIds);
+
+        @Headers({
+                "Cache-Control: max-stale=" + WEEK_1,
+                CUSTOM_CACHE + ": " + DAY_1
+        })
+        @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}")
+        public void getLeague(@Path("summonerIds") final SummonerIds summonerIds, final Callback<LeagueSummonerMap> callback);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}/entry")
-        public LeagueEntryMap getLeagueEntryForSummoner(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds);
+        public void getLeagueForSummoner(@Path("summonerIds") final long... summonerIds);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}/entry")
-        public void getLeagueEntryForSummoner(@Path("region") final Region region, @Path("summonerIds") final SummonerIds summonerIds, final Callback<LeagueEntryMap> callback);
+        public LeagueEntryMap getLeagueEntryForSummoner(@Path("summonerIds") final SummonerIds summonerIds);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}/entry")
-        public void getLeagueForTeam(@Path("region") final Region region, @Path("summonerIds") final long... teamIds);
+        public void getLeagueEntryForSummoner(@Path("summonerIds") final SummonerIds summonerIds, final Callback<LeagueEntryMap> callback);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}/entry")
-        public void getLeagueEntriesForTeam(@Path("region") final Region region, @Path("summonerIds") final long... teamIds);
+        public void getLeagueForTeam(@Path("summonerIds") final long... teamIds);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}/entry")
-        public void getChallenger(@Path("region") final Region region);
+        public void getLeagueEntriesForTeam(@Path("summonerIds") final long... teamIds);
+
+        @Headers({
+                "Cache-Control: max-stale=" + WEEK_1,
+                CUSTOM_CACHE + ": " + DAY_1
+        })
+        @GET("/api/lol/{region}/" + VERSION + "/league/by-summoner/{summonerIds}/entry")
+        public void getChallenger();
     }
 
     public static interface MatchHistory {
