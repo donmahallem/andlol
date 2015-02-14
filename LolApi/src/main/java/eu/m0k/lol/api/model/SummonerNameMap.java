@@ -20,26 +20,26 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class SummonerList extends HashMap<Long, Summoner> {
+public class SummonerNameMap extends HashMap<String, Summoner> {
 
-    public static final class TypeAdapter implements JsonDeserializer<SummonerList>, JsonSerializer<SummonerList> {
+    public static final class TypeAdapter implements JsonDeserializer<SummonerNameMap>, JsonSerializer<SummonerNameMap> {
 
         @Override
-        public SummonerList deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            SummonerList list = new SummonerList();
+        public SummonerNameMap deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            SummonerNameMap list = new SummonerNameMap();
             Iterator<Entry<String, JsonElement>> keys = json.getAsJsonObject().entrySet().iterator();
             while (keys.hasNext()) {
                 Entry key = keys.next();
-                list.put(Long.parseLong((String) key.getKey()), (Summoner) context.deserialize((JsonElement) key.getValue(), Summoner.class));
+                list.put((String) key.getKey(), (Summoner) context.deserialize((JsonElement) key.getValue(), Summoner.class));
             }
             return list;
         }
 
         @Override
-        public JsonElement serialize(SummonerList src, Type typeOfSrc, JsonSerializationContext context) {
+        public JsonElement serialize(SummonerNameMap src, Type typeOfSrc, JsonSerializationContext context) {
             JsonObject object = new JsonObject();
-            for (Long key : src.keySet()) {
-                object.add("" + key, context.serialize(src.get(key)));
+            for (String key : src.keySet()) {
+                object.add(key, context.serialize(src.get(key)));
             }
             return object;
         }

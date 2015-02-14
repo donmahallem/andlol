@@ -27,6 +27,7 @@ import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.RuneMap;
 import eu.m0k.lol.api.model.SummonerIds;
 import eu.m0k.lol.api.model.SummonerList;
+import eu.m0k.lol.api.model.SummonerNameMap;
 import eu.m0k.lol.api.model.SummonerNames;
 import eu.m0k.lol.api.model.SummonerSpell;
 import eu.m0k.lol.api.model.VersionList;
@@ -244,14 +245,14 @@ public class Lol {
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/summoner/by-name/{summonerNames}")
-        public SummonerList getSummonersByName(@Path("summonerNames") final SummonerNames summonerNames);
+        public SummonerNameMap getSummonersByName(@Path("summonerNames") final SummonerNames summonerNames);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/summoner/by-name/{summonerNames}")
-        public void getSummonersByName(@Path("summonerNames") final SummonerNames summonerNames, final Callback<SummonerList> callback);
+        public void getSummonersByName(@Path("summonerNames") final SummonerNames summonerNames, final Callback<SummonerNameMap> callback);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
