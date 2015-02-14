@@ -24,9 +24,9 @@ import eu.m0k.lol.api.model.SummonerList;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.fragments.ActiveMatchFragment;
-import eu.mok.mokeulol.fragments.MatchHistoryFragment;
 import eu.mok.mokeulol.fragments.SummonerLeagueFragment;
 import eu.mok.mokeulol.fragments.SummonerMasteryPagesFragment;
+import eu.mok.mokeulol.fragments.SummonerMatchHistoryFragment;
 import eu.mok.mokeulol.fragments.SummonerRunePagesFragment;
 import eu.mok.mokeulol.view.SlidingTabLayout;
 import retrofit.Callback;
@@ -119,7 +119,7 @@ public class SummonerDetailsActivity extends LeagueActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 1:
-                    return MatchHistoryFragment.getInstance(mRegion, mSummonerId);
+                    return SummonerMatchHistoryFragment.getInstance(mRegion, mSummonerId);
                 case 2:
                     return ActiveMatchFragment.getInstance(mRegion, mSummonerId);
                 case 3:
@@ -129,7 +129,7 @@ public class SummonerDetailsActivity extends LeagueActivity {
                 case 5:
                     return SummonerMasteryPagesFragment.getInstance(mRegion, mSummonerId);
                 default:
-                    return MatchHistoryFragment.getInstance(mRegion, mSummonerId);
+                    return SummonerMatchHistoryFragment.getInstance(mRegion, mSummonerId);
             }
         }
 

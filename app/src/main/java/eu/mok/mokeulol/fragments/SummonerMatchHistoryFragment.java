@@ -15,38 +15,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import eu.m0k.lol.api.model.LeagueSummonerMap;
+import eu.m0k.lol.api.model.MatchHistory;
+import eu.m0k.lol.api.model.MatchSummary;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.Summoner;
-import eu.m0k.lol.api.model.SummonerIds;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
-import eu.mok.mokeulol.adapter.RVLeagueSummonerAdapter;
+import eu.mok.mokeulol.activities.MatchDetailActivity;
+import eu.mok.mokeulol.adapter.RVMatchAdapter;
+import eu.mok.mokeulol.viewholder.MatchViewHolder;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import timber.log.Timber;
 
-public class SummonerLeagueFragment extends RefreshLayoutFragment {
+public class SummonerMatchHistoryFragment extends RefreshLayoutFragment implements MatchViewHolder.OnMatchSelectListener {
     private LinearLayoutManager mLinearLayoutManager;
-    private RVLeagueSummonerAdapter mRVLeagueSummonerAdapter;
-
-    private Callback<LeagueSummonerMap> LEAGUE_CALLBACK=new Callback<LeagueSummonerMap>() {
+    private RVMatchAdapter mRVMatchAdapter;
+    private Callback<MatchHistory> MATCH_CALLBACK = new Callback<MatchHistory>() {
         @Override
-        public void success(LeagueSummonerMap leagueEntryMap, Response response) {
-            Timber.d("success - " + leagueEntryMap);
-            if (leagueEntryMap.containsKey(getSummonerId())) {
-                if (leagueEntryMap.get(getSummonerId()).getRankedSolo5x5().size() > 0)
-                    SummonerLeagueFragment.this.mRVLeagueSummonerAdapter
-                            .setLeague(leagueEntryMap.get(getSummonerId()).getRankedSolo5x5().get(0));
-            }
-            SummonerLeagueFragment.this.setStatus(Status.LOADED);
+        public void success(MatchHistory matches, Response response) {
+            SummonerMatchHistoryFragment.this.mRVMatchAdapter.setMatches(matches);
+            SummonerMatchHistoryFragment.this.setStatus(Status.LOADED);
         }
 
         @Override
         public void failure(RetrofitError error) {
-            Timber.d("failure - " + error.getLocalizedMessage());
-            SummonerLeagueFragment.this.setStatus(Status.ERROR);
+            SummonerMatchHistoryFragment.this.setStatus(Status.ERROR);
         }
     };
 
@@ -55,13 +49,14 @@ public class SummonerLeagueFragment extends RefreshLayoutFragment {
     }
 
     public static Fragment getInstance(Region region, long summonerId) {
-        final SummonerLeagueFragment matchHistoryFragment = new SummonerLeagueFragment();
+        final SummonerMatchHistoryFragment summonerMatchHistoryFragment = new SummonerMatchHistoryFragment();
         final Bundle bundle = new Bundle();
         bundle.putLong(KEY_SUMMONER_ID, summonerId);
         bundle.putSerializable(KEY_REGION, region);
-        matchHistoryFragment.setArguments(bundle);
-        return matchHistoryFragment;
+        summonerMatchHistoryFragment.setArguments(bundle);
+        return summonerMatchHistoryFragment;
     }
+
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_summoner_match_history, container, false);
@@ -71,9 +66,9 @@ public class SummonerLeagueFragment extends RefreshLayoutFragment {
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.mLinearLayoutManager = new LinearLayoutManager(view.getContext());
-        this.mRVLeagueSummonerAdapter = new RVLeagueSummonerAdapter();
+        this.mRVMatchAdapter = new RVMatchAdapter();
         this.getRecyclerView().setLayoutManager(this.mLinearLayoutManager);
-        this.getRecyclerView().setAdapter(this.mRVLeagueSummonerAdapter);
+        this.getRecyclerView().setAdapter(this.mRVMatchAdapter);
     }
 
     @Override
@@ -88,10 +83,12 @@ public class SummonerLeagueFragment extends RefreshLayoutFragment {
     }
 
     protected void refresh() {
-        Util.getLeagueApi().getLeagueEndpoint(this.getRegion()).getLeague(SummonerIds.create(this.getSummonerId()), LEAGUE_CALLBACK);
+        Util.getLeagueApi().getMatchHistoryEndpoint(this.getRegion()).getMatchHistory(this.getSummonerId(), 0, 15, MATCH_CALLBACK);
         this.setStatus(Status.LOADING);
     }
 
+    @Override
+    public void onMatchSelected(final MatchSummary match) {
+        startActivity(MatchDetailActivity.generateIntent(getActivity(), match.getRegion(), match.getMatchId()));
+    }
 }
-
-

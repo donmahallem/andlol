@@ -8,17 +8,49 @@
   ~ Romanes eunt domus - Brian!
   -->
 
-<android.support.v4.widget.SwipeRefreshLayout
-    android:id="@id/swipe_refresh_container"
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@id/recyclerView"
+    <RelativeLayout
+        android:id="@id/loadingContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <ProgressBar
+            android:id="@id/progressBar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/txtStatus"
+            android:layout_centerHorizontal="true"/>
 
-</android.support.v4.widget.SwipeRefreshLayout>
+        <TextView
+            android:id="@id/txtStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/loading"/>
+
+        <Button
+            android:id="@id/btnRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtStatus"
+            android:layout_centerHorizontal="true"
+            android:text="@string/retry"/>
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@id/swipe_refresh_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
+</FrameLayout>
