@@ -15,13 +15,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import eu.m0k.lol.api.model.Region;
+import eu.m0k.lol.api.model.Summoner;
 import eu.mok.mokeulol.R;
 
-public class SummonerDetailFragment extends LeagueFragment {
-    public static Fragment getInstance() {
-        return new SummonerDetailFragment();
+public class SummonerOverviewFragment extends LeagueFragment {
+    private final static String KEY_SUMMONER_ID = "summonerId", KEY_REGION = "region";
+
+    public static Fragment getInstance(Region region, Summoner summoner) {
+        return getInstance(region, summoner.getId());
     }
 
+    public static Fragment getInstance(Region region, long summonerId) {
+        final SummonerOverviewFragment summonerOverviewFragment = new SummonerOverviewFragment();
+        final Bundle bundle = new Bundle();
+        bundle.putLong(KEY_SUMMONER_ID, summonerId);
+        bundle.putSerializable(KEY_REGION, region);
+        summonerOverviewFragment.setArguments(bundle);
+        return summonerOverviewFragment;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +47,7 @@ public class SummonerDetailFragment extends LeagueFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_summoner_detail, container, false);
+        return inflater.inflate(R.layout.fragment_summoner_overview, container, false);
     }
 
     @Override
