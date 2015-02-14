@@ -11,7 +11,7 @@ package eu.mok.mokeulol.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +32,7 @@ public class SummonerRunePagesFragment extends LeagueFragment implements SwipeRe
     private final static String KEY_SUMMONER_ID = "summonerId", KEY_REGION = "region";
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private GridLayoutManager mGridLayoutManager;
     private RVRunePageAdapter mRVRunePageAdapter = new RVRunePageAdapter();
     private long mSummonerId = -1;
     private Region mRegion;
@@ -83,9 +83,9 @@ public class SummonerRunePagesFragment extends LeagueFragment implements SwipeRe
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        this.mLayoutManager = new LinearLayoutManager(view.getContext());
+        this.mGridLayoutManager = new GridLayoutManager(view.getContext(), view.getContext().getResources().getInteger(R.integer.columns));
         this.mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        this.mRecyclerView.setLayoutManager(this.mLayoutManager);
+        this.mRecyclerView.setLayoutManager(this.mGridLayoutManager);
         this.mRecyclerView.setAdapter(this.mRVRunePageAdapter);
     }
 

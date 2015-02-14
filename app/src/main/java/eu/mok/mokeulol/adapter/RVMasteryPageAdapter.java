@@ -16,7 +16,7 @@ import eu.mok.mokeulol.viewholder.MasteryPageViewHolder;
 
 public class RVMasteryPageAdapter extends RecyclerView.Adapter<MasteryPageViewHolder> {
 
-    private MasteryPages mMasteryPages;
+    private MasteryPages mMasteryPages = new MasteryPages();
 
     @Override
     public MasteryPageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -25,16 +25,18 @@ public class RVMasteryPageAdapter extends RecyclerView.Adapter<MasteryPageViewHo
 
     @Override
     public void onBindViewHolder(MasteryPageViewHolder holder, int position) {
-
+        holder.setMasteryPage(this.mMasteryPages.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return this.mMasteryPages.size();
     }
 
 
     public void setMasteryPages(MasteryPages masteryPages) {
-        mMasteryPages = masteryPages;
+        this.mMasteryPages.clear();
+        this.mMasteryPages.addAll(masteryPages);
+        this.notifyDataSetChanged();
     }
 }

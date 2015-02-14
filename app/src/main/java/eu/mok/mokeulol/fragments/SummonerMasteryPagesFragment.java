@@ -11,16 +11,15 @@ package eu.mok.mokeulol.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import eu.m0k.lol.api.model.MasteryMap;
+import eu.m0k.lol.api.model.MasteryPagesResponse;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.Summoner;
-import eu.m0k.lol.api.model.SummonerIds;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
 import eu.mok.mokeulol.adapter.RVMasteryPageAdapter;
@@ -32,14 +31,14 @@ public class SummonerMasteryPagesFragment extends LeagueFragment implements Swip
     private final static String KEY_SUMMONER_ID = "summonerId", KEY_REGION = "region";
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private RVMasteryPageAdapter mRVMatchAdapter = new RVMasteryPageAdapter();
+    private GridLayoutManager mGridLayoutManager;
+    private RVMasteryPageAdapter mRVMasteryPageAdapter = new RVMasteryPageAdapter();
     private long mSummonerId = -1;
     private Region mRegion;
-    private Callback<MasteryMap> MASTERY_CALLBACK = new Callback<MasteryMap>() {
+    private Callback<MasteryPagesResponse> MASTERY_CALLBACK = new Callback<MasteryPagesResponse>() {
         @Override
-        public void success(MasteryMap matches, Response response) {
-            SummonerMasteryPagesFragment.this.mRVMatchAdapter.setMasteryPages(matches.get(null));
+        public void success(MasteryPagesResponse matches, Response response) {
+            SummonerMasteryPagesFragment.this.mRVMasteryPageAdapter.setMasteryPages(matches.getMasteryPages());
             SummonerMasteryPagesFragment.this.mSwipeRefreshLayout.setRefreshing(false);
         }
 
@@ -83,10 +82,10 @@ public class SummonerMasteryPagesFragment extends LeagueFragment implements Swip
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        this.mLayoutManager = new LinearLayoutManager(view.getContext());
+        this.mGridLayoutManager = new GridLayoutManager(view.getContext(), view.getContext().getResources().getInteger(R.integer.columns));
         this.mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        this.mRecyclerView.setLayoutManager(this.mLayoutManager);
-        this.mRecyclerView.setAdapter(this.mRVMatchAdapter);
+        this.mRecyclerView.setLayoutManager(this.mGridLayoutManager);
+        this.mRecyclerView.setAdapter(this.mRVMasteryPageAdapter);
     }
 
     @Override
@@ -101,7 +100,7 @@ public class SummonerMasteryPagesFragment extends LeagueFragment implements Swip
     }
 
     private void refresh() {
-        Util.getLeagueApi().getSummonerEndpoint(this.mRegion).getMasteries(SummonerIds.create(this.mSummonerId), MASTERY_CALLBACK);
+        Util.getLeagueApi().getSummonerEndpoint(this.mRegion).getMasteryPages(this.mSummonerId, MASTERY_CALLBACK);
         this.mSwipeRefreshLayout.setRefreshing(true);
     }
 

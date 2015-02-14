@@ -53,6 +53,7 @@
     <item name="txtStatus" type="id"/>
     <item name="ivSummonerIcon" type="id"/>
     <item name="txtChampionName" type="id"/>
+    <item name="txtActiveMastery" type="id"/>
 
 
     <!-- MENUS -->
