@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.Summoner;
-import eu.m0k.lol.api.model.SummonerList;
+import eu.m0k.lol.api.model.SummonerNameMap;
 import eu.m0k.lol.api.model.SummonerNames;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
@@ -55,9 +55,9 @@ public class SummonerSearchActivity extends LeagueActivity {
     public void onResume() {
         super.onResume();
         if (this.mSearchQuery != null)
-            Util.getLeagueApi().getSummonerEndpoint(Region.EUW).getSummonersByName(SummonerNames.create(mSearchQuery), new Callback<SummonerList>() {
+            Util.getLeagueApi().getSummonerEndpoint(Region.EUW).getSummonersByName(SummonerNames.create(mSearchQuery), new Callback<SummonerNameMap>() {
                 @Override
-                public void success(SummonerList summonerList, Response response) {
+                public void success(SummonerNameMap summonerList, Response response) {
                     for (String key : summonerList.keySet()) {
                         mAdapter.addSummoner(summonerList.get(key));
                         Log.d("found", summonerList.get(key).toString());
