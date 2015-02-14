@@ -24,7 +24,7 @@ import eu.m0k.lol.api.model.SummonerList;
 import eu.m0k.lol.api.model.SummonerNames;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
-import eu.mok.mokeulol.view.SummonerViewHolder;
+import eu.mok.mokeulol.viewholder.SummonerViewHolder;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
