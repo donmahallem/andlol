@@ -17,39 +17,45 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import eu.m0k.lol.api.model.MatchHistory;
-import eu.m0k.lol.api.model.MatchSummary;
+import eu.m0k.lol.api.model.LeagueSummonerMap;
 import eu.m0k.lol.api.model.Region;
 import eu.m0k.lol.api.model.Summoner;
+import eu.m0k.lol.api.model.SummonerIds;
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.Util;
-import eu.mok.mokeulol.activities.MatchDetailActivity;
-import eu.mok.mokeulol.adapter.RVMatchAdapter;
-import eu.mok.mokeulol.viewholder.MatchViewHolder;
+import eu.mok.mokeulol.adapter.RVLeagueSummonerAdapter;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import timber.log.Timber;
 
-public class SummonerLeagueFragment extends LeagueFragment implements SwipeRefreshLayout.OnRefreshListener, MatchViewHolder.OnMatchSelectListener {
+public class SummonerLeagueFragment extends LeagueFragment implements SwipeRefreshLayout.OnRefreshListener {
     private final static String KEY_SUMMONER_ID = "summonerId", KEY_REGION = "region";
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
+    private View mLoadingContainer;
     private RecyclerView.LayoutManager mLayoutManager;
-    private RVMatchAdapter mRVMatchAdapter = new RVMatchAdapter();
+    private RVLeagueSummonerAdapter mRVLeagueSummonerAdapter = new RVLeagueSummonerAdapter();
     private long mSummonerId = -1;
-    private Region mRegion;
-    private Callback<MatchHistory> MATCH_CALLBACK = new Callback<MatchHistory>() {
+    private Callback<LeagueSummonerMap> LEAGUE_CALLBACK=new Callback<LeagueSummonerMap>() {
         @Override
-        public void success(MatchHistory matches, Response response) {
-            SummonerLeagueFragment.this.mRVMatchAdapter.setMatches(matches);
-            SummonerLeagueFragment.this.mSwipeRefreshLayout.setRefreshing(false);
+        public void success(LeagueSummonerMap leagueEntryMap, Response response) {
+            Timber.d("success - " + leagueEntryMap);
+            if (leagueEntryMap.containsKey(mSummonerId)) {
+                if (leagueEntryMap.get(mSummonerId).getRankedSolo5x5().size() > 0)
+                    SummonerLeagueFragment.this.mRVLeagueSummonerAdapter
+                            .setLeague(leagueEntryMap.get(mSummonerId).getRankedSolo5x5().get(0));
+            }
+            SummonerLeagueFragment.this.setLoading(false);
         }
 
         @Override
         public void failure(RetrofitError error) {
-            SummonerLeagueFragment.this.mSwipeRefreshLayout.setRefreshing(false);
+            Timber.d("failure - " + error.getLocalizedMessage());
+            SummonerLeagueFragment.this.setLoading(false);
         }
     };
+    private Region mRegion;
 
     public static Fragment getInstance(Region region, Summoner summoner) {
         return getInstance(region, summoner.getId());
@@ -85,28 +91,32 @@ public class SummonerLeagueFragment extends LeagueFragment implements SwipeRefre
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        this.mRVMatchAdapter.setOnMatchSelectListener(this);
         this.mLayoutManager = new LinearLayoutManager(view.getContext());
         this.mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         this.mRecyclerView.setLayoutManager(this.mLayoutManager);
-        this.mRecyclerView.setAdapter(this.mRVMatchAdapter);
+        this.mRecyclerView.setAdapter(this.mRVLeagueSummonerAdapter);
+        this.mLoadingContainer = view.findViewById(R.id.loadingContainer);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Util.getLeagueApi().getMatchHistoryEndpoint(this.mRegion).getMatchHistory(this.mSummonerId, 0, 15, MATCH_CALLBACK);
-        this.mSwipeRefreshLayout.setRefreshing(true);
+        refresh();
     }
 
     @Override
     public void onRefresh() {
-        Util.getLeagueApi().getMatchHistoryEndpoint(this.mRegion).getMatchHistory(this.mSummonerId, 0, 15, MATCH_CALLBACK);
-        this.mSwipeRefreshLayout.setRefreshing(true);
+        refresh();
     }
 
-    @Override
-    public void onMatchSelected(final MatchSummary match) {
-        startActivity(MatchDetailActivity.generateIntent(getActivity(), match.getRegion(), match.getMatchId()));
+    private void setLoading(final boolean loading) {
+        this.mSwipeRefreshLayout.setRefreshing(loading);
+        this.mSwipeRefreshLayout.setVisibility(loading ? View.GONE : View.VISIBLE);
+        this.mLoadingContainer.setVisibility(loading ? View.VISIBLE : View.GONE);
+    }
+
+    private void refresh() {
+        Util.getLeagueApi().getLeagueEndpoint(this.mRegion).getLeague(SummonerIds.create(this.mSummonerId), LEAGUE_CALLBACK);
+        this.setLoading(true);
     }
 }

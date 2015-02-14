@@ -105,11 +105,11 @@ public class SummonerDetailsActivity extends LeagueActivity {
                 case 2:
                     return getResources().getString(R.string.current_game);
                 case 3:
-                    return getResources().getString(R.string.runes);
-                case 4:
-                    return getResources().getString(R.string.masteries);
-                case 5:
                     return getResources().getString(R.string.league);
+                case 4:
+                    return getResources().getString(R.string.runes);
+                case 5:
+                    return getResources().getString(R.string.masteries);
                 default:
                     return getResources().getString(R.string.summary);
             }
@@ -123,11 +123,11 @@ public class SummonerDetailsActivity extends LeagueActivity {
                 case 2:
                     return ActiveMatchFragment.getInstance(mRegion, mSummonerId);
                 case 3:
-                    return SummonerRunePagesFragment.getInstance(mRegion, mSummonerId);
-                case 4:
-                    return SummonerMasteryPagesFragment.getInstance(mRegion, mSummonerId);
-                case 5:
                     return SummonerLeagueFragment.getInstance(mRegion, mSummonerId);
+                case 4:
+                    return SummonerRunePagesFragment.getInstance(mRegion, mSummonerId);
+                case 5:
+                    return SummonerMasteryPagesFragment.getInstance(mRegion, mSummonerId);
                 default:
                     return MatchHistoryFragment.getInstance(mRegion, mSummonerId);
             }
@@ -135,7 +135,7 @@ public class SummonerDetailsActivity extends LeagueActivity {
 
         @Override
         public int getCount() {
-            return 5;
+            return 6;
         }
     }
 }

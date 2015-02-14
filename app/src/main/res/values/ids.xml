@@ -54,6 +54,7 @@
     <item name="ivSummonerIcon" type="id"/>
     <item name="txtChampionName" type="id"/>
     <item name="txtActiveMastery" type="id"/>
+    <item name="txtLeaguePoints" type="id"/>
 
 
     <!-- MENUS -->
