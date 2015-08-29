@@ -66,6 +66,6 @@ public class MatchDetailActivity extends LeagueActivity {
     @Override
     public void onResume() {
         super.onResume();
-        Util.getLeagueApi().getMatchEndpoint(this.mRegion).getMatch(this.mMatchId, true, MATCH_CALLBACK);
+        Util.getLeagueApi().getMatchEndpoint().getMatch(Region.EUW, this.mMatchId, true, MATCH_CALLBACK);
     }
 }

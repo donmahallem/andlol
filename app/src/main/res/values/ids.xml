@@ -18,6 +18,9 @@
     <item name="championPassiveView" type="id"/>
     <item name="txtDescription" type="id"/>
     <item name="txtLore" type="id"/>
+    <item name="txtChampionTitle" type="id"/>
+    <item name="collapsingToolbar" type="id"/>
+    <item name="appBarLayout" type="id"/>
     <item name="ivChampionIcon" type="id"/>
     <item name="viewPager" type="id"/>
     <item name="hListView" type="id"/>

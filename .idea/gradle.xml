@@ -5,12 +5,12 @@
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="1.8" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/LeagueViews" />
             <option value="$PROJECT_DIR$/LolApi" />
-            <option value="$PROJECT_DIR$/MokeuViews" />
             <option value="$PROJECT_DIR$/TestApp" />
             <option value="$PROJECT_DIR$/app" />
           </set>
@@ -19,4 +19,3 @@
     </option>
   </component>
 </project>
-

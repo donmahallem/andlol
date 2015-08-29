@@ -38,6 +38,7 @@ public class ChampionPassive {
 
     /**
      * gets the Passives Description
+     *
      * @return
      */
     public String getDescription() {
@@ -46,6 +47,7 @@ public class ChampionPassive {
 
     /**
      * gets the sanitized Description of the Passive
+     *
      * @return the sanitized Description
      */
     public String getSanitizedDescription() {
@@ -54,6 +56,7 @@ public class ChampionPassive {
 
     /**
      * returns the Image containing infos
+     *
      * @return the Image Object for the Spell
      */
     public Image getImage() {
@@ -62,6 +65,7 @@ public class ChampionPassive {
 
     /**
      * returns the ImageUri required for Picasso
+     *
      * @return
      */
     public String getImageUri() {

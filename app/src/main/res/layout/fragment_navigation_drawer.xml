@@ -6,8 +6,8 @@
   ~ Romanes eunt domus - Brian!
   -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,11 +20,11 @@
             android:layout_height="160dp"
             android:background="@color/grey_400"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/ic_launcher"/>
 
         <android.support.v7.widget.Space
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_height" />
+            android:layout_height="@dimen/space_height"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,13 +37,13 @@
                 android:layout_width="@dimen/navbar_item_icon_size"
                 android:layout_height="@dimen/navbar_item_icon_size"
                 android:layout_marginLeft="@dimen/navbar_horizontal_margin"
-                android:src="@drawable/ic_search_grey600_24dp" />
+                android:src="@drawable/ic_search_grey600_24dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/navbar_item_title_margin"
-                android:text="@string/search_summoner" />
+                android:text="@string/search_summoner"/>
         </LinearLayout>
 
         <LinearLayout
@@ -57,17 +57,17 @@
                 android:layout_width="@dimen/navbar_item_icon_size"
                 android:layout_height="@dimen/navbar_item_icon_size"
                 android:layout_marginLeft="@dimen/navbar_horizontal_margin"
-                android:src="@drawable/ic_star_grey600_24dp" />
+                android:src="@drawable/ic_star_grey600_24dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/navbar_item_title_margin"
-                android:text="@string/favorites" />
+                android:text="@string/favorites"/>
         </LinearLayout>
 
         <android.support.v7.widget.SwitchCompat
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </ScrollView>

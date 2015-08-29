@@ -18,7 +18,7 @@ import java.util.List;
 import eu.m0k.lol.api.picasso.Constants;
 
 public class LolRequestTransformer implements Picasso.RequestTransformer {
-    private final static String VERSION = "5.2.2";
+    private final static String VERSION = "5.16.1";
 
     @Override
     public Request transformRequest(Request request) {

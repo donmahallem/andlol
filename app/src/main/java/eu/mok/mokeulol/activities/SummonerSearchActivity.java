@@ -55,7 +55,7 @@ public class SummonerSearchActivity extends LeagueActivity {
     public void onResume() {
         super.onResume();
         if (this.mSearchQuery != null)
-            Util.getLeagueApi().getSummonerEndpoint(Region.EUW).getSummonersByName(SummonerNames.create(mSearchQuery), new Callback<SummonerList>() {
+            Util.getLeagueApi().getSummonerEndpoint().getSummonersByName(Region.EUW, SummonerNames.create(mSearchQuery), new Callback<SummonerList>() {
                 @Override
                 public void success(SummonerList summonerList, Response response) {
                     for (String key : summonerList.keySet()) {

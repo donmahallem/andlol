@@ -56,7 +56,7 @@ public class SummonerSpellImageView extends ImageView {
 
     public void loadSummonerSpellById(final Region region, final int id) {
         this.mSummonerSpellId = id;
-        Util.getLeagueApi().getStaticEndpoint(region).getSummonerSpell(id, SPELL_CALLBACK);
+        Util.getLeagueApi().getStaticEndpoint().getSummonerSpell(Region.EUW, id, SPELL_CALLBACK);
     }
 
     public SummonerSpell getSummonerSpell() {

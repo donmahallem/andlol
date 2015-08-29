@@ -9,13 +9,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.0.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.0"
 
     defaultConfig {
         applicationId "eu.mok.mokeulol"
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -25,22 +25,36 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        api14 {
+            versionName "1.0-demo"
+        }
+        api21 {
+            versionName "1.0-full"
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':LolApi')
-    compile 'com.android.support:support-annotations:21.+'
+    compile 'com.android.support:support-annotations:23.+'
     compile 'com.squareup.picasso:picasso:2.+'
-    compile 'com.android.support:support-v4:21.+'
+    compile 'com.android.support:support-v4:23.+'
     compile 'com.pkmmte.view:circularimageview:1.+'
     compile 'com.github.nirhart:parallaxscroll:1.+'
     compile project(':LeagueViews')
-    compile 'com.android.support:palette-v7:21.+'
-    compile 'com.android.support:appcompat-v7:21.+'
-    compile 'com.android.support:cardview-v7:21.+'
-    compile 'com.android.support:recyclerview-v7:21.+'
-    compile 'com.android.support:gridlayout-v7:21.+'
+    compile 'com.android.support:palette-v7:23.+'
+    compile 'com.android.support:appcompat-v7:23.+'
+    compile 'com.android.support:cardview-v7:23.+'
+    compile 'com.android.support:recyclerview-v7:23.+'
+    compile 'com.android.support:gridlayout-v7:23.+'
     compile 'com.jakewharton.timber:timber:2.5.1'
-    compile 'com.github.ksoichiro:android-observablescrollview:1.4.+'
+    compile 'com.android.support:design:23.+'
+    compile 'com.firebase:firebase-client-android:2.3.1+'
 }

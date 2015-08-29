@@ -78,7 +78,7 @@ public class SummonerViewHolder extends RecyclerView.ViewHolder implements View.
             Util.getPicasso().load(this.mSummoner.getProfileIcon()).into(mImageView);
             this.mTxtName.setText(this.mSummoner.getName());
             this.mTxtLevel.setText("" + this.mSummoner.getSummonerLevel());
-            Util.getLeagueApi().getLeagueEndpoint(Region.EUW).getLeagueEntryForSummoner(Region.EUW, SummonerIds.create(this.mSummoner.getId()), LEAGUE_CALLBACK);
+            Util.getLeagueApi().getLeagueEndpoint().getLeagueEntryForSummoner(Region.EUW, SummonerIds.create(this.mSummoner.getId()), LEAGUE_CALLBACK);
         }
     }
 

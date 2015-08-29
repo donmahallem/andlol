@@ -95,13 +95,13 @@ public class MatchHistoryFragment extends LeagueFragment implements SwipeRefresh
     @Override
     public void onResume() {
         super.onResume();
-        Util.getLeagueApi().getMatchHistoryEndpoint(this.mRegion).getMatchHistory(this.mSummonerId, 0, 15, MATCH_CALLBACK);
+        Util.getLeagueApi().getMatchHistoryEndpoint().getMatchHistory(Region.EUW, this.mSummonerId, 0, 15, MATCH_CALLBACK);
         this.mSwipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void onRefresh() {
-        Util.getLeagueApi().getMatchHistoryEndpoint(this.mRegion).getMatchHistory(this.mSummonerId, 0, 15, MATCH_CALLBACK);
+        Util.getLeagueApi().getMatchHistoryEndpoint().getMatchHistory(Region.EUW, this.mSummonerId, 0, 15, MATCH_CALLBACK);
         this.mSwipeRefreshLayout.setRefreshing(true);
     }
 

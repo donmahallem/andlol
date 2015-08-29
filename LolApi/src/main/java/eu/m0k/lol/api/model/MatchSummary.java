@@ -15,6 +15,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class MatchSummary {
+    @Expose
+    @SerializedName("mapId")
+    private int mMapId;
+    @Expose
+    @SerializedName("matchCreation")
+    private long mMatchCreation;
     public static Comparator<MatchSummary> SORT_DESC = new Comparator<MatchSummary>() {
         @Override
         public int compare(MatchSummary lhs, MatchSummary rhs) {
@@ -25,12 +31,6 @@ public class MatchSummary {
             else return 0;
         }
     };
-    @Expose
-    @SerializedName("mapId")
-    private int mMapId;
-    @Expose
-    @SerializedName("matchCreation")
-    private long mMatchCreation;
     @Expose
     @SerializedName("matchDuration")
     private long mMatchDuration;

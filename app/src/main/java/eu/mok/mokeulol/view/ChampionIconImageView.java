@@ -57,7 +57,7 @@ public class ChampionIconImageView extends ImageView {
 
     public void loadChampionById(final Region region, final int id) {
         this.mChampionId = id;
-        Util.getLeagueApi().getStaticEndpoint(region).getChampion(id, Locale.ENGLISH_US, SPELL_CALLBACK);
+        Util.getLeagueApi().getStaticEndpoint().getChampion(Region.EUW, id, Locale.ENGLISH_US, SPELL_CALLBACK);
     }
 
     public Champion getChampion() {

@@ -6,4 +6,4 @@
  * Romanes eunt domus - Brian!
  */
 
-include ':app', ':TestApp', ':LolApi', ':MokeuViews', ':LeagueViews'
+include ':app', ':TestApp', ':LolApi', ':LeagueViews'

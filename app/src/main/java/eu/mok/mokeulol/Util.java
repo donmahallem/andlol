@@ -9,7 +9,6 @@
 package eu.mok.mokeulol;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -20,7 +19,6 @@ import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.io.IOException;
 
 import eu.m0k.lol.api.LeagueClient;
 import eu.mok.mokeulol.helper.picasso.LolRequestTransformer;
@@ -54,11 +52,7 @@ public class Util {
 
     public static Cache getOkHttpCache() {
         if (mOkHttpCache == null) {
-            try {
-                mOkHttpCache = new Cache(new File(mContext.getCacheDir(), "app"), 50 * 1024 * 1024);
-            } catch (IOException e) {
-                return null;
-            }
+            mOkHttpCache = new Cache(new File(mContext.getCacheDir(), "app"), 50 * 1024 * 1024);
         }
         return mOkHttpCache;
     }
@@ -84,17 +78,10 @@ public class Util {
         return mPicasso;
     }
 
-    public static String getLeagueApiToken() {
-        try {
-            return mContext.getResources().getString(R.string.riot_token);
-        } catch (Resources.NotFoundException exception) {
-            throw new Resources.NotFoundException("Did you include riot_token in the config file");
-        }
-    }
 
     public static LeagueClient getLeagueApi() {
         if (mLeagueClient == null) {
-            mLeagueClient = new LeagueClient.Builder().setApiKey(getLeagueApiToken()).cacheDir(new File(mContext.getCacheDir(), "api")).build();
+            mLeagueClient = new LeagueClient.Builder().cacheDir(new File(mContext.getCacheDir(), "api")).build();
         }
         return mLeagueClient;
     }

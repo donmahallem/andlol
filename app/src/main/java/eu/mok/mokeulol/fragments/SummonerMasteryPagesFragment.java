@@ -101,7 +101,7 @@ public class SummonerMasteryPagesFragment extends LeagueFragment implements Swip
     }
 
     private void refresh() {
-        Util.getLeagueApi().getSummonerEndpoint(this.mRegion).getMasteries(SummonerIds.create(this.mSummonerId), MASTERY_CALLBACK);
+        Util.getLeagueApi().getSummonerEndpoint().getMasteries(Region.EUW, SummonerIds.create(this.mSummonerId), MASTERY_CALLBACK);
         this.mSwipeRefreshLayout.setRefreshing(true);
     }
 

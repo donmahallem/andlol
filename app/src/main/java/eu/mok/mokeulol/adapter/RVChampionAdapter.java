@@ -53,17 +53,10 @@ public class RVChampionAdapter extends RecyclerView.Adapter<RVChampionAdapter.Ch
 
     @Override
     public void onBindViewHolder(ChampionViewHolder championViewHolder, int i) {
-        final Champion champion = this.mChampionList.get(i);
-        championViewHolder.mTextView.setText(champion.getName());
+        championViewHolder.setChampion(this.mChampionList.get(i));
         /**
          * Remove eventual loading of recycled image
          */
-        Util.getPicasso().cancelRequest(championViewHolder.mImageView);
-        Util.getPicasso()
-                .load(champion.getImageUri())
-                .placeholder(android.R.drawable.ic_menu_upload)
-                .error(android.R.drawable.ic_delete)
-                .into(championViewHolder.ChampionTarget);
     }
 
     @Override
@@ -95,6 +88,7 @@ public class RVChampionAdapter extends RecyclerView.Adapter<RVChampionAdapter.Ch
                 mImageView.setImageDrawable(placeHolderDrawable);
             }
         };
+        private Champion mChampion;
 
         public ChampionViewHolder(View itemView) {
             super(itemView);
@@ -107,8 +101,20 @@ public class RVChampionAdapter extends RecyclerView.Adapter<RVChampionAdapter.Ch
         @Override
         public void onClick(View v) {
             for (OnChampSelectListener champSelectListener : mOnChampSelectListener) {
-                champSelectListener.onChampSelected(mChampionList.get(getPosition()), mImageView);
+                champSelectListener.onChampSelected(this.mChampion, mImageView);
             }
+        }
+
+        public void setChampion(Champion champion) {
+            this.mChampion = champion;
+            this.mTextView.setText(champion.getName());
+            Util.getPicasso().cancelRequest(this.ChampionTarget);
+            Util.getPicasso()
+                    .load(this.mChampion.getImageUri())
+                    .placeholder(android.R.drawable.ic_menu_upload)
+                    .error(android.R.drawable.ic_delete)
+                    .resize(256, 256)
+                    .into(this.ChampionTarget);
         }
     }
 }

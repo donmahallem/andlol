@@ -25,6 +25,7 @@ public class FavoriteButton extends ImageButton {
 
     private RotateDrawable RotateIcon = new RotateDrawable() {
     };
+
     public FavoriteButton(Context context) {
         super(context);
         setup(context);

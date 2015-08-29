@@ -57,6 +57,7 @@ public class ChampionList extends ArrayList<Champion> {
 
     /**
      * Sorts the ChampionList ascending or descending
+     *
      * @param asc sort ascending or descending
      */
     public void sortByName(boolean asc) {

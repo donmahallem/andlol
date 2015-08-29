@@ -264,7 +264,7 @@ public class RVMatchEventAdapter extends RecyclerView.Adapter<RVMatchEventAdapte
         protected void onEventUpdated(Event event) {
             if (event == null)
                 return;
-            Util.getLeagueApi().getStaticEndpoint(Region.EUW).getChampion(mMatchDetail.getParticipants().getParticipantById(event.getParticipantId()).getChampionId(), Locale.GERMAN, CALLBACK);
+            Util.getLeagueApi().getStaticEndpoint().getChampion(Region.EUW, mMatchDetail.getParticipants().getParticipantById(event.getParticipantId()).getChampionId(), Locale.GERMAN, CALLBACK);
 
         }
 
@@ -322,7 +322,7 @@ public class RVMatchEventAdapter extends RecyclerView.Adapter<RVMatchEventAdapte
                     break;
             }
             Util.getPicasso().load(Item.getUri(event.getItemId())).placeholder(R.drawable.ic_favorite).into(this.mIvItem);
-            Util.getLeagueApi().getStaticEndpoint(Region.EUW).getItem(event.getItemId(), Locale.GERMAN, CALLBACK);
+            Util.getLeagueApi().getStaticEndpoint().getItem(Region.EUW, event.getItemId(), Locale.GERMAN, CALLBACK);
         }
 
         @Override

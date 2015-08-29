@@ -38,11 +38,11 @@ public class ChampionListFragment extends LeagueFragment implements RVChampionAd
     private RecyclerView mRecyclerView;
     private RVChampionAdapter mRVChampionAdapter;
     private RVRevealAnimator RevealAnimator = new RVRevealAnimator();
+    private View mLoadingContainer;
     private Callback<ChampionList> CHAMPIONS_CALLBACK = new Callback<ChampionList>() {
         @Override
         public void success(ChampionList champions, Response response) {
             champions.sortByName(true);
-            Timber.d("success - cached: " + response);
             ChampionListFragment.this.mRVChampionAdapter.setChampionList(champions);
             setLoading(false);
         }
@@ -52,7 +52,12 @@ public class ChampionListFragment extends LeagueFragment implements RVChampionAd
             Timber.e(error.getMessage());
         }
     };
-    private View mLoadingContainer;
+    private RecyclerView.OnScrollListener SCROLL_LISTENER = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+
+        }
+    };
 
     public static ChampionListFragment getInstance() {
         return new ChampionListFragment();
@@ -84,6 +89,7 @@ public class ChampionListFragment extends LeagueFragment implements RVChampionAd
         this.mRVChampionAdapter = new RVChampionAdapter();
         this.mRVChampionAdapter.setOnChampSelectListener(this);
         this.mRecyclerView.setAdapter(this.mRVChampionAdapter);
+        this.mRecyclerView.addOnScrollListener(SCROLL_LISTENER);
     }
 
     @Override
@@ -93,7 +99,7 @@ public class ChampionListFragment extends LeagueFragment implements RVChampionAd
         ChampData data = new ChampData();
         data.setImage(true);
         this.setLoading(true);
-        Util.getLeagueApi().getStaticEndpoint(Region.EUW).getChampions(Locale.GERMAN, "5.2.1", data, CHAMPIONS_CALLBACK);
+        Util.getLeagueApi().getStaticEndpoint().getChampions(Region.EUW, Locale.GERMAN, data, CHAMPIONS_CALLBACK);
     }
 
     private void setLoading(final boolean loading) {

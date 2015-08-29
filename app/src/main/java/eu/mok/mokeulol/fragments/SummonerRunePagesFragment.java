@@ -101,7 +101,7 @@ public class SummonerRunePagesFragment extends LeagueFragment implements SwipeRe
     }
 
     private void refresh() {
-        Util.getLeagueApi().getSummonerEndpoint(this.mRegion).getRunes(SummonerIds.create(this.mSummonerId), RUN_MAP_CALLBACK);
+        Util.getLeagueApi().getSummonerEndpoint().getRunes(Region.EUW, SummonerIds.create(this.mSummonerId), RUN_MAP_CALLBACK);
         this.mSwipeRefreshLayout.setRefreshing(true);
     }
 }

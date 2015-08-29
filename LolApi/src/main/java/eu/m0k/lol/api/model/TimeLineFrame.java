@@ -35,6 +35,7 @@ public class TimeLineFrame {
 
     /**
      * Represents how many milliseconds into the game the frame occurred.
+     *
      * @return time
      */
     public long getTimestamp() {

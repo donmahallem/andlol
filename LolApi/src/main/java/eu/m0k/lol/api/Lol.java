@@ -53,119 +53,140 @@ public class Lol {
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/champion")
-        public eu.m0k.lol.api.model.ChampionList getChampions(@Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData);
+        public eu.m0k.lol.api.model.ChampionList getChampions(@Path("region") Region region, @Query("locale") final Locale locale, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/champion")
-        public void getChampions(@Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.ChampionList> cb);
+        public eu.m0k.lol.api.model.ChampionList getChampions(@Path("region") Region region, @Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData);
+
+        @Headers({
+                "Cache-Control: max-stale=" + WEEK_1,
+                CUSTOM_CACHE + ": " + DAY_1
+        })
+        @GET("/api/lol/static-data/{region}/" + VERSION + "/champion")
+        public void getChampions(@Path("region") Region region, @Query("locale") final Locale locale, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.ChampionList> cb);
+
+        @Headers({
+                "Cache-Control: max-stale=" + WEEK_1,
+                CUSTOM_CACHE + ": " + DAY_1
+        })
+        @GET("/api/lol/static-data/{region}/" + VERSION + "/champion")
+        public void getChampions(@Path("region") Region region, @Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.ChampionList> cb);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/champion?dataById=false")
-        public void getChampions(@Query("locale") final Locale locale, @Query("version") final String version, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.ChampionList> cb);
+        public void getChampions(@Path("region") Region region, @Query("locale") final Locale locale, @Query("version") final String version, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.ChampionList> cb);
+
+        @Headers({
+                "Cache-Control: max-stale=" + WEEK_1,
+                CUSTOM_CACHE + ": " + DAY_1
+        })
+        @GET("/api/lol/static-data/{region}/" + VERSION + "/champion?dataById=false")
+        public void getChampions(@Path("region") Region region, @Query("locale") final Locale locale, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.ChampionList> cb);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/champion/{id}")
-        public eu.m0k.lol.api.model.Champion getChampion(@Path("id") final int id, @Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData);
+        public eu.m0k.lol.api.model.Champion getChampion(@Path("region") Region region, @Path("id") final int id, @Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/champion/{id}")
-        public void getChampion(@Path("id") final int id, @Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.Champion> cb);
+        public void getChampion(@Path("region") Region region, @Path("id") final int id, @Query("locale") final Locale locale, @Query("version") final String version, @Query("dataById") final boolean dataById, @Query("champData") ChampData champData, Callback<eu.m0k.lol.api.model.Champion> cb);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/champion/{id}?champData=all")
-        public eu.m0k.lol.api.model.Champion getChampion(@Path("id") final int id, @Query("locale") final Locale locale);
+        public eu.m0k.lol.api.model.Champion getChampion(@Path("region") Region region, @Path("id") final int id, @Query("locale") final Locale locale);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/champion/{id}?champData=all")
-        public void getChampion(@Path("id") final int id, @Query("locale") final Locale locale, final Callback<eu.m0k.lol.api.model.Champion> cb);
+        public void getChampion(@Path("region") Region region, @Path("id") final int id, @Query("locale") final Locale locale, final Callback<eu.m0k.lol.api.model.Champion> cb);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item")
-        public ItemList getItems(@Query("locale") final Locale locale, @Query("version") final String version);
+        public ItemList getItems(@Path("region") Region region, @Query("locale") final Locale locale, @Query("version") final String version);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item")
-        public void getItems(@Query("locale") final Locale locale, @Query("version") final String version, final Callback<ItemList> callback);
+        public void getItems(@Path("region") Region region, @Query("locale") final Locale locale, @Query("version") final String version, final Callback<ItemList> callback);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item/{id}")
-        public Item getItem(@Path("id") final int itemId, @Query("locale") final Locale locale, @Query("version") final String version);
+        public Item getItem(@Path("region") Region region, @Path("id") final int itemId, @Query("locale") final Locale locale, @Query("version") final String version);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item/{id}")
-        public void getItem(@Path("id") final int itemId, @Query("locale") final Locale locale, @Query("version") final String version, final Callback<Item> callback);
+        public void getItem(@Path("region") Region region, @Path("id") final int itemId, @Query("locale") final Locale locale, @Query("version") final String version, final Callback<Item> callback);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item/{id}")
-        public Item getItem(@Path("id") final int itemId, @Query("locale") final Locale locale);
+        public Item getItem(@Path("region") Region region, @Path("id") final int itemId, @Query("locale") final Locale locale);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/item/{id}")
-        public void getItem(@Path("id") final int itemId, @Query("locale") final Locale locale, final Callback<Item> callback);
+        public void getItem(@Path("region") Region region, @Path("id") final int itemId, @Query("locale") final Locale locale, final Callback<Item> callback);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/versions")
-        public List<VersionList> getVersions();
+        public List<VersionList> getVersions(@Path("region") Region region);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/versions")
-        public void getVersions(final Callback<VersionList> callback);
+        public void getVersions(@Path("region") Region region, final Callback<VersionList> callback);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/summoner-spell/{spellId}")
-        public SummonerSpell getSummonerSpell(@Path("spellId") final int spellId);
+        public SummonerSpell getSummonerSpell(@Path("region") Region region, @Path("spellId") final int spellId);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/static-data/{region}/" + VERSION + "/summoner-spell/{spellId}")
-        public void getSummonerSpell(@Path("spellId") final int spellId, final Callback<SummonerSpell> callback);
+        public void getSummonerSpell(@Path("region") Region region, @Path("spellId") final int spellId, final Callback<SummonerSpell> callback);
 
     }
 
@@ -176,14 +197,14 @@ public class Lol {
                 CUSTOM_CACHE + ": " + MINUTES_10
         })
         @GET("/observer-mode/rest/consumer/getSpectatorGameInfo/{platformId}/{summonerId}")
-        public CurrentGameInfo getMatch(@Path("platformId") final Platform platform, @Path("summonerId") final long summonerId);
+        public CurrentGameInfo getMatch(@Path("region") Region region, @Path("platformId") final Platform platform, @Path("summonerId") final long summonerId);
 
         @Headers({
                 "Cache-Control: max-stale=" + MINUTES_30,
                 CUSTOM_CACHE + ": " + MINUTES_10
         })
         @GET("/observer-mode/rest/consumer/getSpectatorGameInfo/{platformId}/{summonerId}")
-        public void getMatch(@Path("platformId") final Platform platform, @Path("summonerId") final long summonerId, final Callback<CurrentGameInfo> callback);
+        public void getMatch(@Path("region") Region region, @Path("platformId") final Platform platform, @Path("summonerId") final long summonerId, final Callback<CurrentGameInfo> callback);
     }
 
     public static interface Match {
@@ -194,14 +215,14 @@ public class Lol {
                 CUSTOM_CACHE + ": " + YEAR_1
         })
         @GET("/api/lol/{region}/v2.2/match/{matchId}")
-        public MatchDetail getMatch(@Path("matchId") final long matchId, @Query("includeTimeline") final boolean includeTimeline);
+        public MatchDetail getMatch(@Path("region") Region region, @Path("matchId") final long matchId, @Query("includeTimeline") final boolean includeTimeline);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + YEAR_1
         })
         @GET("/api/lol/{region}/v2.2/match/{matchId}")
-        public void getMatch(@Path("matchId") final long matchId, @Query("includeTimeline") final boolean includeTimeline, final Callback<MatchDetail> callback);
+        public void getMatch(@Path("region") Region region, @Path("matchId") final long matchId, @Query("includeTimeline") final boolean includeTimeline, final Callback<MatchDetail> callback);
 
     }
 
@@ -213,70 +234,70 @@ public class Lol {
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/summoner/by-name/{summonerNames}")
-        public SummonerList getSummonersByName(@Path("summonerNames") final SummonerNames summonerNames);
+        public SummonerList getSummonersByName(@Path("region") Region region, @Path("summonerNames") final SummonerNames summonerNames);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/summoner/by-name/{summonerNames}")
-        public void getSummonersByName(@Path("summonerNames") final SummonerNames summonerNames, final Callback<SummonerList> callback);
+        public void getSummonersByName(@Path("region") Region region, @Path("summonerNames") final SummonerNames summonerNames, final Callback<SummonerList> callback);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}")
-        public SummonerList getSummoner(@Path("summonerIds") final SummonerIds summonerIds);
+        public SummonerList getSummoner(@Path("region") Region region, @Path("summonerIds") final SummonerIds summonerIds);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}")
-        public void getSummoners(@Path("summonerIds") final SummonerIds summonerIds, final Callback<SummonerList> callback);
+        public void getSummoners(@Path("region") Region region, @Path("summonerIds") final SummonerIds summonerIds, final Callback<SummonerList> callback);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/masteries")
-        public MasteryMap getMasteries(@Path("summonerIds") final SummonerIds summonerIds);
+        public MasteryMap getMasteries(@Path("region") Region region, @Path("summonerIds") final SummonerIds summonerIds);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/masteries")
-        public void getMasteries(@Path("summonerIds") final SummonerIds summonerIds, final Callback<MasteryMap> callback);
+        public void getMasteries(@Path("region") Region region, @Path("summonerIds") final SummonerIds summonerIds, final Callback<MasteryMap> callback);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/runes")
-        public RuneMap getRunes(@Path("summonerIds") final SummonerIds summonerIds);
+        public RuneMap getRunes(@Path("region") Region region, @Path("summonerIds") final SummonerIds summonerIds);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/runes")
-        public void getRunes(@Path("summonerIds") final SummonerIds summonerIds, final Callback<RuneMap> callback);
+        public void getRunes(@Path("region") Region region, @Path("summonerIds") final SummonerIds summonerIds, final Callback<RuneMap> callback);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/name")
-        public NameMap getName(@Path("summonerIds") final SummonerIds summonerIds);
+        public NameMap getName(@Path("region") Region region, @Path("summonerIds") final SummonerIds summonerIds);
 
         @Headers({
                 "Cache-Control: max-stale=" + WEEK_1,
                 CUSTOM_CACHE + ": " + DAY_1
         })
         @GET("/api/lol/{region}/" + VERSION + "/summoner/{summonerIds}/name")
-        public void getName(@Path("summonerIds") final SummonerIds summonerIds, final Callback<NameMap> callback);
+        public void getName(@Path("region") Region region, @Path("summonerIds") final SummonerIds summonerIds, final Callback<NameMap> callback);
     }
 
     public static interface League {
@@ -333,14 +354,14 @@ public class Lol {
                 CUSTOM_CACHE + ": " + MINUTES_30
         })
         @GET("/api/lol/{region}/" + VERSION + "/matchhistory/{summonerId}")
-        public eu.m0k.lol.api.model.MatchHistory getMatchHistory(@Path("summonerId") final long summonerId, @Query("startIndex") int beginIndex, @Query("endIndex") int endIndex);
+        public eu.m0k.lol.api.model.MatchHistory getMatchHistory(@Path("region") Region region, @Path("summonerId") final long summonerId, @Query("startIndex") int beginIndex, @Query("endIndex") int endIndex);
 
         @Headers({
                 "Cache-Control: max-stale=" + DAY_1,
                 CUSTOM_CACHE + ": " + MINUTES_30
         })
         @GET("/api/lol/{region}/" + VERSION + "/matchhistory/{summonerId}")
-        public void getMatchHistory(@Path("summonerId") final long summonerId, @Query("startIndex") int beginIndex, @Query("endIndex") int endIndex, final Callback<eu.m0k.lol.api.model.MatchHistory> callback);
+        public void getMatchHistory(@Path("region") Region region, @Path("summonerId") final long summonerId, @Query("startIndex") int beginIndex, @Query("endIndex") int endIndex, final Callback<eu.m0k.lol.api.model.MatchHistory> callback);
     }
 
     public static class Game {

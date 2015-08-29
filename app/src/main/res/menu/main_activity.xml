@@ -7,9 +7,9 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:support="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="eu.mok.mokeulol.activities.LeagueMainActivity">
+      xmlns:support="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="eu.mok.mokeulol.activities.LeagueMainActivity">
     <item
         android:id="@+id/action_search"
         android:actionViewClass="android.support.v7.widget.SearchView"
@@ -18,5 +18,5 @@
         android:showAsAction="always|collapseActionView"
         android:title="@string/search_summoner"
         support:actionViewClass="android.support.v7.widget.SearchView"
-        support:showAsAction="always|collapseActionView" />
+        support:showAsAction="always|collapseActionView"/>
 </menu>

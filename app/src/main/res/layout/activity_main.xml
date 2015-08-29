@@ -7,14 +7,14 @@
   -->
 
 
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="eu.mok.mokeulol.activities.LeagueMainActivity">
+<android.support.v4.widget.DrawerLayout android:id="@+id/drawer_layout"
+                                        xmlns:android="http://schemas.android.com/apk/res/android"
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        xmlns:tools="http://schemas.android.com/tools"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:fitsSystemWindows="true"
+                                        tools:context="eu.mok.mokeulol.activities.LeagueMainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,33 +29,33 @@
             android:elevation="8dp"
             android:minHeight="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
 
         <!-- Main layout -->
         <FrameLayout
             android:id="@id/fgrContent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
     </LinearLayout>
 
 
     <!-- Nav drawer -->
-    <eu.mok.mokeulol.view.ScrimInsetsFrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/scrimInsetsFrameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/grey_1000w"
-        android:elevation="8dp"
-        android:fitsSystemWindows="true"
-        app:insetForeground="#4000">
+    <eu.mok.mokeulol.view.ScrimInsetsFrameLayout android:id="@+id/scrimInsetsFrameLayout"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:layout_gravity="start"
+                                                 android:background="@color/grey_1000w"
+                                                 android:elevation="8dp"
+                                                 android:fitsSystemWindows="true"
+                                                 app:insetForeground="#4000">
 
         <fragment
             android:id="@+id/fragment_drawer"
             android:name="eu.mok.mokeulol.fragments.NavigationDrawerFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:layout="@layout/fragment_champion_list" />
+            tools:layout="@layout/fragment_champion_list"/>
     </eu.mok.mokeulol.view.ScrimInsetsFrameLayout>
 </android.support.v4.widget.DrawerLayout>

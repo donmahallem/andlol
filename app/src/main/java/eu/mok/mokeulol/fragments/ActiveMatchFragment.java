@@ -97,7 +97,7 @@ public class ActiveMatchFragment extends LeagueFragment {
     public void onResume() {
         super.onResume();
         this.setLoading(true);
-        Util.getLeagueApi().getCurrentGameEndpoint(this.mRegion).getMatch(Platform.EUW1, this.mSummonerId, CALLBACK);
+        Util.getLeagueApi().getCurrentGameEndpoint().getMatch(Region.EUW, Platform.EUW1, this.mSummonerId, CALLBACK);
     }
 
     private void setLoading(final boolean loading) {

@@ -9,13 +9,13 @@
 package eu.mok.mokeulol.activities;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import eu.mok.mokeulol.R;
 import eu.mok.mokeulol.fragments.LeagueFragment;
 
-public class LeagueActivity extends ActionBarActivity implements LeagueFragment.LeagueFragmentListener {
+public class LeagueActivity extends AppCompatActivity implements LeagueFragment.LeagueFragmentListener {
     @Override
     public void onShowChampionListFragment() {
 

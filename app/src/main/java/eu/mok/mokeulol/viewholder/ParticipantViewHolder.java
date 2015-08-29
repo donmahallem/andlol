@@ -58,7 +58,7 @@ public class ParticipantViewHolder extends LayoutViewHolder {
         if (this.mParticipant != null) {
             this.mTxtSummonerName.setText(this.mParticipant.getSummonerName());
             this.mIvSummonerIcon.setSummonerIcon(this.mParticipant.getProfileIconId());
-            Util.getLeagueApi().getStaticEndpoint(Region.EUW).getChampion(this.mParticipant.getChampionId(), Locale.GERMAN, CHAMPION_CALLBACK);
+            Util.getLeagueApi().getStaticEndpoint().getChampion(Region.EUW, this.mParticipant.getChampionId(), Locale.GERMAN, CHAMPION_CALLBACK);
             if (this.mParticipant.getTeamId() == 100) {
                 this.mCardView.setCardBackgroundColor(this.itemView.getContext().getResources().getColor(R.color.blue_500));
             } else {

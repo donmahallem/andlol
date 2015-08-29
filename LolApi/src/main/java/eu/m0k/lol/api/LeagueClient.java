@@ -8,18 +8,19 @@
 
 package eu.m0k.lol.api;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.Cache;
+import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Response;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 
 import eu.m0k.lol.api.model.ChampionList;
 import eu.m0k.lol.api.model.ChampionSpell;
@@ -37,7 +38,6 @@ import eu.m0k.lol.api.model.RuneMap;
 import eu.m0k.lol.api.model.SummonerList;
 import eu.m0k.lol.api.model.Tier;
 import eu.m0k.lol.api.model.Version;
-import eu.m0k.lol.api.network.ApiKey;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
@@ -53,6 +53,14 @@ public class LeagueClient {
     private final static String TAG = "League-Api", HEADER_USER_AGENT = "User-Agent",
             HEADER_ACCEPT = "Accept", ENCODING_JSON = "application/json",
             HEADER_CACHE_MOD = "x-cache-mod", BASE_AUTHORITY = ".api.pvp.net";
+    private final String mUserAgent;
+    /**
+     * The OkHttp Client to be used
+     */
+    private final OkHttpClient mOkHttpClient = new OkHttpClient();
+    private final Gson mGson;
+    private final LogLevel mLogLevel;
+    private Cache mCache;
     private final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
@@ -64,20 +72,7 @@ public class LeagueClient {
                     .build();
         }
     };
-    private final String mUserAgent;
-    /**
-     * The Api token to be used
-     */
-    private final ApiKey mApiKey;
-    /**
-     * The OkHttp Client to be used
-     */
-    private final OkHttpClient mOkHttpClient = new OkHttpClient();
-    private final Gson mGson;
-    private final LogLevel mLogLevel;
-    private Cache mCache;
-    private HashMap<Boolean, HashMap<Region, RestAdapter>> mRestAdapters = new HashMap<Boolean, HashMap<Region, RestAdapter>>();
-
+    private RestAdapter mRestAdapter;
 
     private LeagueClient(Builder builder) {
         this.mOkHttpClient.networkInterceptors().add(REWRITE_CACHE_CONTROL_INTERCEPTOR);
@@ -100,16 +95,11 @@ public class LeagueClient {
         gsonBuilder.registerTypeAdapter(Region.class, new Region.TypeAdapter());
         gsonBuilder.registerTypeAdapter(Platform.class, new Platform.TypeAdapter());
         this.mGson = gsonBuilder.create();
-        this.mApiKey = builder.getApiKey();
         this.mLogLevel = builder.getLogLevel();
         this.mUserAgent = builder.getUserAgent();
 
         if (builder.mCacheDir != null) {
-            try {
-                mCache = new Cache(new File(builder.mCacheDir, "rcache"), CACHE_SIZE);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            mCache = new Cache(new File(builder.mCacheDir, "rcache"), CACHE_SIZE);
         }
         this.mOkHttpClient.setCache(this.mCache);
     }
@@ -124,85 +114,69 @@ public class LeagueClient {
         return this.mCache;
     }
 
-    private RestAdapter.Builder createDefaultRestAdapterBuilder(final Region region) {
+    private RestAdapter.Builder createDefaultRestAdapterBuilder() {
         final RestAdapter.Builder restAdapterBuilder = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.BASIC)
                 .setConverter(new GsonConverter(this.mGson))
                 .setRequestInterceptor(new RequestInterceptor() {
                     @Override
                     public void intercept(RequestFacade request) {
-                        request.addQueryParam("api_key", mApiKey.getToken());
-                        request.addPathParam("region", region.getRegion());
                     }
-                }).setClient(new OkClient(this.mOkHttpClient));
+                }).setClient(new OkClient(this.mOkHttpClient))
+                .setEndpoint("https://lolapi.xants.de");
         return restAdapterBuilder;
     }
 
-    public Lol.Summoner getSummonerEndpoint(Region region) {
-        return getRestAdapterForRegion(region).create(Lol.Summoner.class);
+    public Lol.Summoner getSummonerEndpoint() {
+        return getRestAdapter().create(Lol.Summoner.class);
     }
 
-    private RestAdapter getRestAdapterForRegion(Region region) {
-        if (!mRestAdapters.containsKey(false)) {
-            mRestAdapters.put(false, new HashMap<Region, RestAdapter>());
+    private RestAdapter getRestAdapter() {
+        if (this.mRestAdapter == null) {
+            this.mRestAdapter = this.createDefaultRestAdapterBuilder().build();
         }
-        if (!mRestAdapters.get(false).containsKey(region)) {
-            mRestAdapters.get(false).put(region, createDefaultRestAdapterBuilder(region)
-                    .setEndpoint("https://" + region.getRegion() + ".api.pvp.net").build());
-        }
-        return mRestAdapters.get(false).get(region);
+        return this.mRestAdapter;
     }
 
-    public Lol.Static getStaticEndpoint(Region region) {
-        if (!mRestAdapters.containsKey(true)) {
-            mRestAdapters.put(true, new HashMap<Region, RestAdapter>());
-        }
-        if (!mRestAdapters.get(true).containsKey(region)) {
-            mRestAdapters.get(true).put(region, createDefaultRestAdapterBuilder(region)
-                    .setEndpoint("https://global.api.pvp.net").build());
-
-        }
-        return mRestAdapters.get(true).get(region).create(Lol.Static.class);
+    public Lol.Static getStaticEndpoint() {
+        return this.getRestAdapter().create(Lol.Static.class);
     }
 
-    public Lol.League getLeagueEndpoint(Region region) {
-        return getRestAdapterForRegion(region).create(Lol.League.class);
+    public Lol.League getLeagueEndpoint() {
+        return getRestAdapter().create(Lol.League.class);
     }
 
-    public Lol.MatchHistory getMatchHistoryEndpoint(Region region) {
-        return getRestAdapterForRegion(region).create(Lol.MatchHistory.class);
+    public Lol.MatchHistory getMatchHistoryEndpoint() {
+        return getRestAdapter().create(Lol.MatchHistory.class);
     }
 
-    public Lol.Match getMatchEndpoint(Region region) {
-        return getRestAdapterForRegion(region).create(Lol.Match.class);
+    public Lol.Match getMatchEndpoint() {
+        return getRestAdapter().create(Lol.Match.class);
     }
 
-    public Lol.CurrentGame getCurrentGameEndpoint(Region region) {
-        return getRestAdapterForRegion(region).create(Lol.CurrentGame.class);
+    public Lol.CurrentGame getCurrentGameEndpoint() {
+        return getRestAdapter().create(Lol.CurrentGame.class);
+    }
+
+    public <T> eu.m0k.lol.api.Response<T> query(HttpUrl.Builder builder, Class<ChampionList> clazz) {
+        return null;
+    }
+    private final String BASE_URL="";
+
+    HttpUrl.Builder createDefaultUrlBuilder(@NonNull Region region){
+        HttpUrl.Builder builder=HttpUrl.parse(BASE_URL).newBuilder();
+        builder.addPathSegment("test");
+        return builder;
     }
 
     /**
      * Builder for the League Api
      */
     public static class Builder {
-        private ApiKey mApiKey;
         private LogLevel mLogLevel = LogLevel.NONE;
         private String mUserAgent = "LeagueApi (github.com/donmahallem/andlol)";
         private File mCacheDir;
         private OkHttpClient mOkHttpClient;
-
-        public ApiKey getApiKey() {
-            return mApiKey;
-        }
-
-        public Builder setApiKey(ApiKey apiKey) {
-            this.mApiKey = apiKey;
-            return this;
-        }
-
-        public Builder setApiKey(String apiKey) {
-            return this.setApiKey(new ApiKey(apiKey));
-        }
 
         public String getUserAgent() {
             return mUserAgent;
@@ -229,9 +203,6 @@ public class LeagueClient {
         }
 
         public LeagueClient build() {
-            if (this.mApiKey == null) {
-                throw new NullPointerException("You have to set an api token");
-            }
             return new LeagueClient(this);
         }
 
@@ -245,7 +216,6 @@ public class LeagueClient {
 
         @Override
         public void intercept(RequestFacade request) {
-            request.addQueryParam("api_key", LeagueClient.this.mApiKey.getToken());
             //request.addPathParam("region",LeagueClient.this.mRegion.getRegion());
         }
     }

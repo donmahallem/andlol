@@ -8,6 +8,8 @@
 
 package eu.m0k.lol.api.model;
 
+import java.util.HashMap;
+
 public class ChampData {
     public final static ChampData ALL_DATA = new ChampData(true);
     private final static String ALL = "all", ALLY_TIPS = "allytips", ALT_IMAGES = "altimages", BLURB = "blurb",
@@ -22,7 +24,7 @@ public class ChampData {
             SPELLS = "spells",
             STATS = "stats",
             TAGS = "tags";
-    private boolean mAll, mAllyTips, mAltImages, mBlurb, mEnemyTips, mImage, mInfo, mLore, mParType, mPassive, mRecommended, mSkins, mSpells, mStats, mTags;
+    private HashMap<String, Boolean> mChampData = new HashMap<String, Boolean>();
 
     public ChampData() {
         this(false);
@@ -33,63 +35,64 @@ public class ChampData {
     }
 
     public void setAll(boolean all) {
-        mAll = all;
+        this.mChampData.clear();
+        this.mChampData.put(ALL, all);
     }
 
     public void setAllyTips(boolean allyTips) {
-        mAllyTips = allyTips;
+        this.mChampData.put(ALLY_TIPS, allyTips);
     }
 
     public void setAltImages(boolean altImages) {
-        mAltImages = altImages;
+        this.mChampData.put(ALT_IMAGES, altImages);
     }
 
     public void setBlurb(boolean blurb) {
-        mBlurb = blurb;
+        this.mChampData.put(BLURB, blurb);
     }
 
     public void setEnemyTips(boolean enemyTips) {
-        mEnemyTips = enemyTips;
+        this.mChampData.put(ENEMY_TIPS, enemyTips);
     }
 
     public void setImage(boolean image) {
-        mImage = image;
+        this.mChampData.put(IMAGE, image);
     }
 
     public void setInfo(boolean info) {
-        mInfo = info;
+        this.mChampData.put(INFO, info);
     }
 
     public void setLore(boolean lore) {
-        mLore = lore;
+        this.mChampData.put(LORE, lore);
     }
 
     public void setParType(boolean parType) {
-        mParType = parType;
+        this.mChampData.put(PAR_TYPE, parType);
     }
 
     public void setPassive(boolean passive) {
-        mPassive = passive;
+        this.mChampData.put(PASSIVE, passive);
     }
 
     public void setRecommended(boolean recommended) {
-        mRecommended = recommended;
+        this.mChampData.put(RECOMMENDED, recommended);
     }
 
     public void setSkins(boolean skins) {
-        mSkins = skins;
+        this.mChampData.put(SKINS, skins);
     }
 
     public void setSpells(boolean spells) {
-        mSpells = spells;
+        this.mChampData.put(SPELLS, spells);
     }
 
     public void setStats(boolean stats) {
-        mStats = stats;
+        this.mChampData.put(STATS, stats);
     }
 
     public void setTags(boolean tags) {
-        mTags = tags;
+        this.mChampData.put(TAGS, tags);
     }
 
     @Override
@@ -97,54 +100,19 @@ public class ChampData {
         return this.getChampData();
     }
 
-    public String getChampData() {
 
-        if (this.mAll) {
+    public String getChampData() {
+        if (this.mChampData.get(ALL) == true)
             return ALL;
+        StringBuilder ret = new StringBuilder();
+        for (String key : this.mChampData.keySet()) {
+            final boolean value = this.mChampData.get(key);
+            if (!value)
+                continue;
+            if (ret.length() > 0)
+                ret.append(",");
+            ret.append(key);
         }
-        String ret = "";
-        if (this.mAllyTips) {
-            ret += ALLY_TIPS + ",";
-        }
-        if (this.mAltImages) {
-            ret += ALT_IMAGES + ",";
-        }
-        if (this.mBlurb) {
-            ret += BLURB + ",";
-        }
-        if (this.mEnemyTips) {
-            ret += ENEMY_TIPS + ",";
-        }
-        if (this.mImage) {
-            ret += IMAGE + ",";
-        }
-        if (this.mInfo) {
-            ret += INFO + ",";
-        }
-        if (this.mLore) {
-            ret += LORE + ",";
-        }
-        if (this.mParType) {
-            ret += PAR_TYPE + ",";
-        }
-        if (this.mPassive) {
-            ret += PASSIVE + ",";
-        }
-        if (this.mRecommended) {
-            ret += RECOMMENDED + ",";
-        }
-        if (this.mSkins) {
-            ret += SKINS + ",";
-        }
-        if (this.mSpells) {
-            ret += SPELLS + ",";
-        }
-        if (this.mStats) {
-            ret += STATS + ",";
-        }
-        if (this.mTags) {
-            ret += TAGS + ",";
-        }
-        return ret;
+        return ret.toString();
     }
 }

@@ -73,7 +73,7 @@ public class SummonerDetailsActivity extends LeagueActivity {
     @Override
     public void onResume() {
         super.onResume();
-        Util.getLeagueApi().getSummonerEndpoint(this.mRegion).getSummoners(SummonerIds.create(this.mSummonerId), new Callback<SummonerList>() {
+        Util.getLeagueApi().getSummonerEndpoint().getSummoners(Region.EUW, SummonerIds.create(this.mSummonerId), new Callback<SummonerList>() {
 
             @Override
             public void success(SummonerList summoner, Response response) {
