@@ -56,5 +56,5 @@ dependencies {
     compile 'com.android.support:gridlayout-v7:23.+'
     compile 'com.jakewharton.timber:timber:5.0.1'
     compile 'com.android.support:design:23.+'
-    compile 'com.firebase:firebase-client-android:2.3.1+'
+    compile 'com.firebase:firebase-client-android:2.5.2'
 }
